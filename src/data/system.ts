@@ -74,6 +74,50 @@ export const SHOWCASE_COMMANDS: string[] = [
   'view on github',
 ];
 
+/* ── Badges — emoji + soft pastel tints (health & wellness) ── */
+export type BadgeVariant =
+  | 'brand'
+  | 'apricot'
+  | 'lavender'
+  | 'gold'
+  | 'success'
+  | 'warn'
+  | 'danger'
+  | 'info'
+  | 'neutral'
+  | 'outline';
+
+export interface BadgeSpec {
+  emoji: string;
+  label: string;
+  variant: BadgeVariant;
+}
+
+/** Status badges */
+export const BADGES_STATUS: BadgeSpec[] = [
+  { emoji: '🟢', label: 'Live', variant: 'success' },
+  { emoji: '✅', label: 'Active', variant: 'success' },
+  { emoji: '⏳', label: 'Pending', variant: 'warn' },
+  { emoji: '⚠️', label: 'Overdue', variant: 'danger' },
+  { emoji: '🆕', label: 'New', variant: 'lavender' },
+  { emoji: '⭐', label: 'Premium', variant: 'gold' },
+  { emoji: '📝', label: 'Draft', variant: 'outline' },
+];
+
+/** Wellness tags */
+export const BADGES_WELLNESS: BadgeSpec[] = [
+  { emoji: '🌿', label: 'Wellness', variant: 'success' },
+  { emoji: '🧘', label: 'Mindful', variant: 'lavender' },
+  { emoji: '💗', label: 'Self-care', variant: 'brand' },
+  { emoji: '☀️', label: 'Energy', variant: 'apricot' },
+  { emoji: '💧', label: 'Hydration', variant: 'info' },
+  { emoji: '🌙', label: 'Rest', variant: 'lavender' },
+  { emoji: '🍃', label: 'Calm', variant: 'success' },
+  { emoji: '🌸', label: 'Bloom', variant: 'brand' },
+  { emoji: '🔥', label: 'Streak', variant: 'apricot' },
+  { emoji: '🩺', label: 'Practitioner', variant: 'info' },
+];
+
 /* ── Nav ────────────────────────────────────────────────── */
 export interface NavLink {
   label: string;

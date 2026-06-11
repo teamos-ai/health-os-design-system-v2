@@ -58,10 +58,9 @@ const TYPE_SCALE = [
 ];
 
 const RADII = [
-  { name: 'md · 8px', cls: 'rounded-md' },
-  { name: 'lg · 12px', cls: 'rounded-lg' },
-  { name: 'xl · 20px', cls: 'rounded-xl' },
-  { name: 'full', cls: 'rounded-full' },
+  { name: 'xs · 4px', cls: 'rounded-xs' },
+  { name: 'sm · 6px', cls: 'rounded-sm' },
+  { name: 'md · 8px · max', cls: 'rounded-md' },
 ];
 
 const SHADOWS = ['shadow-sm', 'shadow-md', 'shadow-lg'];
@@ -152,7 +151,7 @@ export const TokensSection = () => (
     {/* Radius + elevation */}
     <div className="mt-12 grid gap-12 md:grid-cols-2">
       <div>
-        <MonoLabel>Radius — soft</MonoLabel>
+        <MonoLabel>Radius — 8px max</MonoLabel>
         <div className="mt-5 flex flex-wrap gap-4">
           {RADII.map((r) => (
             <div key={r.name} className="flex flex-col items-center gap-2">

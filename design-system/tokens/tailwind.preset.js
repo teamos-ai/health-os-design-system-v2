@@ -105,7 +105,9 @@ export default {
       },
       borderRadius: {
         none: '0px', xs: '4px', sm: '6px', md: '8px',
-        lg: '12px', xl: '20px', '2xl': '28px', '3xl': '36px', full: '9999px',
+        /* 8px is the GLOBAL maximum — squircles only, no pills/circles.
+           Larger aliases are capped at 8px so nothing can exceed it. */
+        lg: '8px', xl: '8px', '2xl': '8px', '3xl': '8px', full: '8px',
       },
       boxShadow: {
         /* Soft, neutral, carbon-based only — never coloured, never inner */

@@ -1,6 +1,7 @@
 /**
- * Badge — small soft tonal pill. Tonal background + same-hue text (700 on the 100 tint
- * to clear AA at the small label size). Use for status, category and numbered details.
+ * Badge — small soft tonal squircle (8px radius, never a pill). Tonal background +
+ * same-hue text (700 on the 100 tint to clear AA at the small label size). Optional
+ * leading emoji or dot. Use for status, category, wellness tags and numbered details.
  */
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -23,8 +24,8 @@ const badge = cva(
         outline: 'bg-surface border border-line text-ink-500',
       },
       size: {
-        sm: 'text-[10px] leading-none px-2 py-1 rounded-full',
-        md: 'text-label px-2.5 py-1 rounded-full',
+        sm: 'text-[10px] leading-none px-2 py-1 rounded-md',
+        md: 'text-label px-2.5 py-1 rounded-md',
       },
     },
     defaultVariants: { variant: 'neutral', size: 'md' },
@@ -35,6 +36,8 @@ export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof badge> {
   dot?: boolean;
+  /** leading emoji that represents the label */
+  emoji?: string;
 }
 
 const DOT_COLOR: Record<string, string> = {
@@ -50,9 +53,14 @@ const DOT_COLOR: Record<string, string> = {
   outline: 'bg-ink-400',
 };
 
-export const Badge = ({ className, variant, size, dot, children, ...props }: BadgeProps) => (
+export const Badge = ({ className, variant, size, dot, emoji, children, ...props }: BadgeProps) => (
   <span className={cn(badge({ variant, size }), className)} {...props}>
-    {dot && <span className={cn('h-1.5 w-1.5 rounded-full', DOT_COLOR[variant ?? 'neutral'])} />}
+    {dot && <span className={cn('h-1.5 w-1.5 rounded-sm', DOT_COLOR[variant ?? 'neutral'])} />}
+    {emoji && (
+      <span aria-hidden className="text-[0.95em] leading-none">
+        {emoji}
+      </span>
+    )}
     {children}
   </span>
 );

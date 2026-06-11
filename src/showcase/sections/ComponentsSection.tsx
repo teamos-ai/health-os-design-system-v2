@@ -14,6 +14,7 @@ import { ToolCard } from '@/components/ui/tool-card';
 import { FeatureCard } from '@/components/ui/feature-card';
 import { Stat } from '@/components/ui/stat';
 import { MonoLabel } from '@/components/ui/mono-label';
+import { BADGES_STATUS, BADGES_WELLNESS } from '@/data/system';
 
 export const ComponentsSection = () => (
   <Section
@@ -38,34 +39,39 @@ export const ComponentsSection = () => (
             <Button size="sm">Small</Button>
             <Button size="md">Medium</Button>
             <Button size="lg">Large</Button>
-            <Button rounded="md">Square radius</Button>
             <Button variant="danger">Cancel plan</Button>
           </div>
         </div>
       </Demo>
 
-      {/* Badges + mono labels */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <Demo label="Badges">
+      {/* Badges — emoji + soft pastel tints (health & wellness) */}
+      <Demo label="Badges — status + wellness, with emoji">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-wrap gap-2.5">
-            <Badge variant="brand" dot>Live</Badge>
-            <Badge variant="lavender">New</Badge>
-            <Badge variant="apricot">Beta</Badge>
-            <Badge variant="gold">Premium</Badge>
-            <Badge variant="success">Active</Badge>
-            <Badge variant="warn">Pending</Badge>
-            <Badge variant="danger">Overdue</Badge>
-            <Badge variant="outline">Draft</Badge>
+            {BADGES_STATUS.map((b) => (
+              <Badge key={b.label} variant={b.variant} emoji={b.emoji}>
+                {b.label}
+              </Badge>
+            ))}
           </div>
-        </Demo>
-        <Demo label="Mono labels — 01 02 03 rhythm">
-          <div className="flex flex-col gap-3">
-            <MonoLabel number="01">Consolidate</MonoLabel>
-            <MonoLabel number="02">Clarity</MonoLabel>
-            <MonoLabel dot tone="brand">Done-with-you setup</MonoLabel>
+          <div className="flex flex-wrap gap-2.5">
+            {BADGES_WELLNESS.map((b) => (
+              <Badge key={b.label} variant={b.variant} emoji={b.emoji}>
+                {b.label}
+              </Badge>
+            ))}
           </div>
-        </Demo>
-      </div>
+        </div>
+      </Demo>
+
+      {/* Mono labels */}
+      <Demo label="Mono labels — 01 02 03 rhythm">
+        <div className="flex flex-wrap gap-x-8 gap-y-3">
+          <MonoLabel number="01">Consolidate</MonoLabel>
+          <MonoLabel number="02">Clarity</MonoLabel>
+          <MonoLabel dot tone="brand">Done-with-you setup</MonoLabel>
+        </div>
+      </Demo>
 
       {/* Inputs */}
       <Demo label="Inputs">
