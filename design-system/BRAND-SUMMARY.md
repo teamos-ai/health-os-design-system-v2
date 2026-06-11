@@ -6,7 +6,7 @@ The one-page snapshot of the locked brand. For the full visual rules see `founda
 
 **Why it exists.** Practitioners are great at their craft and buried in admin spread across a dozen disconnected tools. Health OS makes the back office disappear.
 
-**What's new in v2.** Same locked brand, evolved craft: the "operating system" made literal. A command-palette search hero, monospace body (Anonymous Pro) for terminal texture, Spline Sans headings, soft pastel glows on warm ivory, dark-carbon pill CTAs, a gentle tool-card marquee, a rounded carbon footer. Structure borrowed from efficient.app + Cherry Note; skin stays pure Health OS.
+**What's new in v2.** Same locked brand, evolved craft: the "operating system" made literal. A command-palette search hero, monospace body (Anonymous Pro) for terminal texture, Spline Sans headings, soft pastel glows on warm ivory, dark-carbon pill CTAs, a gentle tool-card marquee, a rounded carbon footer. A self-owned command-centre structure on the pure Health OS palette.
 
 **Positioning.**
 - Loud ↔ **Quiet** (quiet)

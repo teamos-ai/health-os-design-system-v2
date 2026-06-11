@@ -1,6 +1,6 @@
 /**
- * OverviewSection — twelve snapshot cards that drift gently to the left (efficient.app
- * testimonial-scroller craft). Three show at a time; the row fades into a vignette at
+ * OverviewSection — twelve snapshot cards that drift gently to the left
+ * (testimonial-scroller craft). Three show at a time; the row fades into a vignette at
  * each edge (the Marquee's edge mask). Pauses on hover, reduced-motion safe. Each card
  * carries an emoji squircle badge.
  */

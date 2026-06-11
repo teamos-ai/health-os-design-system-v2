@@ -10,7 +10,7 @@
 - **Never:** fake "diverse team high-fiving," headset call-centre stock, glowing-blue tech tropes, fake dashboards floating in 3D space.
 
 ## Texture & grain (v2 craft)
-A **subtle grain** overlay (Cherry Note influence) gives the ivory ground a quiet analogue warmth. Keep it *barely there* — a low-opacity noise layer, never a visible pattern. Grain warms the surface; it must never compete with photography or hurt text contrast. Photography itself stays clean; the grain lives on the page surface, not on the image.
+A **subtle grain** overlay gives the ivory ground a quiet analogue warmth. Keep it *barely there* — a low-opacity noise layer, never a visible pattern. Grain warms the surface; it must never compete with photography or hurt text contrast. Photography itself stays clean; the grain lives on the page surface, not on the image.
 
 ## The hero glows are not imagery
 The soft pastel radial glows (`bg-glow-hero`, `bg-glow-rose`…) are background colour washes, not pictures. They're how a Health OS hero gets atmosphere without a hero photo. Use them as the default hero "imagery": a glow wash + the command bar + type, no photograph needed.

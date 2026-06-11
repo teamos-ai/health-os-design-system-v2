@@ -1,5 +1,5 @@
 /**
- * CommandChip — the efficient.app `/command` pill. Light surface, hairline border,
+ * CommandChip — the `/command` pill. Light surface, hairline border,
  * Anonymous Pro, the leading "/" picked out in rose. Sits beneath the command bar as
  * a quick-action suggestion. Renders a button; pass `onClick` to wire it.
  */

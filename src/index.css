@@ -56,7 +56,7 @@
     @apply bg-brand-gradient bg-clip-text text-transparent;
   }
 
-  /* Mono label / overline — the efficient.app command-UI texture */
+  /* Mono label / overline — the command-UI texture */
   .mono-label {
     @apply font-mono text-overline uppercase text-ink-500;
   }
@@ -71,7 +71,7 @@
 }
 
 @layer utilities {
-  /* Subtle grain texture (Cherry Note) — apply over a surface as a sibling overlay */
+  /* Subtle grain texture — apply over a surface as a sibling overlay */
   .grain::after {
     content: '';
     position: absolute;

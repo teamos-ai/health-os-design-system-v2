@@ -1,5 +1,5 @@
 /**
- * HeroSection — the design-system hero. A centred layout (Cherry Note craft): a
+ * HeroSection — the design-system hero. A centred layout: a
  * floating pill nav, a big two-tone Spline Sans H1, a calm subtitle, then the rich
  * command / "ask AI" widget with `/command` chips, all over a soft radial glow.
  */

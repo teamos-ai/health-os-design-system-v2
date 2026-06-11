@@ -1,6 +1,6 @@
 # Colour
 
-Health OS is **multi-hue by design**. Three warm families — apricot, rose, lavender — form the signature, sitting on a warm ivory ground with carbon ink, and a disciplined semantic system underneath so the whole thing reads as calm, not chaotic. In v2 the colour architecture is unchanged from v1; what's new is the *structure* it dresses (efficient.app-style hero glows, mono labels, dark pill CTAs). The skin stays pure Health OS — warm ivory and carbon, never pure white or pure black.
+Health OS is **multi-hue by design**. Three warm families — apricot, rose, lavender — form the signature, sitting on a warm ivory ground with carbon ink, and a disciplined semantic system underneath so the whole thing reads as calm, not chaotic. In v2 the colour architecture is unchanged from v1; what's new is the *structure* it dresses (soft pastel hero glows, mono labels, dark pill CTAs). The surface stays pure Health OS — warm ivory and carbon, never pure white or pure black.
 
 `brand` aliases the **Rose** family (the signature hue). The accent for white text — the only rose that passes AA on white — is **`brand-600` `#BE2E7B`**.
 
@@ -55,7 +55,7 @@ The hero brand device: the logo, **one** hero word (gradient text), the primary 
 **Used with restraint, never reversed, never on every surface.** Apricot is always the warm start, lavender always the cool end.
 
 ## Hero glows (v2 craft)
-efficient.app-style soft pastel radial glows on the warm ivory ground, applied as a background layer behind the hero:
+Soft pastel radial glows on the warm ivory ground, applied as a background layer behind the hero:
 - **`bg-glow-hero`** — the composed three-glow wash (apricot top-left, lavender top-right, rose top-centre) at ~26–30% alpha. The default hero background.
 - **`bg-glow-rose`** / **`bg-glow-apricot`** / **`bg-glow-lavender`** — single-hue ellipse glows at 28% alpha for section accents.
 

@@ -1,6 +1,6 @@
 /**
- * CommandBar — the command-palette search input that anchors the hero (efficient.app
- * craft). Leading Search icon, mono placeholder ("type / for commands"), a trailing
+ * CommandBar — the command-palette search input that anchors the hero.
+ * Leading Search icon, mono placeholder ("type / for commands"), a trailing
  * ⌘K kbd hint. Flat hairline + soft shadow, brand focus ring, zero glass.
  *
  * `size="hero"` is the large hero variant; `size="md"` is the in-nav search.

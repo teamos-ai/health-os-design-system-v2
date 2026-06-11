@@ -2,7 +2,7 @@
  * Health OS Design System v2 — Tailwind preset (single source of truth for Tailwind).
  *
  * v2 = v1's locked colour architecture (apricot → rose → lavender, warm, flat, premium)
- * wearing efficient.app's structural craft: soft pastel radial hero glows, mono labels,
+ * with command-centre structural craft: soft pastel radial hero glows, mono labels,
  * dark pill CTAs, a gentle marquee, a thin ticker, subtle grain.
  *
  * Type pairing is the v2 delta: headings = Spline Sans (font-display), body + labels =
@@ -131,7 +131,7 @@ export default {
         /* Signature gradient — apricot → rose → lavender, never reversed */
         'brand-gradient': 'linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%)',
         'brand-gradient-soft': 'linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)',
-        /* efficient.app-style soft pastel radial hero glows on warm ivory */
+        /* soft pastel radial hero glows on warm ivory */
         'glow-hero':
           'radial-gradient(40% 50% at 22% 18%, rgba(245,160,96,0.30) 0%, transparent 70%),' +
           'radial-gradient(42% 52% at 78% 14%, rgba(166,102,217,0.28) 0%, transparent 72%),' +

@@ -2,7 +2,7 @@
 
 This folder is the **portable, LLM-readable layer** of Health OS Design System **v2**. When producing anything for Health OS — a page, a funnel, a slide, an email, an ad, a skinned site — read this file first, then load what you need. Use the **tokens** as the source of truth for values; never hard-code a hex, size or radius that exists as a token.
 
-> v2 = v1's locked warm brand (apricot → rose → lavender, flat, premium) wearing efficient.app's structural craft (command-palette hero, mono labels, dark pill CTAs, gentle marquee, soft glows) + a little Cherry Note (grain, thin ticker, bento grid, rounded carbon footer). The **delta from v1 is the type pairing and the structure** — the brand is unchanged.
+> v2 = v1's locked warm brand (apricot → rose → lavender, flat, premium) with command-centre structural craft (command-palette hero, mono labels, dark pill CTAs, gentle marquee, soft glows) + quiet supporting texture (grain, thin ticker, bento grid, rounded carbon footer). The **delta from v1 is the type pairing and the structure** — the brand is unchanged.
 
 ## 1. Load order
 1. `BRAND-SUMMARY.md` — the one-page snapshot.

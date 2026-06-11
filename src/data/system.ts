@@ -32,7 +32,7 @@ import {
 } from 'lucide-react';
 import type { Accent } from '@/lib/accents';
 
-/* ── Tickers (Cherry Note scrolling banners) ────────────── */
+/* ── Tickers (scrolling banners) ────────────────────────── */
 export interface TickerItem {
   icon: LucideIcon;
   text: string;
@@ -113,7 +113,7 @@ export interface OverviewCard {
   accent: Accent;
 }
 export const OVERVIEW_CARDS: OverviewCard[] = [
-  { emoji: '✨', badge: 'Essence', accent: 'rose', title: 'efficient.app structure, Health OS skin', lines: ['Warm, flat, premium, calm', 'Borrowed craft, locked brand'] },
+  { emoji: '✨', badge: 'Essence', accent: 'rose', title: 'The Health OS Design System', lines: ['Warm, flat, premium, calm', 'One locked, considered system'] },
   { emoji: '🌓', badge: 'Themes', accent: 'lavender', title: 'Three grounds, one system', lines: ['Light — clean white', 'Paper — warm ivory', 'Dark — carbon, warm off-white text'] },
   { emoji: '🔒', badge: 'Locked', accent: 'rose', title: 'What stays ours', lines: ['Warm ivory + carbon + rose', 'Spline Sans + Anonymous Pro', 'Sentence case, zero glass, AA'] },
   { emoji: '🎨', badge: 'Colour', accent: 'apricot', title: 'Warm multi-hue', lines: ['Rose primary · apricot · lavender · gold', 'rose-600 for white text (AA)', 'Gradient used with restraint'] },
@@ -154,7 +154,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'About', href: '#about' },
 ];
 
-/* ── Command chips (efficient.app `/command`) ───────────── */
+/* ── Command chips (the `/command` palette) ─────────────── */
 export const COMMANDS: string[] = [
   'set up online booking',
   'import my client list',

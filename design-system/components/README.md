@@ -10,7 +10,7 @@ The Health OS v2 component library. Every component is built from the tokens in 
 
 ### `Button`
 The core action control.
-- **Variants:** `primary` (`bg-brand-600` text-white), `secondary` (`bg-surface border-line text-ink-900`), `ghost` (transparent, `text-ink-700`, wash on hover), `gradient` (`bg-brand-gradient` text-white — signature, used sparingly), `dark` / dark pill (`bg-carbon text-white` — the efficient.app-style confident CTA), `link` (inline text link in `text-brand-600`), `danger` (`bg-danger-600` text-white).
+- **Variants:** `primary` (`bg-brand-600` text-white), `secondary` (`bg-surface border-line text-ink-900`), `ghost` (transparent, `text-ink-700`, wash on hover), `gradient` (`bg-brand-gradient` text-white — signature, used sparingly), `dark` / dark pill (`bg-carbon text-white` — the confident CTA), `link` (inline text link in `text-brand-600`), `danger` (`bg-danger-600` text-white).
 - **Sizes:** `sm` (8×16), `md` (12×24), `lg` (14×32).
 - **Shape:** `rounded` — `full` (pills for marketing) or `md` (product UI). Default `md`; marketing CTAs use `full`.
 - **Behaviour:** press scale 0.98 (dur-xs), hover wash / lift (dur-sm). Optional leading / trailing Lucide icon (16–18px). Never white text on bright accents — use `primary`, `dark` or `gradient` for white-on-colour.
@@ -44,7 +44,7 @@ The bento / grid feature tile. A 40×40 feature-icon chip (`bg-{family}-100 text
 A headline metric with a **count-up**. Large number in `display-lg` Spline Sans with `tabular-nums`, easing to its value on view (~1.4s), plus a mono `body-sm` label beneath (e.g. "12 hrs saved a week"). Uses the `CountUp` primitive; pairs with the modest, concrete numbers from `vocabulary.md`.
 
 ### `Ticker`
-The thin top marquee (Cherry Note influence). One low-key line of short mono labels (`text-label`, uppercase) scrolling slowly via `animate-ticker` (32s, linear). Texture, never a focal point. Stops under reduced motion.
+The thin top marquee. One low-key line of short mono labels (`text-label`, uppercase) scrolling slowly via `animate-ticker` (32s, linear). Texture, never a focal point. Stops under reduced motion.
 
 ### `MonoLabel`
 The overline / eyebrow. Uppercase Anonymous Pro `text-overline` (12/16, `0.08em` tracking), usually `text-brand-600`, opening a section above its `h2`. The recurring mono accent that ties the "OS" texture together.
@@ -53,7 +53,7 @@ The overline / eyebrow. Uppercase Anonymous Pro `text-overline` (12/16, `0.08em`
 Sticky top navigation — centred logo + links with an inline search affordance (often a compact `CommandBar` or a ⌘K trigger). `bg-paper/80` with a `border-line` bottom hairline. **No backdrop blur / frosted glass** — if a translucent feel is wanted, use a solid paper at high opacity, never glassmorphism. Sentence-case links; active link in `text-brand-600`.
 
 ### `Footer`
-The rounded dark-carbon panel (Cherry Note influence). A `bg-carbon rounded-3xl` block with white / reduced-opacity-white text, link columns, a small gradient logo mark, and the tagline. The one confident dark anchor on the warm page. Optional `shadow-carbon` if it floats above content.
+The rounded dark-carbon panel. A `bg-carbon rounded-3xl` block with white / reduced-opacity-white text, link columns, a small gradient logo mark, and the tagline. The one confident dark anchor on the warm page. Optional `shadow-carbon` if it floats above content.
 
 ### `BentoGrid`
 The feature grid. 12 columns (lg) / 2 columns (sm), 16–24px gaps, cells at `rounded-xl`, mixing `FeatureCard`s, `Stat`s and a highlight cell (which may carry `bg-brand-gradient-soft` or a `bg-glow-*` wash). One highlight per grid — restraint keeps it premium.

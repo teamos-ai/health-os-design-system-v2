@@ -20,14 +20,14 @@ Soft, friendly corners — never sharp, never fully rounded except where a pill 
 - **full (`rounded-full`)** is for marketing CTAs (pills) and the dark-carbon pill CTA.
 
 ## The two rules
-1. **Marketing CTA = pill** (`rounded-full`). The friendly, human shape — and the dark-carbon pill CTA borrowed from efficient.app is always `rounded-full`.
+1. **Marketing CTA = pill** (`rounded-full`). The friendly, human shape — and the dark-carbon pill CTA is always `rounded-full`.
 2. **Product-UI button = md** (`rounded-md`). Tighter, more utilitarian — fits the mono "OS" texture.
 
 ## Consistency
 Within one composition, pick a radius family and hold it. A card at `lg` (12px) contains buttons and inputs at `md` (8px) — one step tighter inside, never looser. A bento card at `xl` (20px) contains tiles at `lg`.
 
 ## The carbon footer / panels
-The rounded dark-carbon footer panel (Cherry Note influence) uses `rounded-2xl` or `rounded-3xl` — the larger radius softens the heavy carbon block so it reads as a calm panel, not a hard slab.
+The rounded dark-carbon footer panel uses `rounded-2xl` or `rounded-3xl` — the larger radius softens the heavy carbon block so it reads as a calm panel, not a hard slab.
 
 ## Exceptions
 - Avatars → `rounded-full`.

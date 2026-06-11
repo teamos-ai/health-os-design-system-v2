@@ -1,5 +1,5 @@
 /**
- * CommandHero — the command-palette search hero (efficient.app craft, Health OS skin).
+ * CommandHero — the command-palette search hero.
  * Soft pastel radial glow on warm ivory, a big Spline Sans headline with one gradient
  * word, the command bar, a row of `/command` chips, then the dashboard payoff.
  * In-view cascade, reduced-motion safe.

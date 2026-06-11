@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "description": "Health OS Design System v2 — efficient.app structure, Cherry Note details, wearing the locked Health OS warm-ivory + carbon + rose skin. Fully tokenized living showcase (React + Vite + TS + Tailwind v3 + Framer Motion).",
+  "description": "The Health OS Design System — a calm, warm, fully tokenised living showcase in the locked Health OS warm-ivory + carbon + rose palette (React + Vite + TS + Tailwind v3 + Framer Motion).",
   "scripts": {
     "dev": "vite --port 5183 --strictPort",
     "build": "tsc --noEmit && vite build",

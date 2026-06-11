@@ -1,5 +1,5 @@
 /**
- * MonoLabel — the efficient.app command-UI overline. Anonymous Pro, uppercase, wide
+ * MonoLabel — the command-UI overline. Anonymous Pro, uppercase, wide
  * tracking, ink-500. Optional numbered prefix ("01") or leading dot for the
  * "01 02 03 details" rhythm. Sentence-case copy in headings; overlines may be caps.
  */

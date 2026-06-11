@@ -1,5 +1,5 @@
 /**
- * BentoSection — "what Health OS runs" bento grid (Cherry Note bento craft). Done-with-
+ * BentoSection — "what Health OS runs" bento grid (bento craft). Done-with-
  * you setup, the nurture engine, onboarding on autopilot, one dashboard. Cascade reveal.
  */
 import { BentoGrid, BentoCard } from '@/components/bento/Bento';

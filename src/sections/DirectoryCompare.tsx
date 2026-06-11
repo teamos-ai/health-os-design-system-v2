@@ -1,5 +1,5 @@
 /**
- * DirectoryCompare — the directory / comparison section (efficient.app comparisons
+ * DirectoryCompare — the directory / comparison section (comparisons
  * rhythm). A calm hairline table: your current stack, patched together, versus Health
  * OS, one system. The Health OS column carries a soft rose tint and a check; the stack
  * column stays muted. AA throughout, zero glass.

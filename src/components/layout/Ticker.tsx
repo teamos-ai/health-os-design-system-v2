@@ -1,5 +1,5 @@
 /**
- * Ticker — the thin scrolling banner (Cherry Note). Mono uppercase facts with a small
+ * Ticker — the thin scrolling banner. Mono uppercase facts with a small
  * accent glyph, looping gently and pausing on hover. CSS-driven (reduced-motion safe
  * via the global guard); items are duplicated once for a seamless wrap.
  *

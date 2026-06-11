@@ -165,7 +165,7 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
                 <ThemeToggle />
               </div>
               <p className="font-mono text-caption leading-relaxed text-ink-600">
-                efficient.app structure ·<br />Health OS skin
+                The Health OS<br />Design System
               </p>
               <a
                 href="https://github.com/teamos-ai/health-os-design-system-v2"

@@ -1,5 +1,5 @@
 /**
- * Nav — sticky centered marketing nav (efficient.app craft). Logo left, centred text
+ * Nav — sticky centered marketing nav. Logo left, centred text
  * links, an inline command/search bar, dark-carbon pill CTA. Solid warm-ivory ground
  * with a hairline that deepens to a soft shadow on scroll — no glass, no blur tint.
  */

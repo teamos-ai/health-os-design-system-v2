@@ -1,6 +1,6 @@
 # Health OS Design System — v2
 
-A calm, warm, fully tokenised design system for wellness practitioners. **v1's locked brand** (apricot → rose → lavender on warm ivory, flat and premium) wearing **efficient.app's structural craft** — a command-palette search hero, monospace labels, dark pill CTAs, a gentle tool-card marquee, soft pastel glows — with a little **Cherry Note** texture (grain, a thin top ticker, a bento grid, a rounded carbon footer).
+A calm, warm, fully tokenised design system for wellness practitioners. **v1's locked brand** (apricot → rose → lavender on warm ivory, flat and premium) with **command-centre structural craft** — a command-palette search hero, monospace labels, dark pill CTAs, a gentle tool-card marquee, soft pastel glows — and quiet supporting texture (grain, a thin top ticker, a bento grid, a rounded carbon footer).
 
 Built with **React + Vite + TypeScript + Tailwind CSS + Framer Motion**.
 

@@ -1,6 +1,6 @@
 /**
- * ToolCarousel — the horizontal "everything Health OS replaces" card row (efficient.app
- * app-card carousel craft). Gentle, seamless Framer marquee that pauses on hover and
+ * ToolCarousel — the horizontal "everything Health OS replaces" card row
+ * (app-card carousel craft). Gentle, seamless Framer marquee that pauses on hover and
  * respects reduced motion. Edge-faded. Cards are flat hairline ToolCards.
  */
 import { Marquee } from '@/components/ui/animated';

@@ -165,7 +165,7 @@ export const HoverLift = ({
   );
 };
 
-/* ── HeroGlow — efficient.app-style soft pastel radial wash on warm ivory ──
+/* ── HeroGlow — soft pastel radial wash on warm ivory ──
    Pure CSS radial gradients (apricot / rose / lavender @ low alpha), blurred.
    aria-hidden, pointer-events none, zero glass. */
 export const HeroGlow = ({ className }: { className?: string }) => (

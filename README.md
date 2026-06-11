@@ -2,9 +2,9 @@
 
 A fully tokenised, living **React + Vite + TypeScript + Tailwind v3 + Framer Motion** design system and showcase for **Health OS** — the calm operating system for practitioners.
 
-> **efficient.app's structure & craft, wearing Health OS's warm palette, fonts and calm voice.** Warm ivory + carbon + rose, never pure white/black, never pink-red. Zero glassmorphism, soft neutral shadows, WCAG AA, sentence case, calm Sage voice.
+> **A warm, flat, premium, calm command-centre system.** Warm ivory + carbon + rose, never pure white/black, never pink-red. Zero glassmorphism, soft neutral shadows, WCAG AA, sentence case, calm Sage voice.
 
-v2 is the second design-system experiment for Health OS. It keeps v1's locked colour architecture and adds the command-centre craft of [efficient.app](https://efficient.app) (command-palette hero with `/command` chips, soft pastel radial glows, a horizontal tool-card carousel, mono labels, dark carbon pill CTAs, rounded hairline cards, a directory/comparison rhythm) and the quiet details of Cherry Note (subtle grain, a thin top ticker, a bento grid, a rounded dark-carbon footer).
+v2 is the second design-system experiment for Health OS. It keeps v1's locked colour architecture and adds command-centre craft (command-palette hero with `/command` chips, soft pastel radial glows, a horizontal tool-card carousel, mono labels, dark carbon pill CTAs, rounded hairline cards, a directory/comparison rhythm) and quiet supporting details (subtle grain, a thin top ticker, a bento grid, a rounded dark-carbon footer).
 
 ## Brand — locked
 

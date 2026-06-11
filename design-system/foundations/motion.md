@@ -1,6 +1,6 @@
 # Motion
 
-Motion is a first-class part of Health OS v2 — but **disciplined and quiet**. The whole vocabulary is **fade + small translate**, plus two gentle continuous loops (the marquee carousel and the thin top ticker) that the efficient.app / Cherry Note structure calls for. Every animation honours `prefers-reduced-motion`. Built with Framer Motion.
+Motion is a first-class part of Health OS v2 — but **disciplined and quiet**. The whole vocabulary is **fade + small translate**, plus two gentle continuous loops (the marquee carousel and the thin top ticker) that the command-centre structure calls for. Every animation honours `prefers-reduced-motion`. Built with Framer Motion.
 
 The rule of thumb: interactions are **fast (150–250ms)**, scroll reveals are **calm (300–400ms)**, and **nothing exceeds 500ms**. No bounce, no elastic, no spring overshoot, no autoplaying video.
 
@@ -34,7 +34,7 @@ The rule of thumb: interactions are **fast (150–250ms)**, scroll reveals are *
 
 ## The continuous loops (v2 craft)
 - **Marquee** (`animate-marquee`, `animate-marquee-slow`, `animate-marquee-reverse`) — the horizontal tool-card / logo carousel. **Gentle and slow** (40–60s), linear, seamless (the row is duplicated and translated -50%). It glides; it never races. Pause on hover is encouraged.
-- **Ticker** (`animate-ticker`) — the thin top marquee of short mono labels (Cherry Note influence). Even slower-feeling, low-key, 32s. One thin line of texture, never a focal point.
+- **Ticker** (`animate-ticker`) — the thin top marquee of short mono labels. Even slower-feeling, low-key, 32s. One thin line of texture, never a focal point.
 
 These are the *only* always-on motions. Everything else is triggered by interaction or by entering the viewport.
 

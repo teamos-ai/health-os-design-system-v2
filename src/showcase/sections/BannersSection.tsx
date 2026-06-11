@@ -11,7 +11,7 @@ export const BannersSection = () => (
     id="banners"
     eyebrow="Banners"
     title="Scrolling banners"
-    lead="A thin ticker for the top of any page (Cherry Note craft). Three tones, either direction, any pace — it pauses on hover and stills under reduced motion."
+    lead="A thin ticker for the top of any page. Three tones, either direction, any pace — it pauses on hover and stills under reduced motion."
   >
     <div className="flex flex-col gap-4">
       <Demo label="Subtle — outcomes, scrolling left" padded={false}>

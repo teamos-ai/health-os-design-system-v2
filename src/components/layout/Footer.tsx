@@ -1,5 +1,5 @@
 /**
- * Footer — the rounded dark-carbon panel (Cherry Note craft, Health OS skin). Inset
+ * Footer — the rounded dark-carbon panel. Inset
  * rounded carbon card with subtle grain, a "ready to simplify" CTA, link columns, a
  * newsletter field and a calm bottom row. Wordmark goes inverse. No glass.
  */

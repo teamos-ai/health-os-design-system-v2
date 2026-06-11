@@ -1,6 +1,6 @@
 /**
  * ToolCard — a single "thing Health OS replaces" card for the horizontal carousel
- * (efficient.app app-card craft, Health OS skin). Coloured icon tile + tool name +
+ * (app-card craft). Coloured icon tile + tool name +
  * meta line + a small accent badge. Rounded hairline, soft hover lift, zero glass.
  */
 import type { LucideIcon } from 'lucide-react';

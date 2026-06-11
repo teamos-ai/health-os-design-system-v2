@@ -1,5 +1,5 @@
 /**
- * Bento — a calm 3-column bento grid (Cherry Note craft). BentoGrid is the responsive
+ * Bento — a calm 3-column bento grid. BentoGrid is the responsive
  * container; BentoCard is a flat hairline cell with a coloured icon well, title and
  * body, spanning 1–3 columns. Soft hover lift, zero glass. Spans use literal classes
  * so Tailwind keeps them.

@@ -1,5 +1,5 @@
 /**
- * CommandWidget — the rich command / "ask AI" search widget from efficient.app: a
+ * CommandWidget — the rich command / "ask AI" search widget: a
  * search row (icon + placeholder + "/" hint) above a toolbar (add · search · chat on
  * the left; voice + a dark circular submit on the right). Flat hairline + soft shadow,
  * zero glass. The dark submit inverts to a light disc on the dark theme.
