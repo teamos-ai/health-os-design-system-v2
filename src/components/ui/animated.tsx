@@ -189,6 +189,8 @@ export interface MarqueeProps {
   speed?: number;
   reverse?: boolean;
   pauseOnHover?: boolean;
+  /** allow grab-and-scrub: drag/swipe to move through faster, then auto-drift resumes */
+  draggable?: boolean;
   className?: string;
   gapClassName?: string;
 }
@@ -197,6 +199,7 @@ export const Marquee = ({
   speed = 36,
   reverse = false,
   pauseOnHover = true,
+  draggable = false,
   className,
   gapClassName = 'gap-5',
 }: MarqueeProps) => {
@@ -205,6 +208,7 @@ export const Marquee = ({
   const [copyWidth, setCopyWidth] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
   const firstCopyRef = React.useRef<HTMLDivElement>(null);
+  const dragRef = React.useRef({ active: false, startX: 0, startVal: 0 });
 
   React.useEffect(() => {
     const el = firstCopyRef.current;
@@ -217,11 +221,31 @@ export const Marquee = ({
   }, [children]);
 
   useAnimationFrame((_, delta) => {
-    if (reduced || paused || copyWidth === 0) return;
+    if (reduced || paused || dragRef.current.active || copyWidth === 0) return;
     const move = (delta / 1000) * speed * (reverse ? 1 : -1);
     const next = wrap(-copyWidth, 0, x.get() + move);
     x.set(next);
   });
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggable) return;
+    dragRef.current = { active: true, startX: e.clientX, startVal: x.get() };
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggable || !dragRef.current.active || copyWidth === 0) return;
+    const dx = e.clientX - dragRef.current.startX;
+    x.set(wrap(-copyWidth, 0, dragRef.current.startVal + dx));
+  };
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggable || !dragRef.current.active) return;
+    dragRef.current.active = false;
+    try {
+      e.currentTarget.releasePointerCapture?.(e.pointerId);
+    } catch {
+      /* ignore */
+    }
+  };
 
   const content = (
     <div ref={firstCopyRef} className={cn('flex shrink-0 items-stretch', gapClassName)}>
@@ -231,9 +255,18 @@ export const Marquee = ({
 
   return (
     <div
-      className={cn('relative overflow-hidden marquee-mask', className)}
+      className={cn(
+        'relative overflow-hidden marquee-mask',
+        draggable && 'cursor-grab touch-pan-y select-none active:cursor-grabbing',
+        className
+      )}
       onMouseEnter={() => pauseOnHover && setPaused(true)}
       onMouseLeave={() => pauseOnHover && setPaused(false)}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onPointerLeave={endDrag}
     >
       <motion.div className={cn('flex w-max items-stretch', gapClassName)} style={{ x }}>
         {content}

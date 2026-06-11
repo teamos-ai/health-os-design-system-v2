@@ -114,7 +114,7 @@ export interface OverviewCard {
 }
 export const OVERVIEW_CARDS: OverviewCard[] = [
   { emoji: '✨', badge: 'Essence', accent: 'rose', title: 'efficient.app structure, Health OS skin', lines: ['Warm, flat, premium, calm', 'Borrowed craft, locked brand'] },
-  { emoji: '🧩', badge: 'Borrowed', accent: 'lavender', title: 'What we borrowed', lines: ['Command-palette hero + /command chips', 'Soft radial glows, tool-card carousel', 'Mono labels, dark pill CTAs'] },
+  { emoji: '🌓', badge: 'Themes', accent: 'lavender', title: 'Three grounds, one system', lines: ['Light — clean white', 'Paper — warm ivory', 'Dark — carbon, warm off-white text'] },
   { emoji: '🔒', badge: 'Locked', accent: 'rose', title: 'What stays ours', lines: ['Warm ivory + carbon + rose', 'Spline Sans + Anonymous Pro', 'Sentence case, zero glass, AA'] },
   { emoji: '🎨', badge: 'Colour', accent: 'apricot', title: 'Warm multi-hue', lines: ['Rose primary · apricot · lavender · gold', 'rose-600 for white text (AA)', 'Gradient used with restraint'] },
   { emoji: '🔤', badge: 'Type', accent: 'lavender', title: 'Two voices', lines: ['Spline Sans — headings (600/700)', 'Anonymous Pro — mono body, 1.6', 'Sentence case everywhere'] },

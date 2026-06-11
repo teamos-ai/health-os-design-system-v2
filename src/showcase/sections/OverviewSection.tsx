@@ -16,9 +16,9 @@ export const OverviewSection = () => (
     id="overview"
     eyebrow="The system at a glance"
     title="Overview"
-    lead="Twelve snapshots of how Health OS v2 works — colour, type, voice, do’s and don’ts — drifting gently past. Hover to pause and read."
+    lead="Twelve snapshots of how Health OS v2 works — colour, type, voice, do’s and don’ts — drifting gently past. Hover to pause; drag to move through faster."
   >
-    <Marquee speed={18} gapClassName="gap-5">
+    <Marquee speed={18} draggable gapClassName="gap-5">
       {OVERVIEW_CARDS.map((card) => {
         const a = ACCENTS[card.accent];
         return (
