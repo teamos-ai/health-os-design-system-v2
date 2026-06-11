@@ -3,23 +3,16 @@
  * floating pill nav, a big two-tone Spline Sans H1, a calm subtitle, then the rich
  * command / "ask AI" widget with `/command` chips, all over a soft radial glow.
  */
-import { PillNav } from '@/components/layout/PillNav';
 import { CommandWidget } from '@/components/ui/command-widget';
 import { CommandChip } from '@/components/ui/command-chip';
 import { FadeIn, HeroGlow, Stagger, StaggerItem } from '@/components/ui/animated';
 import { SHOWCASE_COMMANDS } from '@/data/system';
 
 export const HeroSection = () => (
-  <section id="hero" className="relative scroll-mt-8 overflow-hidden border-b border-line px-6 pb-20 pt-10 md:pb-24 md:pt-12">
+  <section id="hero" className="relative scroll-mt-8 overflow-hidden border-b border-line px-6 pb-20 pt-20 md:pb-24 md:pt-24">
     <HeroGlow />
 
-    <div className="flex justify-center">
-      <FadeIn>
-        <PillNav />
-      </FadeIn>
-    </div>
-
-    <div className="mx-auto mt-16 flex max-w-4xl flex-col items-center text-center">
+    <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
       <FadeIn delay={0.05}>
         <h1 className="font-display text-display-lg leading-[1.05] tracking-tight text-ink-900 md:text-display-xl">
           The only design system

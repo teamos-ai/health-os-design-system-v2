@@ -25,7 +25,7 @@ export const SignatureSection = () => (
     <div className="px-6 py-16 md:px-12 md:py-20">
       <div className="mx-auto max-w-5xl">
         <FadeIn>
-          <header className="max-w-2xl">
+          <header className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <MonoLabel>Composition</MonoLabel>
             <h2 className="mt-3 font-display text-h1 text-ink-900">Signature sections</h2>
             <p className="mt-4 font-sans text-body-lg leading-relaxed text-ink-500">

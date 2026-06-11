@@ -12,7 +12,7 @@ import { COMPARE_ROWS } from '@/data/system';
 export const DirectoryCompare = ({ id = 'compare' }: { id?: string }) => (
   <section id={id} className="py-20 md:py-24">
     <div className="mx-auto max-w-container px-6">
-      <div className="mb-12 max-w-2xl">
+      <div className="mb-12 mx-auto flex max-w-2xl flex-col items-center text-center">
         <FadeIn>
           <MonoLabel>Your stack vs Health OS</MonoLabel>
         </FadeIn>

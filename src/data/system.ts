@@ -66,12 +66,6 @@ export const TICKER_CRAFT: TickerItem[] = [
 ];
 
 /* ── Showcase hero ──────────────────────────────────────── */
-export const HERO_NAV: { label: string; href: string }[] = [
-  { label: 'Home', href: '#hero' },
-  { label: 'Components', href: '#components' },
-  { label: 'Tokens', href: '#tokens' },
-];
-
 export const SHOWCASE_COMMANDS: string[] = [
   'browse the components',
   'copy a token',

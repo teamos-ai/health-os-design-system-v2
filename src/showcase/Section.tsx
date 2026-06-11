@@ -20,10 +20,12 @@ export const Section = ({ id, eyebrow, title, lead, children, className }: Secti
   <section id={id} className={cn('scroll-mt-8 border-b border-line px-6 py-16 md:px-12 md:py-20', className)}>
     <div className="mx-auto max-w-5xl">
       <FadeIn>
-        <header className="mb-10 max-w-2xl">
+        <header className="mb-10 flex flex-col items-center text-center">
           {eyebrow && <MonoLabel>{eyebrow}</MonoLabel>}
           <h2 className="mt-3 font-display text-h1 text-ink-900">{title}</h2>
-          {lead && <p className="mt-4 font-sans text-body-lg leading-relaxed text-ink-600">{lead}</p>}
+          {lead && (
+            <p className="mt-4 max-w-2xl font-sans text-body-lg leading-relaxed text-ink-600">{lead}</p>
+          )}
         </header>
       </FadeIn>
       {children}
