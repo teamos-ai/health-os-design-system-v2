@@ -33,22 +33,25 @@ export const Section = ({ id, eyebrow, title, lead, children, className }: Secti
   </section>
 );
 
-/** Small labelled frame for embedding a live component demo. */
+/** Small labelled frame for embedding a live component demo. `action` sits top-right. */
 export const Demo = ({
   label,
+  action,
   children,
   className,
   padded = true,
 }: {
   label?: string;
+  action?: ReactNode;
   children: ReactNode;
   className?: string;
   padded?: boolean;
 }) => (
   <div className={cn('overflow-hidden rounded-xl border border-line bg-paper', className)}>
-    {label && (
-      <div className="border-b border-line bg-surface px-4 py-2.5">
-        <span className="font-mono text-caption text-ink-500">{label}</span>
+    {(label || action) && (
+      <div className="flex items-center justify-between gap-3 border-b border-line bg-surface px-4 py-2.5">
+        {label ? <span className="font-mono text-caption text-ink-500">{label}</span> : <span />}
+        {action}
       </div>
     )}
     <div className={cn(padded && 'p-6 md:p-8')}>{children}</div>
