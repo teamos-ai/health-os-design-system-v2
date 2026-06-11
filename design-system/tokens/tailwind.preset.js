@@ -42,17 +42,29 @@ export default {
           400: '#A666D9', 500: '#9450C9', 600: '#7E3CB0', 700: '#602C88',
           800: '#3E1C58', 900: '#21152B',
         },
-        /* ── Ink (warm-tinted neutrals / text) ──────────────── */
+        /* ── Ink (warm neutrals / text) — flips light↔dark via CSS vars ── */
         ink: {
-          100: '#F2EFEB', 200: '#E3DDD6', 300: '#C9C1B8', 400: '#A39B91',
-          500: '#7C746B', 600: '#5A534B', 700: '#3D3833', 900: '#1F1F1F',
+          100: 'rgb(var(--ink-100) / <alpha-value>)',
+          200: 'rgb(var(--ink-200) / <alpha-value>)',
+          300: 'rgb(var(--ink-300) / <alpha-value>)',
+          400: 'rgb(var(--ink-400) / <alpha-value>)',
+          500: 'rgb(var(--ink-500) / <alpha-value>)',
+          600: 'rgb(var(--ink-600) / <alpha-value>)',
+          700: 'rgb(var(--ink-700) / <alpha-value>)',
+          900: 'rgb(var(--ink-900) / <alpha-value>)',
         },
-        /* ── Carbon — dark surfaces (footer, dark pill) ─────── */
+        /* ── Carbon — fixed dark (footer, dark pill) ────────── */
         carbon: { DEFAULT: '#1F1F1F', 800: '#262626', 700: '#2E2E2E', 600: '#3A3A3A' },
-        /* ── Surfaces ───────────────────────────────────────── */
-        paper: '#F9F6F2',
-        surface: '#FFFFFF',
-        line: { DEFAULT: '#E7E0D8', soft: '#F0EBE4' },
+        /* ── Surfaces — flip light↔dark via CSS vars ────────── */
+        paper: 'rgb(var(--paper) / <alpha-value>)',
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        'surface-2': 'rgb(var(--surface-2) / <alpha-value>)',
+        line: {
+          DEFAULT: 'rgb(var(--line) / <alpha-value>)',
+          soft: 'rgb(var(--line-soft) / <alpha-value>)',
+        },
+        /* ── Accent-as-text on the page ground (auto-lightens on dark for AA) ── */
+        accent: 'rgb(var(--accent-text) / <alpha-value>)',
         /* ── Gold — premium signal accent ───────────────────── */
         gold: { 100: '#F6ECCB', 400: '#D9B23F', 600: '#BE9522', 800: '#6E560F' },
         /* ── Semantic ───────────────────────────────────────── */

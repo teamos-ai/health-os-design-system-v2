@@ -6,6 +6,7 @@
 import * as React from 'react';
 import { Github } from 'lucide-react';
 import { LogoMark } from '@/components/brand/Logo';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { cn } from '@/lib/utils';
 
 export interface NavItem {
@@ -54,7 +55,10 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
       {/* Mobile header */}
       <div className="sticky top-0 z-30 flex items-center justify-between border-b border-line bg-paper px-5 py-3 lg:hidden">
         <LogoMark size={28} />
-        <span className="font-mono text-caption text-ink-600">Design system v2</span>
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-caption text-ink-600">Design system v2</span>
+          <ThemeToggle />
+        </div>
       </div>
 
       {/* Sidebar */}
@@ -89,6 +93,10 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
         </nav>
 
         <div className="mt-auto border-t border-line pt-5">
+          <div className="mb-4 flex items-center justify-between">
+            <span className="font-mono text-caption text-ink-600">Theme</span>
+            <ThemeToggle />
+          </div>
           <p className="font-mono text-caption leading-relaxed text-ink-600">
             efficient.app structure ·<br />Health OS skin
           </p>

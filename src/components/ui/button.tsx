@@ -24,9 +24,9 @@ const button = cva(
         primary: 'bg-brand-600 text-white hover:bg-brand-700',
         secondary: 'bg-surface text-ink-900 border border-line hover:border-ink-300 hover:shadow-sm',
         ghost: 'bg-transparent text-ink-900 hover:bg-ink-100',
-        dark: 'bg-carbon text-white hover:bg-carbon-800',
+        dark: 'bg-carbon text-white hover:bg-carbon-800 dark:bg-ink-900 dark:text-paper dark:hover:bg-ink-700',
         gradient: 'bg-brand-gradient text-white hover:brightness-[1.04] shadow-sm',
-        link: 'bg-transparent text-brand-600 hover:text-brand-700 underline underline-offset-4 decoration-1 p-0',
+        link: 'bg-transparent text-accent hover:opacity-80 underline underline-offset-4 decoration-1 p-0',
         danger: 'bg-danger-600 text-white hover:brightness-95',
       },
       size: {

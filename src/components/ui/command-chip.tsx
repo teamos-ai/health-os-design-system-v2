@@ -25,7 +25,7 @@ export const CommandChip = React.forwardRef<HTMLButtonElement, CommandChipProps>
       )}
       {...props}
     >
-      <span className="font-bold text-brand-600">/</span>
+      <span className="font-bold text-accent">/</span>
       <span>{command}</span>
     </button>
   )

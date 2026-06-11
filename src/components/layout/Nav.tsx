@@ -7,6 +7,7 @@ import * as React from 'react';
 import { LogoMark } from '@/components/brand/Logo';
 import { CommandBar } from '@/components/ui/command-bar';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { NAV_LINKS } from '@/data/system';
 import { cn } from '@/lib/utils';
 
@@ -58,6 +59,7 @@ export const Nav = ({ className, sticky = true }: { className?: string; sticky?:
             containerClassName="hidden w-44 xl:flex"
             aria-label="Search the platform"
           />
+          <ThemeToggle />
           <Button variant="dark" size="sm">
             Book a demo
           </Button>

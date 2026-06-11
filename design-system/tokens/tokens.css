@@ -1,108 +1,78 @@
 /**
  * Health OS Design System v2 — CSS custom properties.
- * Portable mirror of tailwind.preset.js for any non-Tailwind consumer.
- * Source of truth for raw values: this file + tailwind.preset.js (kept in lockstep).
+ *
+ * Two themes, applied globally via a `.dark` class on <html>:
+ *   • light (default) — warm ivory ground (#F9F6F2) + carbon text
+ *   • dark            — carbon ground (#1F1F1F) + warm off-white text
+ *
+ * The STRUCTURAL + neutral tokens (paper/surface/line + the ink ramp) are RGB-channel
+ * variables that flip between modes; the Tailwind preset reads them as
+ * `rgb(var(--x) / <alpha-value>)`, so `bg-paper`, `text-ink-900`, `border-line` etc.
+ * resolve correctly in both themes with no per-component work. Brand accents
+ * (rose/apricot/lavender/gold/semantic) and `carbon` are fixed hexes — they read on
+ * both grounds. Source of truth for raw values: this file + tailwind.preset.js.
  */
+
+/* ── Light (default) — always warm ivory ─────────────────── */
 :root {
-  /* ── Rose / brand (signature) ───────────────────────── */
-  --hos-rose-50: #fadeee;
-  --hos-rose-100: #f8c6e0;
-  --hos-rose-200: #f3a0cc;
-  --hos-rose-300: #ee7dba;
+  color-scheme: light;
+
+  /* surfaces */
+  --paper: 249 246 242;        /* #F9F6F2 Warm Ivory — page ground */
+  --surface: 255 255 255;      /* #FFFFFF cards */
+  --surface-2: 244 240 234;    /* faint ivory, elevated/inset */
+  --line: 231 224 216;         /* #E7E0D8 hairline */
+  --line-soft: 240 235 228;    /* #F0EBE4 */
+
+  /* ink (warm neutrals / text) — 100 lightest → 900 = primary text */
+  --ink-100: 242 239 235;      /* #F2EFEB fills / hover */
+  --ink-200: 227 221 214;      /* #E3DDD6 */
+  --ink-300: 201 193 184;      /* #C9C1B8 */
+  --ink-400: 163 155 145;      /* #A39B91 muted */
+  --ink-500: 124 116 107;      /* #7C746B secondary */
+  --ink-600: 90 83 75;         /* #5A534B body */
+  --ink-700: 61 56 51;         /* #3D3833 strong */
+  --ink-900: 31 31 31;         /* #1F1F1F Carbon — primary text */
+
+  /* accent-as-text on the page ground (flips lighter in dark for AA) */
+  --accent-text: 190 46 123;   /* brand-600 */
+}
+
+/* ── Dark — carbon ground, warm off-white text ──────────── */
+.dark {
+  color-scheme: dark;
+
+  --paper: 31 31 31;           /* #1F1F1F Carbon — page ground */
+  --surface: 41 39 36;         /* #292724 warm elevated card */
+  --surface-2: 35 33 31;       /* #232120 inset */
+  --line: 58 53 46;            /* #3A352E warm hairline */
+  --line-soft: 42 39 36;       /* #2A2724 */
+
+  --ink-100: 45 41 37;         /* #2D2925 fills / hover */
+  --ink-200: 60 55 49;         /* #3C3731 */
+  --ink-300: 94 87 78;         /* #5E574E hover borders */
+  --ink-400: 131 123 111;      /* #837B6F muted */
+  --ink-500: 167 158 145;      /* #A79E91 secondary */
+  --ink-600: 201 192 180;      /* #C9C0B4 body */
+  --ink-700: 228 221 211;      /* #E4DDD3 strong */
+  --ink-900: 247 243 238;      /* #F7F3EE warm white — primary text */
+
+  --accent-text: 238 125 186;  /* brand-300 — AA on carbon */
+}
+
+/* ── Brand reference (fixed in both modes) ──────────────── */
+:root {
   --hos-rose-400: #e85ba8;
-  --hos-rose-500: #d63f92;
-  --hos-rose-600: #be2e7b; /* primary — AA with white text */
-  --hos-rose-700: #97215f;
-  --hos-rose-800: #5f1640;
-  --hos-rose-900: #2e1222;
-  --hos-brand: var(--hos-rose-400);
-  --hos-brand-primary: var(--hos-rose-600);
-
-  /* ── Apricot (warm accent) ──────────────────────────── */
-  --hos-apricot-50: #fdecdf;
-  --hos-apricot-100: #fbd9be;
-  --hos-apricot-200: #f8c39c;
-  --hos-apricot-300: #f7b27e;
+  --hos-rose-600: #be2e7b; /* primary — white text */
   --hos-apricot-400: #f5a060;
-  --hos-apricot-500: #e68a47;
-  --hos-apricot-600: #c9722f;
-  --hos-apricot-700: #9e5723;
-  --hos-apricot-800: #6b3a18;
-  --hos-apricot-900: #312013;
-
-  /* ── Lavender (cool accent) ─────────────────────────── */
-  --hos-lavender-50: #ede1f7;
-  --hos-lavender-100: #dec8f0;
-  --hos-lavender-200: #c9a3e6;
-  --hos-lavender-300: #b985de;
   --hos-lavender-400: #a666d9;
-  --hos-lavender-500: #9450c9;
-  --hos-lavender-600: #7e3cb0;
-  --hos-lavender-700: #602c88;
-  --hos-lavender-800: #3e1c58;
-  --hos-lavender-900: #21152b;
-
-  /* ── Ink / neutrals / surfaces ──────────────────────── */
-  --hos-ink-100: #f2efeb;
-  --hos-ink-200: #e3ddd6;
-  --hos-ink-300: #c9c1b8;
-  --hos-ink-400: #a39b91;
-  --hos-ink-500: #7c746b;
-  --hos-ink-600: #5a534b;
-  --hos-ink-700: #3d3833;
-  --hos-ink-900: #1f1f1f;
-  --hos-paper: #f9f6f2; /* Warm Ivory background */
-  --hos-surface: #ffffff;
-  --hos-carbon: #1f1f1f;
-  --hos-line: #e7e0d8; /* hairline */
-  --hos-line-soft: #f0ebe4;
-
-  /* ── Gold + semantic ────────────────────────────────── */
   --hos-gold-600: #be9522;
-  --hos-success-600: #1f9d6b;
-  --hos-success-700: #15724e; /* AA text on success-100 tint */
-  --hos-warn-600: #c08415;
-  --hos-warn-700: #8a5e0f; /* AA text on warn-100 tint */
-  --hos-danger-600: #c8382f;
-  --hos-danger-700: #9f2a23;
-  --hos-info-600: #7e3cb0;
-  --hos-info-700: #5e2c86; /* AA text on info-100 tint */
-
-  /* ── Signature gradient + glows ─────────────────────── */
+  --hos-carbon: #1f1f1f;
   --hos-gradient: linear-gradient(135deg, #f5a060 0%, #e85ba8 50%, #a666d9 100%);
-  --hos-gradient-soft: linear-gradient(135deg, #fdecdf 0%, #fadeee 50%, #ede1f7 100%);
-  --hos-glow-rose: rgba(232, 91, 168, 0.28);
-  --hos-glow-apricot: rgba(245, 160, 96, 0.28);
-  --hos-glow-lavender: rgba(166, 102, 217, 0.28);
-
-  /* ── Type ───────────────────────────────────────────── */
+  --hos-success-700: #15724e;
+  --hos-warn-700: #8a5e0f;
+  --hos-danger-700: #9f2a23;
+  --hos-info-700: #5e2c86;
   --hos-font-display: "Spline Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --hos-font-body: "Anonymous Pro", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --hos-font-mono: "Anonymous Pro", ui-monospace, SFMono-Regular, Menlo, monospace;
-
-  /* ── Spacing (8px base) ─────────────────────────────── */
-  --hos-space-xs: 4px;
-  --hos-space-sm: 8px;
-  --hos-space-md: 16px;
-  --hos-space-lg: 24px;
-  --hos-space-xl: 40px;
-  --hos-space-2xl: 64px;
-  --hos-space-3xl: 96px;
-
-  /* ── Radius (soft) ──────────────────────────────────── */
-  --hos-radius-ui: 8px;
-  --hos-radius-card: 12px;
-  --hos-radius-pill: 9999px;
-
-  /* ── Elevation (soft neutral only) ──────────────────── */
-  --hos-shadow-sm: 0 1px 3px rgba(31, 31, 31, 0.06), 0 1px 2px rgba(31, 31, 31, 0.04);
-  --hos-shadow-md: 0 4px 14px rgba(31, 31, 31, 0.06), 0 2px 4px rgba(31, 31, 31, 0.04);
-  --hos-shadow-lg: 0 12px 32px rgba(31, 31, 31, 0.08), 0 4px 8px rgba(31, 31, 31, 0.04);
-
-  /* ── Motion ─────────────────────────────────────────── */
-  --hos-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --hos-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --hos-duration-fast: 160ms;
-  --hos-duration-base: 240ms;
-  --hos-duration-reveal: 360ms;
 }

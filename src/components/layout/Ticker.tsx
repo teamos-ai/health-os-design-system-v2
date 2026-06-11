@@ -17,7 +17,7 @@ export const Ticker = ({ className }: { className?: string }) => {
             className="flex items-center gap-2 font-mono text-overline uppercase text-ink-600"
             aria-hidden={i >= TICKER_ITEMS.length ? true : undefined}
           >
-            <Icon className="h-3 w-3 text-brand-600" strokeWidth={1.5} />
+            <Icon className="h-3 w-3 text-accent" strokeWidth={1.5} />
             <span>{text}</span>
           </div>
         ))}

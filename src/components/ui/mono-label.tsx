@@ -14,7 +14,7 @@ export interface MonoLabelProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 const TONE: Record<NonNullable<MonoLabelProps['tone']>, string> = {
   ink: 'text-ink-600',
-  brand: 'text-brand-600',
+  brand: 'text-accent',
   inverse: 'text-white/70',
 };
 
@@ -27,7 +27,7 @@ export const MonoLabel = ({ number, dot, tone = 'ink', className, children, ...p
     )}
     {...props}
   >
-    {number && <span className="text-brand-600">{number}</span>}
+    {number && <span className="text-accent">{number}</span>}
     {dot && <span className="h-1 w-1 rounded-full bg-brand-400" />}
     {children}
   </span>

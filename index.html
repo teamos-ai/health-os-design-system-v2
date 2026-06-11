@@ -10,6 +10,17 @@
     />
     <meta name="theme-color" content="#F9F6F2" />
 
+    <!-- Theme: default = light (warm ivory). Dark only when the user opts in. No flash. -->
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Locked type pairing: Spline Sans (headings) + Anonymous Pro (body / mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
