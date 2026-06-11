@@ -1,41 +1,51 @@
 /**
  * Health OS Design System v2 — CSS custom properties.
  *
- * Two themes, applied globally via a `.dark` class on <html>:
- *   • light (default) — warm ivory ground (#F9F6F2) + carbon text
- *   • dark            — carbon ground (#1F1F1F) + warm off-white text
+ * Three themes, applied globally via a class on <html>:
+ *   • light (default, no class) — clean WHITE ground (#FFFFFF) + carbon text
+ *   • paper  (.theme-paper)     — warm ivory ground (#F9F6F2) + carbon text
+ *   • dark   (.dark)            — carbon ground (#1F1F1F) + warm off-white text
  *
- * The STRUCTURAL + neutral tokens (paper/surface/line + the ink ramp) are RGB-channel
- * variables that flip between modes; the Tailwind preset reads them as
+ * Structural + neutral tokens (paper/surface/line + the ink ramp) are RGB-channel
+ * variables that flip per theme; the Tailwind preset reads them as
  * `rgb(var(--x) / <alpha-value>)`, so `bg-paper`, `text-ink-900`, `border-line` etc.
- * resolve correctly in both themes with no per-component work. Brand accents
- * (rose/apricot/lavender/gold/semantic) and `carbon` are fixed hexes — they read on
- * both grounds. Source of truth for raw values: this file + tailwind.preset.js.
+ * resolve correctly in all three themes with no per-component work. `light` and
+ * `paper` share the warm ink ramp + white surface, differing only in the page ground
+ * and hairline. Brand accents and `carbon` are fixed hexes. `.dark` keeps the Tailwind
+ * `dark:` variant working.
  */
 
-/* ── Light (default) — always warm ivory ─────────────────── */
+/* ── Light (default) — clean white ───────────────────────── */
 :root {
   color-scheme: light;
 
-  /* surfaces */
-  --paper: 249 246 242;        /* #F9F6F2 Warm Ivory — page ground */
+  --paper: 255 255 255;        /* #FFFFFF page ground (white, minimal) */
   --surface: 255 255 255;      /* #FFFFFF cards */
-  --surface-2: 244 240 234;    /* faint ivory, elevated/inset */
-  --line: 231 224 216;         /* #E7E0D8 hairline */
-  --line-soft: 240 235 228;    /* #F0EBE4 */
+  --surface-2: 247 247 246;    /* faint cool grey inset */
+  --line: 234 232 229;         /* #EAE8E5 clean hairline */
+  --line-soft: 244 243 241;
 
   /* ink (warm neutrals / text) — 100 lightest → 900 = primary text */
-  --ink-100: 242 239 235;      /* #F2EFEB fills / hover */
-  --ink-200: 227 221 214;      /* #E3DDD6 */
-  --ink-300: 201 193 184;      /* #C9C1B8 */
-  --ink-400: 163 155 145;      /* #A39B91 muted */
-  --ink-500: 124 116 107;      /* #7C746B secondary */
-  --ink-600: 90 83 75;         /* #5A534B body */
-  --ink-700: 61 56 51;         /* #3D3833 strong */
+  --ink-100: 242 239 235;      /* fills / hover */
+  --ink-200: 227 221 214;
+  --ink-300: 201 193 184;
+  --ink-400: 163 155 145;      /* muted */
+  --ink-500: 124 116 107;      /* secondary */
+  --ink-600: 90 83 75;         /* body */
+  --ink-700: 61 56 51;         /* strong */
   --ink-900: 31 31 31;         /* #1F1F1F Carbon — primary text */
 
-  /* accent-as-text on the page ground (flips lighter in dark for AA) */
-  --accent-text: 190 46 123;   /* brand-600 */
+  --accent-text: 190 46 123;   /* brand-600 — AA on white + ivory */
+}
+
+/* ── Paper — warm ivory (same warm ink + white cards) ───── */
+.theme-paper {
+  color-scheme: light;
+
+  --paper: 249 246 242;        /* #F9F6F2 Warm Ivory */
+  --surface-2: 244 240 234;    /* #F4F0EA inset */
+  --line: 231 224 216;         /* #E7E0D8 warm hairline */
+  --line-soft: 240 235 228;    /* #F0EBE4 */
 }
 
 /* ── Dark — carbon ground, warm off-white text ──────────── */
@@ -60,7 +70,7 @@
   --accent-text: 238 125 186;  /* brand-300 — AA on carbon */
 }
 
-/* ── Brand reference (fixed in both modes) ──────────────── */
+/* ── Brand reference (fixed in every theme) ─────────────── */
 :root {
   --hos-rose-400: #e85ba8;
   --hos-rose-600: #be2e7b; /* primary — white text */

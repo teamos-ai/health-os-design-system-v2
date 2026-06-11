@@ -10,13 +10,13 @@
     />
     <meta name="theme-color" content="#F9F6F2" />
 
-    <!-- Theme: default = light (warm ivory). Dark only when the user opts in. No flash. -->
+    <!-- Theme: light (white, default) · paper (ivory) · dark (carbon). No flash. -->
     <script>
       (function () {
         try {
-          if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-          }
+          var t = localStorage.getItem('theme');
+          if (t === 'dark') document.documentElement.classList.add('dark');
+          else if (t === 'paper') document.documentElement.classList.add('theme-paper');
         } catch (e) {}
       })();
     </script>
