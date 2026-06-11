@@ -153,12 +153,17 @@ export default {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
       },
       animation: {
         marquee: 'marquee 40s linear infinite',
         'marquee-slow': 'marquee 60s linear infinite',
         'marquee-reverse': 'marquee-reverse 40s linear infinite',
         ticker: 'ticker 32s linear infinite',
+        shimmer: 'shimmer 6s linear infinite',
       },
       maxWidth: {
         container: '1200px',
