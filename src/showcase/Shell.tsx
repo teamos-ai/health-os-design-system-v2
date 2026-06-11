@@ -20,6 +20,13 @@ import {
   Wand2,
   Images,
   Globe,
+  Shapes,
+  LayoutGrid,
+  Newspaper,
+  Calculator,
+  Share2,
+  Wallpaper,
+  NotebookText,
   type LucideIcon,
 } from 'lucide-react';
 import { LogoMark } from '@/components/brand/Logo';
@@ -39,12 +46,19 @@ export const SHOWCASE_NAV: NavItem[] = [
   { id: 'overview', label: 'Overview', Icon: LayoutDashboard, accent: 'lavender' },
   { id: 'tokens', label: 'Tokens', Icon: Palette, accent: 'apricot' },
   { id: 'logo', label: 'Logo', Icon: Hexagon, accent: 'gold' },
-  { id: 'components', label: 'Components', Icon: Component, accent: 'rose' },
-  { id: 'signature', label: 'Signature sections', Icon: LayoutTemplate, accent: 'lavender' },
-  { id: 'banners', label: 'Banners', Icon: ScrollText, accent: 'apricot' },
+  { id: 'icons', label: 'Icons', Icon: Shapes, accent: 'rose' },
+  { id: 'components', label: 'Components', Icon: Component, accent: 'lavender' },
+  { id: 'signature', label: 'Signature sections', Icon: LayoutTemplate, accent: 'apricot' },
+  { id: 'bento-box', label: 'Bento box', Icon: LayoutGrid, accent: 'gold' },
+  { id: 'banners', label: 'Banners', Icon: ScrollText, accent: 'rose' },
+  { id: 'blog', label: 'Blog', Icon: Newspaper, accent: 'lavender' },
+  { id: 'calculators', label: 'Calculators', Icon: Calculator, accent: 'apricot' },
+  { id: 'social', label: 'Social media', Icon: Share2, accent: 'gold' },
+  { id: 'backgrounds', label: 'Backgrounds', Icon: Wallpaper, accent: 'rose' },
+  { id: 'imagery', label: 'Image library', Icon: Images, accent: 'lavender' },
+  { id: 'notion', label: 'Notion', Icon: NotebookText, accent: 'apricot' },
   { id: 'motion', label: 'Motion', Icon: Wand2, accent: 'gold' },
-  { id: 'imagery', label: 'Image library', Icon: Images, accent: 'rose' },
-  { id: 'live', label: 'Live page', Icon: Globe, accent: 'lavender' },
+  { id: 'live', label: 'Live page', Icon: Globe, accent: 'rose' },
 ];
 
 function useActiveSection(ids: string[]) {
