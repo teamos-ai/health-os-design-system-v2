@@ -1,0 +1,18 @@
+<svg width="220" height="48" viewBox="0 0 220 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Health OS">
+  <defs>
+    <linearGradient id="g" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5A060"/>
+      <stop offset="0.5" stop-color="#E85BA8"/>
+      <stop offset="1" stop-color="#A666D9"/>
+    </linearGradient>
+    <linearGradient id="gt" x1="150" y1="14" x2="208" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5A060"/>
+      <stop offset="0.5" stop-color="#E85BA8"/>
+      <stop offset="1" stop-color="#A666D9"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="40" height="40" rx="11" fill="url(#g)"/>
+  <text x="24" y="25" text-anchor="middle" dominant-baseline="central" font-family="'Spline Sans', system-ui, sans-serif" font-weight="700" font-size="16" letter-spacing="-0.5" fill="#FFFFFF">OS</text>
+  <text x="58" y="24.5" dominant-baseline="central" font-family="'Spline Sans', system-ui, sans-serif" font-weight="700" font-size="24" letter-spacing="-0.6" fill="#1F1F1F">Health</text>
+  <text x="152" y="24.5" dominant-baseline="central" font-family="'Spline Sans', system-ui, sans-serif" font-weight="700" font-size="24" letter-spacing="-0.6" fill="url(#gt)">OS</text>
+</svg>
