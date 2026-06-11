@@ -4,7 +4,7 @@
  * with a hairline that deepens to a soft shadow on scroll — no glass, no blur tint.
  */
 import * as React from 'react';
-import { Logo } from '@/components/brand/Logo';
+import { LogoMark } from '@/components/brand/Logo';
 import { CommandBar } from '@/components/ui/command-bar';
 import { Button } from '@/components/ui/button';
 import { NAV_LINKS } from '@/data/system';
@@ -33,7 +33,7 @@ export const Nav = ({ className, sticky = true }: { className?: string; sticky?:
       <nav className="mx-auto grid h-16 max-w-container grid-cols-[auto_1fr_auto] items-center gap-4 px-6">
         {/* Left — logo */}
         <a href="#top" className="flex items-center" aria-label="Health OS home">
-          <Logo size={34} />
+          <LogoMark size={32} />
         </a>
 
         {/* Centre — links */}

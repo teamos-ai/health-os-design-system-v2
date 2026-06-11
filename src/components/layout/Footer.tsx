@@ -5,7 +5,7 @@
  */
 import * as React from 'react';
 import { Instagram, Linkedin, Youtube, ArrowRight } from 'lucide-react';
-import { Logo } from '@/components/brand/Logo';
+import { LogoMark } from '@/components/brand/Logo';
 import { FOOTER_COLUMNS } from '@/data/system';
 import { cn } from '@/lib/utils';
 
@@ -43,7 +43,7 @@ export const Footer = ({ className }: { className?: string }) => (
             <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
           </a>
 
-          <Logo size={32} inverse />
+          <LogoMark size={36} inverse />
         </div>
 
         {/* Right — columns + newsletter */}

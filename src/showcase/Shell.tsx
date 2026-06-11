@@ -5,7 +5,7 @@
  */
 import * as React from 'react';
 import { Github } from 'lucide-react';
-import { Logo } from '@/components/brand/Logo';
+import { LogoMark } from '@/components/brand/Logo';
 import { cn } from '@/lib/utils';
 
 export interface NavItem {
@@ -53,14 +53,14 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
     <div className="min-h-screen bg-paper">
       {/* Mobile header */}
       <div className="sticky top-0 z-30 flex items-center justify-between border-b border-line bg-paper px-5 py-3 lg:hidden">
-        <Logo size={30} />
+        <LogoMark size={28} />
         <span className="font-mono text-caption text-ink-600">Design system v2</span>
       </div>
 
       {/* Sidebar */}
       <aside className="fixed inset-y-0 left-0 z-20 hidden w-64 flex-col border-r border-line bg-paper px-6 py-7 lg:flex">
         <a href="#overview" className="mb-1 flex items-center" aria-label="Health OS">
-          <Logo size={34} />
+          <LogoMark size={32} />
         </a>
         <p className="mb-8 pl-0.5 font-mono text-caption text-ink-600">Design system v2</p>
 

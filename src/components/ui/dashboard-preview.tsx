@@ -11,7 +11,7 @@ import {
   Megaphone,
   LayoutDashboard,
 } from 'lucide-react';
-import { Logo } from '@/components/brand/Logo';
+import { LogoMark } from '@/components/brand/Logo';
 import { cn } from '@/lib/utils';
 
 const SIDEBAR = [
@@ -53,7 +53,7 @@ export const DashboardPreview = ({ className }: { className?: string }) => (
       {/* Sidebar */}
       <aside className="hidden w-56 flex-col border-r border-line bg-paper p-4 md:flex">
         <div className="mb-7 px-1">
-          <Logo size={28} />
+          <LogoMark size={26} />
         </div>
         <nav className="flex flex-col gap-1">
           {SIDEBAR.map(({ icon: Icon, label, active }) => (

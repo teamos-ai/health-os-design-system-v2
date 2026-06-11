@@ -1,12 +1,4 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Health OS mark (inverse)">
-  <defs>
-    <linearGradient id="g" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F5A060"/>
-      <stop offset="0.5" stop-color="#E85BA8"/>
-      <stop offset="1" stop-color="#A666D9"/>
-    </linearGradient>
-  </defs>
-  <!-- Knockout tile for dark / photographic grounds: white tile, gradient OS -->
-  <rect x="2" y="2" width="60" height="60" rx="16" fill="#FFFFFF"/>
-  <text x="32" y="34" text-anchor="middle" dominant-baseline="central" font-family="'Spline Sans', system-ui, sans-serif" font-weight="700" font-size="25" letter-spacing="-0.5" fill="url(#g)">OS</text>
+  <!-- White "OS" for dark / carbon grounds -->
+  <text x="32" y="34" text-anchor="middle" dominant-baseline="central" font-family="'Spline Sans', system-ui, sans-serif" font-weight="700" font-size="42" letter-spacing="-1.5" fill="#FFFFFF">OS</text>
 </svg>
