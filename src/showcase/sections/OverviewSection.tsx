@@ -1,59 +1,46 @@
 /**
- * OverviewSection — what v2 is: efficient.app's structure and craft, wearing Health OS's
- * warm palette, fonts and calm voice. The borrowed-vs-locked split + the non-negotiables.
+ * OverviewSection — twelve snapshot cards that drift gently to the left (efficient.app
+ * testimonial-scroller craft). Three show at a time; the row fades into a vignette at
+ * each edge (the Marquee's edge mask). Pauses on hover, reduced-motion safe. Each card
+ * carries an emoji squircle badge.
  */
-import { Check } from 'lucide-react';
 import { Section } from '@/showcase/Section';
+import { Marquee } from '@/components/ui/animated';
 import { Badge } from '@/components/ui/badge';
-
-const BORROWED = [
-  'Command-palette search hero with /command chips',
-  'Soft pastel radial hero glows on a light ground',
-  'Horizontal feature/tool-card carousel',
-  'Mono labels + dark pill CTAs',
-  'Rounded hairline cards, generous white space',
-  'A grain texture, thin top ticker, bento grid, dark-carbon footer',
-];
-
-const LOCKED = [
-  'Warm Ivory ground + Carbon text — never pure white/black',
-  'Rose as the accent — in place of efficient.app’s pink-red',
-  'Apricot → rose → lavender gradient, used with restraint',
-  'Spline Sans headings + Anonymous Pro mono body',
-  'Sentence case, calm Sage voice, Australian English',
-  'Zero glassmorphism, soft neutral shadows, WCAG AA',
-];
+import { ACCENTS } from '@/lib/accents';
+import { OVERVIEW_CARDS } from '@/data/system';
+import { cn } from '@/lib/utils';
 
 export const OverviewSection = () => (
   <Section
     id="overview"
-    eyebrow="Health OS design system v2"
-    title="efficient.app structure, Health OS skin."
-    lead="The second design-system experiment for Health OS. It borrows the command-centre craft of efficient.app and the quiet details of Cherry Note, then dresses them in the locked Health OS brand — warm, flat, premium, calm."
+    eyebrow="The system at a glance"
+    title="Overview"
+    lead="Twelve snapshots of how Health OS v2 works — colour, type, voice, do’s and don’ts — drifting gently past. Hover to pause and read."
   >
-    <div className="grid gap-4 md:grid-cols-2">
-      <div className="rounded-xl border border-line bg-surface p-6">
-        <Badge variant="lavender">Borrowed craft</Badge>
-        <ul className="mt-5 flex flex-col gap-3">
-          {BORROWED.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 font-sans text-body-md text-ink-700">
-              <Check className="mt-1 h-4 w-4 shrink-0 text-lavender-600" strokeWidth={1.5} />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="rounded-xl border border-line bg-surface p-6">
-        <Badge variant="brand">Locked brand</Badge>
-        <ul className="mt-5 flex flex-col gap-3">
-          {LOCKED.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 font-sans text-body-md text-ink-700">
-              <Check className="mt-1 h-4 w-4 shrink-0 text-brand-600" strokeWidth={1.5} />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <Marquee speed={18} gapClassName="gap-5">
+      {OVERVIEW_CARDS.map((card) => {
+        const a = ACCENTS[card.accent];
+        return (
+          <article
+            key={`${card.badge}-${card.title}`}
+            className="flex h-[260px] w-[320px] shrink-0 flex-col gap-4 rounded-md border border-line bg-surface p-6"
+          >
+            <Badge variant={a.badge} emoji={card.emoji}>
+              {card.badge}
+            </Badge>
+            <h3 className="font-display text-h4 leading-snug text-ink-900">{card.title}</h3>
+            <ul className="flex flex-col gap-2">
+              {card.lines.map((line) => (
+                <li key={line} className="flex gap-2.5 font-sans text-body-sm leading-relaxed text-ink-600">
+                  <span className={cn('mt-2 h-1 w-1 shrink-0 rounded-full', a.dot)} aria-hidden />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </article>
+        );
+      })}
+    </Marquee>
   </Section>
 );

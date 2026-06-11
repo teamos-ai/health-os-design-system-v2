@@ -104,6 +104,29 @@ export const BADGES_STATUS: BadgeSpec[] = [
   { emoji: '📝', label: 'Draft', variant: 'outline' },
 ];
 
+/* ── Overview cards (gentle left-scrolling snapshots) ───── */
+export interface OverviewCard {
+  emoji: string;
+  badge: string;
+  title: string;
+  lines: string[];
+  accent: Accent;
+}
+export const OVERVIEW_CARDS: OverviewCard[] = [
+  { emoji: '✨', badge: 'Essence', accent: 'rose', title: 'efficient.app structure, Health OS skin', lines: ['Warm, flat, premium, calm', 'Borrowed craft, locked brand'] },
+  { emoji: '🧩', badge: 'Borrowed', accent: 'lavender', title: 'What we borrowed', lines: ['Command-palette hero + /command chips', 'Soft radial glows, tool-card carousel', 'Mono labels, dark pill CTAs'] },
+  { emoji: '🔒', badge: 'Locked', accent: 'rose', title: 'What stays ours', lines: ['Warm ivory + carbon + rose', 'Spline Sans + Anonymous Pro', 'Sentence case, zero glass, AA'] },
+  { emoji: '🎨', badge: 'Colour', accent: 'apricot', title: 'Warm multi-hue', lines: ['Rose primary · apricot · lavender · gold', 'rose-600 for white text (AA)', 'Gradient used with restraint'] },
+  { emoji: '🔤', badge: 'Type', accent: 'lavender', title: 'Two voices', lines: ['Spline Sans — headings (600/700)', 'Anonymous Pro — mono body, 1.6', 'Sentence case everywhere'] },
+  { emoji: '🗣️', badge: 'Voice', accent: 'gold', title: 'Calm Sage advisor', lines: ['Outcome first, no hype', 'Australian English', '“Practitioners” and “clients”'] },
+  { emoji: '✅', badge: 'Do', accent: 'apricot', title: 'Always', lines: ['Use the tokens', '8px max radius, soft neutral shadows', 'Honour reduced motion'] },
+  { emoji: '🚫', badge: 'Don’t', accent: 'rose', title: 'Never', lines: ['No glassmorphism', 'No pure white/black or pink-red', 'No all-caps, no bounce'] },
+  { emoji: '💠', badge: 'Logo', accent: 'lavender', title: 'The OS mark', lines: ['Gradient tile, on its own', 'No wordmark beside it', 'Minimum 16px'] },
+  { emoji: '📐', badge: 'Shape', accent: 'gold', title: 'Squircles only', lines: ['8px global maximum', 'Flat + 1px hairline', 'No pills, no circles'] },
+  { emoji: '🌊', badge: 'Motion', accent: 'apricot', title: 'Quiet by default', lines: ['150–250ms interactions', 'Reveals 300–400ms, ≤500ms', 'Fade, glow, marquee, count-up'] },
+  { emoji: '♿', badge: 'Access', accent: 'lavender', title: 'AA throughout', lines: ['WCAG AA contrast', 'Branded focus rings', 'prefers-reduced-motion safe'] },
+];
+
 /** Wellness tags */
 export const BADGES_WELLNESS: BadgeSpec[] = [
   { emoji: '🌿', label: 'Wellness', variant: 'success' },
