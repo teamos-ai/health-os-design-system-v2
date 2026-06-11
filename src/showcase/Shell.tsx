@@ -15,11 +15,13 @@ export interface NavItem {
 }
 
 export const SHOWCASE_NAV: NavItem[] = [
+  { id: 'hero', label: 'Home' },
   { id: 'overview', label: 'Overview' },
   { id: 'tokens', label: 'Tokens' },
   { id: 'logo', label: 'Logo' },
   { id: 'components', label: 'Components' },
   { id: 'signature', label: 'Signature sections' },
+  { id: 'banners', label: 'Banners' },
   { id: 'motion', label: 'Motion' },
   { id: 'imagery', label: 'Image library' },
   { id: 'live', label: 'Live page' },

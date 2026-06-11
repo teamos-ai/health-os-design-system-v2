@@ -3,13 +3,13 @@
  * (carbon), left → middle → right. A thumb slides to the active mode. Flat hairline,
  * brand focus ring, reduced-motion safe (the slide is a short token transition).
  */
-import { Sun, SunMedium, Moon, type LucideIcon } from 'lucide-react';
+import { Sun, FileText, Moon, type LucideIcon } from 'lucide-react';
 import { useTheme, type Theme } from '@/lib/useTheme';
 import { cn } from '@/lib/utils';
 
 const MODES: { id: Theme; label: string; Icon: LucideIcon }[] = [
   { id: 'light', label: 'Light mode', Icon: Sun },
-  { id: 'paper', label: 'Paper mode', Icon: SunMedium },
+  { id: 'paper', label: 'Paper mode', Icon: FileText },
   { id: 'dark', label: 'Dark mode', Icon: Moon },
 ];
 

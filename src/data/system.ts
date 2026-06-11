@@ -20,21 +20,64 @@ import {
   Sparkles,
   LineChart,
   ShieldCheck,
+  Type,
+  Palette,
+  Accessibility,
+  Feather,
+  Search,
+  LayoutGrid,
+  GalleryHorizontalEnd,
+  Gem,
   type LucideIcon,
 } from 'lucide-react';
 import type { Accent } from '@/lib/accents';
 
-/* ── Top ticker (Cherry Note) ───────────────────────────── */
+/* ── Tickers (Cherry Note scrolling banners) ────────────── */
 export interface TickerItem {
   icon: LucideIcon;
   text: string;
 }
+
+/** Outcome facts — the default top banner */
 export const TICKER_ITEMS: TickerItem[] = [
   { icon: Layers, text: 'Six to eight tools, now one system' },
   { icon: Clock, text: '10–15 hours returned each week' },
   { icon: Rocket, text: 'Live in 30 days' },
   { icon: HeartPulse, text: 'Built for practitioners and their clients' },
   { icon: Wrench, text: 'Done-with-you setup' },
+];
+
+/** Design principles — for a carbon banner variant */
+export const TICKER_PRINCIPLES: TickerItem[] = [
+  { icon: Type, text: 'Spline Sans + Anonymous Pro' },
+  { icon: Palette, text: 'Warm ivory · carbon · rose' },
+  { icon: Accessibility, text: 'WCAG AA throughout' },
+  { icon: Layers, text: 'Fully tokenised, zero glass' },
+  { icon: Feather, text: 'Sentence case, calm Sage voice' },
+];
+
+/** The craft — for a tinted banner variant */
+export const TICKER_CRAFT: TickerItem[] = [
+  { icon: Search, text: 'Command-palette hero' },
+  { icon: GalleryHorizontalEnd, text: 'Tool-card carousel' },
+  { icon: LayoutGrid, text: 'Bento feature grid' },
+  { icon: Sparkles, text: 'Soft radial glows' },
+  { icon: Gem, text: 'Premium, flat, warm' },
+];
+
+/* ── Showcase hero ──────────────────────────────────────── */
+export const HERO_NAV: { label: string; href: string }[] = [
+  { label: 'Home', href: '#hero' },
+  { label: 'Components', href: '#components' },
+  { label: 'Tokens', href: '#tokens' },
+];
+
+export const SHOWCASE_COMMANDS: string[] = [
+  'browse the components',
+  'copy a token',
+  'switch the theme',
+  'open the live page',
+  'view on github',
 ];
 
 /* ── Nav ────────────────────────────────────────────────── */
