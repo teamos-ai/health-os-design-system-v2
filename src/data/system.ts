@@ -141,6 +141,96 @@ export const BADGES_WELLNESS: BadgeSpec[] = [
   { emoji: '🩺', label: 'Practitioner', variant: 'info' },
 ];
 
+/** Essential oils — blends, application and sourcing */
+export const BADGES_OILS: BadgeSpec[] = [
+  { emoji: '🌿', label: 'Lavender', variant: 'lavender' },
+  { emoji: '🍊', label: 'Citrus', variant: 'apricot' },
+  { emoji: '🌶️', label: 'Cinnamon', variant: 'danger' },
+  { emoji: '🌱', label: 'Peppermint', variant: 'success' },
+  { emoji: '🌳', label: 'Frankincense', variant: 'gold' },
+  { emoji: '🌹', label: 'Rose blend', variant: 'brand' },
+  { emoji: '💧', label: 'Diffuser', variant: 'info' },
+  { emoji: '🧴', label: 'Roll-on', variant: 'neutral' },
+  { emoji: '🌾', label: 'Single note', variant: 'outline' },
+  { emoji: '✅', label: 'Therapeutic grade', variant: 'success' },
+  { emoji: '🐝', label: 'Ethically sourced', variant: 'gold' },
+  { emoji: '⚠️', label: 'Dilute first', variant: 'warn' },
+];
+
+/** Coaching & courses — formats, journey and milestones */
+export const BADGES_COACHING: BadgeSpec[] = [
+  { emoji: '🎓', label: 'Course', variant: 'lavender' },
+  { emoji: '🧭', label: '1:1 coaching', variant: 'brand' },
+  { emoji: '🌅', label: 'Group program', variant: 'apricot' },
+  { emoji: '📚', label: 'Self-paced', variant: 'info' },
+  { emoji: '🏅', label: 'Certified', variant: 'gold' },
+  { emoji: '📈', label: 'Beginner', variant: 'success' },
+  { emoji: '🚀', label: 'Advanced', variant: 'brand' },
+  { emoji: '🪴', label: 'In progress', variant: 'warn' },
+  { emoji: '🎉', label: 'Completed', variant: 'success' },
+  { emoji: '🔓', label: 'Enrolled', variant: 'neutral' },
+  { emoji: '📝', label: 'Worksheet', variant: 'outline' },
+];
+
+/** Communities & membership — tiers, roles and belonging */
+export const BADGES_COMMUNITY: BadgeSpec[] = [
+  { emoji: '🤝', label: 'Member', variant: 'success' },
+  { emoji: '💎', label: 'Inner circle', variant: 'lavender' },
+  { emoji: '⭐', label: 'Founding member', variant: 'gold' },
+  { emoji: '🌸', label: 'Free tier', variant: 'outline' },
+  { emoji: '🔑', label: 'All-access', variant: 'brand' },
+  { emoji: '🛡️', label: 'Moderator', variant: 'info' },
+  { emoji: '💬', label: 'Active', variant: 'success' },
+  { emoji: '👋', label: 'New here', variant: 'apricot' },
+  { emoji: '🔔', label: 'Invite only', variant: 'warn' },
+  { emoji: '🏡', label: 'Community', variant: 'neutral' },
+];
+
+/** Webinars & events — formats, timing and registration */
+export const BADGES_EVENTS: BadgeSpec[] = [
+  { emoji: '🔴', label: 'Live', variant: 'danger' },
+  { emoji: '📺', label: 'Webinar', variant: 'info' },
+  { emoji: '🗓️', label: 'Upcoming', variant: 'lavender' },
+  { emoji: '▶️', label: 'Replay', variant: 'neutral' },
+  { emoji: '🎟️', label: 'Free entry', variant: 'success' },
+  { emoji: '🏷️', label: 'Early bird', variant: 'apricot' },
+  { emoji: '🔥', label: 'Almost full', variant: 'warn' },
+  { emoji: '🚪', label: 'Sold out', variant: 'danger' },
+  { emoji: '🧑‍🏫', label: 'Workshop', variant: 'brand' },
+  { emoji: '🌐', label: 'In person', variant: 'gold' },
+  { emoji: '📝', label: 'RSVP', variant: 'outline' },
+];
+
+/** Social media & marketing — channels, content and campaigns */
+export const BADGES_SOCIAL: BadgeSpec[] = [
+  { emoji: '📸', label: 'Instagram', variant: 'brand' },
+  { emoji: '🎵', label: 'TikTok', variant: 'lavender' },
+  { emoji: '📰', label: 'Newsletter', variant: 'apricot' },
+  { emoji: '📌', label: 'Pinterest', variant: 'danger' },
+  { emoji: '🎬', label: 'Reel', variant: 'info' },
+  { emoji: '📣', label: 'Campaign', variant: 'gold' },
+  { emoji: '🗓️', label: 'Scheduled', variant: 'warn' },
+  { emoji: '🚀', label: 'Published', variant: 'success' },
+  { emoji: '🤝', label: 'Collab', variant: 'lavender' },
+  { emoji: '📊', label: 'Trending', variant: 'neutral' },
+  { emoji: '📝', label: 'Draft', variant: 'outline' },
+];
+
+/** Commerce & status — store, fulfilment and order state */
+export const BADGES_COMMERCE: BadgeSpec[] = [
+  { emoji: '🛒', label: 'In stock', variant: 'success' },
+  { emoji: '🏷️', label: 'On sale', variant: 'apricot' },
+  { emoji: '✨', label: 'Bestseller', variant: 'gold' },
+  { emoji: '🆕', label: 'Just landed', variant: 'lavender' },
+  { emoji: '📦', label: 'Bundle', variant: 'brand' },
+  { emoji: '🔄', label: 'Subscription', variant: 'info' },
+  { emoji: '⏰', label: 'Low stock', variant: 'warn' },
+  { emoji: '🚫', label: 'Sold out', variant: 'danger' },
+  { emoji: '🚚', label: 'Free shipping', variant: 'success' },
+  { emoji: '💳', label: 'Pre-order', variant: 'neutral' },
+  { emoji: '🎁', label: 'Gift card', variant: 'outline' },
+];
+
 /* ── Nav ────────────────────────────────────────────────── */
 export interface NavLink {
   label: string;

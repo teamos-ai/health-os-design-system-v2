@@ -36,6 +36,18 @@
   --ink-900: 31 31 31;         /* #1F1F1F Carbon — primary text */
 
   --accent-text: 190 46 123;   /* brand-600 — AA on white + ivory */
+
+  /* ── Mode-aware accent button — LIGHT = APRICOT ──────────────
+   * One disciplined colour option. A pastel tonal fill + a darker same-hue label
+   * (white-on-saturated-400 FAILS AA on this palette — apricot 2.08 — so we never
+   * do it). Same `variant="accent"` class auto-themes via these four vars.
+   *   fill apricot-100 / hover apricot-200 / text apricot-800 — 7.03:1 on fill.
+   * NOTE: --btn-accent-ring is a fixed same-hue mid-tone literal; if the apricot
+   * ramp ever changes in the preset, update this ring value too. */
+  --btn-accent-bg: #fbd9be;            /* apricot-100 */
+  --btn-accent-bg-hover: #f8c39c;      /* apricot-200 */
+  --btn-accent-fg: #6b3a18;            /* apricot-800 — 7.03:1 on fill */
+  --btn-accent-ring: rgb(201 114 47 / 0.45);  /* apricot-600 @ 45% */
 }
 
 /* ── Paper — warm ivory (same warm ink + white cards) ───── */
@@ -46,6 +58,15 @@
   --surface-2: 244 240 234;    /* #F4F0EA inset */
   --line: 231 224 216;         /* #E7E0D8 warm hairline */
   --line-soft: 240 235 228;    /* #F0EBE4 */
+
+  /* ── Mode-aware accent button — PAPER = ROSE ─────────────────
+   * fill rose-100 / hover rose-200 / text rose-800 — 8.44:1 on fill.
+   * NOTE: --btn-accent-ring is a fixed same-hue mid-tone literal; if the rose ramp
+   * ever changes in the preset, update this ring value too. */
+  --btn-accent-bg: #f8c6e0;            /* rose-100 */
+  --btn-accent-bg-hover: #f3a0cc;      /* rose-200 */
+  --btn-accent-fg: #5f1640;            /* rose-800 — 8.44:1 on fill */
+  --btn-accent-ring: rgb(190 46 123 / 0.45);  /* rose-600 @ 45% */
 }
 
 /* ── Dark — carbon ground, warm off-white text ──────────── */
@@ -68,6 +89,18 @@
   --ink-900: 247 243 238;      /* #F7F3EE warm white — primary text */
 
   --accent-text: 238 125 186;  /* brand-300 — AA on carbon */
+
+  /* ── Mode-aware accent button — DARK = LAVENDER (inverted) ───
+   * On carbon a pastel tint would glow harshly, so dark inverts to a deep lavender
+   * well + a pale same-hue label.
+   *   well lavender-800 / hover lavender-700 / text lavender-100 — 9.01:1 on fill
+   *   (hover 6.16:1 — both AA).
+   * NOTE: --btn-accent-ring is a fixed same-hue mid-tone literal; if the lavender
+   * ramp ever changes in the preset, update this ring value too. */
+  --btn-accent-bg: #3e1c58;            /* lavender-800 */
+  --btn-accent-bg-hover: #602c88;      /* lavender-700 */
+  --btn-accent-fg: #dec8f0;            /* lavender-100 — 9.01:1 on fill */
+  --btn-accent-ring: rgb(166 102 217 / 0.55);  /* lavender-400 @ 55% */
 }
 
 /* ── Brand reference (fixed in every theme) ─────────────── */

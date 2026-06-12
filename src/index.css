@@ -47,6 +47,13 @@
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
+
+    /* Belt-and-braces: the CelebrationButton burst is JS-guarded (useReducedMotion),
+       but this hard-stops the particle layer entirely should any future variant
+       ever bypass that guard. */
+    .btn-celebrate-particle {
+      display: none !important;
+    }
   }
 }
 
