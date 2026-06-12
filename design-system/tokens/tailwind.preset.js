@@ -103,6 +103,17 @@ export default {
         label: '0.08em',
         wide2: '0.1em',
       },
+      spacing: {
+        /* ── Hero rhythm — RULE: every hero across Health OS uses this spacious,
+           minimalist scale so heroes always breathe the same way. Vertical padding
+           (hero-py / hero-py-lg) frames the section; the stack gaps (hero-gap /
+           hero-gap-sm) separate the H1, subcopy, primary action and supporting chips.
+           Reach for these via the <Hero> primitive — don't hand-roll hero padding. */
+        'hero-py': '7rem' /* 112px — hero top/bottom padding (mobile) */,
+        'hero-py-lg': '11rem' /* 176px — hero top/bottom padding (≥ md) */,
+        'hero-gap': '3.5rem' /* 56px — primary gap between hero blocks (subcopy → action) */,
+        'hero-gap-sm': '2rem' /* 32px — tighter gap (title → subcopy, action → chips) */,
+      },
       borderRadius: {
         none: '0px', xs: '4px', sm: '6px', md: '8px',
         /* 8px is the GLOBAL maximum — squircles only, no pills/circles.

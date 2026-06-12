@@ -42,6 +42,7 @@ This folder is the **portable, LLM-readable layer** of Health OS Design System *
 | Marquee carousel | `animate-marquee` (also `-slow`, `-reverse`) |
 | Thin top ticker | `animate-ticker` |
 | Containers | `max-w-container` (1200), `max-w-reading` (680), `max-w-hero-subcopy` (600) |
+| Hero spacing (RULE) | build with the `<Hero>` primitive — padding `pt-hero-py`/`pb-hero-py` (112) → `md:…-hero-py-lg` (176); item gaps `mt-hero-gap` (56) / `mt-hero-gap-sm` (32). See `foundations/hero.md`. |
 
 ## 3. Non-negotiables (Health OS v2 terms)
 1. **Multi-hue, disciplined.** Apricot / rose / lavender are all real, but one primary (`brand-600`) drives action; accents fill, the gradient + glows are signature-only.
@@ -54,6 +55,7 @@ This folder is the **portable, LLM-readable layer** of Health OS Design System *
 8. **Motion is first-class but quiet** — fade + small translate, 150–250ms interactions / 300–400ms reveals / never >500ms. Gentle marquee + thin ticker are the only always-on loops. `prefers-reduced-motion` honoured (loops stop).
 9. **Accessible contrast** — body ≥ AA; **white text only on `brand-600`+ or `carbon`, never on bright accents** (`brand-400`, `apricot-400`, `lavender-400`).
 10. **Australian English, calm Sage voice.** Say **practitioners** and **clients** (never "coaches"). Outcome first, no hype. Show the mechanism.
+11. **Heroes are spacious by rule.** Every hero is built with the `<Hero>` primitive and its hero-spacing tokens (`hero-py`/`hero-py-lg`, `hero-gap`/`hero-gap-sm`) — generous, minimalist, lots of air. Never hand-roll cramped hero padding. See `foundations/hero.md`.
 
 ## 4. Defaults when ambiguous
 | Question | Default |
@@ -69,7 +71,7 @@ This folder is the **portable, LLM-readable layer** of Health OS Design System *
 | Section spacing | 96px desktop (`py-24`), 64px mobile (`py-16`) |
 | Card | `bg-surface border border-line rounded-lg shadow-none`, `shadow-sm` on hover |
 | Bento card | `rounded-xl` |
-| Hero | `bg-glow-hero` + command bar + type (no photo needed) |
+| Hero | `<Hero>` primitive (spacious by rule) + `bg-glow-hero` + command bar + type (no photo needed) |
 | Accent | rose; reach for apricot / lavender only with intent |
 
 ## 5. v2 signature moves (use these to make a page feel like Health OS v2)
