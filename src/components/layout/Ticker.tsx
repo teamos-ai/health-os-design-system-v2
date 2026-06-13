@@ -9,10 +9,22 @@
 import { TICKER_ITEMS, type TickerItem } from '@/data/system';
 import { cn } from '@/lib/utils';
 
+/* Tones are theme-adaptive. `subtle` flips with the ink ramp. `tint` is a soft pastel
+   wash on light and a gentle deep tint on dark (the light wash is too bright on carbon).
+   `carbon` is the bold black bar on light — and since a black bar would vanish on the
+   carbon page, it inverts to the same gentle tint on dark. */
 const TONES = {
   subtle: { wrap: 'bg-ink-100 border-line', text: 'text-ink-600', icon: 'text-accent' },
-  tint: { wrap: 'bg-brand-gradient-soft border-line', text: 'text-ink-700', icon: 'text-brand-600' },
-  carbon: { wrap: 'bg-carbon border-carbon-700', text: 'text-white/75', icon: 'text-brand-400' },
+  tint: {
+    wrap: 'bg-brand-gradient-soft border-line dark:bg-brand-gradient-soft-dark dark:border-line-soft',
+    text: 'text-ink-700',
+    icon: 'text-brand-600 dark:text-brand-300',
+  },
+  carbon: {
+    wrap: 'bg-carbon border-carbon-700 dark:bg-brand-gradient-soft-dark dark:border-line-soft',
+    text: 'text-white/75 dark:text-ink-700',
+    icon: 'text-brand-400 dark:text-brand-300',
+  },
 } as const;
 
 export interface TickerProps {

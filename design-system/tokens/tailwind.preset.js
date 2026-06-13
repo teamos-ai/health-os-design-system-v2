@@ -142,6 +142,9 @@ export default {
         /* Signature gradient — apricot → rose → lavender, never reversed */
         'brand-gradient': 'linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%)',
         'brand-gradient-soft': 'linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)',
+        /* dark-mode sibling of the soft wash — deep apricot→rose→lavender (800s), a
+           gentle warm tint that reads on the carbon ground (where the light wash is too bright) */
+        'brand-gradient-soft-dark': 'linear-gradient(135deg, #6B3A18 0%, #5F1640 50%, #3E1C58 100%)',
         /* soft pastel radial hero glows on warm ivory */
         'glow-hero':
           'radial-gradient(40% 50% at 22% 18%, rgba(245,160,96,0.30) 0%, transparent 70%),' +

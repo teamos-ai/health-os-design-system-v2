@@ -11,16 +11,16 @@ export const BannersSection = () => (
     id="banners"
     eyebrow="Banners"
     title="Scrolling banners"
-    lead="A thin ticker for the top of any page. Three tones, either direction, any pace — it pauses on hover and stills under reduced motion."
+    lead="A thin ticker for the top of any page. Three tones, either direction, any pace — it pauses on hover and stills under reduced motion. The tones adapt to the theme: the carbon bar is bold black in light, and inverts to a gentle tint in dark."
   >
     <div className="flex flex-col gap-4">
       <Demo label="Subtle — outcomes, scrolling left" padded={false}>
         <Ticker items={TICKER_ITEMS} tone="subtle" />
       </Demo>
-      <Demo label="Carbon — principles, scrolling right" padded={false}>
+      <Demo label="Carbon — principles (black on light, gentle tint on dark)" padded={false}>
         <Ticker items={TICKER_PRINCIPLES} tone="carbon" reverse speed={36} />
       </Demo>
-      <Demo label="Tint — the craft, gentle" padded={false}>
+      <Demo label="Tint — the craft, gentle (softens on dark)" padded={false}>
         <Ticker items={TICKER_CRAFT} tone="tint" speed={42} />
       </Demo>
     </div>
