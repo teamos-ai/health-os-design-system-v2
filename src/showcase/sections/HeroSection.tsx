@@ -16,9 +16,9 @@ export const HeroSection = () => (
     <HeroContainer>
       <FadeIn delay={0.05}>
         <h1 className="font-display text-display-lg leading-[1.05] tracking-tight text-ink-900 md:text-display-xl">
-          The only design system
+          The only <span className="text-gradient">design system</span>
           <br />
-          <span className="text-gradient">that matters</span>.
+          that matters.
         </h1>
       </FadeIn>
 
