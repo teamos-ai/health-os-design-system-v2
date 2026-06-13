@@ -20,7 +20,7 @@ export const BannersSection = () => (
       <Demo label="Carbon — principles (black on light, gentle tint on dark)" padded={false}>
         <Ticker items={TICKER_PRINCIPLES} tone="carbon" reverse speed={36} />
       </Demo>
-      <Demo label="Tint — the craft, gentle (softens on dark)" padded={false}>
+      <Demo label="Tint — the craft, gentle (soft pastel, every theme)" padded={false}>
         <Ticker items={TICKER_CRAFT} tone="tint" speed={42} />
       </Demo>
     </div>

@@ -1,5 +1,5 @@
 import { Shell } from '@/showcase/Shell';
-import { Ticker } from '@/components/layout/Ticker';
+import { TopBanner } from '@/components/layout/TopBanner';
 import { HeroSection } from '@/showcase/sections/HeroSection';
 import { VideoSection } from '@/showcase/sections/VideoSection';
 import { OverviewSection } from '@/showcase/sections/OverviewSection';
@@ -22,8 +22,8 @@ import { LivePageSection } from '@/showcase/sections/LivePageSection';
 export default function App() {
   return (
     <Shell>
-      {/* Top banner — the scrolling ticker at the top of the design system */}
-      <Ticker />
+      {/* Top banner — the scrolling ticker, themed per mode (subtle / carbon / tint) */}
+      <TopBanner />
       <HeroSection />
       <VideoSection />
       <OverviewSection />
