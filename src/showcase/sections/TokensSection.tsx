@@ -28,6 +28,14 @@ const RAMPS: Record<string, Record<string, string>> = {
   },
 };
 
+/** The main brand shade per ramp — the 400s are the signature accents (and the
+ *  gradient trio). Highlighted in the ramp so the primary colour is unmistakable. */
+const PRIMARY_STEP: Record<string, string> = {
+  'rose / brand': '400',
+  apricot: '400',
+  lavender: '400',
+};
+
 const SURFACES = [
   { name: 'paper', hex: '#F9F6F2', ring: true },
   { name: 'surface', hex: '#FFFFFF', ring: true },
@@ -83,7 +91,9 @@ export const TokensSection = () => (
     {/* Colour ramps */}
     <Block title="Colour ramps">
       <p className="mb-5 font-mono text-caption text-ink-500">
-        Hex + RGB on every swatch — click any colour to copy its hex.
+        Hex + RGB on every swatch — click any colour to copy its hex. The{' '}
+        <span className="font-bold text-ink-700">★ Main</span> swatch (the <span className="font-bold text-ink-700">400</span> shade,
+        ringed) is the primary brand colour for rose, apricot and lavender — the signature gradient trio.
       </p>
       <div className="flex flex-col gap-6">
         {Object.entries(RAMPS).map(([name, ramp]) => (
@@ -91,7 +101,7 @@ export const TokensSection = () => (
             <p className="mb-2.5 font-mono text-caption text-ink-600">{name}</p>
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
               {Object.entries(ramp).map(([step, hex]) => (
-                <Swatch key={step} hex={hex} label={step} />
+                <Swatch key={step} hex={hex} label={step} primary={PRIMARY_STEP[name] === step} />
               ))}
             </div>
           </div>

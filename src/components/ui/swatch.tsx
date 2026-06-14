@@ -6,7 +6,7 @@
  * same in every theme; the surrounding card flips with the theme.
  */
 import * as React from 'react';
-import { Check, Copy } from 'lucide-react';
+import { Check, Copy, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 /** "#E85BA8" → "rgb(232, 91, 168)" (supports 3- or 6-digit hex). */
@@ -59,10 +59,12 @@ export interface SwatchProps {
   label: string;
   /** value copied on click — defaults to the upper-cased hex */
   copyValue?: string;
+  /** marks this as the main brand shade — adds a ring + a "★ Main" tag */
+  primary?: boolean;
   className?: string;
 }
 
-export const Swatch = ({ hex, label, copyValue, className }: SwatchProps) => {
+export const Swatch = ({ hex, label, copyValue, primary, className }: SwatchProps) => {
   const { copied, fire } = useCopied();
   const HEX = hex.toUpperCase();
   const rgb = hexToRgb(hex);
@@ -72,12 +74,15 @@ export const Swatch = ({ hex, label, copyValue, className }: SwatchProps) => {
     <button
       type="button"
       onClick={() => fire(value)}
-      title={`Copy ${value}`}
-      aria-label={`${label} — ${HEX}, ${rgb}. Click to copy ${value}.`}
+      title={primary ? `Main brand colour — copy ${value}` : `Copy ${value}`}
+      aria-label={`${label}${primary ? ' (main brand colour)' : ''} — ${HEX}, ${rgb}. Click to copy ${value}.`}
       className={cn(
-        'group flex flex-col overflow-hidden rounded-md border border-line bg-surface text-left',
-        'transition-all duration-sm ease-out hover:border-ink-300 hover:shadow-sm',
+        'group flex flex-col overflow-hidden rounded-md border bg-surface text-left',
+        'transition-all duration-sm ease-out hover:shadow-sm',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
+        primary
+          ? 'border-ink-900 shadow-sm ring-2 ring-ink-900 ring-offset-2 ring-offset-paper'
+          : 'border-line hover:border-ink-300',
         className
       )}
     >
@@ -85,6 +90,12 @@ export const Swatch = ({ hex, label, copyValue, className }: SwatchProps) => {
         className="relative block h-14 w-full ring-1 ring-inset ring-black/[0.06]"
         style={{ background: hex }}
       >
+        {primary && (
+          <span className="absolute left-1.5 top-1.5 inline-flex items-center gap-1 rounded-sm bg-surface/90 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-label text-ink-900 shadow-sm">
+            <Star className="h-2.5 w-2.5 fill-current" strokeWidth={0} aria-hidden />
+            Main
+          </span>
+        )}
         <span
           className={cn(
             'absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-sm bg-surface/90 shadow-sm',
@@ -96,7 +107,10 @@ export const Swatch = ({ hex, label, copyValue, className }: SwatchProps) => {
         </span>
       </span>
       <span className="flex flex-col gap-0.5 px-2.5 py-2">
-        <span className="font-mono text-[11px] uppercase tracking-label text-ink-500">{label}</span>
+        <span className={cn('font-mono text-[11px] uppercase tracking-label', primary ? 'text-ink-900' : 'text-ink-500')}>
+          {label}
+          {primary && ' · main'}
+        </span>
         <span className="font-mono text-caption text-ink-900">{copied ? 'Copied ✓' : HEX}</span>
         <span className="font-mono text-[10px] leading-tight text-ink-500">{rgb}</span>
       </span>
