@@ -6,6 +6,7 @@
 import type { ReactNode } from 'react';
 import { Section } from '@/showcase/Section';
 import { MonoLabel } from '@/components/ui/mono-label';
+import { Swatch, GradientSwatch } from '@/components/ui/swatch';
 import { cn } from '@/lib/utils';
 
 const RAMPS: Record<string, Record<string, string>> = {
@@ -81,16 +82,16 @@ export const TokensSection = () => (
   >
     {/* Colour ramps */}
     <Block title="Colour ramps">
-      <div className="flex flex-col gap-5">
+      <p className="mb-5 font-mono text-caption text-ink-500">
+        Hex + RGB on every swatch — click any colour to copy its hex.
+      </p>
+      <div className="flex flex-col gap-6">
         {Object.entries(RAMPS).map(([name, ramp]) => (
           <div key={name}>
-            <p className="mb-2 font-mono text-caption text-ink-600">{name}</p>
-            <div className="flex overflow-hidden rounded-md border border-line">
+            <p className="mb-2.5 font-mono text-caption text-ink-600">{name}</p>
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
               {Object.entries(ramp).map(([step, hex]) => (
-                <div key={step} className="flex-1" title={`${step} · ${hex}`}>
-                  <div className="h-12" style={{ background: hex }} />
-                  <div className="bg-surface py-1 text-center font-mono text-[10px] text-ink-600">{step}</div>
-                </div>
+                <Swatch key={step} hex={hex} label={step} />
               ))}
             </div>
           </div>
@@ -100,12 +101,9 @@ export const TokensSection = () => (
 
     {/* Surfaces + semantic */}
     <Block title="Surfaces + semantic">
-      <div className="flex flex-wrap gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
         {[...SURFACES, ...SEMANTIC].map((s) => (
-          <div key={s.name} className="flex items-center gap-2.5 rounded-md border border-line bg-surface py-2 pl-2 pr-4">
-            <span className="h-7 w-7 rounded ring-1 ring-inset ring-black/5" style={{ background: s.hex }} />
-            <span className="font-mono text-caption text-ink-700">{s.name}</span>
-          </div>
+          <Swatch key={s.name} hex={s.hex} label={s.name} />
         ))}
       </div>
     </Block>
@@ -113,10 +111,10 @@ export const TokensSection = () => (
     {/* Gradient + glows */}
     <Block title="Signature gradient + glows">
       <div className="grid gap-4 md:grid-cols-2">
-        <div>
-          <div className="h-24 rounded-lg bg-brand-gradient" />
-          <p className="mt-2 font-mono text-caption text-ink-600">bg-brand-gradient · apricot → rose → lavender</p>
-        </div>
+        <GradientSwatch
+          label="bg-brand-gradient · apricot → rose → lavender"
+          css="linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%)"
+        />
         <div className="grid grid-cols-3 gap-3">
           {GLOWS.map((g) => (
             <div key={g.name}>
