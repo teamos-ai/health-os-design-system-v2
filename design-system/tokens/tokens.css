@@ -69,26 +69,31 @@
   --btn-accent-ring: rgb(190 46 123 / 0.45);  /* rose-600 @ 45% */
 }
 
-/* ── Dark — carbon ground, warm off-white text ──────────── */
+/* ── Dark — TRUE BLACK ground, neutral software feel ─────────
+ * Pure-black page (#000) for an OLED, "software" dark mode. Surfaces lift gently off
+ * black (#161616 cards, #0E0E0E insets) with a #2C2C2C hairline so panels read without
+ * floating. Neutral grey text keeps the UI clean and lets the warm rose/apricot/lavender
+ * accents do the colour work. carbon (#1F1F1F, fixed) still sits just above the page for
+ * any bg-carbon panel. */
 .dark {
   color-scheme: dark;
 
-  --paper: 31 31 31;           /* #1F1F1F Carbon — page ground */
-  --surface: 41 39 36;         /* #292724 warm elevated card */
-  --surface-2: 35 33 31;       /* #232120 inset */
-  --line: 58 53 46;            /* #3A352E warm hairline */
-  --line-soft: 42 39 36;       /* #2A2724 */
+  --paper: 0 0 0;              /* #000000 — true black page ground */
+  --surface: 22 22 22;         /* #161616 elevated card */
+  --surface-2: 14 14 14;       /* #0E0E0E inset / recessed */
+  --line: 44 44 44;            /* #2C2C2C hairline / border */
+  --line-soft: 32 32 32;       /* #202020 */
 
-  --ink-100: 45 41 37;         /* #2D2925 fills / hover */
-  --ink-200: 60 55 49;         /* #3C3731 */
-  --ink-300: 94 87 78;         /* #5E574E hover borders */
-  --ink-400: 131 123 111;      /* #837B6F muted */
-  --ink-500: 167 158 145;      /* #A79E91 secondary */
-  --ink-600: 201 192 180;      /* #C9C0B4 body */
-  --ink-700: 228 221 211;      /* #E4DDD3 strong */
-  --ink-900: 247 243 238;      /* #F7F3EE warm white — primary text */
+  --ink-100: 26 26 26;         /* #1A1A1A fills / hover */
+  --ink-200: 44 44 44;         /* #2C2C2C hover borders */
+  --ink-300: 64 64 64;         /* #404040 */
+  --ink-400: 112 112 112;      /* #707070 muted */
+  --ink-500: 156 156 156;      /* #9C9C9C secondary */
+  --ink-600: 196 196 196;      /* #C4C4C4 body */
+  --ink-700: 224 224 224;      /* #E0E0E0 strong */
+  --ink-900: 245 245 245;      /* #F5F5F5 — primary text */
 
-  --accent-text: 238 125 186;  /* brand-300 — AA on carbon */
+  --accent-text: 238 125 186;  /* brand-300 — AA on black */
 
   /* ── Mode-aware accent button — DARK = LAVENDER (inverted) ───
    * On carbon a pastel tint would glow harshly, so dark inverts to a deep lavender
