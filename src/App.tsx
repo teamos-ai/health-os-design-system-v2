@@ -7,7 +7,10 @@ import { TokensSection } from '@/showcase/sections/TokensSection';
 import { LogoSection } from '@/showcase/sections/LogoSection';
 import { IconsSection } from '@/showcase/sections/IconsSection';
 import { ComponentsSection } from '@/showcase/sections/ComponentsSection';
+import { CardsSection } from '@/showcase/sections/CardsSection';
+import { WidgetsSection } from '@/showcase/sections/WidgetsSection';
 import { SignatureSection } from '@/showcase/sections/SignatureSection';
+import { CrmSection } from '@/showcase/sections/CrmSection';
 import { BentoBoxSection } from '@/showcase/sections/BentoBoxSection';
 import { BannersSection } from '@/showcase/sections/BannersSection';
 import { BlogSection } from '@/showcase/sections/BlogSection';
@@ -15,6 +18,7 @@ import { CalculatorsSection } from '@/showcase/sections/CalculatorsSection';
 import { SocialMediaSection } from '@/showcase/sections/SocialMediaSection';
 import { BackgroundsSection } from '@/showcase/sections/BackgroundsSection';
 import { ImageLibrarySection } from '@/showcase/sections/ImageLibrarySection';
+import { MemojisSection } from '@/showcase/sections/MemojisSection';
 import { NotionSection } from '@/showcase/sections/NotionSection';
 import { MotionSection } from '@/showcase/sections/MotionSection';
 import { LivePageSection } from '@/showcase/sections/LivePageSection';
@@ -31,7 +35,10 @@ export default function App() {
       <LogoSection />
       <IconsSection />
       <ComponentsSection />
+      <CardsSection />
+      <WidgetsSection />
       <SignatureSection />
+      <CrmSection />
       <BentoBoxSection />
       <BannersSection />
       <BlogSection />
@@ -39,6 +46,7 @@ export default function App() {
       <SocialMediaSection />
       <BackgroundsSection />
       <ImageLibrarySection />
+      <MemojisSection />
       <NotionSection />
       <MotionSection />
       <LivePageSection />
