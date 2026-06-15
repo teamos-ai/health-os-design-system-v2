@@ -12,6 +12,7 @@ import { IconButton } from '@/components/ui/icon-button';
 import { SegmentedControl } from '@/components/ui/segmented';
 import { Pagination } from '@/components/ui/pagination';
 import { CelebrationButton } from '@/components/ui/celebration-button';
+import { SaveButton } from '@/components/ui/save-button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { CommandBar } from '@/components/ui/command-bar';
@@ -32,15 +33,63 @@ import {
   BADGES_SOCIAL,
   BADGES_COMMERCE,
 } from '@/data/system';
+import { cn } from '@/lib/utils';
 
 // Stable countdown targets — computed once at module load so the section's state
 // (segmented control / pagination) re-rendering doesn't reset the live timers.
 const COUNTDOWN_FULL = new Date(Date.now() + (3 * 24 * 60 * 60 + 7 * 60 * 60 + 42 * 60 + 18) * 1000);
 const COUNTDOWN_DAYS = new Date(Date.now() + 9 * 24 * 60 * 60 * 1000);
 
+/* ── Button colour explorer ──────────────────────────────────────────────────
+ * A teaching demo: pick a colour, see the filled + inline (outline) treatments on
+ * both a white and a carbon tile. The tiles are FIXED grounds, so these maps use
+ * FIXED text/border colours (never theme-flipping `ink-*` tokens) — the AA-correct
+ * pairing per ground is baked into each entry. */
+type BtnColor = 'apricot' | 'rose' | 'lavender' | 'black' | 'white' | 'paper';
+
+const BTN_COLORS: { id: BtnColor; dot: string }[] = [
+  { id: 'apricot', dot: '#F5A060' },
+  { id: 'rose', dot: '#E85BA8' },
+  { id: 'lavender', dot: '#A666D9' },
+  { id: 'black', dot: '#1F1F1F' },
+  { id: 'white', dot: '#FFFFFF' },
+  { id: 'paper', dot: '#F9F6F2' },
+];
+
+const BTN_BASE =
+  'inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 font-display text-body-md font-medium transition-all duration-sm active:scale-[0.98] focus-visible:outline-none';
+
+const FILLED: Record<BtnColor, string> = {
+  apricot: 'bg-apricot-400 text-[#1F1F1F] hover:bg-apricot-500',
+  rose: 'bg-[#BE2E7B] text-white hover:bg-[#97215F]',
+  lavender: 'bg-[#7E3CB0] text-white hover:bg-[#602C88]',
+  black: 'bg-[#1F1F1F] text-white hover:bg-[#2E2E2E]',
+  white: 'bg-white text-[#1F1F1F] ring-1 ring-inset ring-black/10 hover:bg-[#F2EFEB]',
+  paper: 'bg-[#F9F6F2] text-[#1F1F1F] ring-1 ring-inset ring-black/10 hover:bg-[#F0EBE4]',
+};
+
+const OUTLINE_LIGHT: Record<BtnColor, string> = {
+  apricot: 'border border-apricot-500 text-apricot-700 hover:bg-apricot-50',
+  rose: 'border border-[#BE2E7B] text-[#97215F] hover:bg-[#FADEEE]',
+  lavender: 'border border-[#7E3CB0] text-[#602C88] hover:bg-[#EDE1F7]',
+  black: 'border border-[#1F1F1F] text-[#1F1F1F] hover:bg-[#F2EFEB]',
+  white: 'border border-black/15 text-[#7C746B] hover:bg-[#F2EFEB]',
+  paper: 'border border-black/15 text-[#5A534B] hover:bg-[#F9F6F2]',
+};
+
+const OUTLINE_DARK: Record<BtnColor, string> = {
+  apricot: 'border border-apricot-400 text-apricot-300 hover:bg-white/5',
+  rose: 'border border-[#E85BA8] text-[#EE7DBA] hover:bg-white/5',
+  lavender: 'border border-[#A666D9] text-[#B985DE] hover:bg-white/5',
+  black: 'border border-white/20 text-white/60 hover:bg-white/5',
+  white: 'border border-white/80 text-white hover:bg-white/10',
+  paper: 'border border-[#F9F6F2]/70 text-[#F9F6F2] hover:bg-white/10',
+};
+
 export const ComponentsSection = () => {
   const [period, setPeriod] = useState<'daily' | 'weekly' | 'monthly'>('weekly');
   const [page, setPage] = useState(1);
+  const [btnColor, setBtnColor] = useState<BtnColor>('rose');
 
   return (
     <Section
@@ -83,16 +132,57 @@ export const ComponentsSection = () => {
           </div>
         </Demo>
 
-        {/* Mode-aware accent + celebration */}
-        <Demo label="Accent — themes per mode (apricot · rose · lavender) + celebrate">
+        {/* Button colour explorer — filled + inline on a white & a carbon tile */}
+        <Demo label="Button colour explorer — filled + inline, light & dark grounds">
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-wrap items-center gap-2">
+              {BTN_COLORS.map((c) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => setBtnColor(c.id)}
+                  aria-pressed={btnColor === c.id}
+                  className={cn(
+                    'inline-flex items-center gap-2 rounded-md border px-3 py-1.5 font-mono text-caption capitalize transition-colors duration-sm',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40',
+                    btnColor === c.id
+                      ? 'border-ink-900 text-ink-900'
+                      : 'border-line text-ink-500 hover:text-ink-900'
+                  )}
+                >
+                  <span className="h-3 w-3 rounded-sm ring-1 ring-inset ring-black/10" style={{ background: c.dot }} />
+                  {c.id}
+                </button>
+              ))}
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-line bg-white p-6">
+                <button type="button" className={cn(BTN_BASE, FILLED[btnColor])}>Filled</button>
+                <button type="button" className={cn(BTN_BASE, OUTLINE_LIGHT[btnColor])}>Inline</button>
+              </div>
+              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-line bg-[#1F1F1F] p-6">
+                <button type="button" className={cn(BTN_BASE, FILLED[btnColor])}>Filled</button>
+                <button type="button" className={cn(BTN_BASE, OUTLINE_DARK[btnColor])}>Inline</button>
+              </div>
+            </div>
+            <p className="font-sans text-body-sm text-ink-500">
+              Six colours × filled and inline (outline), each shown on a white and a carbon ground with the
+              AA-correct text pairing per ground. Fixed-hex grounds use fixed text colours, not theme tokens.
+            </p>
+          </div>
+        </Demo>
+
+        {/* Mode-aware accent + save / celebrate */}
+        <Demo label="Accent — themes per mode (apricot · rose · lavender) + save & celebrate">
           <div className="flex flex-col gap-3">
             <div className="flex flex-wrap items-center gap-3">
-              <Button variant="accent">Save changes</Button>
-              <CelebrationButton>Mark complete 🎉</CelebrationButton>
+              <SaveButton>Save changes</SaveButton>
+              <CelebrationButton>Mark complete</CelebrationButton>
             </div>
             <p className="font-sans text-body-sm text-ink-500">
               The accent themes per mode — apricot in light, rose in paper, lavender in dark — driven by CSS
-              variables, with no per-call work. The celebration button plays a gentle emoji pop (reduced-motion safe).
+              variables, with no per-call work. Save sends up green check chips; Mark complete throws a quick
+              shower of streamers. Both are reduced-motion safe.
             </p>
           </div>
         </Demo>

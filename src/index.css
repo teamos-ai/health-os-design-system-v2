@@ -116,3 +116,18 @@
     scrollbar-width: none;
   }
 }
+
+/* Animated gradient demos (Tokens → signature gradient + glows).
+   Frozen automatically under prefers-reduced-motion by the global guard above. */
+.anim-grad-pan { animation: hos-grad-pan 9s ease-in-out infinite; }
+.anim-grad-drift { animation: hos-grad-drift 16s ease-in-out infinite; }
+.anim-grad-spin { animation: hos-grad-spin 18s linear infinite; }
+@keyframes hos-grad-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes hos-grad-drift {
+  0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+  50% { background-position: 100% 50%, 0% 60%, 60% 40%; }
+}
+@keyframes hos-grad-spin { to { transform: rotate(360deg); } }

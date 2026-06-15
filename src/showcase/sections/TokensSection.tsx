@@ -3,7 +3,7 @@
  * signature gradient + soft radial glows, the type scale, radius, elevation and motion.
  * Everything here is the literal locked value, shown so nothing has to be guessed.
  */
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Section } from '@/showcase/Section';
 import { MonoLabel } from '@/components/ui/mono-label';
 import { Swatch, GradientSwatch } from '@/components/ui/swatch';
@@ -57,6 +57,37 @@ const GLOWS = [
   { name: 'glow-lavender', bg: 'radial-gradient(circle at center, rgba(166,102,217,0.55), transparent 70%)' },
 ];
 
+/** The drifting-mesh field — three soft radial blobs in the brand trio. Reused as both
+ *  a copyable static gradient (Mesh) and the animated "Drifting mesh" card. */
+const MESH =
+  'radial-gradient(40% 60% at 20% 20%,rgba(245,160,96,.6),transparent 70%),radial-gradient(45% 55% at 80% 30%,rgba(166,102,217,.55),transparent 72%),radial-gradient(50% 60% at 50% 90%,rgba(232,91,168,.55),transparent 70%)';
+
+/** Static gradient variations — each click-to-copy via GradientSwatch. */
+const GRADIENTS = [
+  { label: 'Sunrise', css: 'linear-gradient(135deg,#FDECDF 0%,#F5A060 45%,#E85BA8 100%)' },
+  { label: 'Dusk', css: 'linear-gradient(160deg,#E85BA8 0%,#A666D9 100%)' },
+  { label: 'Aurora', css: 'linear-gradient(90deg,#F5A060 0%,#E85BA8 50%,#A666D9 100%)' },
+  { label: 'Peach glow', css: 'radial-gradient(circle at 30% 30%,#FBD9BE 0%,#F5A060 45%,transparent 80%)' },
+  { label: 'Bloom', css: 'conic-gradient(from 200deg,#F5A060,#E85BA8,#A666D9,#F5A060)' },
+  { label: 'Mesh', css: MESH },
+];
+
+type TypeHue = 'ink' | 'apricot' | 'rose' | 'lavender';
+
+/** The type-scale colour toggle — preview the headings in the brand accents. */
+const TYPE_HUES: { id: TypeHue; label: string; dot: string }[] = [
+  { id: 'ink', label: 'Default', dot: '#1F1F1F' },
+  { id: 'apricot', label: 'Orange', dot: '#F5A060' },
+  { id: 'rose', label: 'Pink', dot: '#E85BA8' },
+  { id: 'lavender', label: 'Purple', dot: '#A666D9' },
+];
+const TYPE_TEXT: Record<TypeHue, string> = {
+  ink: 'text-ink-900',
+  apricot: 'text-[#F5A060]',
+  rose: 'text-[#E85BA8]',
+  lavender: 'text-[#A666D9]',
+};
+
 const TYPE_SCALE = [
   { cls: 'text-display-xl', label: 'Display xl', sample: 'Aa', meta: '76 / 80' },
   { cls: 'text-display-lg', label: 'Display lg', sample: 'Aa', meta: '58 / 62' },
@@ -81,7 +112,10 @@ const Block = ({ title, children }: { title: string; children: ReactNode }) => (
   </div>
 );
 
-export const TokensSection = () => (
+export const TokensSection = () => {
+  const [typeHue, setTypeHue] = useState<TypeHue>('ink');
+
+  return (
   <Section
     id="tokens"
     eyebrow="Foundations"
@@ -134,14 +168,78 @@ export const TokensSection = () => (
           ))}
         </div>
       </div>
+
+      {/* Static variations — click any to copy its CSS */}
+      <p className="mb-3 mt-8 font-mono text-caption text-ink-500">
+        Variations — click any to copy its CSS.
+      </p>
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+        {GRADIENTS.map((g) => (
+          <GradientSwatch key={g.label} label={g.label} css={g.css} />
+        ))}
+      </div>
+
+      {/* Animated — gentle, always-on, frozen under reduced-motion by the global guard */}
+      <p className="mb-3 mt-8 font-mono text-caption text-ink-500">
+        Animated — gentle and always-on; frozen under reduced-motion.
+      </p>
+      <div className="grid gap-4 sm:grid-cols-3">
+        <div>
+          <div
+            className="anim-grad-pan h-24 rounded-md border border-line"
+            style={{
+              backgroundImage: 'linear-gradient(110deg,#F5A060,#E85BA8,#A666D9,#E85BA8,#F5A060)',
+              backgroundSize: '300% 100%',
+            }}
+          />
+          <p className="mt-2 font-mono text-[10px] text-ink-600">Flowing trio · anim-grad-pan</p>
+        </div>
+        <div>
+          <div
+            className="anim-grad-drift h-24 rounded-md border border-line bg-paper"
+            style={{ backgroundImage: MESH, backgroundSize: '180% 180%' }}
+          />
+          <p className="mt-2 font-mono text-[10px] text-ink-600">Drifting mesh · anim-grad-drift</p>
+        </div>
+        <div>
+          <div className="relative h-24 overflow-hidden rounded-md border border-line">
+            <div
+              className="anim-grad-spin absolute inset-[-40%]"
+              style={{ background: 'conic-gradient(from 0deg,#F5A060,#E85BA8,#A666D9,#F5A060)' }}
+            />
+          </div>
+          <p className="mt-2 font-mono text-[10px] text-ink-600">Rotating bloom · anim-grad-spin</p>
+        </div>
+      </div>
     </Block>
 
     {/* Type scale */}
     <Block title="Type scale — Spline Sans">
+      {/* Colour toggle — preview the headings in each brand accent */}
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        {TYPE_HUES.map((h) => (
+          <button
+            key={h.id}
+            type="button"
+            onClick={() => setTypeHue(h.id)}
+            aria-pressed={typeHue === h.id}
+            className={cn(
+              'inline-flex items-center gap-2 rounded-md border px-3 py-1.5 font-mono text-caption transition-colors duration-sm',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40',
+              typeHue === h.id
+                ? 'border-ink-900 text-ink-900'
+                : 'border-line text-ink-500 hover:text-ink-900'
+            )}
+          >
+            <span className="h-3 w-3 rounded-sm ring-1 ring-inset ring-black/10" style={{ background: h.dot }} />
+            {h.label}
+          </button>
+        ))}
+      </div>
       <div className="flex flex-col divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
         {TYPE_SCALE.map((t) => (
           <div key={t.cls} className="flex items-center justify-between gap-4 px-5 py-4">
-            <span className={cn('font-display text-ink-900', t.cls)}>{t.label}</span>
+            <span className={cn('font-display transition-colors duration-sm', TYPE_TEXT[typeHue], t.cls)}>{t.label}</span>
             <span className="shrink-0 font-mono text-caption text-ink-600">{t.cls} · {t.meta}</span>
           </div>
         ))}
@@ -182,4 +280,5 @@ export const TokensSection = () => (
       </div>
     </div>
   </Section>
-);
+  );
+};
