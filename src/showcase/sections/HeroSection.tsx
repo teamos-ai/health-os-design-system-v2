@@ -6,13 +6,13 @@
 import { Hero, HeroContainer } from '@/components/ui/hero';
 import { CommandWidget } from '@/components/ui/command-widget';
 import { CommandChip } from '@/components/ui/command-chip';
-import { FadeIn, HeroGlow, Stagger, StaggerItem } from '@/components/ui/animated';
+import { FadeIn, Stagger, StaggerItem } from '@/components/ui/animated';
 import { SHOWCASE_COMMANDS } from '@/data/system';
 
+// Hero background is intentionally a single flat ground (pure white / pure black /
+// paper per theme) — no glow, no texture — for a calm, minimal, software-like hero.
 export const HeroSection = () => (
   <Hero id="hero">
-    <HeroGlow />
-
     <HeroContainer>
       <FadeIn delay={0.05}>
         <h1 className="font-display text-display-lg leading-[1.05] tracking-tight text-ink-900 md:text-display-xl">
