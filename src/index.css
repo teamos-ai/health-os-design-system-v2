@@ -117,6 +117,41 @@
   }
 }
 
+/* ── Alternating section texture ("crinkle") ─────────────────────────────────
+   Every 3rd content section (the 2nd, 5th, 8th… <section> in <main>) gets a subtly
+   different ground + a fine fractal-noise "crinkle", so scrolling reveals each section
+   change. The hero is section nth-of-type(1) and is never matched — it stays clean.
+   Rhythm down the page: clean · crinkled · clean · clean · crinkled · clean · clean …
+   Matches the Bliss "On Fire" section-grain technique: one tiled noise blended INTO the
+   ground — `multiply` on the warm light/paper ivory (darkens the speckle into a crinkle),
+   `screen` on true-black dark (lifts a faint speckle, since `multiply` is invisible on
+   black). The grain is isolated and sits behind content (z-0; content z-1), so text
+   contrast is untouched. Static texture — nothing to freeze for reduced-motion. */
+main > section:nth-of-type(3n + 2) {
+  position: relative;
+  isolation: isolate;
+  background-color: rgb(var(--ground-textured));
+}
+main > section:nth-of-type(3n + 2) > * {
+  position: relative;
+  z-index: 1;
+}
+main > section:nth-of-type(3n + 2)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+.dark main > section:nth-of-type(3n + 2)::before {
+  opacity: 0.1;
+  mix-blend-mode: screen;
+}
+
 /* Animated gradient demos (Tokens → signature gradient + glows).
    Frozen automatically under prefers-reduced-motion by the global guard above. */
 .anim-grad-pan { animation: hos-grad-pan 9s ease-in-out infinite; }

@@ -24,6 +24,7 @@
   --surface-2: 247 247 246;    /* faint cool grey inset */
   --line: 234 232 229;         /* #EAE8E5 clean hairline */
   --line-soft: 244 243 241;
+  --ground-textured: 249 246 242; /* #F9F6F2 ivory — the "crinkled" alternating section ground (vs clean white) */
 
   /* ink (warm neutrals / text) — 100 lightest → 900 = primary text */
   --ink-100: 242 239 235;      /* fills / hover */
@@ -58,6 +59,7 @@
   --surface-2: 244 240 234;    /* #F4F0EA inset */
   --line: 231 224 216;         /* #E7E0D8 warm hairline */
   --line-soft: 240 235 228;    /* #F0EBE4 */
+  --ground-textured: 241 236 228; /* #F1ECE4 deeper ivory — crinkled section ground (vs clean ivory) */
 
   /* ── Mode-aware accent button — PAPER = ROSE ─────────────────
    * fill rose-100 / hover rose-200 / text rose-800 — 8.44:1 on fill.
@@ -83,6 +85,7 @@
   --surface-2: 14 14 14;       /* #0E0E0E inset / recessed */
   --line: 44 44 44;            /* #2C2C2C hairline / border */
   --line-soft: 32 32 32;       /* #202020 */
+  --ground-textured: 18 18 18; /* #121212 — crinkled section ground, a gentle lift on true black (stays below #161616 cards so they still elevate) */
 
   --ink-100: 26 26 26;         /* #1A1A1A fills / hover */
   --ink-200: 44 44 44;         /* #2C2C2C hover borders */
