@@ -166,3 +166,11 @@ main > section:nth-of-type(3n + 2)::before {
   50% { background-position: 100% 50%, 0% 60%, 60% 40%; }
 }
 @keyframes hos-grad-spin { to { transform: rotate(360deg); } }
+
+/* Celestial twinkle — the ambient sparkles on the GlowButton (signature glow CTA).
+   Pure opacity/scale pulse; frozen automatically under prefers-reduced-motion. */
+.hos-twinkle { animation: hos-twinkle 2.4s ease-in-out infinite; transform-origin: center; }
+@keyframes hos-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1); }
+}

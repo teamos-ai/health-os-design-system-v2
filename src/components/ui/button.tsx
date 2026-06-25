@@ -29,11 +29,14 @@ const button = cva(
     variants: {
       variant: {
         /* ── Locked names (kept valid app-wide) ───────────────────────── */
-        primary: 'bg-brand-600 text-white hover:bg-brand-700',
+        primary: 'bg-brand-200 text-brand-800 hover:bg-brand-300',
         secondary: 'bg-surface text-ink-900 border border-line hover:border-ink-300 hover:shadow-sm',
         ghost: 'bg-transparent text-ink-900 hover:bg-ink-100',
         dark: 'bg-carbon text-white hover:bg-carbon-800 dark:bg-ink-900 dark:text-paper dark:hover:bg-ink-700',
         gradient: 'bg-brand-gradient text-white hover:brightness-[1.04] shadow-sm',
+        // Warm "sunrise" gradient — apricot-led into rose. Dark label (white FAILS AA on
+        // the light apricot end). A warmer, more inviting signature CTA; use sparingly.
+        warm: 'bg-brand-gradient-warm text-[#1F1F1F] hover:brightness-[1.02] shadow-sm',
         link: 'bg-transparent text-accent hover:opacity-80 underline underline-offset-4 decoration-1 p-0 rounded-none',
         danger: 'bg-danger-600 text-white hover:brightness-95',
         /* ── Added ─────────────────────────────────────────────────────── */

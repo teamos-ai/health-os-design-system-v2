@@ -11,6 +11,7 @@ import { ToolCarousel } from '@/sections/ToolCarousel';
 import { BentoSection } from '@/sections/BentoSection';
 import { DirectoryCompare } from '@/sections/DirectoryCompare';
 import { CrmDashboard } from '@/components/ui/crm-dashboard';
+import { PracticeDashboard } from '@/components/ui/practice-dashboard';
 
 const Band = ({ label, children }: { label: string; children: ReactNode }) => (
   <div>
@@ -64,6 +65,24 @@ export const SignatureSection = () => (
           </header>
           <div className="mt-12">
             <CrmDashboard />
+          </div>
+        </div>
+      </section>
+    </Band>
+    <Band label="f · admin dashboard">
+      <section className="px-6 py-16 md:px-12 md:py-24">
+        <div className="mx-auto max-w-5xl">
+          <header className="mx-auto flex max-w-2xl flex-col items-center text-center">
+            <MonoLabel>Analytics</MonoLabel>
+            <h2 className="mt-3 font-display text-h1 text-ink-900">Admin dashboard</h2>
+            <p className="mt-4 font-sans text-body-lg leading-relaxed text-ink-500">
+              The practice at a glance — revenue, clients and programmes on a calm carbon
+              rail, with apricot leading the charts and lavender a step behind, so the
+              numbers read warm and clear.
+            </p>
+          </header>
+          <div className="mt-12">
+            <PracticeDashboard />
           </div>
         </div>
       </section>

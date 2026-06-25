@@ -13,6 +13,8 @@ import { SegmentedControl } from '@/components/ui/segmented';
 import { Pagination } from '@/components/ui/pagination';
 import { CelebrationButton } from '@/components/ui/celebration-button';
 import { SaveButton } from '@/components/ui/save-button';
+import { ConfettiButton } from '@/components/ui/confetti-button';
+import { MagnetizeButton } from '@/components/ui/magnetize-button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { CommandBar } from '@/components/ui/command-bar';
@@ -61,7 +63,7 @@ const BTN_BASE =
 
 const FILLED: Record<BtnColor, string> = {
   apricot: 'bg-apricot-400 text-[#1F1F1F] hover:bg-apricot-500',
-  rose: 'bg-[#BE2E7B] text-white hover:bg-[#97215F]',
+  rose: 'bg-rose-200 text-rose-800 hover:bg-rose-300',
   lavender: 'bg-[#7E3CB0] text-white hover:bg-[#602C88]',
   black: 'bg-[#1F1F1F] text-white hover:bg-[#2E2E2E]',
   white: 'bg-white text-[#1F1F1F] ring-1 ring-inset ring-black/10 hover:bg-[#F2EFEB]',
@@ -70,7 +72,7 @@ const FILLED: Record<BtnColor, string> = {
 
 const OUTLINE_LIGHT: Record<BtnColor, string> = {
   apricot: 'border border-apricot-500 text-apricot-700 hover:bg-apricot-50',
-  rose: 'border border-[#BE2E7B] text-[#97215F] hover:bg-[#FADEEE]',
+  rose: 'border border-brand-550 text-brand-600 hover:bg-rose-50',
   lavender: 'border border-[#7E3CB0] text-[#602C88] hover:bg-[#EDE1F7]',
   black: 'border border-[#1F1F1F] text-[#1F1F1F] hover:bg-[#F2EFEB]',
   white: 'border border-black/15 text-[#7C746B] hover:bg-[#F2EFEB]',
@@ -89,7 +91,7 @@ const OUTLINE_DARK: Record<BtnColor, string> = {
 export const ComponentsSection = () => {
   const [period, setPeriod] = useState<'daily' | 'weekly' | 'monthly'>('weekly');
   const [page, setPage] = useState(1);
-  const [btnColor, setBtnColor] = useState<BtnColor>('rose');
+  const [btnColor, setBtnColor] = useState<BtnColor>('apricot');
 
   return (
     <Section
@@ -118,6 +120,9 @@ export const ComponentsSection = () => {
             <div className="flex flex-wrap items-center gap-3">
               <Button variant="primary">Book a discovery call</Button>
               <Button variant="gradient">Start free</Button>
+              <Button variant="gradient">Start a free trial</Button>
+              <Button variant="warm">Get started</Button>
+              <Button variant="warm">Why we're different</Button>
               <Button variant="secondary">Compare plans</Button>
               <Button variant="danger">Cancel plan</Button>
               <IconButton variant="dark" size="md" aria-label="Play">
@@ -183,6 +188,22 @@ export const ComponentsSection = () => {
               The accent themes per mode — apricot in light, rose in paper, lavender in dark — driven by CSS
               variables, with no per-call work. Save sends up green check chips; Mark complete throws a quick
               shower of streamers. Both are reduced-motion safe.
+            </p>
+          </div>
+        </Demo>
+
+        {/* Expressive CTAs — confetti burst + a magnetising particle button */}
+        <Demo label="Expressive CTAs — confetti on sign-up, a magnetised book-a-call">
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <ConfettiButton>Sign up free</ConfettiButton>
+              <MagnetizeButton>Book a call</MagnetizeButton>
+            </div>
+            <p className="font-sans text-body-sm text-ink-500">
+              Two happy-moment CTAs. <strong className="font-medium text-ink-700">Sign up free</strong> bursts a
+              small shower of brand confetti on click (the mode-aware pastel accent). <strong className="font-medium text-ink-700">Book a call</strong>{' '}
+              is a calm lavender button whose scattered particles magnetise toward the centre on hover and spring
+              back out on leave. Both are reduced-motion safe (no particles, button still works).
             </p>
           </div>
         </Demo>

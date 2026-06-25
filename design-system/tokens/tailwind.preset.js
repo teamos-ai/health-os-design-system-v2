@@ -22,12 +22,14 @@ export default {
         /* ── Rose — signature / primary (brand alias) ───────── */
         rose: {
           50: '#FADEEE', 100: '#F8C6E0', 200: '#F3A0CC', 300: '#EE7DBA',
-          400: '#E85BA8', 500: '#D63F92', 600: '#BE2E7B', 700: '#97215F',
+          /* 550 is the lightest pink white text still passes AA on (~4.8:1) — the
+             "not as dark as 700" primary fill; resting 550, hover 600. */
+          400: '#E85BA8', 500: '#D63F92', 550: '#CC3385', 600: '#BE2E7B', 700: '#97215F',
           800: '#5F1640', 900: '#2E1222',
         },
         brand: {
           50: '#FADEEE', 100: '#F8C6E0', 200: '#F3A0CC', 300: '#EE7DBA',
-          400: '#E85BA8', 500: '#D63F92', 600: '#BE2E7B', 700: '#97215F',
+          400: '#E85BA8', 500: '#D63F92', 550: '#CC3385', 600: '#BE2E7B', 700: '#97215F',
           800: '#5F1640', 900: '#2E1222',
         },
         /* ── Apricot — warm accent ──────────────────────────── */
@@ -141,6 +143,8 @@ export default {
       backgroundImage: {
         /* Signature gradient — apricot → rose → lavender, never reversed */
         'brand-gradient': 'linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%)',
+        /* warm "sunrise" sibling — apricot-led into rose; the warmer, more inviting CTA */
+        'brand-gradient-warm': 'linear-gradient(135deg, #FDECDF 0%, #F5A060 45%, #E85BA8 100%)',
         'brand-gradient-soft': 'linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)',
         /* dark-mode sibling of the soft wash — deep apricot→rose→lavender (800s), a
            gentle warm tint that reads on the carbon ground (where the light wash is too bright) */
