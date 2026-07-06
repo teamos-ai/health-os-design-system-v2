@@ -133,10 +133,10 @@ const rowLabel: CSSProperties = {
 
 export const CardsSection = () => (
   <Section
-    id="cards"
+    id="card-bento"
     eyebrow="Library"
-    title="Cards"
-    lead="The full card family — 11 archetypes and their extended bento, panorama, float and interactive-push variants. Re-tokenised to the Health OS brand, 8px squircles, nature photography with seamless gradient blending."
+    title="Card & Bento"
+    lead="The full card and bento family — 11 archetypes and their extended bento, panorama, float and interactive-push variants. Re-tokenised to the Health OS brand, 8px squircles, nature photography with seamless gradient blending."
   >
     <div style={{ fontFamily: DS.fontMono }}>
 
