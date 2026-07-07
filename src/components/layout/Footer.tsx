@@ -17,7 +17,7 @@ const SOCIALS = [
 
 export const Footer = ({ className }: { className?: string }) => (
   <footer className={cn('bg-paper px-4 pb-4', className)}>
-    <div className="grain-dark relative mx-auto max-w-[1320px] overflow-hidden rounded-3xl bg-carbon px-8 py-16 text-white shadow-carbon dark:border dark:border-line dark:bg-carbon-800 md:px-14 md:py-20">
+    <div className="grain-dark relative mx-auto max-w-container-wide overflow-hidden rounded-3xl bg-carbon px-8 py-16 text-white shadow-carbon dark:border dark:border-line dark:bg-carbon-800 md:px-14 md:py-20">
       <div className="relative z-10 grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
         {/* Left — CTA */}
         <div className="flex flex-col gap-8">

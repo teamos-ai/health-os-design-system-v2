@@ -25,9 +25,9 @@
     @apply font-display text-ink-900;
   }
 
+  /* Selection — rose wash with theme-aware text (rose-700 vanishes on the dark ground) */
   ::selection {
-    background-color: rgba(232, 91, 168, 0.18); /* rose @ 18% */
-    color: #97215f; /* rose-700 */
+    @apply bg-brand-400/[0.18] text-brand-700 dark:bg-brand-400/[0.28] dark:text-brand-100;
   }
 
   /* Focus visibility — links and non-component interactives get a branded ring.

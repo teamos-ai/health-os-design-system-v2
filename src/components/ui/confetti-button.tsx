@@ -18,9 +18,10 @@
 import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Button, type ButtonProps } from '@/components/ui/button';
+import { PARTY_RAMP } from '@/lib/palette';
 
 /** Confetti colours — the brand trio + gold + two deeper tones for depth. */
-const CONFETTI_COLORS = ['#F5A060', '#E85BA8', '#A666D9', '#BE9522', '#EE7DBA', '#7E3CB0'];
+const CONFETTI_COLORS = PARTY_RAMP;
 
 type Shape = 'square' | 'dot' | 'ribbon';
 const SHAPES: Shape[] = ['square', 'dot', 'ribbon'];

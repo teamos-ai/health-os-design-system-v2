@@ -22,8 +22,15 @@ import {
   type Variants,
 } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { APRICOT, ROSE, LAVENDER } from '@/lib/palette';
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+
+/** "#E85BA8" + 0.14 → "rgba(232, 91, 168, 0.14)" — for palette hexes needing an alpha. */
+const hexToRgba = (hex: string, alpha: number): string => {
+  const n = parseInt(hex.replace('#', ''), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
+};
 
 /* ── FadeIn — viewport fade + small translate-up (in-view cascade) ── */
 export interface FadeInProps {
@@ -377,7 +384,7 @@ export const GradientShimmer = ({
     className={cn('animate-shimmer bg-clip-text text-transparent', className)}
     style={{
       backgroundImage:
-        'linear-gradient(110deg, #F5A060 0%, #E85BA8 25%, #FBD9BE 45%, #A666D9 65%, #E85BA8 100%)',
+        `linear-gradient(110deg, ${APRICOT[400]} 0%, ${ROSE[400]} 25%, ${APRICOT[100]} 45%, ${LAVENDER[400]} 65%, ${ROSE[400]} 100%)`,
       backgroundSize: '200% 100%',
     }}
   >
@@ -401,7 +408,7 @@ export const BorderGlow = ({
         className="pointer-events-none absolute left-1/2 top-1/2 h-[220%] w-[220%] -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
-            'conic-gradient(from 0deg, transparent 0deg, #F5A060 40deg, #E85BA8 80deg, #A666D9 120deg, transparent 170deg)',
+            `conic-gradient(from 0deg, transparent 0deg, ${APRICOT[400]} 40deg, ${ROSE[400]} 80deg, ${LAVENDER[400]} 120deg, transparent 170deg)`,
         }}
         animate={reduced ? undefined : { rotate: 360 }}
         transition={{ duration: 9, ease: 'linear', repeat: Infinity }}
@@ -431,10 +438,12 @@ export const BreathingDot = ({ className, color = 'bg-success-600' }: { classNam
 };
 
 /* ── PointerSpotlight — soft glow that follows the cursor inside a card ── */
+const SPOTLIGHT_DEFAULT = hexToRgba(ROSE[400], 0.14); // rose-400 @ .14
+
 export const PointerSpotlight = ({
   children,
   className,
-  color = 'rgba(232,91,168,0.14)',
+  color = SPOTLIGHT_DEFAULT,
 }: {
   children: React.ReactNode;
   className?: string;

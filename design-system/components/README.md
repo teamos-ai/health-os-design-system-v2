@@ -10,10 +10,10 @@ The Health OS v2 component library. Every component is built from the tokens in 
 
 ### `Button`
 The core action control.
-- **Variants:** `primary` (`bg-brand-600` text-white), `secondary` (`bg-surface border-line text-ink-900`), `ghost` (transparent, `text-ink-700`, wash on hover), `gradient` (`bg-brand-gradient` text-white — signature, used sparingly), `dark` / dark pill (`bg-carbon text-white` — the confident CTA), `link` (inline text link in `text-brand-600`), `danger` (`bg-danger-600` text-white).
+- **Variants:** `primary` (`bg-brand-600` text-white, hover 700), `secondary` (`bg-surface border-line text-ink-900`), `ghost` (transparent, wash on hover), `gradient` (`bg-brand-gradient` with a **carbon label** — the 400-level stops can't carry white text at AA; signature, used sparingly), `warm` (apricot-led sunrise gradient, carbon label), `dark` / dark pill (`bg-carbon text-white` — the confident CTA), `accent` (mode-aware pastel — see `foundations/themes.md`), `soft` (ink-100 tonal), `outline` (hairline), `link` (inline text link in `text-accent`), `danger` (`bg-danger-600` text-white, hover 700).
 - **Sizes:** `sm` (8×16), `md` (12×24), `lg` (14×32).
-- **Shape:** `rounded` — `full` (pills for marketing) or `md` (product UI). Default `md`; marketing CTAs use `full`.
-- **Behaviour:** press scale 0.98 (dur-xs), hover wash / lift (dur-sm). Optional leading / trailing Lucide icon (16–18px). Never white text on bright accents — use `primary`, `dark` or `gradient` for white-on-colour.
+- **Shape:** `rounded-md` by default (product UI). Marketing CTAs go pill with `className="rounded-full"`.
+- **Behaviour:** press scale 0.98 (dur-xs), hover shift/lift (dur-sm), focus-visible brand ring. Optional `leadingIcon` chip. Never white text on bright accents — white-on-colour is `primary`, `dark` or `danger` only.
 
 ### `Card`
 The base surface. `bg-surface border border-line rounded-lg shadow-none`, lifting to `shadow-sm` + `translateY(-4px)` on hover when interactive. Slots for header, body and footer. The container most other content sits in.

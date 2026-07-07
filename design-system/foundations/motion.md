@@ -34,18 +34,23 @@ The rule of thumb: interactions are **fast (150–250ms)**, scroll reveals are *
 
 ## The continuous loops (v2 craft)
 - **Marquee** (`animate-marquee`, `animate-marquee-slow`, `animate-marquee-reverse`) — the horizontal tool-card / logo carousel. **Gentle and slow** (40–60s), linear, seamless (the row is duplicated and translated -50%). It glides; it never races. Pause on hover is encouraged.
-- **Ticker** (`animate-ticker`) — the thin top marquee of short mono labels. Even slower-feeling, low-key, 32s. One thin line of texture, never a focal point.
+- **Ticker** (`animate-ticker`) — the thin top marquee of short mono labels. Even slower-feeling, low-key, **32–45s** (32s is the reference speed; theme variants may run up to 45s). One thin line of texture, never a focal point.
+- **Ambient status loops (the third, tightly-scoped tier):** a breathing-dot pulse on a *live status* indicator, and the `animate-shimmer` sheen on a *skeleton loading* placeholder. Rules: at most one ambient loop visible per view · status/loading only, never on text, CTAs or decoration · always frozen under reduced motion. Nothing else loops — no rotating border glows, no panning gradients, no twinkles outside the quarantined expressive group.
 
 These are the *only* always-on motions. Everything else is triggered by interaction or by entering the viewport.
+
+## Sanctioned exceptions (written rulings)
+- **Count-up numbers** (`CountUp` / `Counter` / `Stat`): may ease to their value over up to **1.4s**. That is data settling, not UI motion; it runs once on view, uses ease-out, and **snaps instantly under reduced motion**. This is the only thing allowed past the 480ms ceiling.
+- **The expressive group** (`ConfettiButton`, `CelebrationButton`, `GlowButton`, `MagnetizeButton`): kept in the codebase as **opt-in, off-brand extras** for deliberate one-off moments. They are quarantined — clearly badged in the showcase, excluded from the component catalogue an AI builds from, and never used on standard Health OS marketing or product surfaces.
 
 ## We do NOT do
 - No parallax. No scroll-jacking.
 - No autoplaying / looping background video.
 - No bounce, elastic, spring overshoot, shake, wobble.
-- No confetti, no text shimmer, no typewriter effect.
+- No confetti, no text shimmer, no typewriter effect (the shimmer token is for skeleton loading only; the expressive group above is the quarantined exception, never the default).
 - No entrance animation that blocks reading.
 - No animated gradient on every surface (the gradient is a static brand device; the glows are static washes).
-- Nothing over 500ms.
+- Nothing over 480ms (`duration-xl`), except the count-up ruling above.
 
 ## Reduced motion
 ```css

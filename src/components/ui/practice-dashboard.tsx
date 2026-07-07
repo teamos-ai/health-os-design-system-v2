@@ -29,6 +29,7 @@ import {
   LogOut,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { APRICOT, ROSE, LAVENDER } from '@/lib/palette';
 
 /* ── Left rail nav ─────────────────────────────────────────────────────────── */
 const NAV = [
@@ -60,9 +61,9 @@ const areaPath = (vals: number[]) =>
 const R = 52;
 const C = 2 * Math.PI * R;
 const SEGMENTS = [
-  { label: 'Coaching', pct: 0.5, color: '#F5A060' }, // apricot — leads
-  { label: 'Courses', pct: 0.3, color: '#A666D9' }, // lavender — second
-  { label: 'Memberships', pct: 0.2, color: '#EE7DBA' }, // light pink — minimal
+  { label: 'Coaching', pct: 0.5, color: APRICOT[400] }, // apricot — leads
+  { label: 'Courses', pct: 0.3, color: LAVENDER[400] }, // lavender — second
+  { label: 'Memberships', pct: 0.2, color: ROSE[300] }, // light pink — minimal
 ];
 
 /* ── Stat cards ────────────────────────────────────────────────────────────── */
@@ -101,7 +102,7 @@ export const PracticeDashboard = ({ className }: { className?: string }) => (
                 <Icon className="h-4 w-4" strokeWidth={1.5} />
                 <span className="flex-1">{label}</span>
                 {badge && (
-                  <span className="flex h-4 min-w-4 items-center justify-center rounded-md bg-apricot-400 px-1 font-mono text-[10px] font-semibold text-[#1F1F1F]">
+                  <span className="flex h-4 min-w-4 items-center justify-center rounded-md bg-apricot-400 px-1 font-mono text-micro font-semibold tracking-normal text-carbon">
                     {badge}
                   </span>
                 )}
@@ -137,10 +138,10 @@ export const PracticeDashboard = ({ className }: { className?: string }) => (
             </span>
             <span className="relative flex h-9 w-9 items-center justify-center rounded-md bg-paper text-ink-500">
               <Bell className="h-4 w-4" strokeWidth={1.5} />
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-apricot-400 font-mono text-[9px] font-semibold text-[#1F1F1F]">4</span>
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-apricot-400 font-mono text-micro font-semibold tracking-normal text-carbon">4</span>
             </span>
             <span className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-md bg-brand-gradient-warm font-display text-body-sm font-semibold text-[#1F1F1F]">H</span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-md bg-brand-gradient-warm font-display text-body-sm font-semibold text-carbon">H</span>
               <span className="font-sans text-body-sm text-ink-700">Hayley Quinn</span>
             </span>
           </div>
@@ -229,10 +230,10 @@ export const PracticeDashboard = ({ className }: { className?: string }) => (
                 ))}
                 {/* apricot area + line (leads) */}
                 <path d={areaPath(REVENUE)} className="fill-apricot-400" opacity="0.1" />
-                <polyline points={linePts(COSTS)} fill="none" stroke="#A666D9" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" opacity="0.8" />
-                <polyline points={linePts(REVENUE)} fill="none" stroke="#F5A060" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+                <polyline points={linePts(COSTS)} fill="none" stroke={LAVENDER[400]} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" opacity="0.8" />
+                <polyline points={linePts(REVENUE)} fill="none" stroke={APRICOT[400]} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
                 {REVENUE.map((v, i) => (
-                  <circle key={i} cx={xAt(i)} cy={yAt(v)} r="3" className="fill-surface" stroke="#F5A060" strokeWidth="2" />
+                  <circle key={i} cx={xAt(i)} cy={yAt(v)} r="3" className="fill-surface" stroke={APRICOT[400]} strokeWidth="2" />
                 ))}
                 {/* x labels */}
                 {DAYS.map((d, i) => (

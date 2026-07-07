@@ -50,7 +50,7 @@ export const DirectoryCompare = ({ id = 'compare' }: { id?: string }) => (
                 i < COMPARE_ROWS.length - 1 ? 'border-b border-line' : ''
               }`}
             >
-              <div className="px-5 py-4 font-sans text-body-md text-ink-800 md:px-7">
+              <div className="px-5 py-4 font-sans text-body-md text-ink-700 md:px-7">
                 {row.feature}
               </div>
               <div className="flex items-center justify-center gap-2 px-4 py-4 md:px-5">

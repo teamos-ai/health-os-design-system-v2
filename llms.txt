@@ -1,0 +1,45 @@
+# Health OS Design System v2
+
+> The complete, locked design system for Health OS — a calm business operating system for wellness practitioners. Everything an AI needs to produce a perfectly on-brand asset (app, website, landing page, email, document, slide deck, or social post) lives in this repo. Warm ivory + carbon + rose, Spline Sans + Anonymous Pro (mono), flat with hairlines, zero glassmorphism, sentence case, calm Sage voice, Australian English, WCAG AA.
+
+Read in this order. Token values are the single source of truth — never hard-code a hex, size, radius, shadow or duration that exists as a token.
+
+## Entry point
+
+- [CLAUDE.md](design-system/CLAUDE.md): Read this FIRST — the load order, token quick-reference, non-negotiables, defaults, and the v2 signature moves.
+- [BRAND-SUMMARY.md](design-system/BRAND-SUMMARY.md): The one-page brand snapshot — positioning, personality, promise, locked visual foundations.
+- [ASSET-RECIPES.md](design-system/ASSET-RECIPES.md): Per-asset-type recipes — which tokens, components and voice rules to use for a landing page, email, slide, document, social post, or dashboard.
+
+## Tokens (values — the source of truth)
+
+- [tokens.json](design-system/tokens/tokens.json): Every token with descriptions: colour ramps (incl. the 550 AA step), three themes (light/paper/dark), gradients, glows, type scale, spacing, hero rhythm, radius (8 UI / 12 card / 20 bento / 28–36 panels / full pills), neutral shadows, motion durations/easings/loops, containers.
+- [tokens.css](design-system/tokens/tokens.css): The theme layer — CSS variables that flip paper/surface/line/ink per theme (light default, .theme-paper, .dark).
+- [tailwind.preset.js](design-system/tokens/tailwind.preset.js): The same tokens as Tailwind classes — use these exact class names (bg-paper, text-ink-900, border-line, bg-brand-600, text-h2, rounded-lg, shadow-sm, duration-md, ease-out, bg-glow-hero…).
+
+## Foundations (the rules)
+
+- [brand.md](design-system/foundations/brand.md): Mission, values, archetype (Sage 70/Creator 30), persona, how v2 expresses the brand.
+- [voice.md](design-system/foundations/voice.md): The calm Sage voice — outcome first, no hype, Australian English, sentence case, "practitioners"/"clients" (never "coaches").
+- [vocabulary.md](design-system/foundations/vocabulary.md): Words to prefer/avoid, vertical vocabulary, the headline recipe.
+- [color.md](design-system/foundations/color.md): The multi-hue architecture — rose primary (600 for white text), apricot/lavender accents, gradient + glow discipline, contrast minimums.
+- [typography.md](design-system/foundations/typography.md): Spline Sans headings + Anonymous Pro mono body (1.6 line-height, ≤70ch measure), the full scale, 8 rules.
+- [spacing.md](design-system/foundations/spacing.md): 8px base scale, section rhythm (py-16 mobile / py-24 desktop), container widths, internal padding tables.
+- [radius.md](design-system/foundations/radius.md): 8px UI · 12px cards · 20px bento · 28/36 panels · full pills (marketing CTAs, badges, avatars).
+- [shadow.md](design-system/foundations/shadow.md): Flat + hairline default; neutral carbon-based shadows on hover/floating UI only; zero glass/coloured/inner shadows.
+- [motion.md](design-system/foundations/motion.md): Fade + small translate; 150–250ms interactions, 300–400ms reveals, 480ms ceiling; marquee/ticker loops; reduced-motion rules; the sanctioned exceptions.
+- [hero.md](design-system/foundations/hero.md): The spacious hero rule — always the <Hero> primitive with hero-py/hero-gap tokens.
+- [iconography.md](design-system/foundations/iconography.md): Lucide (1.5px stroke) for functional icons; the feature-chip pattern; emoji policy.
+- [imagery.md](design-system/foundations/imagery.md): Real warm photography rules, glow washes, grain, backgrounds, OG-image spec.
+
+## Logo
+
+- [usage.md](design-system/logo/usage.md): Lockup, clear space, minimum sizes, colour versions, don'ts. Assets: design-system/logo/health-os-logo.svg (+ .png).
+
+## Components
+
+- [README.md](design-system/components/README.md): The component catalogue — props, variants and composition rules for the React library in src/components/ (buttons, cards, inputs, command bar, tool cards, bento, stats, ticker, nav, footer, motion primitives).
+
+## Optional
+
+- [README.md](README.md): Repo overview, stack (React 18 + Vite + TS + Tailwind v3 preset + Framer Motion + Lucide), run/build instructions.
+- Live showcase: https://ds.healthos.au — every token, component and section rendered as living documentation.

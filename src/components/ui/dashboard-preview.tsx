@@ -84,7 +84,7 @@ export const DashboardPreview = ({ className }: { className?: string }) => (
             <h3 className="font-display text-h4 text-ink-900">Good morning</h3>
             <p className="font-mono text-caption text-ink-400">Tuesday — three appointments today</p>
           </div>
-          <span className="rounded-full bg-success-100 px-2.5 py-1 font-mono text-label uppercase text-success-600">
+          <span className="rounded-full bg-success-100 px-2.5 py-1 font-mono text-label uppercase text-success-700">
             On track
           </span>
         </div>
@@ -97,7 +97,7 @@ export const DashboardPreview = ({ className }: { className?: string }) => (
               <div key={row.time} className="flex items-center gap-3 rounded-md border border-line bg-surface px-3 py-2.5">
                 <span className={cn('h-2 w-2 rounded-full', row.tone)} />
                 <span className="w-12 font-mono text-body-sm text-ink-500">{row.time}</span>
-                <span className="font-sans text-body-sm text-ink-800">{row.name}</span>
+                <span className="font-sans text-body-sm text-ink-700">{row.name}</span>
               </div>
             ))}
           </div>

@@ -19,10 +19,12 @@ import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { Button, type ButtonProps } from '@/components/ui/button';
+import { APRICOT, ROSE, LAVENDER, PAPER_IVORY, GRADIENT_STOPS } from '@/lib/palette';
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
-/** Celestial soft halo — the glow-token radial language (apricot · rose · lavender). */
+/** Celestial soft halo — the glow-token radial language (apricot · rose · lavender).
+ *  = apricot/lavender/rose-400 @ .5 — see glow-*-strong tokens. */
 const HALO_GRADIENT =
   'radial-gradient(40% 50% at 25% 28%, rgba(245,160,96,0.55) 0%, transparent 70%),' +
   'radial-gradient(45% 55% at 76% 30%, rgba(166,102,217,0.50) 0%, transparent 72%),' +
@@ -50,7 +52,7 @@ interface Burst {
   sparks: Spark[];
 }
 
-const SPARK_COLORS = ['#FFFFFF', '#F7B27E', '#B985DE', '#EE7DBA'];
+const SPARK_COLORS = [PAPER_IVORY, APRICOT[300], LAVENDER[300], ROSE[300]];
 
 export interface GlowButtonProps extends Omit<ButtonProps, 'variant'> {
   /** Number of sparkles in a full-motion click burst. Default 5. */
@@ -101,7 +103,7 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
           <span className="absolute inset-0 overflow-hidden rounded-full">
             <span
               className="anim-grad-spin absolute inset-[-45%] opacity-30"
-              style={{ background: 'conic-gradient(from 0deg,#F5A060,#E85BA8,#A666D9,#F5A060)' }}
+              style={{ background: `conic-gradient(from 0deg,${GRADIENT_STOPS[0]},${GRADIENT_STOPS[1]},${GRADIENT_STOPS[2]},${GRADIENT_STOPS[0]})` }}
             />
           </span>
         </span>

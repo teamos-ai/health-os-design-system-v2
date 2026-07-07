@@ -87,7 +87,7 @@ export const Swatch = ({ hex, label, copyValue, primary, className }: SwatchProp
       )}
     >
       <span
-        className="relative block h-14 w-full ring-1 ring-inset ring-black/[0.06]"
+        className="relative block h-14 w-full ring-1 ring-inset ring-carbon/5"
         style={{ background: hex }}
       >
         {primary && (
@@ -139,7 +139,7 @@ export const GradientSwatch = ({ label, css, className }: GradientSwatchProps) =
       )}
     >
       <span
-        className="relative block h-24 w-full overflow-hidden rounded-md border border-line ring-1 ring-inset ring-black/[0.06] transition-shadow duration-sm group-hover:shadow-sm group-focus-visible:ring-2 group-focus-visible:ring-brand-600/40"
+        className="relative block h-24 w-full overflow-hidden rounded-md border border-line ring-1 ring-inset ring-carbon/5 transition-shadow duration-sm group-hover:shadow-sm group-focus-visible:ring-2 group-focus-visible:ring-brand-600/40"
         style={{ background: css }}
       >
         <span

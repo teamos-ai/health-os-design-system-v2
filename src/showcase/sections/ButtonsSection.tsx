@@ -31,30 +31,30 @@ const BTN_COLORS: { id: BtnColor; dot: string }[] = [
 ];
 
 const BTN_BASE =
-  'inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 font-display text-body-md font-medium transition-all duration-sm active:scale-[0.98] focus-visible:outline-none';
+  'inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 font-display text-body-md font-medium transition-all duration-sm active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 focus-visible:ring-offset-2';
 
 const FILLED: Record<BtnColor, string> = {
-  apricot: 'bg-apricot-400 text-[#1F1F1F] hover:bg-apricot-500',
+  apricot: 'bg-apricot-400 text-carbon hover:bg-apricot-500',
   rose: 'bg-rose-200 text-rose-800 hover:bg-rose-300',
-  lavender: 'bg-[#7E3CB0] text-white hover:bg-[#602C88]',
-  black: 'bg-[#1F1F1F] text-white hover:bg-[#2E2E2E]',
-  white: 'bg-white text-[#1F1F1F] ring-1 ring-inset ring-black/10 hover:bg-[#F2EFEB]',
-  paper: 'bg-[#F9F6F2] text-[#1F1F1F] ring-1 ring-inset ring-black/10 hover:bg-[#F0EBE4]',
+  lavender: 'bg-lavender-600 text-white hover:bg-lavender-700',
+  black: 'bg-carbon text-white hover:bg-carbon-700',
+  white: 'bg-white text-carbon ring-1 ring-inset ring-black/10 hover:bg-[#F2EFEB]',
+  paper: 'bg-[#F9F6F2] text-carbon ring-1 ring-inset ring-black/10 hover:bg-[#F0EBE4]',
 };
 
 const OUTLINE_LIGHT: Record<BtnColor, string> = {
   apricot: 'border border-apricot-500 text-apricot-700 hover:bg-apricot-50',
   rose: 'border border-brand-550 text-brand-600 hover:bg-rose-50',
-  lavender: 'border border-[#7E3CB0] text-[#602C88] hover:bg-[#EDE1F7]',
-  black: 'border border-[#1F1F1F] text-[#1F1F1F] hover:bg-[#F2EFEB]',
+  lavender: 'border border-lavender-600 text-lavender-700 hover:bg-lavender-50',
+  black: 'border border-carbon text-carbon hover:bg-[#F2EFEB]',
   white: 'border border-black/15 text-[#7C746B] hover:bg-[#F2EFEB]',
   paper: 'border border-black/15 text-[#5A534B] hover:bg-[#F9F6F2]',
 };
 
 const OUTLINE_DARK: Record<BtnColor, string> = {
   apricot: 'border border-apricot-400 text-apricot-300 hover:bg-white/5',
-  rose: 'border border-[#E85BA8] text-[#EE7DBA] hover:bg-white/5',
-  lavender: 'border border-[#A666D9] text-[#B985DE] hover:bg-white/5',
+  rose: 'border border-rose-400 text-rose-300 hover:bg-white/5',
+  lavender: 'border border-lavender-400 text-lavender-300 hover:bg-white/5',
   black: 'border border-white/20 text-white/60 hover:bg-white/5',
   white: 'border border-white/80 text-white hover:bg-white/10',
   paper: 'border border-[#F9F6F2]/70 text-[#F9F6F2] hover:bg-white/10',
@@ -113,7 +113,7 @@ export const ButtonsSection = () => {
                 <button type="button" className={cn(BTN_BASE, FILLED[btnColor])}>Filled</button>
                 <button type="button" className={cn(BTN_BASE, OUTLINE_LIGHT[btnColor])}>Inline</button>
               </div>
-              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-line bg-[#1F1F1F] p-6">
+              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-line bg-carbon p-6">
                 <button type="button" className={cn(BTN_BASE, FILLED[btnColor])}>Filled</button>
                 <button type="button" className={cn(BTN_BASE, OUTLINE_DARK[btnColor])}>Inline</button>
               </div>

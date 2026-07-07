@@ -12,7 +12,8 @@ import { cn } from '@/lib/utils';
 const RAMPS: Record<string, Record<string, string>> = {
   'rose / brand': {
     50: '#FADEEE', 100: '#F8C6E0', 200: '#F3A0CC', 300: '#EE7DBA', 400: '#E85BA8',
-    500: '#D63F92', 600: '#BE2E7B', 700: '#97215F', 800: '#5F1640', 900: '#2E1222',
+    // 550 — lightest AA fill for white text; the resting primary
+    500: '#D63F92', 550: '#CC3385', 600: '#BE2E7B', 700: '#97215F', 800: '#5F1640', 900: '#2E1222',
   },
   apricot: {
     50: '#FDECDF', 100: '#FBD9BE', 200: '#F8C39C', 300: '#F7B27E', 400: '#F5A060',
@@ -52,9 +53,9 @@ const SEMANTIC = [
 ];
 
 const GLOWS = [
-  { name: 'glow-rose', bg: 'radial-gradient(circle at center, rgba(232,91,168,0.55), transparent 70%)' },
-  { name: 'glow-apricot', bg: 'radial-gradient(circle at center, rgba(245,160,96,0.55), transparent 70%)' },
-  { name: 'glow-lavender', bg: 'radial-gradient(circle at center, rgba(166,102,217,0.55), transparent 70%)' },
+  { name: 'glow-rose', bg: 'radial-gradient(circle at center, rgba(232,91,168,0.28), transparent 70%)' },
+  { name: 'glow-apricot', bg: 'radial-gradient(circle at center, rgba(245,160,96,0.28), transparent 70%)' },
+  { name: 'glow-lavender', bg: 'radial-gradient(circle at center, rgba(166,102,217,0.28), transparent 70%)' },
 ];
 
 /** The drifting-mesh field — three soft radial blobs in the brand trio. Reused as both
@@ -83,9 +84,9 @@ const TYPE_HUES: { id: TypeHue; label: string; dot: string }[] = [
 ];
 const TYPE_TEXT: Record<TypeHue, string> = {
   ink: 'text-ink-900',
-  apricot: 'text-[#F5A060]',
-  rose: 'text-[#E85BA8]',
-  lavender: 'text-[#A666D9]',
+  apricot: 'text-apricot-400',
+  rose: 'text-rose-400',
+  lavender: 'text-lavender-400',
 };
 
 const TYPE_SCALE = [
@@ -163,7 +164,7 @@ export const TokensSection = () => {
           {GLOWS.map((g) => (
             <div key={g.name}>
               <div className="h-24 rounded-lg border border-line bg-paper" style={{ backgroundImage: g.bg }} />
-              <p className="mt-2 font-mono text-[10px] text-ink-600">{g.name}</p>
+              <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">{g.name}</p>
             </div>
           ))}
         </div>
@@ -192,14 +193,14 @@ export const TokensSection = () => {
               backgroundSize: '300% 100%',
             }}
           />
-          <p className="mt-2 font-mono text-[10px] text-ink-600">Flowing trio · anim-grad-pan</p>
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Flowing trio · anim-grad-pan</p>
         </div>
         <div>
           <div
             className="anim-grad-drift h-24 rounded-md border border-line bg-paper"
             style={{ backgroundImage: MESH, backgroundSize: '180% 180%' }}
           />
-          <p className="mt-2 font-mono text-[10px] text-ink-600">Drifting mesh · anim-grad-drift</p>
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Drifting mesh · anim-grad-drift</p>
         </div>
         <div>
           <div className="relative h-24 overflow-hidden rounded-md border border-line">
@@ -208,7 +209,7 @@ export const TokensSection = () => {
               style={{ background: 'conic-gradient(from 0deg,#F5A060,#E85BA8,#A666D9,#F5A060)' }}
             />
           </div>
-          <p className="mt-2 font-mono text-[10px] text-ink-600">Rotating bloom · anim-grad-spin</p>
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Rotating bloom · anim-grad-spin</p>
         </div>
       </div>
     </Block>

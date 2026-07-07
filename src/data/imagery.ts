@@ -6,6 +6,7 @@
  */
 import { UserRound, HeartHandshake, Building2, Sparkle, MonitorSmartphone, Palette, type LucideIcon } from 'lucide-react';
 import type { Accent } from '@/lib/accents';
+import { APRICOT, ROSE, LAVENDER, PAPER_IVORY, CARBON } from '@/lib/palette';
 
 /* ── Background washes (drafts) — built from the signature gradient family ── */
 export interface Wash {
@@ -15,12 +16,12 @@ export interface Wash {
   note: string;
 }
 export const WASHES: Wash[] = [
-  { name: 'Sunrise', background: 'linear-gradient(135deg, #FDECDF 0%, #FADEEE 100%)', note: 'apricot → rose, warmest' },
-  { name: 'Bloom', background: 'linear-gradient(135deg, #FADEEE 0%, #EDE1F7 100%)', note: 'rose → lavender' },
-  { name: 'Lavender haze', background: 'linear-gradient(135deg, #EDE1F7 0%, #FDECDF 100%)', note: 'lavender → apricot' },
-  { name: 'Ivory mist', background: 'radial-gradient(120% 120% at 30% 10%, #FADEEE 0%, #F9F6F2 55%)', note: 'faint glow on ivory' },
-  { name: 'Signature', background: 'linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%)', note: 'full gradient — use sparingly' },
-  { name: 'Carbon', background: 'linear-gradient(135deg, #2E2E2E 0%, #1F1F1F 100%)', note: 'dark panels / footer' },
+  { name: 'Sunrise', background: `linear-gradient(135deg, ${APRICOT[50]} 0%, ${ROSE[50]} 100%)`, note: 'apricot → rose, warmest' },
+  { name: 'Bloom', background: `linear-gradient(135deg, ${ROSE[50]} 0%, ${LAVENDER[50]} 100%)`, note: 'rose → lavender' },
+  { name: 'Lavender haze', background: `linear-gradient(135deg, ${LAVENDER[50]} 0%, ${APRICOT[50]} 100%)`, note: 'lavender → apricot' },
+  { name: 'Ivory mist', background: `radial-gradient(120% 120% at 30% 10%, ${ROSE[50]} 0%, ${PAPER_IVORY} 55%)`, note: 'faint glow on ivory' },
+  { name: 'Signature', background: `linear-gradient(135deg, ${APRICOT[400]} 0%, ${ROSE[400]} 50%, ${LAVENDER[400]} 100%)`, note: 'full gradient — use sparingly' },
+  { name: 'Carbon', background: `linear-gradient(135deg, #2E2E2E 0%, ${CARBON} 100%)` /* #2E2E2E = carbon-700 */, note: 'dark panels / footer' },
 ];
 
 /* ── Photography buckets ────────────────────────────────── */

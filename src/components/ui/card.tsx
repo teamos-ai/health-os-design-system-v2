@@ -285,9 +285,10 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         badgeAlign={badgeAlign}
         zoom={zoom}
         fill={side}
-        // Media butts to the card edge: drop its own border on the joined sides and
-        // square the inner corners so it reads as one flat tile (8px ceiling kept).
-        className={cn('rounded-none border-0', side ? 'sm:rounded-l-md' : 'rounded-t-md')}
+        // Media butts to the card edge: drop its own border and radius entirely —
+        // the card's overflow-hidden clips it to the outer radius at every size,
+        // so it reads as one flat tile with no corner seam.
+        className="rounded-none border-0"
       />
     );
 
