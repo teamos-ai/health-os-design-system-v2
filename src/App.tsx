@@ -1,4 +1,5 @@
 import { Shell } from '@/showcase/Shell';
+import { ToastProvider } from '@/components/ui/toast';
 import { TopBanner } from '@/components/layout/TopBanner';
 import { HeroSection } from '@/showcase/sections/HeroSection';
 import { VideoSection } from '@/showcase/sections/VideoSection';
@@ -8,7 +9,9 @@ import { LogoSection } from '@/showcase/sections/LogoSection';
 import { IconsSection } from '@/showcase/sections/IconsSection';
 import { ButtonsSection } from '@/showcase/sections/ButtonsSection';
 import { BadgesSection } from '@/showcase/sections/BadgesSection';
+import { ElementsSection } from '@/showcase/sections/ElementsSection';
 import { CardsSection } from '@/showcase/sections/CardsSection';
+import { BlocksSection } from '@/showcase/sections/BlocksSection';
 import { WidgetsSection } from '@/showcase/sections/WidgetsSection';
 import { SignatureSection } from '@/showcase/sections/SignatureSection';
 import { BannersSection } from '@/showcase/sections/BannersSection';
@@ -24,30 +27,34 @@ import { LivePageSection } from '@/showcase/sections/LivePageSection';
 
 export default function App() {
   return (
-    <Shell>
-      {/* Top banner — the scrolling ticker, themed per mode (subtle / carbon / tint) */}
-      <TopBanner />
-      <HeroSection />
-      <VideoSection />
-      <OverviewSection />
-      <TokensSection />
-      <LogoSection />
-      <IconsSection />
-      <ButtonsSection />
-      <BadgesSection />
-      <CardsSection />
-      <WidgetsSection />
-      <SignatureSection />
-      <BannersSection />
-      <BlogSection />
-      <CalculatorsSection />
-      <SocialMediaSection />
-      <BackgroundsSection />
-      <ImageLibrarySection />
-      <MemojisSection />
-      <NotionSection />
-      <MotionSection />
-      <LivePageSection />
-    </Shell>
+    <ToastProvider>
+      <Shell>
+        {/* Top banner — the scrolling ticker, themed per mode (subtle / carbon / tint) */}
+        <TopBanner />
+        <HeroSection />
+        <VideoSection />
+        <OverviewSection />
+        <TokensSection />
+        <LogoSection />
+        <IconsSection />
+        <ButtonsSection />
+        <BadgesSection />
+        <ElementsSection />
+        <CardsSection />
+        <BlocksSection />
+        <WidgetsSection />
+        <SignatureSection />
+        <BannersSection />
+        <BlogSection />
+        <CalculatorsSection />
+        <SocialMediaSection />
+        <BackgroundsSection />
+        <ImageLibrarySection />
+        <MemojisSection />
+        <NotionSection />
+        <MotionSection />
+        <LivePageSection />
+      </Shell>
+    </ToastProvider>
   );
 }

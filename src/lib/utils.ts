@@ -25,6 +25,7 @@ const twMerge = extendTailwindMerge({
             'caption',
             'overline',
             'label',
+            'micro',
             'code',
           ],
         },

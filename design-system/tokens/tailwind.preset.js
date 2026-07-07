@@ -182,6 +182,11 @@ export default {
           '0%': { backgroundPosition: '200% 0' },
           '100%': { backgroundPosition: '-200% 0' },
         },
+        /* one-time entrance for tab panels / popovers — fade + small rise */
+        'enter-rise': {
+          from: { opacity: '0', transform: 'translateY(4px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         marquee: 'marquee 40s linear infinite',
@@ -189,6 +194,7 @@ export default {
         'marquee-reverse': 'marquee-reverse 40s linear infinite',
         ticker: 'ticker 32s linear infinite',
         shimmer: 'shimmer 6s linear infinite',
+        'enter-rise': 'enter-rise 240ms cubic-bezier(0.22, 1, 0.36, 1) both',
       },
       maxWidth: {
         container: '1200px',

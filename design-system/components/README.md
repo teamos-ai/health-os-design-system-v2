@@ -92,6 +92,35 @@ Decorative product mocks (hero + signature band). Entirely static, `aria-hidden`
 
 ---
 
+## Interaction layer (added in the impeccable pass)
+
+### Form controls
+- **`Textarea`** — multi-line Input sibling; `label` / `hint` / `error` wired to `aria-describedby` (hint persists under error), resizable, `rounded-md`.
+- **`Select`** — styled native `<select>` with a Lucide chevron; `options` + `placeholder`, same label/hint/error contract.
+- **`Checkbox`** — real checkbox, custom box (hairline → `brand-600` + white check), `indeterminate` support, brand focus ring.
+- **`RadioGroup`** — `fieldset`/`legend` + native radios; `options` with per-item `hint`/`disabled`, controlled or uncontrolled.
+- **`Switch`** — `role="switch"` binary toggle; sliding thumb (transform only, dur-md), controlled or uncontrolled.
+
+### Overlays
+- **`Tabs`** — ARIA `tablist`/`tab`/`tabpanel` with roving tabindex + arrow keys; sliding `brand-600` underline, panels fade+rise (`animate-enter-rise`). Use when a selection swaps content (SegmentedControl is for a value with no panel).
+- **`Tooltip`** — carbon label on hover **and** focus; `role="tooltip"` + `aria-describedby`, four sides, fade+rise. Non-interactive content only.
+- **`Modal`** — centred dialog: focus trap, Escape close, scroll lock, focus return; `role="dialog"` + `aria-modal`, fade+scale, `rounded-xl`, zero glass. `title` / `description` / `footer` slots.
+- **`ToastProvider` + `useToast`** — transient bottom-right stack; `toast({ title, description, tone, duration })`, auto-dismiss, `aria-live` polite (assertive for danger). Wrap the app in `<ToastProvider>`.
+
+### Display
+- **`Alert`** — inline status using the `-100`/`-700` tint pairs; tone icon, `role="status"`/`"alert"` per urgency, optional dismiss.
+- **`Table<Row>`** — semantic table (real `<th scope>`), hairline dividers, `tabular-nums` numeric columns, `caption`, auto `overflow-x-auto`.
+- **`Skeleton` / `SkeletonText` / `SkeletonCard`** — loading placeholders using the tonal `animate-shimmer` (the sanctioned skeleton loop); pair with `aria-busy` + sr-only "Loading".
+- **`Breadcrumb`** — `nav aria-label="Breadcrumb"` trail; current page `aria-current` and un-linked.
+
+## Marketing blocks (`src/components/blocks/`)
+
+- **`PricingTable`** — up to three tiers; the recommended tier leads with a `brand-400` hairline + badge + primary CTA (colour, not height); feature lists align across columns; `tabular-nums` prices.
+- **`Faq`** — questions built on the accessible `Disclosure`; 1 or 2 columns.
+- **`Testimonial` / `TestimonialWall`** — `figure`/`blockquote` quiet proof; squircle avatars; the wall is CSS-columns (no dot carousel).
+
+---
+
 ## Motion primitives (`animated.tsx`)
 
 All read `useReducedMotion()` and degrade gracefully. See `../foundations/motion.md`.
