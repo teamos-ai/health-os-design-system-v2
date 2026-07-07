@@ -33,7 +33,7 @@ export const CommandHero = ({ id = 'top', headingLevel = 'h1' }: CommandHeroProp
 
         <FadeIn delay={0.05} className="mt-hero-gap-sm">
           <Heading className="font-display text-display-lg text-ink-900 md:text-display-xl">
-            Your practice, <span className="text-gradient">one system</span>.
+            Your practice, <span className="text-gradient-sweep">one system</span>.
           </Heading>
         </FadeIn>
 

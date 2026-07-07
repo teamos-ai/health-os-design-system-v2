@@ -17,7 +17,7 @@ export const HeroSection = () => (
       <FadeIn delay={0.05}>
         <h1 className="font-display text-display-lg text-ink-900 md:text-display-xl">
           The design system behind
-          <br />a <span className="text-gradient">calm</span> practice.
+          <br />a <span className="text-gradient-sweep">calm</span> practice.
         </h1>
       </FadeIn>
 

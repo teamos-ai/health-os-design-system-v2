@@ -198,36 +198,24 @@ export const TokensSection = () => {
         ))}
       </div>
 
-      {/* Animated — gentle, always-on, frozen under reduced-motion by the global guard */}
+      {/* The gradient is a STATIC brand device — it is never animated on shipped surfaces
+          (foundations/motion.md). The soft washes below are the sanctioned large-fill
+          siblings. */}
       <p className="mb-3 mt-8 font-mono text-caption text-ink-500">
-        Animated — gentle and always-on; frozen under reduced-motion.
+        Soft washes — the large-fill siblings; the gradient stays static, never animated.
       </p>
       <div className="grid gap-4 sm:grid-cols-3">
         <div>
-          <div
-            className="anim-grad-pan h-24 rounded-md border border-line"
-            style={{
-              backgroundImage: 'linear-gradient(110deg,#F5A060,#E85BA8,#A666D9,#E85BA8,#F5A060)',
-              backgroundSize: '300% 100%',
-            }}
-          />
-          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Flowing trio · anim-grad-pan</p>
+          <div className="h-24 rounded-md border border-line bg-brand-gradient-soft" />
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Soft wash · bg-brand-gradient-soft</p>
         </div>
         <div>
-          <div
-            className="anim-grad-drift h-24 rounded-md border border-line bg-paper"
-            style={{ backgroundImage: MESH, backgroundSize: '180% 180%' }}
-          />
-          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Drifting mesh · anim-grad-drift</p>
+          <div className="h-24 rounded-md border border-line bg-brand-gradient-warm" />
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Warm sunrise · bg-brand-gradient-warm</p>
         </div>
         <div>
-          <div className="relative h-24 overflow-hidden rounded-md border border-line">
-            <div
-              className="anim-grad-spin absolute inset-[-40%]"
-              style={{ background: 'conic-gradient(from 0deg,#F5A060,#E85BA8,#A666D9,#F5A060)' }}
-            />
-          </div>
-          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Rotating bloom · anim-grad-spin</p>
+          <div className="h-24 rounded-md border border-line bg-glow-hero bg-paper" />
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Hero glow · bg-glow-hero</p>
         </div>
       </div>
     </Block>
