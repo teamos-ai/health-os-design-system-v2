@@ -41,7 +41,5 @@ gen() {
 for png in "$ROOT"/public/backgrounds/*.png; do gen "$png"; done
 # Imagery — one level of theme sub-directories
 for png in "$ROOT"/public/imagery/*/*.png; do gen "$png"; done
-# CRM product screens — flat directory
-for png in "$ROOT"/public/media/crm/*.png; do gen "$png"; done
 
 echo "thumbnails written: $count  skipped: $skipped  (${MAXEDGE}px longest edge, q${QUALITY})"
