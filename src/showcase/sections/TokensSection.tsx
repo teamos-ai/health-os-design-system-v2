@@ -238,7 +238,7 @@ export const TokensSection = () => {
                 : 'border-line text-ink-500 hover:text-ink-900'
             )}
           >
-            <span className="h-3 w-3 rounded-sm ring-1 ring-inset ring-black/10" style={{ background: h.dot }} />
+            <span className="h-3 w-3 rounded-sm ring-1 ring-inset ring-carbon/10" style={{ background: h.dot }} />
             {h.label}
           </button>
         ))}

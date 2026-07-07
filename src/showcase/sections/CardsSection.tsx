@@ -134,7 +134,7 @@ export const CardsSection = () => (
     id="card-bento"
     eyebrow="Library"
     title="Card & Bento"
-    lead="The full card and bento family — 11 archetypes and their extended bento, panorama, float and interactive-push variants. Re-tokenised to the Health OS brand, 8px squircles, nature photography with seamless gradient blending."
+    lead="The full card and bento family — 11 archetypes and their extended bento, panorama, float and interactive-push variants. Re-tokenised to the Health OS brand, 8px squircles, nature photography with soft gradient blending."
   >
     <div style={{ fontFamily: DS.fontMono }}>
 

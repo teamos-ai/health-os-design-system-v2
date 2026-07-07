@@ -39,8 +39,8 @@ const FILLED: Record<BtnColor, string> = {
   rose: 'bg-rose-200 text-rose-800 hover:bg-rose-300',
   lavender: 'bg-lavender-600 text-white hover:bg-lavender-700',
   black: 'bg-carbon text-white hover:bg-carbon-700',
-  white: 'bg-white text-carbon ring-1 ring-inset ring-black/10 hover:bg-[#F2EFEB]',
-  paper: 'bg-[#F9F6F2] text-carbon ring-1 ring-inset ring-black/10 hover:bg-[#F0EBE4]',
+  white: 'bg-white text-carbon ring-1 ring-inset ring-carbon/10 hover:bg-[#F2EFEB]',
+  paper: 'bg-[#F9F6F2] text-carbon ring-1 ring-inset ring-carbon/10 hover:bg-[#F0EBE4]',
 };
 
 const OUTLINE_LIGHT: Record<BtnColor, string> = {
@@ -48,8 +48,8 @@ const OUTLINE_LIGHT: Record<BtnColor, string> = {
   rose: 'border border-brand-550 text-brand-600 hover:bg-rose-50',
   lavender: 'border border-lavender-600 text-lavender-700 hover:bg-lavender-50',
   black: 'border border-carbon text-carbon hover:bg-[#F2EFEB]',
-  white: 'border border-black/15 text-[#7C746B] hover:bg-[#F2EFEB]',
-  paper: 'border border-black/15 text-[#5A534B] hover:bg-[#F9F6F2]',
+  white: 'border border-carbon/15 text-[#7C746B] hover:bg-[#F2EFEB]',
+  paper: 'border border-carbon/15 text-[#5A534B] hover:bg-[#F9F6F2]',
 };
 
 const OUTLINE_DARK: Record<BtnColor, string> = {
@@ -104,7 +104,7 @@ export const ButtonsSection = () => {
                     btnColor === c.id ? 'border-ink-900 text-ink-900' : 'border-line text-ink-500 hover:text-ink-900'
                   )}
                 >
-                  <span className="h-3 w-3 rounded-sm ring-1 ring-inset ring-black/10" style={{ background: c.dot }} />
+                  <span className="h-3 w-3 rounded-sm ring-1 ring-inset ring-carbon/10" style={{ background: c.dot }} />
                   {c.id}
                 </button>
               ))}
