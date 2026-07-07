@@ -1,4 +1,10 @@
 /**
+ * ⚠ EXPRESSIVE — OFF-BRAND, OPT-IN ONLY.
+ * Quarantined under foundations/motion.md §Sanctioned exceptions: never used on standard
+ * Health OS marketing or product surfaces; excluded from the AI component catalogue.
+ * Reaching for this requires a deliberate, documented decision.
+ */
+/**
  * MagnetizeButton — Health OS v2.
  *
  * A calm, tonal CTA whose scattered particles magnetise toward the centre on hover/focus
@@ -62,7 +68,7 @@ export const MagnetizeButton = React.forwardRef<HTMLButtonElement, MagnetizeButt
       <Button
         ref={ref}
         className={cn(
-          'relative min-w-40 touch-none',
+          'relative min-w-40',
           // Brand lavender tonal — fixed light/dark pairing (the app theme flips ink/paper,
           // but this tile reads the same in every mode), dark same-hue label for AA.
           'border border-lavender-300 bg-lavender-100 text-lavender-700 hover:bg-lavender-200',
@@ -84,7 +90,7 @@ export const MagnetizeButton = React.forwardRef<HTMLButtonElement, MagnetizeButt
               initial={{ x: p.x, y: p.y }}
               animate={control}
               className={cn(
-                'absolute h-1.5 w-1.5 rounded-full bg-lavender-400 transition-opacity duration-300 dark:bg-lavender-300',
+                'absolute h-1.5 w-1.5 rounded-full bg-lavender-400 transition-opacity duration-md dark:bg-lavender-300',
                 isAttracting ? 'opacity-100' : 'opacity-40'
               )}
             />

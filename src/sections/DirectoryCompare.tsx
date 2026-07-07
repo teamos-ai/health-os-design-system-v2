@@ -10,7 +10,7 @@ import { MonoLabel } from '@/components/ui/mono-label';
 import { COMPARE_ROWS } from '@/data/system';
 
 export const DirectoryCompare = ({ id = 'compare' }: { id?: string }) => (
-  <section id={id} className="py-20 md:py-24">
+  <section id={id} className="py-16 md:py-24">
     <div className="mx-auto max-w-container px-6">
       <div className="mb-12 mx-auto flex max-w-2xl flex-col items-center text-center">
         <FadeIn>
@@ -28,41 +28,51 @@ export const DirectoryCompare = ({ id = 'compare' }: { id?: string }) => (
       </div>
 
       <FadeIn delay={0.05} y={16}>
-        <div className="overflow-hidden rounded-2xl border border-line bg-surface">
-          {/* Header */}
-          <div className="grid grid-cols-[1.5fr_1fr_1fr] items-center border-b border-line bg-paper">
-            <div className="px-5 py-4 font-mono text-overline uppercase text-ink-500 md:px-7">
-              Capability
-            </div>
-            <div className="px-4 py-4 text-center font-mono text-overline uppercase text-ink-600 md:px-5">
-              Typical stack
-            </div>
-            <div className="bg-rose-50 px-4 py-4 text-center font-mono text-overline uppercase text-brand-700 md:px-5">
-              Health OS
-            </div>
-          </div>
-
-          {/* Rows */}
-          {COMPARE_ROWS.map((row, i) => (
-            <div
-              key={row.feature}
-              className={`grid grid-cols-[1.5fr_1fr_1fr] items-center ${
-                i < COMPARE_ROWS.length - 1 ? 'border-b border-line' : ''
-              }`}
-            >
-              <div className="px-5 py-4 font-sans text-body-md text-ink-800 md:px-7">
-                {row.feature}
-              </div>
-              <div className="flex items-center justify-center gap-2 px-4 py-4 md:px-5">
-                <X className="h-4 w-4 shrink-0 text-ink-400" strokeWidth={1.5} aria-hidden />
-                <span className="font-mono text-body-sm text-ink-600">{row.stack}</span>
-              </div>
-              <div className="flex h-full items-center justify-center gap-2 bg-rose-50/60 px-4 py-4 md:px-5">
-                <Check className="h-4 w-4 shrink-0 text-brand-600" strokeWidth={2} aria-hidden />
-                <span className="font-mono text-body-sm font-bold text-brand-700">{row.healthos}</span>
-              </div>
-            </div>
-          ))}
+        {/* A real table for row/column semantics; below sm it scrolls inside its own
+            container rather than crushing three columns into a phone viewport. */}
+        <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
+          <table className="w-full min-w-[560px] border-collapse">
+            <caption className="sr-only">
+              Capability comparison — a typical stack of tools versus Health OS
+            </caption>
+            <thead>
+              <tr className="border-b border-line bg-paper">
+                <th scope="col" className="px-5 py-4 text-left font-mono text-overline font-bold uppercase text-ink-500 md:px-7">
+                  Capability
+                </th>
+                <th scope="col" className="px-4 py-4 text-center font-mono text-overline font-bold uppercase text-ink-600 md:px-5">
+                  Typical stack
+                </th>
+                <th scope="col" className="bg-rose-50 px-4 py-4 text-center font-mono text-overline font-bold uppercase text-brand-700 md:px-5">
+                  Health OS
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARE_ROWS.map((row, i) => (
+                <tr
+                  key={row.feature}
+                  className={i < COMPARE_ROWS.length - 1 ? 'border-b border-line' : ''}
+                >
+                  <th scope="row" className="px-5 py-4 text-left font-sans text-body-md font-normal text-ink-700 md:px-7">
+                    {row.feature}
+                  </th>
+                  <td className="px-4 py-4 md:px-5">
+                    <span className="flex items-center justify-center gap-2">
+                      <X className="h-4 w-4 shrink-0 text-ink-400" strokeWidth={1.5} aria-hidden />
+                      <span className="font-mono text-body-sm text-ink-600">{row.stack}</span>
+                    </span>
+                  </td>
+                  <td className="bg-rose-50/60 px-4 py-4 md:px-5">
+                    <span className="flex items-center justify-center gap-2">
+                      <Check className="h-4 w-4 shrink-0 text-brand-600" strokeWidth={2} aria-hidden />
+                      <span className="font-mono text-body-sm font-bold text-brand-700">{row.healthos}</span>
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </FadeIn>
     </div>

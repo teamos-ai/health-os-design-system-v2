@@ -7,9 +7,15 @@ import { CountUp } from '@/components/ui/animated';
 import { cn } from '@/lib/utils';
 
 export interface StatProps {
-  /** numeric value to count up to (ignored if `display` is set) */
+  /**
+   * Numeric value to count up to. Ignored whenever `display` is set —
+   * `display` always wins over `value`.
+   */
   value?: number;
-  /** static display string used instead of a count-up, e.g. "6–8 → 1" */
+  /**
+   * Static display string rendered instead of a count-up, e.g. "6–8 → 1".
+   * Takes precedence over `value` (and `prefix`/`suffix`/`decimals`).
+   */
   display?: string;
   label: string;
   prefix?: string;
@@ -30,7 +36,10 @@ export const Stat = ({
   className,
 }: StatProps) => (
   <div className={cn('flex flex-col gap-1.5', align === 'center' && 'items-center text-center', className)}>
-    <span className="font-display text-display-lg leading-none text-ink-900">
+    <span
+      className="font-display text-display-lg leading-none text-ink-900"
+      aria-label={display ?? `${prefix}${(value ?? 0).toFixed(decimals)}${suffix}`}
+    >
       {display ?? (
         <CountUp to={value ?? 0} prefix={prefix} suffix={suffix} decimals={decimals} />
       )}

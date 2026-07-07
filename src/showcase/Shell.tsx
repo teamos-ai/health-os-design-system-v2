@@ -30,6 +30,9 @@ import {
   LayoutGrid,
   Blocks,
   Smile,
+  Clapperboard,
+  SlidersHorizontal,
+  Rows3,
   ChevronDown,
   ChevronUp,
   type LucideIcon,
@@ -48,13 +51,16 @@ export interface NavItem {
 
 export const SHOWCASE_NAV: NavItem[] = [
   { id: 'hero', label: 'Home', Icon: House, accent: 'rose' },
+  { id: 'video', label: 'Video', Icon: Clapperboard, accent: 'lavender' },
   { id: 'overview', label: 'Overview', Icon: LayoutDashboard, accent: 'lavender' },
   { id: 'tokens', label: 'Tokens', Icon: Palette, accent: 'apricot' },
   { id: 'logo', label: 'Logo', Icon: Hexagon, accent: 'gold' },
   { id: 'icons', label: 'Icons', Icon: Shapes, accent: 'rose' },
   { id: 'buttons', label: 'Buttons', Icon: MousePointerClick, accent: 'lavender' },
   { id: 'badges', label: 'Badges', Icon: Tags, accent: 'apricot' },
-  { id: 'card-bento', label: 'Card & Bento', Icon: LayoutGrid, accent: 'rose' },
+  { id: 'elements', label: 'Elements', Icon: SlidersHorizontal, accent: 'rose' },
+  { id: 'card-bento', label: 'Cards & bento', Icon: LayoutGrid, accent: 'rose' },
+  { id: 'blocks', label: 'Blocks', Icon: Rows3, accent: 'lavender' },
   { id: 'widgets', label: 'Widgets', Icon: Blocks, accent: 'gold' },
   { id: 'signature', label: 'Signature sections', Icon: LayoutTemplate, accent: 'apricot' },
   { id: 'banners', label: 'Banners', Icon: ScrollText, accent: 'rose' },
@@ -135,11 +141,33 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="min-h-screen bg-paper">
-      {/* Mobile header */}
-      <div className="sticky top-0 z-30 flex items-center justify-between border-b border-line bg-paper px-5 py-3 lg:hidden">
+      {/* Skip link — first tab stop, visible only on focus */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:border focus:border-line focus:bg-surface focus:px-4 focus:py-2 focus:font-mono focus:text-body-sm focus:text-ink-900 focus:shadow-md focus:outline-none focus:ring-2 focus:ring-brand-600/40"
+      >
+        Skip to content
+      </a>
+
+      {/* Mobile header — logo, section jump list, theme */}
+      <div className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-line bg-paper px-5 py-3 lg:hidden">
         <LogoMark size={28} />
-        <div className="flex items-center gap-3">
-          <span className="font-mono text-caption text-ink-600">Design system v2</span>
+        <div className="flex min-w-0 items-center gap-3">
+          <select
+            aria-label="Jump to section"
+            value={active}
+            onChange={(e) => {
+              const id = e.target.value;
+              document.getElementById(id)?.scrollIntoView();
+            }}
+            className="min-w-0 max-w-44 rounded-md border border-line bg-surface px-2.5 py-1.5 font-mono text-caption text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40"
+          >
+            {SHOWCASE_NAV.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.label}
+              </option>
+            ))}
+          </select>
           <ThemeToggle />
         </div>
       </div>
@@ -148,7 +176,7 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
       <aside
         className={cn(
           'fixed inset-y-0 left-0 z-20 hidden flex-col border-r border-line bg-paper py-7 transition-[width,padding] duration-md ease-out lg:flex',
-          collapsed ? 'w-[76px] px-3' : 'w-64 px-6'
+          collapsed ? 'w-20 px-3' : 'w-64 px-6'
         )}
       >
         {/* Header — logo + collapse toggle */}
@@ -179,7 +207,7 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
             onScroll={syncOverflow}
             className="h-full overflow-y-auto overscroll-contain pb-2 [scrollbar-width:thin]"
           >
-            <nav className={cn('flex flex-col gap-1', collapsed && 'items-center')}>
+            <nav aria-label="Design system sections" className={cn('flex flex-col gap-1', collapsed && 'items-center')}>
               {SHOWCASE_NAV.map((item) => {
                 const isActive = active === item.id;
                 const a = ACCENTS[item.accent];
@@ -189,9 +217,10 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
                     href={`#${item.id}`}
                     title={item.label}
                     aria-label={item.label}
-                    aria-current={isActive ? 'true' : undefined}
+                    aria-current={isActive ? 'location' : undefined}
                     className={cn(
                       'flex items-center font-mono text-body-sm transition-colors duration-sm',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40',
                       collapsed ? 'h-10 w-10 justify-center rounded-md' : 'gap-2.5 rounded-md px-3 py-2',
                       isActive
                         ? a.well
@@ -266,7 +295,10 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
       </aside>
 
       {/* Main */}
-      <main className={cn('transition-[padding] duration-md ease-out', collapsed ? 'lg:pl-[76px]' : 'lg:pl-64')}>
+      <main
+        id="main-content"
+        className={cn('transition-[padding] duration-md ease-out', collapsed ? 'lg:pl-20' : 'lg:pl-64')}
+      >
         {children}
       </main>
     </div>

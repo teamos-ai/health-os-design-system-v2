@@ -7,12 +7,13 @@ import { Section } from '@/showcase/Section';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MonoLabel } from '@/components/ui/mono-label';
+import { Package, Palette, Image as ImageIcon, Puzzle, type LucideIcon } from 'lucide-react';
 
-const PAGES = [
-  { emoji: '📦', name: 'Templates', active: true },
-  { emoji: '🎨', name: 'Brand kit', active: false },
-  { emoji: '🖼️', name: 'Backgrounds', active: false },
-  { emoji: '🧩', name: 'Components', active: false },
+const PAGES: { Icon: LucideIcon; name: string; active: boolean }[] = [
+  { Icon: Package, name: 'Templates', active: true },
+  { Icon: Palette, name: 'Brand kit', active: false },
+  { Icon: ImageIcon, name: 'Backgrounds', active: false },
+  { Icon: Puzzle, name: 'Components', active: false },
 ];
 
 export const NotionSection = () => (
@@ -40,9 +41,9 @@ export const NotionSection = () => (
 
       <div className="flex min-h-[420px]">
         {/* Sidebar */}
-        <aside className="hidden w-60 flex-col border-r border-line bg-paper p-4 md:flex">
+        <div className="hidden w-60 flex-col border-r border-line bg-paper p-4 md:flex">
           <MonoLabel className="px-1">Health OS Assets</MonoLabel>
-          <nav className="mt-4 flex flex-col gap-0.5">
+          <div className="mt-4 flex flex-col gap-0.5">
             {PAGES.map((p) => (
               <span
                 key={p.name}
@@ -50,16 +51,16 @@ export const NotionSection = () => (
                   p.active ? 'bg-rose-50 text-brand-600' : 'text-ink-600'
                 }`}
               >
-                <span aria-hidden>{p.emoji}</span>
+                <p.Icon className="h-4 w-4 shrink-0" strokeWidth={1.5} aria-hidden />
                 {p.name}
               </span>
             ))}
-          </nav>
-        </aside>
+          </div>
+        </div>
 
         {/* Page area */}
-        <main className="flex-1 bg-surface p-6 md:p-10">
-          <div className="text-4xl" aria-hidden>📦</div>
+        <div className="flex-1 bg-surface p-6 md:p-10">
+          <Package className="h-9 w-9 text-ink-400" strokeWidth={1.5} aria-hidden />
           <h3 className="mt-3 font-display text-h2 text-ink-900">Templates</h3>
           <p className="mt-4 max-w-prose font-sans text-body-md leading-relaxed text-ink-600">
             Browse the kit, sign in free and the assets are yours — no licence to chase, no
@@ -68,7 +69,7 @@ export const NotionSection = () => (
 
           {/* Callout block */}
           <div className="mt-5 rounded-md border border-line bg-lavender-50 p-4">
-            <p className="font-sans text-body-sm text-lavender-600">
+            <p className="font-sans text-body-sm text-lavender-700">
               Free login unlocks every page. Your downloads stay synced to your workspace.
             </p>
           </div>
@@ -80,9 +81,9 @@ export const NotionSection = () => (
               <p className="font-display text-body-md text-ink-900">Onboarding template</p>
               <p className="font-mono text-caption text-ink-500">Notion · free</p>
             </div>
-            <Button variant="primary" size="sm">Get for free</Button>
+            <Button variant="primary" size="sm" title="Demo only">Get for free</Button>
           </div>
-        </main>
+        </div>
       </div>
     </div>
   </Section>

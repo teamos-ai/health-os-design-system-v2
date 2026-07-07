@@ -63,10 +63,12 @@ export type CardMeta = MetaItem[] | React.ReactNode;
 /** Actions may be a typed array (outline + solid pair) or any node (full control). */
 export type CardActions = ActionItem[] | React.ReactNode;
 
-const isMetaArray = (m: CardMeta): m is MetaItem[] =>
+/** Narrows a `CardMeta` to the typed `MetaItem[]` form (vs. an arbitrary node). */
+export const isMetaArray = (m: CardMeta): m is MetaItem[] =>
   Array.isArray(m) && m.every((x) => x != null && typeof x === 'object' && 'label' in (x as object));
 
-const isActionArray = (a: CardActions): a is ActionItem[] =>
+/** Narrows a `CardActions` to the typed `ActionItem[]` form (vs. an arbitrary node). */
+export const isActionArray = (a: CardActions): a is ActionItem[] =>
   Array.isArray(a) && a.every((x) => x != null && typeof x === 'object' && 'label' in (x as object));
 
 /** The clock-icon + "6–8 hours" row. Mono caption, ink-500, hairline icons. */
@@ -202,6 +204,8 @@ export interface CardProps
   /** photo src — when set (or `mediaPosition`/`badge`/`meta`/`actions` are used) the
    *  card renders in media mode: a CardMedia tile + a padded content well for children. */
   image?: string;
+  /** Alt text for the photo. Required in spirit whenever `image` carries meaning —
+   *  only omit (or pass '') when the photo is purely decorative. */
   imageAlt?: string;
   /** aspect ratio for the media, e.g. '16/9' (top) or '1/1' (side). */
   ratio?: string;
@@ -285,9 +289,10 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         badgeAlign={badgeAlign}
         zoom={zoom}
         fill={side}
-        // Media butts to the card edge: drop its own border on the joined sides and
-        // square the inner corners so it reads as one flat tile (8px ceiling kept).
-        className={cn('rounded-none border-0', side ? 'sm:rounded-l-md' : 'rounded-t-md')}
+        // Media butts to the card edge: drop its own border and radius entirely —
+        // the card's overflow-hidden clips it to the outer radius at every size,
+        // so it reads as one flat tile with no corner seam.
+        className="rounded-none border-0"
       />
     );
 

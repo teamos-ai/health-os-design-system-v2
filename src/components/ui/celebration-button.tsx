@@ -1,4 +1,10 @@
 /**
+ * ⚠ EXPRESSIVE — OFF-BRAND, OPT-IN ONLY.
+ * Quarantined under foundations/motion.md §Sanctioned exceptions: never used on standard
+ * Health OS marketing or product surfaces; excluded from the AI component catalogue.
+ * Reaching for this requires a deliberate, documented decision.
+ */
+/**
  * CelebrationButton — Health OS v2.
  *
  * An accent button that throws a small shower of thin coloured streamers on click —
@@ -13,9 +19,10 @@
 import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Button, type ButtonProps } from '@/components/ui/button';
+import { PARTY_RAMP } from '@/lib/palette';
 
 /** Streamer ribbon colours — the brand trio + gold + two deeper tones for depth. */
-const STREAMER_COLORS = ['#F5A060', '#E85BA8', '#A666D9', '#BE9522', '#EE7DBA', '#7E3CB0'];
+const STREAMER_COLORS = PARTY_RAMP;
 
 interface Streamer {
   id: number;

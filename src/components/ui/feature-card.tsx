@@ -20,19 +20,13 @@ import {
   CardMedia,
   MetaRow,
   ActionsRow,
+  isMetaArray,
+  isActionArray,
   type CardMeta,
   type CardActions,
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
-
-const isMetaArray = (m: CardMeta): m is { icon?: LucideIcon; label: string }[] =>
-  Array.isArray(m) && m.every((x) => x != null && typeof x === 'object' && 'label' in (x as object));
-
-const isActionArray = (
-  a: CardActions
-): a is { label: string; href?: string; onClick?: () => void }[] =>
-  Array.isArray(a) && a.every((x) => x != null && typeof x === 'object' && 'label' in (x as object));
 
 export interface FeatureCardProps {
   icon: LucideIcon;

@@ -1,73 +1,80 @@
 import React from "react";
+import type { LucideIcon } from "lucide-react";
+import { ROSE, APRICOT, LAVENDER, SUCCESS, PAPER_IVORY } from "@/lib/palette";
 
 // ── Design tokens ──────────────────────────────────────────────────────────────
 // Re-tokenised to Health OS brand (2026-07): Figma pink→rose, orange→apricot,
-// purple→lavender, green→success. Accents use the AA-safe 600 shade; light/mid
-// are the 50/200 washes. Radius normalised to the Health OS 8px global max.
+// purple→lavender, green→success. Fixed accents derive from the shared palette;
+// theme-aware neutrals are consumed as CSS variables so every card renders
+// correctly in light, paper and dark themes. Shadows are the carbon-based tokens.
 export const DS = {
-  pink:        "#BE2E7B",  // rose-600 (AA on white & under white text)
-  pinkLight:   "#FADEEE",  // rose-50  — chip wash
-  pinkMid:     "#F3A0CC",  // rose-200 — hover / border
-  purple:      "#7E3CB0",  // lavender-600
-  purpleLight: "#EDE1F7",  // lavender-50
-  purpleMid:   "#C9A3E6",  // lavender-200
-  orange:      "#C9722F",  // apricot-600 (AA)
-  orangeLight: "#FDECDF",  // apricot-50
-  orangeMid:   "#F8C39C",  // apricot-200
-  green:       "#1F9D6B",  // success-600
-  greenLight:  "#E2F5EC",  // success-100
-  fg:          "#1F1F1F",  // carbon / ink-900
-  fgMuted:     "#6B6560",  // warm muted grey (body)
-  fgSoft:      "#A39B93",  // lighter warm grey (labels)
-  bg:          "#F9F6F2",  // paper
-  card:        "#FFFFFF",  // surface
-  border:      "#E7E0D8",  // line hairline
+  pink:        ROSE[600],      // rose-600 (AA on white & under white text)
+  pinkLight:   ROSE[50],       // rose-50  — chip wash
+  pinkMid:     ROSE[200],      // rose-200 — hover / border
+  purple:      LAVENDER[600],  // lavender-600
+  purpleLight: LAVENDER[50],
+  purpleMid:   LAVENDER[200],
+  orange:      APRICOT[600],   // apricot-600 (AA)
+  orangeLight: APRICOT[50],
+  orangeMid:   APRICOT[200],
+  green:       SUCCESS[600],   // success-600
+  greenLight:  SUCCESS[100],
+  fg:          "rgb(var(--ink-900))",  // carbon / ink-900
+  fgMuted:     "rgb(var(--ink-500))",  // secondary (body)
+  fgSoft:      "rgb(var(--ink-400))",  // muted (labels)
+  bg:          "rgb(var(--paper))",    // page ground
+  card:        "rgb(var(--surface))",  // card surface
+  border:      "rgb(var(--line))",     // hairline
   radius:      "0.5rem",   // 8px — Health OS global max (squircles only)
   radiusSm:    "0.5rem",
-  shadow:      "0 1px 4px rgba(0,0,0,0.05), 0 2px 12px rgba(0,0,0,0.06)",
-  shadowMd:    "0 2px 8px rgba(0,0,0,0.05), 0 4px 24px rgba(0,0,0,0.09)",
-  shadowLg:    "0 4px 12px rgba(0,0,0,0.06), 0 8px 40px rgba(0,0,0,0.11)",
-  fontDisplay: "'Spline Sans', sans-serif",
-  fontMono:    "'Anonymous Pro', monospace",
+  shadow:      "0 1px 3px rgba(31,31,31,0.06), 0 1px 2px rgba(31,31,31,0.04)",
+  shadowMd:    "0 4px 14px rgba(31,31,31,0.06), 0 2px 4px rgba(31,31,31,0.04)",
+  shadowLg:    "0 12px 32px rgba(31,31,31,0.08), 0 4px 8px rgba(31,31,31,0.04)",
+  fontDisplay: "var(--hos-font-display)",
+  fontMono:    "var(--hos-font-body)",
 };
 
 // ── Seamless gradient helpers ───────────────────────────────────────────────────
-// Multi-stop ease-in-out curves — no harsh transitions, pure feathering
+// Multi-stop ease-in-out curves — no harsh transitions, pure feathering.
+// Stops derive from the --surface token so the feather blends into the card
+// surface in every theme (white, ivory, carbon) — never a fixed white.
+const S = (a: number) => `rgb(var(--surface) / ${a})`;
+
 export const FADE_UP = [
-  "hsla(0,0%,100%,0) 0%",
-  "hsla(0,0%,100%,0) 20%",
-  "hsla(0,0%,100%,0.04) 34%",
-  "hsla(0,0%,100%,0.15) 46%",
-  "hsla(0,0%,100%,0.38) 57%",
-  "hsla(0,0%,100%,0.65) 67%",
-  "hsla(0,0%,100%,0.85) 77%",
-  "hsla(0,0%,100%,0.96) 87%",
-  "#ffffff 95%",
+  `${S(0)} 0%`,
+  `${S(0)} 20%`,
+  `${S(0.04)} 34%`,
+  `${S(0.15)} 46%`,
+  `${S(0.38)} 57%`,
+  `${S(0.65)} 67%`,
+  `${S(0.85)} 77%`,
+  `${S(0.96)} 87%`,
+  `rgb(var(--surface)) 95%`,
 ].join(", ");
 
 export const FADE_DOWN_SCRIM = [
-  "hsla(0,0%,100%,0) 0%",
-  "hsla(0,0%,100%,0) 20%",
-  "hsla(0,0%,100%,0.01) 30%",
-  "hsla(0,0%,100%,0.05) 40%",
-  "hsla(0,0%,100%,0.14) 50%",
-  "hsla(0,0%,100%,0.32) 60%",
-  "hsla(0,0%,100%,0.56) 70%",
-  "hsla(0,0%,100%,0.78) 80%",
-  "hsla(0,0%,100%,0.94) 89%",
-  "#ffffff 98%",
+  `${S(0)} 0%`,
+  `${S(0)} 20%`,
+  `${S(0.01)} 30%`,
+  `${S(0.05)} 40%`,
+  `${S(0.14)} 50%`,
+  `${S(0.32)} 60%`,
+  `${S(0.56)} 70%`,
+  `${S(0.78)} 80%`,
+  `${S(0.94)} 89%`,
+  `rgb(var(--surface)) 98%`,
 ].join(", ");
 
 export const FADE_RIGHT = [
-  "hsla(0,0%,100%,0) 0%",
-  "hsla(0,0%,100%,0) 28%",
-  "hsla(0,0%,100%,0.04) 40%",
-  "hsla(0,0%,100%,0.16) 51%",
-  "hsla(0,0%,100%,0.38) 61%",
-  "hsla(0,0%,100%,0.65) 71%",
-  "hsla(0,0%,100%,0.85) 80%",
-  "hsla(0,0%,100%,0.96) 89%",
-  "#ffffff 96%",
+  `${S(0)} 0%`,
+  `${S(0)} 28%`,
+  `${S(0.04)} 40%`,
+  `${S(0.16)} 51%`,
+  `${S(0.38)} 61%`,
+  `${S(0.65)} 71%`,
+  `${S(0.85)} 80%`,
+  `${S(0.96)} 89%`,
+  `rgb(var(--surface)) 96%`,
 ].join(", ");
 
 // ── Badge — rounded-rect style matching Health OS design system ────────────────
@@ -101,7 +108,7 @@ export function Badge({
         background: bg,
         color: text,
         fontFamily: DS.fontMono,
-        fontSize: "0.63rem",
+        fontSize: "10px",
         letterSpacing: "0.12em",
         textTransform: "uppercase",
         fontWeight: 700,
@@ -136,7 +143,7 @@ export function BlockBadge({
         background: bg,
         color: text,
         fontFamily: DS.fontMono,
-        fontSize: "0.63rem",
+        fontSize: "10px",
         letterSpacing: "0.12em",
         textTransform: "uppercase",
         fontWeight: 700,
@@ -239,7 +246,7 @@ export const CardHeading = ({
 );
 
 // ─── VARIANT A: Full-Bleed Hero ────────────────────────────────────────────────
-// Image fills card entirely; white gradient fades from bottom, content overlaid
+// Image fills card entirely; surface gradient fades from bottom, content overlaid
 export function HeroCard({
   src,
   badge,
@@ -262,7 +269,7 @@ export function HeroCard({
       className={`relative overflow-hidden ${className}`}
       style={{ borderRadius: DS.radius, boxShadow: DS.shadowLg, isolation: "isolate", ...style }}
     >
-      <img src={src} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+      <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0" style={{ background: `linear-gradient(to top, ${FADE_UP})` }} />
       <div className="absolute inset-x-0 bottom-0 p-5">
         {badge && <div className="mb-2.5"><Badge label={badge} color={badgeColor} /></div>}
@@ -274,7 +281,7 @@ export function HeroCard({
 }
 
 // ─── VARIANT B: Photo Band ────────────────────────────────────────────────────
-// Nature image as top header that feathers seamlessly into white card body
+// Nature image as top header that feathers seamlessly into the card body
 export function PhotoBandCard({
   src,
   badge,
@@ -315,7 +322,7 @@ export function PhotoBandCard({
     >
       {/* image zone with seamless bottom fade */}
       <div className="relative flex-shrink-0" style={{ height: bandHeight, minHeight: "120px" }}>
-        <img src={src} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+        <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div
           className="absolute inset-0"
           style={{ background: `linear-gradient(to bottom, ${FADE_DOWN_SCRIM})` }}
@@ -426,7 +433,7 @@ export function StatCard({
         <>
           <img src={src} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: "saturate(0.6) brightness(1.1)", opacity: 0.16 }} />
-          <div className="absolute inset-0" style={{ background: "rgba(255,255,255,0.7)" }} />
+          <div className="absolute inset-0" style={{ background: "rgb(var(--surface) / 0.7)" }} />
         </>
       )}
       <div className="relative"><Badge label={label} color={color} /></div>
@@ -442,7 +449,7 @@ export function StatCard({
 }
 
 // ─── VARIANT E: Panorama Card ─────────────────────────────────────────────────
-// Landscape image on left feathering to white content on right
+// Landscape image on left feathering into the card surface on the right
 export function PanoramaCard({
   src,
   badge,
@@ -474,7 +481,7 @@ export function PanoramaCard({
       }}
     >
       <div className="relative flex-1" style={{ minHeight: "180px" }}>
-        <img src={src} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+        <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${FADE_RIGHT})` }} />
       </div>
       <div className="relative flex flex-col justify-center p-6" style={{ width: "44%", flexShrink: 0 }}>
@@ -562,7 +569,7 @@ export function TintCard({
     >
       <img src={src} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover"
         style={{ filter: "saturate(0.8) brightness(1.05)", opacity: tintOpacity }} />
-      <div className="absolute inset-0" style={{ background: "rgba(255,255,255,0.55)" }} />
+      <div className="absolute inset-0" style={{ background: "rgb(var(--surface) / 0.55)" }} />
       <div className="relative flex flex-col flex-1">
         {badge && <div className="mb-3"><Badge label={badge} color={badgeColor} /></div>}
         <CardHeading>{title}</CardHeading>
@@ -573,7 +580,8 @@ export function TintCard({
 }
 
 // ─── VARIANT H: Float Panel Card ─────────────────────────────────────────────
-// Full-bleed image; frosted white content panel centered / positioned
+// Full-bleed image; flat solid content panel centered / positioned.
+// (Rebuilt flat 2026-07: zero-glass rule — no backdrop blur, surface + line.)
 export function FloatPanelCard({
   src,
   badge,
@@ -599,20 +607,18 @@ export function FloatPanelCard({
       className={`relative overflow-hidden ${className}`}
       style={{ borderRadius: DS.radius, boxShadow: DS.shadowLg, isolation: "isolate", ...style }}
     >
-      <img src={src} alt={title} className="absolute inset-0 w-full h-full object-cover" />
-      {/* floating frosted panel */}
+      <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      {/* floating flat panel */}
       <div
         style={{
           position: "absolute",
           ...(isCenter ? { top: "50%", left: "1rem", right: "1rem", transform: "translateY(-50%)" }
                        : { left: "1rem", right: "1rem", bottom: "1rem" }),
-          background: "rgba(255,255,255,0.52)",
-          backdropFilter: "blur(28px) saturate(180%)",
-          WebkitBackdropFilter: "blur(28px) saturate(180%)",
-          border: "1px solid rgba(255,255,255,0.55)",
+          background: "rgb(var(--surface))",
+          border: `1px solid ${DS.border}`,
           borderRadius: DS.radius,
           padding: "1rem 1.1rem",
-          boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+          boxShadow: DS.shadowMd,
         }}
       >
         {badge && <div style={{ marginBottom: "0.5rem" }}><Badge label={badge} color={badgeColor} /></div>}
@@ -624,7 +630,7 @@ export function FloatPanelCard({
 }
 
 // ─── VARIANT I: Corner Image Card ────────────────────────────────────────────
-// Clean white card with a small rounded nature photo in the top-right corner
+// Clean surface card with a small rounded nature photo in the top-right corner
 export function CornerImageCard({
   src,
   badge,
@@ -657,7 +663,7 @@ export function CornerImageCard({
           height: "4rem",
           borderRadius: DS.radius,
           overflow: "hidden",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+          boxShadow: DS.shadow,
           flexShrink: 0,
         }}
       >
@@ -693,7 +699,7 @@ export function SplitCard({
 }) {
   const image = (
     <div className="flex-1 relative" style={{ minHeight: "160px" }}>
-      <img src={src} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+      <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
     </div>
   );
   const content = (
@@ -741,11 +747,12 @@ export function DuotoneCard({
   style?: React.CSSProperties;
   className?: string;
 }) {
+  // Health OS accent-600 tints (rose / lavender / apricot / success)
   const overlays: Record<AccentColor, string> = {
-    pink:   "rgba(200, 0, 92,  0.48)",
-    purple: "rgba(124, 58, 237, 0.46)",
-    orange: "rgba(232, 136, 26, 0.46)",
-    green:  "rgba(5, 150, 105,  0.44)",
+    pink:   "rgba(190, 46, 123, 0.48)",  // ROSE[600]
+    purple: "rgba(126, 60, 176, 0.46)",  // LAVENDER[600]
+    orange: "rgba(201, 114, 47, 0.46)",  // APRICOT[600]
+    green:  "rgba(31, 157, 107, 0.44)",  // SUCCESS[600]
   };
   return (
     <div
@@ -755,7 +762,7 @@ export function DuotoneCard({
       {/* greyscale photo */}
       <img
         src={src}
-        alt={title}
+        alt=""
         className="absolute inset-0 w-full h-full object-cover"
         style={{ filter: "grayscale(1) brightness(0.88) contrast(1.05)" }}
       />
@@ -764,10 +771,10 @@ export function DuotoneCard({
         className="absolute inset-0"
         style={{ background: overlays[color], mixBlendMode: "multiply" }}
       />
-      {/* soft gradient scrim at bottom for readability */}
+      {/* soft carbon gradient scrim at bottom for readability */}
       <div
         className="absolute inset-0"
-        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)" }}
+        style={{ background: "linear-gradient(to top, rgba(31,31,31,0.55) 0%, transparent 55%)" }}
       />
       {/* content */}
       <div className="absolute inset-x-0 bottom-0 p-5">
@@ -776,15 +783,16 @@ export function DuotoneCard({
             <span style={{
               display: "inline-flex", alignItems: "center", gap: "0.3rem",
               padding: "0.25rem 0.65rem", borderRadius: "6px",
-              background: "rgba(255,255,255,0.22)", backdropFilter: "blur(8px)",
-              color: "#fff", fontFamily: DS.fontMono, fontSize: "0.63rem",
+              background: "rgb(var(--surface))", border: `1px solid ${DS.border}`,
+              boxShadow: DS.shadow,
+              color: accentMap[color].text, fontFamily: DS.fontMono, fontSize: "10px",
               letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700,
             }}>{badge}</span>
           </div>
         )}
-        <h3 style={{ fontFamily: DS.fontDisplay, fontWeight: 600, color: "#fff", lineHeight: 1.2, margin: 0 }}>{title}</h3>
+        <h3 style={{ fontFamily: DS.fontDisplay, fontWeight: 600, color: PAPER_IVORY, lineHeight: 1.2, margin: 0 }}>{title}</h3>
         {description && (
-          <p style={{ fontFamily: DS.fontMono, fontSize: "0.8rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.6, margin: "0.4rem 0 0" }}>
+          <p style={{ fontFamily: DS.fontMono, fontSize: "0.8rem", color: "rgba(249,246,242,0.72)", lineHeight: 1.6, margin: "0.4rem 0 0" }}>
             {description}
           </p>
         )}
@@ -811,11 +819,12 @@ export function QuoteCard({
   style?: React.CSSProperties;
   className?: string;
 }) {
+  // Deep Health OS accent scrims (600/700 ramp values)
   const scrimColors: Record<AccentColor, string> = {
-    pink:   "rgba(200, 0, 92,  0.58)",
-    purple: "rgba(60,  20, 120, 0.62)",
-    orange: "rgba(180, 80, 0,   0.55)",
-    green:  "rgba(5, 80, 50,    0.58)",
+    pink:   "rgba(190, 46, 123, 0.58)",  // ROSE[600]
+    purple: "rgba(96, 44, 136, 0.62)",   // LAVENDER[700]
+    orange: "rgba(158, 87, 35, 0.55)",   // APRICOT[700]
+    green:  "rgba(21, 114, 78, 0.58)",   // SUCCESS[700]
   };
   return (
     <div
@@ -826,18 +835,18 @@ export function QuoteCard({
       <div className="absolute inset-0" style={{ background: scrimColors[color] }} />
       <div className="relative flex flex-col items-center gap-3" style={{ maxWidth: "520px" }}>
         {/* large opening quote mark */}
-        <span style={{ fontFamily: DS.fontDisplay, fontSize: "3.5rem", lineHeight: 0.6, color: "rgba(255,255,255,0.35)", display: "block", marginBottom: "0.4rem" }}>
+        <span style={{ fontFamily: DS.fontDisplay, fontSize: "3.5rem", lineHeight: 0.6, color: "rgba(249,246,242,0.35)", display: "block", marginBottom: "0.4rem" }}>
           "
         </span>
         <p style={{
           fontFamily: DS.fontDisplay, fontStyle: "italic", fontWeight: 400,
           fontSize: "clamp(1rem, 2.2vw, 1.35rem)", lineHeight: 1.5,
-          color: "#ffffff", margin: 0,
+          color: PAPER_IVORY, margin: 0,
         }}>
           {quote}
         </p>
         {attribution && (
-          <p style={{ fontFamily: DS.fontMono, fontSize: "0.72rem", color: "rgba(255,255,255,0.6)", margin: "0.25rem 0 0", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+          <p style={{ fontFamily: DS.fontMono, fontSize: "0.72rem", color: "rgba(249,246,242,0.6)", margin: "0.25rem 0 0", letterSpacing: "0.08em", textTransform: "uppercase" }}>
             — {attribution}
           </p>
         )}
@@ -848,7 +857,7 @@ export function QuoteCard({
 
 // ─── VARIANT O: Progress Ring Card ────────────────────────────────────────────
 // SVG circular progress ring — the central health-tracking element.
-// Image shows as an ultra-subtle tint behind the white card.
+// Image shows as an ultra-subtle tint behind the card surface.
 export function ProgressRingCard({
   value,
   label,
@@ -868,7 +877,8 @@ export function ProgressRingCard({
 }) {
   const R = 38;
   const circ = 2 * Math.PI * R;
-  const offset = circ * (1 - Math.min(Math.max(value, 0), 100) / 100);
+  const clamped = Math.min(Math.max(value, 0), 100);
+  const offset = circ * (1 - clamped / 100);
   const trackColor = accentMap[color].bg;
   const ringColor  = accentMap[color].text;
 
@@ -881,12 +891,19 @@ export function ProgressRingCard({
         <>
           <img src={src} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: "saturate(0.5) brightness(1.1)", opacity: 0.1 }} />
-          <div className="absolute inset-0" style={{ background: "rgba(255,255,255,0.8)" }} />
+          <div className="absolute inset-0" style={{ background: "rgb(var(--surface) / 0.8)" }} />
         </>
       )}
       <div className="relative flex flex-col items-center gap-4">
-        <div style={{ position: "relative", width: 100, height: 100 }}>
-          <svg width={100} height={100} viewBox="0 0 100 100" style={{ transform: "rotate(-90deg)" }}>
+        <div
+          role="progressbar"
+          aria-valuenow={clamped}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={label}
+          style={{ position: "relative", width: 100, height: 100 }}
+        >
+          <svg width={100} height={100} viewBox="0 0 100 100" style={{ transform: "rotate(-90deg)" }} aria-hidden>
             {/* track */}
             <circle cx="50" cy="50" r={R} fill="none" stroke={trackColor} strokeWidth="8" />
             {/* ring */}
@@ -906,7 +923,7 @@ export function ProgressRingCard({
             <span style={{ fontFamily: DS.fontMono, fontWeight: 700, fontSize: "1.5rem", color: DS.fg, lineHeight: 1 }}>
               {value}
             </span>
-            <span style={{ fontFamily: DS.fontMono, fontSize: "0.6rem", color: DS.fgSoft, letterSpacing: "0.06em" }}>%</span>
+            <span style={{ fontFamily: DS.fontMono, fontSize: "10px", color: DS.fgSoft, letterSpacing: "0.06em" }}>%</span>
           </div>
         </div>
         <div style={{ textAlign: "center" }}>
@@ -957,7 +974,7 @@ export function BillboardCard({
     >
       <img src={src} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover"
         style={{ filter: "brightness(1.05) saturate(0.85)", opacity: 0.18 }} />
-      <div className="absolute inset-0" style={{ background: "rgba(255,255,255,0.76)" }} />
+      <div className="absolute inset-0" style={{ background: "rgb(var(--surface) / 0.76)" }} />
 
       {label && (
         <div className="relative"><Badge label={label} color={color} /></div>
@@ -1010,7 +1027,7 @@ export function StackedStatCard({
         <>
           <img src={src} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: "saturate(0.5) brightness(1.1)", opacity: 0.09 }} />
-          <div className="absolute inset-0" style={{ background: "rgba(255,255,255,0.88)" }} />
+          <div className="absolute inset-0" style={{ background: "rgb(var(--surface) / 0.88)" }} />
         </>
       )}
       {title && (
@@ -1022,6 +1039,7 @@ export function StackedStatCard({
         {rows.map((r) => {
           const barColor = { pink: DS.pink, purple: DS.purple, orange: DS.orange, green: DS.green }[r.color];
           const trackColor = { pink: DS.pinkLight, purple: DS.purpleLight, orange: DS.orangeLight, green: DS.greenLight }[r.color];
+          const pct = Math.min(r.pct, 100);
           return (
             <div key={r.label}>
               <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.35rem" }}>
@@ -1029,13 +1047,20 @@ export function StackedStatCard({
                 <span style={{ fontFamily: DS.fontMono, fontSize: "0.82rem", fontWeight: 700, color: DS.fg }}>{r.value}</span>
               </div>
               {/* mini progress bar */}
-              <div style={{ height: "5px", borderRadius: "999px", background: trackColor, overflow: "hidden" }}>
+              <div
+                role="progressbar"
+                aria-valuenow={pct}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={r.label}
+                style={{ height: "5px", borderRadius: "999px", background: trackColor, overflow: "hidden" }}
+              >
                 <div style={{
                   height: "100%",
-                  width: `${Math.min(r.pct, 100)}%`,
+                  width: `${pct}%`,
                   background: barColor,
                   borderRadius: "999px",
-                  transition: "width 0.6s ease",
+                  transition: "width 400ms ease",
                 }} />
               </div>
             </div>
@@ -1047,7 +1072,7 @@ export function StackedStatCard({
 }
 
 // ─── VARIANT R: Overlap Card ──────────────────────────────────────────────────
-// White card where a nature photo occupies the top-right zone and "overlaps"
+// Surface card where a nature photo occupies the top-right zone and "overlaps"
 // into the content area — creating editorial depth without a full-bleed image.
 export function OverlapCard({
   src,
@@ -1090,16 +1115,16 @@ export function OverlapCard({
         {/* seamless left fade — 8-stop eased curve */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.94) 8%, rgba(255,255,255,0.76) 18%, rgba(255,255,255,0.48) 30%, rgba(255,255,255,0.20) 44%, rgba(255,255,255,0.05) 56%, transparent 68%)",
+          background: `linear-gradient(to right, rgb(var(--surface)) 0%, ${S(0.94)} 8%, ${S(0.76)} 18%, ${S(0.48)} 30%, ${S(0.20)} 44%, ${S(0.05)} 56%, transparent 68%)`,
         }} />
         {/* seamless bottom fade — 9-stop gradual curve */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.88) 8%, rgba(255,255,255,0.68) 18%, rgba(255,255,255,0.42) 29%, rgba(255,255,255,0.20) 40%, rgba(255,255,255,0.08) 51%, rgba(255,255,255,0.02) 62%, transparent 72%)",
+          background: `linear-gradient(to top, rgb(var(--surface)) 0%, ${S(0.88)} 8%, ${S(0.68)} 18%, ${S(0.42)} 29%, ${S(0.20)} 40%, ${S(0.08)} 51%, ${S(0.02)} 62%, transparent 72%)`,
         }} />
       </div>
 
-      {/* content — sits naturally on the white card surface */}
+      {/* content — sits naturally on the card surface */}
       <div className="relative flex flex-col flex-1" style={{ maxWidth: "60%", zIndex: 1 }}>
         {badge && <div style={{ marginBottom: "0.7rem" }}><Badge label={badge} color={badgeColor} /></div>}
         <CardHeading>{title}</CardHeading>
@@ -1110,9 +1135,11 @@ export function OverlapCard({
 }
 
 // ─── VARIANT K: Mood Card ────────────────────────────────────────────────────
-// Large centered emoji/metric, image as full soft background wash
+// Large centered icon/metric, image as full soft background wash.
+// Accepts a Lucide icon (preferred) or a legacy emoji string for back-compat.
 export function MoodCard({
   src,
+  icon: Icon,
   emoji,
   value,
   label,
@@ -1122,6 +1149,7 @@ export function MoodCard({
   className = "",
 }: {
   src: string;
+  icon?: LucideIcon;
   emoji?: string;
   value?: string;
   label: string;
@@ -1137,9 +1165,11 @@ export function MoodCard({
     >
       <img src={src} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover"
         style={{ filter: "saturate(0.75) brightness(1.05)", opacity: 0.22 }} />
-      <div className="absolute inset-0" style={{ background: "rgba(255,255,255,0.72)" }} />
+      <div className="absolute inset-0" style={{ background: "rgb(var(--surface) / 0.72)" }} />
       <div className="relative flex flex-col items-center gap-2">
-        {emoji && <span style={{ fontSize: "2rem", lineHeight: 1 }}>{emoji}</span>}
+        {Icon
+          ? <Icon size={28} strokeWidth={1.5} aria-hidden color={accentMap[color].text} />
+          : emoji && <span style={{ fontSize: "2rem", lineHeight: 1 }}>{emoji}</span>}
         {value && (
           <span style={{ fontFamily: DS.fontMono, fontSize: "2.2rem", fontWeight: 700, color: DS.fg, lineHeight: 1 }}>
             {value}

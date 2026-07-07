@@ -21,7 +21,6 @@ import {
   BreathingDot,
   PointerSpotlight,
   HoverUnderline,
-  Parallax,
   Appear,
 } from '@/components/ui/animated';
 import { Disclosure } from '@/components/ui/disclosure';
@@ -225,16 +224,8 @@ export const MotionSection = () => (
         <PresenceDemo />
       </Demo>
 
-      <Demo label="Parallax — scroll the page">
-        <div className="relative h-32 overflow-hidden rounded-md border border-line bg-surface">
-          <Parallax amount={22} className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <span className="font-display text-display-lg text-ink-200">drift</span>
-          </Parallax>
-          <div className="relative flex h-full items-center justify-center font-mono text-caption text-ink-600">
-            scroll-linked drift
-          </div>
-        </div>
-      </Demo>
+      {/* Parallax demo removed — the primitive is deprecated/off-brand
+          (foundations/motion.md bans parallax); the showcase doesn't teach it. */}
 
       {/* ── Counters (moved from Components) — press Move to replay the count-up ── */}
       <MotionDemo label="Counters — seats & memberships">

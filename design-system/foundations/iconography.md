@@ -1,7 +1,8 @@
 # Iconography
 
-## Library
-**Lucide**, exclusively. One library, no mixing. (`lucide-react` in the app.) Lucide's clean, even line weight sits naturally next to Anonymous Pro's monospace — both read as quiet, engineered, calm.
+## Library — two tiers
+1. **Functional UI icons: Lucide, exclusively.** (`lucide-react` in the app.) Every interactive, navigational, status or informational icon is Lucide — one library, no mixing. Lucide's clean, even line weight sits naturally next to Anonymous Pro's monospace — both read as quiet, engineered, calm.
+2. **Illustrative feature icons: the Health OS squircle set** — the custom glyph library in the showcase's Icons section (8px squircle tiles, Aura/Dissolve treatments in the brand gradient families). Use it for *decorative feature illustration* only — bento highlights, marketing tiles, empty-state art. Never for buttons, nav, status, or anything the user operates, and never mixed with Lucide in the same row.
 
 ## Style
 - Stroke **1.5px**, outline only, **rounded terminals** (Lucide's default round line-cap and line-join).
@@ -32,9 +33,12 @@ A 40×40 `rounded-md` chip in a `-100` tint holding a 20px Lucide icon in the ma
 ## Mono context note (v2)
 Because the body type is monospace, line icons at 1.5px stroke pair especially well — the icon stroke and the type stem read at a similar weight, so an inline icon sits cleanly in a mono label or `/command` chip. Keep inline icons optically aligned to the cap height of the mono text.
 
+## Emoji policy
+- **Product UI, emails and documents: no emoji.** Anything the user operates uses Lucide.
+- **Showcase and marketing surfaces:** emoji may appear as *decorative, `aria-hidden` accents* — the optional leading emoji on `Badge`, overview snapshot cards, placeholder memoji tiles. An adjacent text label always carries the meaning; emoji never replace a functional icon.
+
 ## What we don't use
-- No emoji in marketing or product UI (any 🍱/🎬/🖼 glyphs are showcase section labels only, never shipped UI).
-- No second icon library.
+- No second *functional* icon library beside Lucide (the squircle set is illustrative only).
 - No filled / 3D / skeuomorphic icons.
 - No mixing filled and line within a single screen or component group.
 

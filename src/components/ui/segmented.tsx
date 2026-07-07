@@ -4,8 +4,9 @@
  * Daily | Weekly | Monthly. The active segment is the filled carbon one; the rest are
  * muted ink on a soft inset with a hairline frame. Controlled or uncontrolled.
  *
- * A11y: role="tablist" with roving tabindex and ArrowLeft/Right (and Up/Down) keyboard
- * support, aria-selected on each tab. 8px squircle, brand focus ring, quiet token motion.
+ * A11y: role="radiogroup" (ARIA-correct for a value selector) with roving tabindex and
+ * ArrowLeft/Right (and Up/Down) keyboard support, aria-checked on each radio.
+ * 8px squircle, brand focus ring, quiet token motion.
  */
 import * as React from 'react';
 import { cn } from '@/lib/utils';
@@ -73,9 +74,12 @@ export function SegmentedControl<T extends string = string>({
 
   const pad = size === 'sm' ? 'px-3 py-1.5 text-body-sm' : 'px-4 py-2 text-body-sm';
 
+  // Nothing to select — render nothing (after the hooks, so hook order stays stable).
+  if (options.length === 0) return null;
+
   return (
     <div
-      role="tablist"
+      role="radiogroup"
       aria-label={ariaLabel}
       onKeyDown={onKeyDown}
       className={cn(
@@ -92,8 +96,8 @@ export function SegmentedControl<T extends string = string>({
               tabRefs.current[idx] = el;
             }}
             type="button"
-            role="tab"
-            aria-selected={isActive}
+            role="radio"
+            aria-checked={isActive}
             tabIndex={isActive ? 0 : -1}
             onClick={() => select(opt.value)}
             className={cn(

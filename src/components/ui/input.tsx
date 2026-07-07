@@ -19,7 +19,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputId = id ?? autoId;
     const hintId = `${inputId}-hint`;
     const errorId = `${inputId}-error`;
-    const describedBy = error ? errorId : hint ? hintId : undefined;
+    const describedBy =
+      [error && errorId, hint && hintId].filter(Boolean).join(' ') || undefined;
     return (
       <div className="flex w-full flex-col gap-1.5">
         {label && (
@@ -42,7 +43,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               'w-full rounded-md border bg-surface font-sans text-body-md text-ink-900',
               'placeholder:text-ink-500 transition-colors duration-sm ease-out',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/35 focus-visible:border-brand-400',
-              'disabled:opacity-50 disabled:pointer-events-none',
+              'disabled:opacity-50 disabled:cursor-not-allowed',
               Icon ? 'pl-11 pr-4' : 'px-4',
               'py-2.5',
               error ? 'border-danger-600' : 'border-line',
@@ -53,12 +54,19 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
         </div>
-        {error ? (
+        {error && (
           <p id={errorId} aria-live="polite" className="font-mono text-caption text-danger-600">
             {error}
           </p>
-        ) : (
-          hint && <p id={hintId} className="font-mono text-caption text-ink-600">{hint}</p>
+        )}
+        {/* The hint stays visible alongside an error — it's guidance, not state. */}
+        {hint && (
+          <p
+            id={hintId}
+            className={cn('font-mono text-caption', error ? 'text-ink-500' : 'text-ink-600')}
+          >
+            {hint}
+          </p>
         )}
       </div>
     );

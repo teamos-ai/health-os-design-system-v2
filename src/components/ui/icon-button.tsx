@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 
 const iconButton = cva(
   'inline-flex shrink-0 items-center justify-center rounded-md ' +
-    'transition-all duration-sm ease-out active:scale-[0.96] ' +
+    'transition-all duration-sm ease-out active:scale-[0.98] ' +
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 ' +
     'focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
     'disabled:opacity-50 disabled:pointer-events-none',
@@ -29,7 +29,7 @@ const iconButton = cva(
           'bg-[var(--btn-accent-bg)] text-[var(--btn-accent-fg)] hover:bg-[var(--btn-accent-bg-hover)] ' +
           'focus-visible:ring-[var(--btn-accent-ring)]',
       },
-      size: { sm: 'h-9 w-9', md: 'h-11 w-11', lg: 'h-12 w-12' },
+      size: { sm: 'h-10 w-10', md: 'h-11 w-11', lg: 'h-12 w-12' },
     },
     defaultVariants: { variant: 'dark', size: 'md' },
   }

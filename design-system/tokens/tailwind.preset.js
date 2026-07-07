@@ -70,7 +70,7 @@ export default {
         /* ── Gold — premium signal accent ───────────────────── */
         gold: { 100: '#F6ECCB', 400: '#D9B23F', 600: '#BE9522', 800: '#6E560F' },
         /* ── Semantic ───────────────────────────────────────── */
-        success: { 100: '#E2F5EC', 600: '#1F9D6B', 700: '#15724E' },
+        success: { 100: '#E2F5EC', 200: '#8FD6B6', 600: '#1F9D6B', 700: '#15724E' },
         warn: { 100: '#FBF2DC', 600: '#C08415', 700: '#8A5E0F' },
         danger: { 100: '#FAE4E2', 600: '#C8382F', 700: '#9F2A23' },
         info: { 100: '#DEC8F0', 600: '#7E3CB0', 700: '#5E2C86' },
@@ -99,6 +99,8 @@ export default {
         /* Mono labels / overlines — uppercase, wide tracking */
         overline: ['12px', { lineHeight: '16px', letterSpacing: '0.08em', fontWeight: '700' }],
         label: ['11px', { lineHeight: '16px', letterSpacing: '0.1em', fontWeight: '700' }],
+        /* Smallest sanctioned size — dense meta captions inside mocks/swatches only */
+        micro: ['10px', { lineHeight: '14px', letterSpacing: '0.08em', fontWeight: '700' }],
         code: ['14px', { lineHeight: '22px', fontWeight: '400' }],
       },
       letterSpacing: {
@@ -117,10 +119,11 @@ export default {
         'hero-gap-sm': '2rem' /* 32px — tighter gap (title → subcopy, action → chips) */,
       },
       borderRadius: {
+        /* The locked scale (foundations/radius.md): 8px UI (md) · 12px cards (lg) ·
+           20px bento/hero panels (xl) · 28px large panels (2xl) · 36px oversized /
+           carbon footer (3xl) · full pills for marketing CTAs, badges and avatars. */
         none: '0px', xs: '4px', sm: '6px', md: '8px',
-        /* 8px is the GLOBAL maximum — squircles only, no pills/circles.
-           Larger aliases are capped at 8px so nothing can exceed it. */
-        lg: '8px', xl: '8px', '2xl': '8px', '3xl': '8px', full: '8px',
+        lg: '12px', xl: '20px', '2xl': '28px', '3xl': '36px', full: '9999px',
       },
       boxShadow: {
         /* Soft, neutral, carbon-based only — never coloured, never inner */
@@ -157,6 +160,10 @@ export default {
         'glow-rose': 'radial-gradient(ellipse at center, rgba(232,91,168,0.28) 0%, transparent 70%)',
         'glow-apricot': 'radial-gradient(ellipse at center, rgba(245,160,96,0.28) 0%, transparent 70%)',
         'glow-lavender': 'radial-gradient(ellipse at center, rgba(166,102,217,0.28) 0%, transparent 70%)',
+        /* Strong (0.55) siblings — expressive opt-in surfaces only, never behind body text */
+        'glow-rose-strong': 'radial-gradient(ellipse at center, rgba(232,91,168,0.55) 0%, transparent 70%)',
+        'glow-apricot-strong': 'radial-gradient(ellipse at center, rgba(245,160,96,0.55) 0%, transparent 70%)',
+        'glow-lavender-strong': 'radial-gradient(ellipse at center, rgba(166,102,217,0.55) 0%, transparent 70%)',
       },
       keyframes: {
         marquee: {
@@ -175,6 +182,11 @@ export default {
           '0%': { backgroundPosition: '200% 0' },
           '100%': { backgroundPosition: '-200% 0' },
         },
+        /* one-time entrance for tab panels / popovers — fade + small rise */
+        'enter-rise': {
+          from: { opacity: '0', transform: 'translateY(4px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         marquee: 'marquee 40s linear infinite',
@@ -182,9 +194,11 @@ export default {
         'marquee-reverse': 'marquee-reverse 40s linear infinite',
         ticker: 'ticker 32s linear infinite',
         shimmer: 'shimmer 6s linear infinite',
+        'enter-rise': 'enter-rise 240ms cubic-bezier(0.22, 1, 0.36, 1) both',
       },
       maxWidth: {
         container: '1200px',
+        'container-wide': '1320px',
         reading: '680px',
         'hero-subcopy': '600px',
       },

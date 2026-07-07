@@ -7,10 +7,11 @@ This folder is the **portable, LLM-readable layer** of Health OS Design System *
 ## 1. Load order
 1. `BRAND-SUMMARY.md` — the one-page snapshot.
 2. `foundations/brand.md` + `voice.md` + `vocabulary.md` — who we are, how we sound.
-3. `foundations/color.md` · `typography.md` · `spacing.md` · `radius.md` · `shadow.md` · `motion.md` · `iconography.md` · `imagery.md` — the visual rules.
+3. `foundations/color.md` · `typography.md` · `spacing.md` · `radius.md` · `shadow.md` · `motion.md` · `iconography.md` · `imagery.md` · `themes.md` — the visual rules.
 4. `tokens/tokens.json` (+ `tokens.css`, `tailwind.preset.js`) — the values.
 5. `logo/usage.md` — the mark rules.
 6. `components/README.md` — the component catalogue and its props / variants.
+7. `ASSET-RECIPES.md` — the per-asset-type recipe (landing page, email, slide, document, social, dashboard) when you're building a specific deliverable.
 
 ## 2. Token quick reference (use these exact class names)
 | Need | Token / class |
@@ -39,6 +40,9 @@ This folder is the **portable, LLM-readable layer** of Health OS Design System *
 | Pill / CTA | `rounded-full` |
 | Bento / hero panel | `rounded-xl` / `rounded-2xl` |
 | Hover shadow | `shadow-sm` / `shadow-md` |
+| Themes | light (default, white) · `.theme-paper` (ivory — the brand ground) · `.dark` (black). Tokens flip via CSS vars — see `foundations/themes.md`; never hard-code neutrals. |
+| Smallest label | `text-micro` (10px — dense meta in mocks/swatches only) |
+| Lighter primary fill | `brand-550` (lightest rose that holds white text at AA) |
 | Marquee carousel | `animate-marquee` (also `-slow`, `-reverse`) |
 | Thin top ticker | `animate-ticker` |
 | Containers | `max-w-container` (1200), `max-w-reading` (680), `max-w-hero-subcopy` (600) |

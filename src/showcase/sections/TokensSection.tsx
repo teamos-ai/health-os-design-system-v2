@@ -12,7 +12,8 @@ import { cn } from '@/lib/utils';
 const RAMPS: Record<string, Record<string, string>> = {
   'rose / brand': {
     50: '#FADEEE', 100: '#F8C6E0', 200: '#F3A0CC', 300: '#EE7DBA', 400: '#E85BA8',
-    500: '#D63F92', 600: '#BE2E7B', 700: '#97215F', 800: '#5F1640', 900: '#2E1222',
+    // 550 — lightest AA fill for white text; the resting primary
+    500: '#D63F92', 550: '#CC3385', 600: '#BE2E7B', 700: '#97215F', 800: '#5F1640', 900: '#2E1222',
   },
   apricot: {
     50: '#FDECDF', 100: '#FBD9BE', 200: '#F8C39C', 300: '#F7B27E', 400: '#F5A060',
@@ -52,9 +53,9 @@ const SEMANTIC = [
 ];
 
 const GLOWS = [
-  { name: 'glow-rose', bg: 'radial-gradient(circle at center, rgba(232,91,168,0.55), transparent 70%)' },
-  { name: 'glow-apricot', bg: 'radial-gradient(circle at center, rgba(245,160,96,0.55), transparent 70%)' },
-  { name: 'glow-lavender', bg: 'radial-gradient(circle at center, rgba(166,102,217,0.55), transparent 70%)' },
+  { name: 'glow-rose', bg: 'radial-gradient(circle at center, rgba(232,91,168,0.28), transparent 70%)' },
+  { name: 'glow-apricot', bg: 'radial-gradient(circle at center, rgba(245,160,96,0.28), transparent 70%)' },
+  { name: 'glow-lavender', bg: 'radial-gradient(circle at center, rgba(166,102,217,0.28), transparent 70%)' },
 ];
 
 /** The drifting-mesh field — three soft radial blobs in the brand trio. Reused as both
@@ -83,9 +84,9 @@ const TYPE_HUES: { id: TypeHue; label: string; dot: string }[] = [
 ];
 const TYPE_TEXT: Record<TypeHue, string> = {
   ink: 'text-ink-900',
-  apricot: 'text-[#F5A060]',
-  rose: 'text-[#E85BA8]',
-  lavender: 'text-[#A666D9]',
+  apricot: 'text-apricot-400',
+  rose: 'text-rose-400',
+  lavender: 'text-lavender-400',
 };
 
 const TYPE_SCALE = [
@@ -100,10 +101,28 @@ const TYPE_SCALE = [
 const RADII = [
   { name: 'xs · 4px', cls: 'rounded-xs' },
   { name: 'sm · 6px', cls: 'rounded-sm' },
-  { name: 'md · 8px · max', cls: 'rounded-md' },
+  { name: 'md · 8px · UI', cls: 'rounded-md' },
+  { name: 'lg · 12px · cards', cls: 'rounded-lg' },
+  { name: 'xl · 20px · bento', cls: 'rounded-xl' },
+  { name: '2xl · 28px', cls: 'rounded-2xl' },
+  { name: 'full · pill', cls: 'rounded-full' },
 ];
 
-const SHADOWS = ['shadow-sm', 'shadow-md', 'shadow-lg'];
+const SHADOWS = ['shadow-xs', 'shadow-sm', 'shadow-md', 'shadow-lg', 'shadow-xl'];
+
+const DURATIONS = [
+  { name: 'duration-xs', ms: '80ms', use: 'taps, toggles' },
+  { name: 'duration-sm', ms: '160ms', use: 'buttons, hovers, focus' },
+  { name: 'duration-md', ms: '240ms', use: 'cards, inputs, menus' },
+  { name: 'duration-lg', ms: '360ms', use: 'scroll reveals' },
+  { name: 'duration-xl', ms: '480ms', use: 'the ceiling — largest hero reveal' },
+];
+
+const EASINGS = [
+  { name: 'ease-out', value: 'cubic-bezier(0.22, 1, 0.36, 1)', use: 'entrances + reveals' },
+  { name: 'ease-standard', value: 'cubic-bezier(0.4, 0, 0.2, 1)', use: 'UI state changes' },
+  { name: 'linear', value: 'linear', use: 'marquee + ticker loops only' },
+];
 
 const Block = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="mt-12 first:mt-0">
@@ -163,7 +182,7 @@ export const TokensSection = () => {
           {GLOWS.map((g) => (
             <div key={g.name}>
               <div className="h-24 rounded-lg border border-line bg-paper" style={{ backgroundImage: g.bg }} />
-              <p className="mt-2 font-mono text-[10px] text-ink-600">{g.name}</p>
+              <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">{g.name}</p>
             </div>
           ))}
         </div>
@@ -179,36 +198,24 @@ export const TokensSection = () => {
         ))}
       </div>
 
-      {/* Animated — gentle, always-on, frozen under reduced-motion by the global guard */}
+      {/* The gradient is a STATIC brand device — it is never animated on shipped surfaces
+          (foundations/motion.md). The soft washes below are the sanctioned large-fill
+          siblings. */}
       <p className="mb-3 mt-8 font-mono text-caption text-ink-500">
-        Animated — gentle and always-on; frozen under reduced-motion.
+        Soft washes — the large-fill siblings; the gradient stays static, never animated.
       </p>
       <div className="grid gap-4 sm:grid-cols-3">
         <div>
-          <div
-            className="anim-grad-pan h-24 rounded-md border border-line"
-            style={{
-              backgroundImage: 'linear-gradient(110deg,#F5A060,#E85BA8,#A666D9,#E85BA8,#F5A060)',
-              backgroundSize: '300% 100%',
-            }}
-          />
-          <p className="mt-2 font-mono text-[10px] text-ink-600">Flowing trio · anim-grad-pan</p>
+          <div className="h-24 rounded-md border border-line bg-brand-gradient-soft" />
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Soft wash · bg-brand-gradient-soft</p>
         </div>
         <div>
-          <div
-            className="anim-grad-drift h-24 rounded-md border border-line bg-paper"
-            style={{ backgroundImage: MESH, backgroundSize: '180% 180%' }}
-          />
-          <p className="mt-2 font-mono text-[10px] text-ink-600">Drifting mesh · anim-grad-drift</p>
+          <div className="h-24 rounded-md border border-line bg-brand-gradient-warm" />
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Warm sunrise · bg-brand-gradient-warm</p>
         </div>
         <div>
-          <div className="relative h-24 overflow-hidden rounded-md border border-line">
-            <div
-              className="anim-grad-spin absolute inset-[-40%]"
-              style={{ background: 'conic-gradient(from 0deg,#F5A060,#E85BA8,#A666D9,#F5A060)' }}
-            />
-          </div>
-          <p className="mt-2 font-mono text-[10px] text-ink-600">Rotating bloom · anim-grad-spin</p>
+          <div className="h-24 rounded-md border border-line bg-glow-hero bg-paper" />
+          <p className="mt-2 font-mono text-micro font-normal tracking-normal text-ink-600">Hero glow · bg-glow-hero</p>
         </div>
       </div>
     </Block>
@@ -231,7 +238,7 @@ export const TokensSection = () => {
                 : 'border-line text-ink-500 hover:text-ink-900'
             )}
           >
-            <span className="h-3 w-3 rounded-sm ring-1 ring-inset ring-black/10" style={{ background: h.dot }} />
+            <span className="h-3 w-3 rounded-sm ring-1 ring-inset ring-carbon/10" style={{ background: h.dot }} />
             {h.label}
           </button>
         ))}
@@ -257,7 +264,7 @@ export const TokensSection = () => {
     {/* Radius + elevation */}
     <div className="mt-12 grid gap-12 md:grid-cols-2">
       <div>
-        <MonoLabel>Radius — 8px max</MonoLabel>
+        <MonoLabel>Radius — 8 UI · 12 cards · 20 bento · pills</MonoLabel>
         <div className="mt-5 flex flex-wrap gap-4">
           {RADII.map((r) => (
             <div key={r.name} className="flex flex-col items-center gap-2">
@@ -279,6 +286,39 @@ export const TokensSection = () => {
         </div>
       </div>
     </div>
+
+    {/* Motion tokens — durations, easings, loops */}
+    <Block title="Motion — durations, easings, loops">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="flex flex-col divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
+          {DURATIONS.map((d) => (
+            <div key={d.name} className="flex items-center justify-between gap-4 px-5 py-3.5">
+              <span className="font-mono text-body-sm text-ink-900">{d.name}</span>
+              <span className="shrink-0 font-mono text-caption text-ink-600">{d.ms} · {d.use}</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
+            {EASINGS.map((e) => (
+              <div key={e.name} className="flex flex-col gap-1 px-5 py-3.5">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="font-mono text-body-sm text-ink-900">{e.name}</span>
+                  <span className="shrink-0 font-mono text-caption text-ink-600">{e.use}</span>
+                </div>
+                <span className="font-mono text-caption text-ink-500">{e.value}</span>
+              </div>
+            ))}
+          </div>
+          <p className="font-mono text-caption leading-relaxed text-ink-500">
+            Interactions 150–250ms · reveals 300–400ms · 480ms is the ceiling. Loops: marquee
+            40–60s, ticker 32–45s, plus a breathing status dot and the skeleton shimmer — one
+            ambient loop per view, all frozen under reduced motion. Count-ups may settle over
+            1.4s and snap for reduced-motion users.
+          </p>
+        </div>
+      </div>
+    </Block>
   </Section>
   );
 };

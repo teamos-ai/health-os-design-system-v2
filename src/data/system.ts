@@ -41,7 +41,7 @@ export interface TickerItem {
 /** Outcome facts — the default top banner */
 export const TICKER_ITEMS: TickerItem[] = [
   { icon: Layers, text: 'Six to eight tools, now one system' },
-  { icon: Clock, text: '10–15 hours returned each week' },
+  { icon: Clock, text: '12 hours returned each week' },
   { icon: Rocket, text: 'Live in 30 days' },
   { icon: HeartPulse, text: 'Built for practitioners and their clients' },
   { icon: Wrench, text: 'Done-with-you setup' },
@@ -113,7 +113,7 @@ export interface OverviewCard {
   accent: Accent;
 }
 export const OVERVIEW_CARDS: OverviewCard[] = [
-  { emoji: '✨', badge: 'Essence', accent: 'rose', title: 'The Health OS Design System', lines: ['Warm, flat, premium, calm', 'One locked, considered system'] },
+  { emoji: '✨', badge: 'Essence', accent: 'rose', title: 'The Health OS design system', lines: ['Warm, flat, premium, calm', 'One locked, considered system'] },
   { emoji: '🌓', badge: 'Themes', accent: 'lavender', title: 'Three grounds, one system', lines: ['Light — clean white', 'Paper — warm ivory', 'Dark — carbon, warm off-white text'] },
   { emoji: '🔒', badge: 'Locked', accent: 'rose', title: 'What stays ours', lines: ['Warm ivory + carbon + rose', 'Spline Sans + Anonymous Pro', 'Sentence case, zero glass, AA'] },
   { emoji: '🎨', badge: 'Colour', accent: 'apricot', title: 'Warm multi-hue', lines: ['Rose primary · apricot · lavender · gold', 'rose-600 for white text (AA)', 'Gradient used with restraint'] },
@@ -157,10 +157,10 @@ export const BADGES_OILS: BadgeSpec[] = [
   { emoji: '⚠️', label: 'Dilute first', variant: 'warn' },
 ];
 
-/** Coaching & courses — formats, journey and milestones */
+/** Programs & courses — formats, journey and milestones */
 export const BADGES_COACHING: BadgeSpec[] = [
   { emoji: '🎓', label: 'Course', variant: 'lavender' },
-  { emoji: '🧭', label: '1:1 coaching', variant: 'brand' },
+  { emoji: '🧭', label: '1:1 sessions', variant: 'brand' },
   { emoji: '🌅', label: 'Group program', variant: 'apricot' },
   { emoji: '📚', label: 'Self-paced', variant: 'info' },
   { emoji: '🏅', label: 'Certified', variant: 'gold' },

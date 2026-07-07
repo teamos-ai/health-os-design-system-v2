@@ -38,7 +38,7 @@ export const PHOTOS: Photo[] = [
   // ── Active & Fitness ──────────────────────────────────────────────────────
   {
     src: '/imagery/active-and-fitness/group-yoga-side-plank-in-bright-studio-16-9.png',
-    name: 'Group Yoga Side Plank in Bright Studio',
+    name: 'Group yoga side plank in bright studio',
     theme: 'Active & Fitness',
     ratio: '16:9',
     people: 'group',
@@ -49,7 +49,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/mens-run-club-at-sunset-by-the-waterfront-16-9.png',
-    name: 'Mens Run Club at Sunset by the Waterfront',
+    name: "Men's run club at sunset by the waterfront",
     theme: 'Active & Fitness',
     ratio: '16:9',
     people: 'group',
@@ -60,7 +60,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/runners-crossing-city-crosswalk-in-activewear-16-9.png',
-    name: 'Runners Crossing City Crosswalk in Activewear',
+    name: 'Runners crossing city crosswalk in activewear',
     theme: 'Active & Fitness',
     ratio: '16:9',
     people: 'pair',
@@ -71,7 +71,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/two-people-running-up-stadium-stairs-16-9.png',
-    name: 'Two People Running Up Stadium Stairs',
+    name: 'Two people running up stadium stairs',
     theme: 'Active & Fitness',
     ratio: '16:9',
     people: 'pair',
@@ -82,7 +82,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/two-women-crossing-city-street-in-bike-shorts-and-sweatshirts-16-9.png',
-    name: 'Two Women Crossing City Street in Bike Shorts & Sweatshirts',
+    name: 'Two women crossing city street in bike shorts & sweatshirts',
     theme: 'Active & Fitness',
     ratio: '16:9',
     people: 'pair',
@@ -93,7 +93,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/two-women-walking-in-pink-activewear-branded-health-os-cap-16-9.png',
-    name: 'Two Women Walking in Pink Activewear, Branded Health OS Cap',
+    name: 'Two women walking in pink activewear, branded health OS cap',
     theme: 'Active & Fitness',
     ratio: '16:9',
     people: 'pair',
@@ -104,7 +104,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/group-yoga-side-plank-in-bright-studio-vertical-9-16.png',
-    name: 'Group Yoga Side Plank in Bright Studio - Vertical',
+    name: 'Group yoga side plank in bright studio - vertical',
     theme: 'Active & Fitness',
     ratio: '9:16',
     people: 'group',
@@ -115,7 +115,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/mens-run-club-at-sunset-by-the-waterfront-vertical-9-16.png',
-    name: 'Mens Run Club at Sunset by the Waterfront - Vertical',
+    name: "Men's run club at sunset by the waterfront - vertical",
     theme: 'Active & Fitness',
     ratio: '9:16',
     people: 'group',
@@ -126,7 +126,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/two-men-running-across-city-crosswalk-full-length-9-16.png',
-    name: 'Two Men Running Across City Crosswalk - Full Length',
+    name: 'Two men running across city crosswalk - full length',
     theme: 'Active & Fitness',
     ratio: '9:16',
     people: 'pair',
@@ -137,7 +137,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/two-people-running-up-stadium-stairs-vertical-9-16.png',
-    name: 'Two People Running Up Stadium Stairs - Vertical',
+    name: 'Two people running up stadium stairs - vertical',
     theme: 'Active & Fitness',
     ratio: '9:16',
     people: 'pair',
@@ -148,7 +148,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/two-women-crossing-city-street-in-bike-shorts-full-length-9-16.png',
-    name: 'Two Women Crossing City Street in Bike Shorts - Full Length',
+    name: 'Two women crossing city street in bike shorts - full length',
     theme: 'Active & Fitness',
     ratio: '9:16',
     people: 'pair',
@@ -159,7 +159,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/active-and-fitness/two-women-walking-in-pink-activewear-branded-cap-full-length-9-16.png',
-    name: 'Two Women Walking in Pink Activewear, Branded Cap - Full Length',
+    name: 'Two women walking in pink activewear, branded cap - full length',
     theme: 'Active & Fitness',
     ratio: '9:16',
     people: 'pair',
@@ -172,7 +172,7 @@ export const PHOTOS: Photo[] = [
   // ── Social & Wellness ─────────────────────────────────────────────────────
   {
     src: '/imagery/social-and-wellness/three-women-chatting-in-wellness-studio-with-drinks-16-9.png',
-    name: 'Three Women Chatting in Wellness Studio with Drinks',
+    name: 'Three women chatting in wellness studio with drinks',
     theme: 'Social & Wellness',
     ratio: '16:9',
     people: 'group',
@@ -183,7 +183,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/two-women-having-coffee-at-outdoor-bistro-table-16-9.png',
-    name: 'Two Women Having Coffee at Outdoor Bistro Table',
+    name: 'Two women having coffee at outdoor bistro table',
     theme: 'Social & Wellness',
     ratio: '16:9',
     people: 'pair',
@@ -194,7 +194,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/two-women-relaxing-on-grass-overhead-shot-16-9.png',
-    name: 'Two Women Relaxing on Grass, Overhead Shot',
+    name: 'Two women relaxing on grass, overhead shot',
     theme: 'Social & Wellness',
     ratio: '16:9',
     people: 'pair',
@@ -205,7 +205,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/woman-in-peach-activewear-cross-legged-with-green-smoothie-at-cafe-16-9.png',
-    name: 'Woman in Peach Activewear Cross-Legged with Green Smoothie at Cafe',
+    name: 'Woman in peach activewear cross-legged with green smoothie at cafe',
     theme: 'Social & Wellness',
     ratio: '16:9',
     people: 'solo',
@@ -216,7 +216,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/woman-in-peach-activewear-with-green-smoothie-at-cafe-table-16-9.png',
-    name: 'Woman in Peach Activewear with Green Smoothie at Cafe Table',
+    name: 'Woman in peach activewear with green smoothie at cafe table',
     theme: 'Social & Wellness',
     ratio: '16:9',
     people: 'solo',
@@ -227,7 +227,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/woman-walking-with-iced-coffee-sydney-harbour-backdrop-16-9.png',
-    name: 'Woman Walking with Iced Coffee, Sydney Harbour Backdrop',
+    name: 'Woman walking with iced coffee, sydney harbour backdrop',
     theme: 'Social & Wellness',
     ratio: '16:9',
     people: 'solo',
@@ -238,7 +238,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/three-women-chatting-in-wellness-studio-with-drinks-vertical-9-16.png',
-    name: 'Three Women Chatting in Wellness Studio with Drinks - Vertical',
+    name: 'Three women chatting in wellness studio with drinks - vertical',
     theme: 'Social & Wellness',
     ratio: '9:16',
     people: 'group',
@@ -249,7 +249,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/two-women-having-coffee-at-outdoor-bistro-table-vertical-9-16.png',
-    name: 'Two Women Having Coffee at Outdoor Bistro Table - Vertical',
+    name: 'Two women having coffee at outdoor bistro table - vertical',
     theme: 'Social & Wellness',
     ratio: '9:16',
     people: 'pair',
@@ -260,7 +260,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/two-women-relaxing-on-grass-overhead-shot-vertical-9-16.png',
-    name: 'Two Women Relaxing on Grass, Overhead Shot - Vertical',
+    name: 'Two women relaxing on grass, overhead shot - vertical',
     theme: 'Social & Wellness',
     ratio: '9:16',
     people: 'pair',
@@ -271,7 +271,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/woman-in-peach-activewear-with-green-smoothie-at-cafe-full-length-9-16.png',
-    name: 'Woman in Peach Activewear with Green Smoothie at Cafe - Full Length',
+    name: 'Woman in peach activewear with green smoothie at cafe - full length',
     theme: 'Social & Wellness',
     ratio: '9:16',
     people: 'solo',
@@ -282,7 +282,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/social-and-wellness/woman-in-pink-sweatshirt-and-cap-with-phone-and-earphones-portrait-9-16.png',
-    name: 'Woman in Pink Sweatshirt & Cap with Phone and Earphones - Portrait',
+    name: 'Woman in pink sweatshirt & cap with phone and earphones - portrait',
     theme: 'Social & Wellness',
     ratio: '9:16',
     people: 'solo',
@@ -295,7 +295,7 @@ export const PHOTOS: Photo[] = [
   // ── Work & Content Creation ───────────────────────────────────────────────
   {
     src: '/imagery/work-and-content-creation/three-women-coworking-on-boucle-sofa-with-laptop-and-coffee-studio-lounge-16-9.png',
-    name: 'Three Women Coworking on Boucle Sofa with Laptop & Coffee - Studio Lounge',
+    name: 'Three women coworking on boucle sofa with laptop & coffee - studio lounge',
     theme: 'Work & Content Creation',
     ratio: '16:9',
     people: 'group',
@@ -306,7 +306,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/work-and-content-creation/woman-filming-content-on-laptop-by-city-window-16-9.png',
-    name: 'Woman Filming Content on Laptop by City Window',
+    name: 'Woman filming content on laptop by city window',
     theme: 'Work & Content Creation',
     ratio: '16:9',
     people: 'solo',
@@ -317,7 +317,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/work-and-content-creation/three-women-coworking-on-boucle-sofa-with-laptop-and-coffee-4-3.png',
-    name: 'Three Women Coworking on Boucle Sofa with Laptop & Coffee',
+    name: 'Three women coworking on boucle sofa with laptop & coffee',
     theme: 'Work & Content Creation',
     ratio: '4:3',
     people: 'group',
@@ -328,7 +328,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/work-and-content-creation/woman-filming-content-on-laptop-by-city-window-4-3.png',
-    name: 'Woman Filming Content on Laptop by City Window',
+    name: 'Woman filming content on laptop by city window',
     theme: 'Work & Content Creation',
     ratio: '4:3',
     people: 'solo',
@@ -339,7 +339,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/work-and-content-creation/three-women-coworking-on-boucle-sofa-with-laptop-and-coffee-vertical-9-16.png',
-    name: 'Three Women Coworking on Boucle Sofa with Laptop & Coffee - Vertical',
+    name: 'Three women coworking on boucle sofa with laptop & coffee - vertical',
     theme: 'Work & Content Creation',
     ratio: '9:16',
     people: 'group',
@@ -350,7 +350,7 @@ export const PHOTOS: Photo[] = [
   },
   {
     src: '/imagery/work-and-content-creation/woman-filming-content-on-laptop-by-city-window-vertical-9-16.png',
-    name: 'Woman Filming Content on Laptop by City Window - Vertical',
+    name: 'Woman filming content on laptop by city window - vertical',
     theme: 'Work & Content Creation',
     ratio: '9:16',
     people: 'solo',

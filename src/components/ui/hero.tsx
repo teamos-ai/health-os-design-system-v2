@@ -39,14 +39,16 @@ export const Hero = ({ id, className, children, ...rest }: HeroProps) => (
   </section>
 );
 
-export interface HeroContainerProps {
-  className?: string;
+export interface HeroContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
 /** Centred, max-width column for the hero's content. */
-export const HeroContainer = ({ className, children }: HeroContainerProps) => (
-  <div className={cn('mx-auto flex max-w-4xl flex-col items-center text-center', className)}>
+export const HeroContainer = ({ className, children, ...rest }: HeroContainerProps) => (
+  <div
+    className={cn('mx-auto flex max-w-4xl flex-col items-center text-center', className)}
+    {...rest}
+  >
     {children}
   </div>
 );

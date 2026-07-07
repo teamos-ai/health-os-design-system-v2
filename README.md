@@ -27,6 +27,10 @@ v2 is the second design-system experiment for Health OS. It keeps v1's locked co
 
 Full reference lives in [`design-system/`](design-system/) — tokens, foundations docs, `CLAUDE.md` (agent skinning guide), `BRAND-SUMMARY.md`, and the logo kit.
 
+## For AI agents
+
+Start at [`llms.txt`](llms.txt) — it lists every canonical file in load order. The short version: read [`design-system/CLAUDE.md`](design-system/CLAUDE.md) first, take values only from [`design-system/tokens/`](design-system/tokens/), and pick your build recipe from [`design-system/ASSET-RECIPES.md`](design-system/ASSET-RECIPES.md).
+
 ## Stack
 
 React 18 · Vite 6 · TypeScript 5 · Tailwind v3 (preset format) · Framer Motion 11 · Lucide · CVA + clsx + tailwind-merge.

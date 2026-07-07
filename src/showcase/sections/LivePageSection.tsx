@@ -34,11 +34,17 @@ export const LivePageSection = () => (
         <span className="w-10" />
       </div>
 
-      {/* Scrollable assembled page */}
-      <div className="no-scrollbar max-h-[80vh] overflow-y-auto bg-paper">
+      {/* Scrollable assembled page — a labelled, keyboard-focusable scroll region;
+          role="group" keeps the demo's Nav/Footer landmarks from polluting the outline */}
+      <div
+        role="group"
+        aria-label="Assembled page preview — scrollable"
+        tabIndex={0}
+        className="max-h-[80vh] overflow-y-auto bg-paper [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40"
+      >
         <Ticker />
         <Nav sticky={false} />
-        <CommandHero id="live-hero" />
+        <CommandHero id="live-hero" headingLevel="h2" />
         <ToolCarousel id="live-carousel" />
         <Pillars id="live-pillars" />
         <OutcomeBand id="live-outcomes" />

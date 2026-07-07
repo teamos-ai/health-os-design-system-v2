@@ -25,9 +25,9 @@
     @apply font-display text-ink-900;
   }
 
+  /* Selection — rose wash with theme-aware text (rose-700 vanishes on the dark ground) */
   ::selection {
-    background-color: rgba(232, 91, 168, 0.18); /* rose @ 18% */
-    color: #97215f; /* rose-700 */
+    @apply bg-brand-400/[0.18] text-brand-700 dark:bg-brand-400/[0.28] dark:text-brand-100;
   }
 
   /* Focus visibility — links and non-component interactives get a branded ring.
@@ -61,6 +61,21 @@
   /* Gradient text — apricot → rose → lavender, used with restraint */
   .text-gradient {
     @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+
+  /* Signature moment — the one gradient word sweeps its gradient into place on entrance.
+     A single 480ms pass (the reveal ceiling), never a loop; the brand gradient is the
+     device, so revealing it is on-brand delight. The global reduced-motion guard snaps
+     it to the resting gradient. Pair with a FadeIn wrapper for the fade + rise. */
+  .text-gradient-sweep {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+    background-size: 220% 100%;
+    background-position: 100% 50%;
+    animation: hos-gradient-sweep 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes hos-gradient-sweep {
+    from { background-position: 100% 50%; }
+    to { background-position: 0% 50%; }
   }
 
   /* Mono label / overline — the command-UI texture */

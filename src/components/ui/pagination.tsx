@@ -44,10 +44,10 @@ export const Pagination = ({
   };
 
   const cell =
-    'inline-flex h-9 min-w-9 items-center justify-center rounded-md px-2 ' +
+    'inline-flex h-10 min-w-10 items-center justify-center rounded-md px-2 ' +
     'font-display text-body-sm font-medium transition-all duration-sm ease-out ' +
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 ' +
-    'focus-visible:ring-offset-2 focus-visible:ring-offset-paper active:scale-[0.96]';
+    'focus-visible:ring-offset-2 focus-visible:ring-offset-paper active:scale-[0.98]';
 
   return (
     <nav aria-label="Pagination" className={cn('flex items-center gap-1.5', className)}>
