@@ -6,7 +6,8 @@ import { OverviewSection } from '@/showcase/sections/OverviewSection';
 import { TokensSection } from '@/showcase/sections/TokensSection';
 import { LogoSection } from '@/showcase/sections/LogoSection';
 import { IconsSection } from '@/showcase/sections/IconsSection';
-import { ComponentsSection } from '@/showcase/sections/ComponentsSection';
+import { ButtonsSection } from '@/showcase/sections/ButtonsSection';
+import { BadgesSection } from '@/showcase/sections/BadgesSection';
 import { CardsSection } from '@/showcase/sections/CardsSection';
 import { WidgetsSection } from '@/showcase/sections/WidgetsSection';
 import { SignatureSection } from '@/showcase/sections/SignatureSection';
@@ -33,7 +34,8 @@ export default function App() {
       <TokensSection />
       <LogoSection />
       <IconsSection />
-      <ComponentsSection />
+      <ButtonsSection />
+      <BadgesSection />
       <CardsSection />
       <WidgetsSection />
       <SignatureSection />

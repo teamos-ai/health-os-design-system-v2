@@ -12,15 +12,17 @@ const badge = cva(
   {
     variants: {
       variant: {
-        neutral: 'bg-ink-100 text-ink-700',
+        // Pastel by design — soft tonal washes so tags stay quiet on a page.
+        // Accents sit on the -50 tints; semantics on a lightened -100 (/70).
+        neutral: 'bg-ink-100/70 text-ink-700',
         brand: 'bg-rose-50 text-brand-700',
         apricot: 'bg-apricot-50 text-apricot-700',
         lavender: 'bg-lavender-50 text-lavender-700',
-        gold: 'bg-gold-100 text-gold-800',
-        success: 'bg-success-100 text-success-700',
-        warn: 'bg-warn-100 text-warn-700',
-        danger: 'bg-danger-100 text-danger-700',
-        info: 'bg-info-100 text-info-700',
+        gold: 'bg-gold-100/70 text-gold-800',
+        success: 'bg-success-100/70 text-success-700',
+        warn: 'bg-warn-100/70 text-warn-700',
+        danger: 'bg-danger-100/70 text-danger-700',
+        info: 'bg-info-100/70 text-info-700',
         outline: 'bg-surface border border-line text-ink-500',
       },
       size: {

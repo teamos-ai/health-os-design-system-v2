@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/animated';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Stat } from '@/components/ui/stat';
+import { Counter, StatTrend, SeatsRemaining, TicketsSold, MembersCount, Countdown } from '@/components/ui/counters';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -79,6 +80,10 @@ const PresenceDemo = () => {
     </div>
   );
 };
+
+// Stable countdown targets — computed once so a Move-replay doesn't reset the live timers.
+const COUNTDOWN_FULL = new Date(Date.now() + (3 * 24 * 60 * 60 + 7 * 60 * 60 + 42 * 60 + 18) * 1000);
+const COUNTDOWN_DAYS = new Date(Date.now() + 9 * 24 * 60 * 60 * 1000);
 
 export const MotionSection = () => (
   <Section
@@ -230,6 +235,43 @@ export const MotionSection = () => (
           </div>
         </div>
       </Demo>
+
+      {/* ── Counters (moved from Components) — press Move to replay the count-up ── */}
+      <MotionDemo label="Counters — seats & memberships">
+        <div className="grid gap-8 sm:grid-cols-2">
+          <SeatsRemaining taken={128} total={200} noun="seats" accent="rose" />
+          <SeatsRemaining taken={47} total={60} noun="seats left" count="remaining" accent="lavender" />
+          <MembersCount value={2480} />
+          <TicketsSold value={356} label="tickets sold this week" />
+        </div>
+      </MotionDemo>
+
+      <MotionDemo label="Counters — percentage trends">
+        <div className="flex flex-wrap items-end gap-12">
+          <StatTrend value={1284} delta={12.4} label="New clients this month" />
+          <StatTrend value={94} delta={-3.1} suffix="%" label="Show-up rate" />
+        </div>
+      </MotionDemo>
+
+      <MotionDemo label="Counters — count up / down">
+        <div className="flex flex-wrap items-end gap-12">
+          <div className="flex flex-col gap-1.5">
+            <Counter to={1240} direction="up" className="font-display text-display-lg leading-none text-ink-900" />
+            <span className="font-mono text-body-sm text-ink-600">sessions delivered (up)</span>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Counter from={200} to={36} className="font-display text-display-lg leading-none text-ink-900" />
+            <span className="font-mono text-body-sm text-ink-600">spots still open (down)</span>
+          </div>
+        </div>
+      </MotionDemo>
+
+      <MotionDemo label="Counters — countdown to a date">
+        <div className="flex flex-col items-start gap-6">
+          <Countdown to={COUNTDOWN_FULL} />
+          <Countdown to={COUNTDOWN_DAYS} compact />
+        </div>
+      </MotionDemo>
     </div>
   </Section>
 );
