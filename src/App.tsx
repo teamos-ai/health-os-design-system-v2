@@ -11,7 +11,6 @@ import { BadgesSection } from '@/showcase/sections/BadgesSection';
 import { CardsSection } from '@/showcase/sections/CardsSection';
 import { WidgetsSection } from '@/showcase/sections/WidgetsSection';
 import { SignatureSection } from '@/showcase/sections/SignatureSection';
-import { CrmSection } from '@/showcase/sections/CrmSection';
 import { BannersSection } from '@/showcase/sections/BannersSection';
 import { BlogSection } from '@/showcase/sections/BlogSection';
 import { CalculatorsSection } from '@/showcase/sections/CalculatorsSection';
@@ -39,7 +38,6 @@ export default function App() {
       <CardsSection />
       <WidgetsSection />
       <SignatureSection />
-      <CrmSection />
       <BannersSection />
       <BlogSection />
       <CalculatorsSection />

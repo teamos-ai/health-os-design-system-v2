@@ -10,7 +10,6 @@ import { CommandHero } from '@/sections/CommandHero';
 import { ToolCarousel } from '@/sections/ToolCarousel';
 import { BentoSection } from '@/sections/BentoSection';
 import { DirectoryCompare } from '@/sections/DirectoryCompare';
-import { CrmDashboard } from '@/components/ui/crm-dashboard';
 import { PracticeDashboard } from '@/components/ui/practice-dashboard';
 
 const Band = ({ label, children }: { label: string; children: ReactNode }) => (
@@ -52,24 +51,7 @@ export const SignatureSection = () => (
     <Band label="d · directory / comparison">
       <DirectoryCompare id="sig-compare" />
     </Band>
-    <Band label="e · CRM software">
-      <section className="px-6 py-16 md:px-12 md:py-24">
-        <div className="mx-auto max-w-5xl">
-          <header className="mx-auto flex max-w-2xl flex-col items-center text-center">
-            <MonoLabel>Pipeline</MonoLabel>
-            <h2 className="mt-3 font-display text-h1 text-ink-900">CRM software</h2>
-            <p className="mt-4 font-sans text-body-lg leading-relaxed text-ink-500">
-              The relationship engine — contacts, deals and conversations moving across a
-              calm pipeline board, so nothing slips between an enquiry and a booking.
-            </p>
-          </header>
-          <div className="mt-12">
-            <CrmDashboard />
-          </div>
-        </div>
-      </section>
-    </Band>
-    <Band label="f · admin dashboard">
+    <Band label="e · admin dashboard">
       <section className="px-6 py-16 md:px-12 md:py-24">
         <div className="mx-auto max-w-5xl">
           <header className="mx-auto flex max-w-2xl flex-col items-center text-center">
