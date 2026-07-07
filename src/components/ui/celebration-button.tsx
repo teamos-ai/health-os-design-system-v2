@@ -1,4 +1,10 @@
 /**
+ * ⚠ EXPRESSIVE — OFF-BRAND, OPT-IN ONLY.
+ * Quarantined under foundations/motion.md §Sanctioned exceptions: never used on standard
+ * Health OS marketing or product surfaces; excluded from the AI component catalogue.
+ * Reaching for this requires a deliberate, documented decision.
+ */
+/**
  * CelebrationButton — Health OS v2.
  *
  * An accent button that throws a small shower of thin coloured streamers on click —

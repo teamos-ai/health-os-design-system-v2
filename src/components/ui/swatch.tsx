@@ -111,7 +111,7 @@ export const Swatch = ({ hex, label, copyValue, primary, className }: SwatchProp
           {label}
           {primary && ' · main'}
         </span>
-        <span className="font-mono text-caption text-ink-900">{copied ? 'Copied ✓' : HEX}</span>
+        <span aria-live="polite" className="font-mono text-caption text-ink-900">{copied ? 'Copied ✓' : HEX}</span>
         <span className="font-mono text-[10px] leading-tight text-ink-500">{rgb}</span>
       </span>
     </button>
@@ -152,7 +152,7 @@ export const GradientSwatch = ({ label, css, className }: GradientSwatchProps) =
           {copied ? <Check className="h-3.5 w-3.5" strokeWidth={2} /> : <Copy className="h-3.5 w-3.5" strokeWidth={1.5} />}
         </span>
       </span>
-      <span className="mt-2 block font-mono text-caption text-ink-600">{copied ? 'Copied ✓' : label}</span>
+      <span aria-live="polite" className="mt-2 block font-mono text-caption text-ink-600">{copied ? 'Copied ✓' : label}</span>
     </button>
   );
 };

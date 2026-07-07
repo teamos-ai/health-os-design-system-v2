@@ -8,7 +8,7 @@
  * ticks on a single setInterval that is cleared on unmount.
  *
  * Tokens only: font-display figures, font-mono labels, success-700 (up) /
- * apricot-700 (warm, down) deltas — both AA on the page ground. Flat, 8px-max
+ * apricot-800 (warm, down) deltas — both AA on the page ground. Flat, 8px-max
  * squircle bars, neutral shadows, no glass.
  *
  * Exports: Counter · StatTrend · SeatsRemaining · TicketsSold · MembersCount · Countdown
@@ -17,8 +17,7 @@ import * as React from 'react';
 import { motion, useReducedMotion, useInView } from 'framer-motion';
 import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+import { EASE_OUT } from '@/lib/motion';
 
 /* ── useCountTo — shared rAF counter (up OR down), in-view + reduced-motion safe ──
    Animates from `from` to `to` once the bound element scrolls into view. */
@@ -86,9 +85,13 @@ export const Counter = ({
   const { ref, value } = useCountTo(to, { from: start, duration });
   return (
     <span ref={ref} className={cn('tabular-nums', className)}>
-      {prefix}
-      {value.toFixed(decimals)}
-      {suffix}
+      {/* screen readers get the static final figure, never the intermediates */}
+      <span className="sr-only">{`${prefix}${to.toFixed(decimals)}${suffix}`}</span>
+      <span aria-hidden>
+        {prefix}
+        {value.toFixed(decimals)}
+        {suffix}
+      </span>
     </span>
   );
 };
@@ -135,9 +138,12 @@ export const StatTrend = ({
     >
       <div className="flex items-baseline gap-2">
         <span ref={ref} className="font-display text-display-lg leading-none text-ink-900 tabular-nums">
-          {prefix}
-          {shown.toFixed(decimals)}
-          {suffix}
+          <span className="sr-only">{`${prefix}${value.toFixed(decimals)}${suffix}`}</span>
+          <span aria-hidden>
+            {prefix}
+            {shown.toFixed(decimals)}
+            {suffix}
+          </span>
         </span>
         <span
           className={cn(
@@ -146,6 +152,8 @@ export const StatTrend = ({
           )}
         >
           <Arrow className="h-3 w-3" aria-hidden />
+          {/* direction is never colour-only — announce it for screen readers */}
+          <span className="sr-only">{up ? 'up ' : 'down '}</span>
           {Math.abs(delta).toFixed(deltaDecimals)}%
         </span>
       </div>
@@ -243,9 +251,13 @@ const BigCount = ({
       )}
     >
       <span ref={ref} className="font-display text-display-lg leading-none text-ink-900 tabular-nums">
-        {prefix}
-        {shown.toFixed(decimals)}
-        {suffix}
+        {/* screen readers get the static final figure, never the intermediates */}
+        <span className="sr-only">{`${prefix}${value.toFixed(decimals)}${suffix}`}</span>
+        <span aria-hidden>
+          {prefix}
+          {shown.toFixed(decimals)}
+          {suffix}
+        </span>
       </span>
       <span className="font-mono text-body-sm text-ink-600">{label}</span>
     </div>
@@ -293,6 +305,10 @@ export interface CountdownProps {
   compact?: boolean;
   /** hide the unit captions under each number */
   hideLabels?: boolean;
+  /** fired once when the countdown reaches zero */
+  onComplete?: () => void;
+  /** rendered INSTEAD of the zeroed clock once done, e.g. "Closed" — omit to keep showing zeros */
+  completedLabel?: string;
   align?: 'left' | 'center';
   className?: string;
 }
@@ -323,11 +339,14 @@ export const Countdown = ({
   to,
   compact = false,
   hideLabels = false,
+  onComplete,
+  completedLabel,
   align = 'left',
   className,
 }: CountdownProps) => {
   const target = React.useMemo(() => new Date(to).getTime(), [to]);
   const [left, setLeft] = React.useState<TimeLeft>(() => diff(target));
+  const completedRef = React.useRef(false);
 
   React.useEffect(() => {
     setLeft(diff(target));
@@ -339,11 +358,35 @@ export const Countdown = ({
     return () => window.clearInterval(id);
   }, [target]);
 
+  // Fire onComplete exactly once when the clock hits zero (incl. already-past targets).
+  React.useEffect(() => {
+    if (left.done && !completedRef.current) {
+      completedRef.current = true;
+      onComplete?.();
+    }
+  }, [left.done, onComplete]);
+
+  if (left.done && completedLabel !== undefined) {
+    return (
+      <span
+        className={cn(
+          'inline-flex items-baseline rounded-sm bg-ink-100 px-2.5 py-1 font-mono text-caption uppercase tracking-label text-ink-500',
+          align === 'center' && 'justify-center',
+          className,
+        )}
+        role="timer"
+      >
+        {completedLabel}
+      </span>
+    );
+  }
+
   if (compact) {
     return (
       <span
         className={cn(
           'inline-flex items-baseline gap-1.5 rounded-sm bg-ink-100 px-2.5 py-1',
+          align === 'center' && 'justify-center',
           className,
         )}
       >
@@ -370,7 +413,7 @@ export const Countdown = ({
     >
       {units.map((u, i) => (
         <React.Fragment key={u.label}>
-          <div className="flex min-w-[3.25rem] flex-col items-center gap-1 rounded-md border border-line bg-surface px-3 py-2.5 shadow-sm">
+          <div className="flex min-w-14 flex-col items-center gap-1 rounded-md border border-line bg-surface px-3 py-2.5 shadow-sm">
             <span className="font-display text-h2 leading-none text-ink-900 tabular-nums">
               {u.label === 'days' ? u.value : pad(u.value)}
             </span>

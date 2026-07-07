@@ -6,7 +6,9 @@
  * elastic / autoplay. Durations stay subtle (≤ 480ms). Use at most ONE reveal
  * per viewport band so the page reads calm.
  *
- * Exports: FadeIn · Stagger · StaggerItem · CountUp · HoverLift · HeroGlow · Marquee
+ * Exports: FadeIn · Stagger · StaggerItem · CountUp · HoverLift · HeroGlow · Marquee ·
+ * Reveal · TextReveal · Parallax (deprecated) · GradientShimmer · BorderGlow (deprecated) ·
+ * BreathingDot · PointerSpotlight (deprecated) · HoverUnderline · RollingNumber · Appear
  */
 import * as React from 'react';
 import {
@@ -23,8 +25,7 @@ import {
 } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { APRICOT, ROSE, LAVENDER } from '@/lib/palette';
-
-const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+import { EASE_OUT } from '@/lib/motion';
 
 /** "#E85BA8" + 0.14 → "rgba(232, 91, 168, 0.14)" — for palette hexes needing an alpha. */
 const hexToRgba = (hex: string, alpha: number): string => {
@@ -143,9 +144,13 @@ export const CountUp = ({
 
   return (
     <span ref={ref} className={cn('tabular-nums', className)}>
-      {prefix}
-      {value.toFixed(decimals)}
-      {suffix}
+      {/* screen readers get the static final figure, never the intermediates */}
+      <span className="sr-only">{`${prefix}${to.toFixed(decimals)}${suffix}`}</span>
+      <span aria-hidden>
+        {prefix}
+        {value.toFixed(decimals)}
+        {suffix}
+      </span>
     </span>
   );
 };
@@ -198,6 +203,8 @@ export interface MarqueeProps {
   pauseOnHover?: boolean;
   /** allow grab-and-scrub: drag/swipe to move through faster, then auto-drift resumes */
   draggable?: boolean;
+  /** accessible name for the marquee region (the duplicate copy stays aria-hidden) */
+  ariaLabel?: string;
   className?: string;
   gapClassName?: string;
 }
@@ -207,6 +214,7 @@ export const Marquee = ({
   reverse = false,
   pauseOnHover = true,
   draggable = false,
+  ariaLabel = 'scrolling showcase',
   className,
   gapClassName = 'gap-5',
 }: MarqueeProps) => {
@@ -262,6 +270,8 @@ export const Marquee = ({
 
   return (
     <div
+      role="group"
+      aria-label={ariaLabel}
       className={cn(
         'relative overflow-hidden marquee-mask',
         draggable && 'cursor-grab touch-pan-y select-none active:cursor-grabbing',
@@ -286,37 +296,40 @@ export const Marquee = ({
   );
 };
 
-/* ── Reveal — fade + small translate + blur-to-sharp on scroll-in ── */
+/* ── Reveal — fade + small translate on scroll-in ── */
 export interface RevealProps {
   delay?: number;
   y?: number;
+  /** @deprecated ignored — the blur-to-sharp filter was removed (foundations/motion.md bans blur-filter animation). */
   blur?: number;
   className?: string;
   children: React.ReactNode;
   as?: 'div' | 'section' | 'span' | 'li' | 'p';
 }
-export const Reveal = ({ delay = 0, y = 12, blur = 8, className, children, as = 'div' }: RevealProps) => {
+export const Reveal = ({ delay = 0, y = 12, className, children, as = 'div' }: RevealProps) => {
   const reduced = useReducedMotion();
   const Tag = motion[as] as React.ElementType;
   return (
     <Tag
       className={className}
-      initial={reduced ? false : { opacity: 0, y, filter: `blur(${blur}px)` }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={reduced ? false : { opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, ease: EASE_OUT, delay }}
+      transition={{ duration: 0.4, ease: EASE_OUT, delay }}
     >
       {children}
     </Tag>
   );
 };
 
-/* ── TextReveal — heading words fade-up in a gentle stagger ── */
+/* ── TextReveal — heading words fade-up in a gentle stagger ──
+   Defaults keep the total perceived reveal ≤ ~480ms for typical headings
+   (e.g. 8 words: 7 × 25ms stagger + 300ms word fade = 475ms). */
 export const TextReveal = ({
   text,
   className,
   delay = 0,
-  stagger = 0.05,
+  stagger = 0.025,
 }: {
   text: string;
   className?: string;
@@ -340,7 +353,7 @@ export const TextReveal = ({
           className="inline-block"
           variants={{
             hidden: { opacity: 0, y: '0.4em' },
-            show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT } },
+            show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE_OUT } },
           }}
         >
           {word}
@@ -352,9 +365,15 @@ export const TextReveal = ({
 };
 
 /* ── Parallax — gentle scroll-linked drift (≤ small px) ── */
+/**
+ * @deprecated off-brand — kept for back-compat; do not use in new work
+ * (foundations/motion.md bans parallax). The wrapper renders its own `relative`
+ * positioning context so Framer's scroll tracking never warns about a
+ * non-static position container.
+ */
 export const Parallax = ({
   children,
-  amount = 24,
+  amount = 12,
   className,
 }: {
   children: React.ReactNode;
@@ -366,13 +385,17 @@ export const Parallax = ({
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], [amount, -amount]);
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={cn('relative', className)}>
       <motion.div style={reduced ? undefined : { y }}>{children}</motion.div>
     </div>
   );
 };
 
-/* ── GradientShimmer — slow sheen across the signature gradient text ── */
+/* ── GradientShimmer — the SKELETON-LOADING sheen, and nothing else ──
+   Sanctioned ambient loop (foundations/motion.md §Sanctioned exceptions: skeleton
+   shimmer). Use it only on loading placeholders — never on readable text or live
+   content. The gradient is tonal (theme-aware ink-100 → ink-200 neutrals), so the
+   moving sheen never sweeps a near-white stop through copy. */
 export const GradientShimmer = ({
   children,
   className,
@@ -384,7 +407,7 @@ export const GradientShimmer = ({
     className={cn('animate-shimmer bg-clip-text text-transparent', className)}
     style={{
       backgroundImage:
-        `linear-gradient(110deg, ${APRICOT[400]} 0%, ${ROSE[400]} 25%, ${APRICOT[100]} 45%, ${LAVENDER[400]} 65%, ${ROSE[400]} 100%)`,
+        'linear-gradient(110deg, rgb(var(--ink-100)) 0%, rgb(var(--ink-200)) 45%, rgb(var(--ink-100)) 65%, rgb(var(--ink-200)) 100%)',
       backgroundSize: '200% 100%',
     }}
   >
@@ -393,6 +416,11 @@ export const GradientShimmer = ({
 );
 
 /* ── BorderGlow — soft gradient hairline drifting around the edge ── */
+/**
+ * @deprecated expressive/off-brand — rotating gradient loop; opt-in only, never
+ * default UI (foundations/motion.md). The rotation now runs only while hovered or
+ * focused-within, so it is no longer an always-on ambient loop.
+ */
 export const BorderGlow = ({
   children,
   className,
@@ -401,8 +429,15 @@ export const BorderGlow = ({
   className?: string;
 }) => {
   const reduced = useReducedMotion();
+  const [active, setActive] = React.useState(false);
   return (
-    <div className={cn('relative overflow-hidden rounded-md p-px', className)}>
+    <div
+      className={cn('relative overflow-hidden rounded-md p-px', className)}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      onFocus={() => setActive(true)}
+      onBlur={() => setActive(false)}
+    >
       <motion.span
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 h-[220%] w-[220%] -translate-x-1/2 -translate-y-1/2"
@@ -410,7 +445,7 @@ export const BorderGlow = ({
           background:
             `conic-gradient(from 0deg, transparent 0deg, ${APRICOT[400]} 40deg, ${ROSE[400]} 80deg, ${LAVENDER[400]} 120deg, transparent 170deg)`,
         }}
-        animate={reduced ? undefined : { rotate: 360 }}
+        animate={reduced || !active ? undefined : { rotate: 360 }}
         transition={{ duration: 9, ease: 'linear', repeat: Infinity }}
       />
       <div className="relative rounded-[7px] bg-surface">{children}</div>
@@ -418,7 +453,9 @@ export const BorderGlow = ({
   );
 };
 
-/* ── BreathingDot — calm pulsing status indicator ── */
+/* ── BreathingDot — calm pulsing status indicator ──
+   Sanctioned ambient loop (foundations/motion.md): live-status indicators only,
+   max one per view. */
 export const BreathingDot = ({ className, color = 'bg-success-600' }: { className?: string; color?: string }) => {
   const reduced = useReducedMotion();
   return (
@@ -428,7 +465,7 @@ export const BreathingDot = ({ className, color = 'bg-success-600' }: { classNam
           aria-hidden
           className={cn('absolute inset-0 rounded-full', color)}
           initial={{ opacity: 0.5, scale: 1 }}
-          animate={{ opacity: [0.5, 0, 0.5], scale: [1, 2.4, 1] }}
+          animate={{ opacity: [0.5, 0, 0.5], scale: [1, 1.6, 1] }}
           transition={{ duration: 2.6, ease: 'easeInOut', repeat: Infinity }}
         />
       )}
@@ -440,6 +477,10 @@ export const BreathingDot = ({ className, color = 'bg-success-600' }: { classNam
 /* ── PointerSpotlight — soft glow that follows the cursor inside a card ── */
 const SPOTLIGHT_DEFAULT = hexToRgba(ROSE[400], 0.14); // rose-400 @ .14
 
+/**
+ * @deprecated expressive/off-brand — coloured pointer glow; opt-in only
+ * (foundations/motion.md). Kept for back-compat; do not use in new work.
+ */
 export const PointerSpotlight = ({
   children,
   className,
@@ -481,7 +522,10 @@ export const HoverUnderline = ({
 }) => (
   <a
     href={href}
-    className={cn('group relative inline-block font-sans text-ink-900 focus-visible:outline-none', className)}
+    className={cn(
+      'group relative inline-block rounded-sm font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600',
+      className
+    )}
   >
     {children}
     <span
@@ -498,7 +542,7 @@ const Digit = ({ value, active, reduced }: { value: number; active: boolean; red
       className="absolute left-0 top-0 flex flex-col items-center"
       initial={{ y: 0 }}
       animate={{ y: active ? `-${value}em` : 0 }}
-      transition={reduced ? { duration: 0 } : { duration: 0.9, ease: EASE_OUT }}
+      transition={reduced ? { duration: 0 } : { duration: 0.45, ease: EASE_OUT }}
     >
       {Array.from({ length: 10 }, (_, n) => (
         <span key={n} className="block h-[1em] leading-[1em]">
@@ -525,15 +569,19 @@ export const RollingNumber = ({
   const chars = String(Math.round(value)).split('');
   return (
     <span ref={ref} className={cn('inline-flex items-end tabular-nums', className)}>
-      {prefix}
-      {chars.map((c, i) =>
-        /\d/.test(c) ? (
-          <Digit key={i} value={Number(c)} active={inView} reduced={reduced} />
-        ) : (
-          <span key={i}>{c}</span>
-        )
-      )}
-      {suffix}
+      {/* screen readers get the static final value, never the rolling columns */}
+      <span className="sr-only">{`${prefix}${Math.round(value)}${suffix}`}</span>
+      <span aria-hidden className="inline-flex items-end">
+        {prefix}
+        {chars.map((c, i) =>
+          /\d/.test(c) ? (
+            <Digit key={i} value={Number(c)} active={inView} reduced={reduced} />
+          ) : (
+            <span key={i}>{c}</span>
+          )
+        )}
+        {suffix}
+      </span>
     </span>
   );
 };

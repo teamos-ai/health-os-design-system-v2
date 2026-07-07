@@ -14,6 +14,16 @@ export interface VideoPlayerProps {
   src?: string;
   poster?: string;
   hint?: string;
+  /**
+   * Captions file (WebVTT), e.g. "/media/overview.vtt". Real content MUST pass
+   * captions — video without them fails WCAG 1.2.2. Only the empty-state placeholder
+   * may omit them.
+   */
+  captionsSrc?: string;
+  /** BCP-47 language of the captions track. Default 'en'. */
+  captionsLang?: string;
+  /** Human-readable track name shown in the captions menu. Default 'English'. */
+  captionsLabel?: string;
   className?: string;
 }
 
@@ -21,6 +31,9 @@ export const VideoPlayer = ({
   src,
   poster,
   hint = 'Your video goes here — drop overview.mp4 in /public/media',
+  captionsSrc,
+  captionsLang = 'en',
+  captionsLabel = 'English',
   className,
 }: VideoPlayerProps) => {
   const anchorRef = React.useRef<HTMLDivElement>(null);
@@ -28,6 +41,13 @@ export const VideoPlayer = ({
   const [playing, setPlaying] = React.useState(false);
   const [visible, setVisible] = React.useState(true);
   const [ready, setReady] = React.useState(false);
+  const [failed, setFailed] = React.useState(false);
+
+  // A new src is a fresh start — clear any stale error/ready state.
+  React.useEffect(() => {
+    setFailed(false);
+    setReady(false);
+  }, [src]);
 
   // dock to PiP only while playing AND the inline frame is mostly scrolled away
   const floating = playing && !visible;
@@ -76,11 +96,28 @@ export const VideoPlayer = ({
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
           onCanPlay={() => setReady(true)}
+          onError={() => {
+            // Only a real source can fail — the empty placeholder is not an error.
+            if (src) setFailed(true);
+          }}
           className="h-full w-full bg-carbon object-contain"
-        />
+        >
+          {captionsSrc && (
+            <track kind="captions" src={captionsSrc} srcLang={captionsLang} label={captionsLabel} default />
+          )}
+        </video>
+
+        {/* error state — a calm variant of the placeholder */}
+        {failed && (
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 bg-brand-gradient-soft text-center">
+            <p className="max-w-xs rounded-md border border-line bg-surface/85 px-4 py-3 font-mono text-caption text-ink-600 shadow-sm">
+              The video could not be loaded.
+            </p>
+          </div>
+        )}
 
         {/* empty-state placeholder (until a video can play) */}
-        {!ready && (
+        {!ready && !failed && (
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 bg-brand-gradient-soft text-center">
             <span className="flex h-16 w-16 items-center justify-center rounded-md bg-surface/85 text-brand-600 shadow-sm">
               <Play className="h-6 w-6" strokeWidth={1.5} />

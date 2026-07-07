@@ -1,4 +1,10 @@
 /**
+ * ⚠ EXPRESSIVE — OFF-BRAND, OPT-IN ONLY.
+ * Quarantined under foundations/motion.md §Sanctioned exceptions: never used on standard
+ * Health OS marketing or product surfaces; excluded from the AI component catalogue.
+ * Reaching for this requires a deliberate, documented decision.
+ */
+/**
  * GlowButton — Health OS v2 (signature / use sparingly).
  *
  * A calm carbon "night-sky" CTA that blooms a soft celestial glow on hover/focus and

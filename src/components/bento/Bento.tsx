@@ -16,15 +16,21 @@ export const BentoGrid = ({
   className?: string;
   children: ReactNode;
 }) => (
-  <div className={cn('grid grid-cols-1 gap-4 md:grid-cols-3 md:auto-rows-[minmax(220px,auto)]', className)}>
+  <div
+    className={cn(
+      'grid grid-cols-1 gap-4 md:grid-cols-2 md:auto-rows-[minmax(220px,auto)] lg:grid-cols-3',
+      className
+    )}
+  >
     {children}
   </div>
 );
 
+/* Spans track the grid steps: full-span cards cap at 2 on the md 2-col grid. */
 const SPAN: Record<1 | 2 | 3, string> = {
   1: 'md:col-span-1',
   2: 'md:col-span-2',
-  3: 'md:col-span-3',
+  3: 'md:col-span-2 lg:col-span-3',
 };
 
 export interface BentoCardProps {

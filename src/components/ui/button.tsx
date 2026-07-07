@@ -73,14 +73,44 @@ export interface ButtonProps
    * A light chip on dark fills, an ink chip on light fills, so it reads on any variant.
    */
   leadingIcon?: React.ReactNode;
+  /**
+   * Loading state — sets `aria-busy`, disables the button (with the standard disabled
+   * styles) and swaps any `leadingIcon` for a neutral 16px currentColor spinner.
+   * The spin is a loading affordance, frozen by the global reduced-motion guard.
+   */
+  loading?: boolean;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, as: Comp = 'button', leadingIcon, children, ...props }, ref) => {
+  (
+    { className, variant, size, as: Comp = 'button', leadingIcon, loading = false, disabled, children, ...props },
+    ref
+  ) => {
     const onDark = variant === 'dark' || variant === 'primary' || variant === 'danger';
     return (
-      <Comp ref={ref} className={cn(button({ variant, size }), className)} {...props}>
-        {leadingIcon != null && (
+      <Comp
+        ref={ref}
+        className={cn(button({ variant, size }), className)}
+        disabled={disabled || loading || undefined}
+        aria-busy={loading || undefined}
+        {...props}
+      >
+        {loading ? (
+          <svg
+            aria-hidden
+            viewBox="0 0 16 16"
+            fill="none"
+            className="h-4 w-4 shrink-0 animate-spin"
+          >
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeOpacity="0.25" strokeWidth="2" />
+            <path
+              d="M14.5 8A6.5 6.5 0 0 0 8 1.5"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        ) : leadingIcon != null && (
           <span
             aria-hidden
             className={cn(

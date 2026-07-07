@@ -13,8 +13,8 @@ import { cn } from '@/lib/utils';
 
 const bar = cva(
   'group flex items-center gap-3 rounded-xl border border-line bg-surface ' +
-    'transition-all duration-md ease-out shadow-sm ' +
-    'focus-within:border-brand-400 focus-within:shadow-md focus-within:ring-2 focus-within:ring-brand-600/20',
+    'transition-all duration-md ease-out shadow-sm has-[:disabled]:opacity-60 ' +
+    'focus-within:border-brand-400 focus-within:shadow-md focus-within:ring-2 focus-within:ring-brand-600/35',
   {
     variants: {
       size: {
@@ -71,6 +71,7 @@ export const CommandBar = React.forwardRef<HTMLInputElement, CommandBarProps>(
         />
         {shortcut && (
           <kbd
+            aria-hidden
             className={cn(
               'hidden shrink-0 items-center gap-0.5 rounded-md border border-line bg-paper',
               'px-2 py-1 font-mono text-caption text-ink-600 sm:inline-flex'
