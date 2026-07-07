@@ -1,16 +1,18 @@
 /**
- * ImageLibrarySection — the Health OS people & lifestyle photo library. A filter bar
- * at the top narrows the set by theme, orientation, people, gender, activity and
- * setting (facets derived from the data, so new photos extend the filters
- * automatically). Grid tiles show a lightweight JPEG thumbnail (`thumbs/`); clicking
- * a tile downloads the full-resolution PNG. Brand washes remain below.
+ * ImageLibrarySection — the Health OS people & lifestyle photo library. A full-width
+ * search plus a curated row of "key tag" pills (with counts) floats at the top for fast
+ * isolation — the health & wellness equivalents of a finance library's couples/seniors/
+ * professionals set, tuned to what practitioners and clients actually look for. Grid
+ * tiles show a lightweight JPEG thumbnail (`thumbs/`); clicking a tile downloads the
+ * full-resolution PNG. Brand washes remain below.
  */
 import { useMemo, useState, type ReactNode } from 'react';
+import { Search } from 'lucide-react';
 import { Section } from '@/showcase/Section';
 import { Badge } from '@/components/ui/badge';
 import { MonoLabel } from '@/components/ui/mono-label';
 import { cn } from '@/lib/utils';
-import { PHOTOS, PHOTO_THEMES, type Photo } from '@/data/photos';
+import { PHOTOS, type Photo } from '@/data/photos';
 import { WASHES } from '@/data/imagery';
 
 /** display thumbnail path: /imagery/<theme>/foo.png → /imagery/<theme>/thumbs/foo.jpg */
@@ -18,28 +20,37 @@ const thumb = (src: string) => src.replace(/\/([^/]+)\.png$/i, '/thumbs/$1.jpg')
 
 const titleCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-type FacetKey = 'theme' | 'ratio' | 'people' | 'gender' | 'activity' | 'setting';
-
-const uniq = (key: FacetKey) => Array.from(new Set(PHOTOS.map((p) => p[key]))).sort();
-
-const FACETS: { key: FacetKey; label: string; options: string[] }[] = [
-  { key: 'theme', label: 'Theme', options: PHOTO_THEMES },
-  { key: 'ratio', label: 'Orientation', options: ['16:9', '9:16', '4:3'] },
-  { key: 'people', label: 'People', options: ['solo', 'pair', 'group'] },
-  { key: 'gender', label: 'Gender', options: ['women', 'men', 'mixed'] },
-  { key: 'activity', label: 'Activity', options: uniq('activity') },
-  { key: 'setting', label: 'Setting', options: uniq('setting') },
+/**
+ * Key tags — the curated, marketing-facing categories for a health & wellness library
+ * (the equivalent of the finance set: couples / seniors / professionals / advice…).
+ * Each maps to the structured photo facets + tags, so counts stay accurate and new
+ * photos slot in automatically. Ordered by how often they're reached for.
+ */
+const KEY_TAGS: { label: string; match: (p: Photo) => boolean }[] = [
+  { label: 'Fitness', match: (p) => ['yoga', 'running'].includes(p.activity) },
+  { label: 'Wellbeing', match: (p) => p.activity === 'relaxing' || p.tags.some((t) => ['wellbeing', 'calm', 'mindfulness'].includes(t)) },
+  { label: 'Nutrition', match: (p) => p.activity === 'coffee' || p.tags.some((t) => ['smoothie', 'drinks', 'iced-coffee'].includes(t)) },
+  { label: 'Community', match: (p) => p.people === 'group' || p.activity === 'socialising' || p.tags.some((t) => ['social', 'community'].includes(t)) },
+  { label: 'Couples', match: (p) => p.people === 'pair' },
+  { label: 'Solo', match: (p) => p.people === 'solo' },
+  { label: 'Lifestyle', match: (p) => p.tags.some((t) => ['lifestyle', 'street-style'].includes(t)) },
+  { label: 'Outdoors', match: (p) => ['park', 'waterfront'].includes(p.setting) || p.tags.some((t) => ['outdoor', 'grass'].includes(t)) },
+  { label: 'Studio', match: (p) => p.setting === 'studio' },
+  { label: 'Urban', match: (p) => p.setting === 'urban' },
+  { label: 'Workplace', match: (p) => ['coworking', 'filming'].includes(p.activity) || p.tags.some((t) => ['work', 'laptop'].includes(t)) },
 ];
 
-type Active = Record<FacetKey, string[]>;
-const EMPTY: Active = { theme: [], ratio: [], people: [], gender: [], activity: [], setting: [] };
+/** precompute counts once; drop any key tag with no matches so the row never lies */
+const TAGS = KEY_TAGS.map((t) => ({ ...t, count: PHOTOS.filter(t.match).length })).filter((t) => t.count > 0);
 
-const Chip = ({
+const Pill = ({
   active,
+  count,
   onClick,
   children,
 }: {
   active: boolean;
+  count: number;
   onClick: () => void;
   children: ReactNode;
 }) => (
@@ -48,13 +59,21 @@ const Chip = ({
     aria-pressed={active}
     onClick={onClick}
     className={cn(
-      'rounded-md border px-2.5 py-1 font-mono text-caption transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300',
+      'inline-flex items-center gap-2 rounded-md border px-3.5 py-1.5 font-mono text-body-sm transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300',
       active
         ? 'border-ink-900 bg-ink-900 text-paper'
-        : 'border-line text-ink-600 hover:border-ink-400 hover:text-ink-900'
+        : 'border-line bg-surface text-ink-700 hover:border-ink-400 hover:text-ink-900'
     )}
   >
-    {children}
+    <span>{children}</span>
+    <span
+      className={cn(
+        'rounded-[4px] px-1.5 py-px text-[11px] leading-none',
+        active ? 'bg-paper/20 text-paper' : 'bg-ink-100 text-ink-500'
+      )}
+    >
+      {count}
+    </span>
   </button>
 );
 
@@ -85,83 +104,85 @@ const PhotoTile = ({ p }: { p: Photo }) => (
 );
 
 export const ImageLibrarySection = () => {
-  const [active, setActive] = useState<Active>(EMPTY);
+  const [query, setQuery] = useState('');
+  const [active, setActive] = useState<string | null>(null); // null = All
 
-  const toggle = (key: FacetKey, value: string) =>
-    setActive((prev) => {
-      const set = new Set(prev[key]);
-      set.has(value) ? set.delete(value) : set.add(value);
-      return { ...prev, [key]: Array.from(set) };
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const tag = active ? TAGS.find((t) => t.label === active) : null;
+    return PHOTOS.filter((p) => {
+      if (tag && !tag.match(p)) return false;
+      if (q) {
+        const hay = `${p.name} ${p.tags.join(' ')} ${p.activity} ${p.setting} ${p.people} ${p.gender}`.toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
     });
+  }, [query, active]);
 
-  const activeCount = useMemo(
-    () => Object.values(active).reduce((n, arr) => n + arr.length, 0),
-    [active]
-  );
-
-  const filtered = useMemo(
-    () =>
-      PHOTOS.filter((p) =>
-        FACETS.every((f) => {
-          const sel = active[f.key];
-          return sel.length === 0 || sel.includes(String(p[f.key]));
-        })
-      ),
-    [active]
-  );
+  const reset = () => {
+    setQuery('');
+    setActive(null);
+  };
 
   return (
     <Section
       id="imagery"
       eyebrow="Imagery"
       title="Image library"
-      lead="Real Health OS photography, filterable by theme, orientation and what's in the shot. Click any tile to download the full-resolution PNG. The brand washes below stand in when a photograph would be too loud."
+      lead="Real Health OS photography for health & wellness pages, decks and ads. Search across everything, or tap a key tag to isolate a category. Click any tile to download the full-resolution PNG."
     >
-      {/* ── Filter bar ─────────────────────────────────────────── */}
-      <div className="mb-8 rounded-lg border border-line bg-surface p-4 md:p-5">
-        <div className="mb-3 flex items-center justify-between">
-          <MonoLabel>Filter</MonoLabel>
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-caption text-ink-600">
-              {filtered.length} of {PHOTOS.length}
-            </span>
-            {activeCount > 0 && (
-              <button
-                type="button"
-                onClick={() => setActive(EMPTY)}
-                className="font-mono text-caption text-ink-700 underline underline-offset-2 hover:text-ink-900"
-              >
-                Clear ({activeCount})
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="flex flex-col gap-3">
-          {FACETS.map((f) => (
-            <div key={f.key} className="flex flex-wrap items-center gap-1.5">
-              <span className="mr-1 w-20 shrink-0 font-mono text-[10px] uppercase tracking-wide2 text-ink-500">
-                {f.label}
-              </span>
-              {f.options.map((opt) => (
-                <Chip key={opt} active={active[f.key].includes(opt)} onClick={() => toggle(f.key, opt)}>
-                  {f.key === 'theme' || f.key === 'ratio' ? opt : titleCase(opt)}
-                </Chip>
-              ))}
-            </div>
-          ))}
-        </div>
+      {/* ── Full-width search ──────────────────────────────────── */}
+      <div className="relative">
+        <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-400" aria-hidden />
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          aria-label="Search images"
+          placeholder="Search images…"
+          className="w-full rounded-md border border-line bg-surface py-3.5 pl-12 pr-4 font-sans text-body-md text-ink-900 placeholder:text-ink-400 transition-colors focus:border-ink-400 focus:outline-none focus:ring-2 focus:ring-ink-200"
+        />
+      </div>
+
+      {/* ── Key-tag pills (float at the top) ───────────────────── */}
+      <div className="mt-4 flex flex-wrap gap-2">
+        <Pill active={active === null && !query} count={PHOTOS.length} onClick={reset}>
+          All
+        </Pill>
+        {TAGS.map((t) => (
+          <Pill key={t.label} active={active === t.label} count={t.count} onClick={() => setActive(active === t.label ? null : t.label)}>
+            {t.label}
+          </Pill>
+        ))}
+      </div>
+
+      {/* ── Result count ───────────────────────────────────────── */}
+      <div className="mb-6 mt-4 flex items-center justify-between">
+        <MonoLabel>
+          {filtered.length === PHOTOS.length ? `${PHOTOS.length} images` : `${filtered.length} of ${PHOTOS.length}`}
+        </MonoLabel>
+        {(active || query) && (
+          <button
+            type="button"
+            onClick={reset}
+            className="font-mono text-caption text-ink-600 underline underline-offset-2 hover:text-ink-900"
+          >
+            Clear
+          </button>
+        )}
       </div>
 
       {/* ── Results ────────────────────────────────────────────── */}
       {filtered.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-line py-16 text-center">
-          <p className="font-sans text-body-sm text-ink-600">No photos match those filters.</p>
+        <div className="mb-14 rounded-lg border border-dashed border-line py-16 text-center">
+          <p className="font-sans text-body-sm text-ink-600">No images match “{query || active}”.</p>
           <button
             type="button"
-            onClick={() => setActive(EMPTY)}
+            onClick={reset}
             className="mt-2 font-mono text-caption text-ink-900 underline underline-offset-2"
           >
-            Clear filters
+            Clear search
           </button>
         </div>
       ) : (
