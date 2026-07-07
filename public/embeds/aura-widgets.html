@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&family=Anonymous+Pro:wght@400;700&display=swap" rel="stylesheet" />
+<title>Aura Widgets — Health OS ideation</title>
+
+<style>
+  .board {
+    /* ── Locked Health OS tokens ── */
+    --paper:#F9F6F2; --surface:#FFFFFF; --carbon:#1F1F1F;
+    --ink900:#1F1F1F; --ink700:#3A3A3A; --ink600:#585552; --ink500:#7A756F;
+    --ink400:#A39D96; --ink300:#C7C1B9; --ink200:#E4DED6; --ink100:#EFEAE3;
+    --line:#E4DED6; --line-soft:#EFEAE3;
+
+    --apricot50:#FDECDF; --apricot100:#FBD9BE; --apricot400:#F5A060; --apricot600:#C9722F; --apricot700:#9E5723; --apricot800:#6B3A18;
+    --rose50:#FADEEE; --rose100:#F8C6E0; --rose400:#E85BA8; --rose500:#D63F92; --rose600:#BE2E7B; --rose700:#97215F;
+    --lav50:#EDE1F7; --lav100:#DEC8F0; --lav400:#A666D9; --lav600:#7E3CB0; --lav700:#602C88;
+    --gold100:#F6ECCB; --gold400:#D9B23F; --gold600:#BE9522; --gold800:#6E560F;
+    --success100:#E2F5EC; --success600:#1F9D6B; --success700:#15724E;
+    --warn100:#FBF2DC; --warn700:#8A5E0F;
+
+    --brand-grad:linear-gradient(135deg,#F5A060 0%,#E85BA8 50%,#A666D9 100%);
+
+    --r:8px; /* GLOBAL max radius — squircles only */
+    --shadow-md:0 4px 14px rgba(31,31,31,.06),0 2px 4px rgba(31,31,31,.04);
+    --shadow-lg:0 12px 32px rgba(31,31,31,.08),0 4px 8px rgba(31,31,31,.04);
+
+    --display:"Spline Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"Anonymous Pro",ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+    background:var(--paper);
+    color:var(--ink900);
+    font-family:var(--mono);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding:clamp(20px,5vw,72px) clamp(16px,4vw,56px) 96px;
+  }
+  .board *{box-sizing:border-box;}
+
+  /* ── page header ── */
+  .eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rose600);display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--brand-grad);border-radius:2px;}
+  h1.board-title{font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:clamp(34px,5.4vw,60px);line-height:1.02;margin:20px 0 0;text-wrap:balance;color:var(--ink900);}
+  h1.board-title em{font-style:normal;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .lead{max-width:620px;margin:22px 0 0;font-size:16px;color:var(--ink600);}
+  .lead b{color:var(--ink900);font-weight:700;}
+  .lead code{background:var(--ink100);border-radius:4px;padding:.05em .4em;font-size:.9em;color:var(--apricot700);}
+
+  /* ── design-language legend strip ── */
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 8px;}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px 13px;font-size:12px;color:var(--ink600);box-shadow:var(--shadow-md);}
+  .chip .sw{width:14px;height:14px;border-radius:5px;flex:none;}
+  .chip .sw.ap{background:linear-gradient(135deg,#FBD9BE,#F5A060);}
+  .chip .sw.ro{background:linear-gradient(135deg,#F8C6E0,#E85BA8);}
+  .chip .sw.la{background:linear-gradient(135deg,#DEC8F0,#A666D9);}
+  .chip .sw.sq{background:var(--carbon);border-radius:4px;}
+  .chip b{color:var(--ink900);font-weight:700;}
+
+  /* ── section rhythm ── */
+  .grp-label{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink500);margin:56px 0 18px;display:flex;align-items:center;gap:12px;}
+  .grp-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;}
+  .cell{grid-column:span 4;display:flex;flex-direction:column;}
+  .cell.wide{grid-column:span 6;}
+  .cell.full{grid-column:span 12;}
+  @media(max-width:900px){.cell,.cell.wide{grid-column:span 6;}}
+  @media(max-width:620px){.cell,.cell.wide,.cell.full{grid-column:span 12;}}
+
+  /* the frame each concept sits in */
+  .stage{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;flex:1;display:flex;align-items:center;justify-content:center;min-height:180px;position:relative;overflow:hidden;}
+  .stage.ivory{background:var(--paper);}
+  .cap{margin-top:12px;}
+  .cap .name{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink900);}
+  .cap .why{font-size:13px;color:var(--ink600);margin-top:5px;}
+  .cap .tok{font-size:11px;color:var(--ink400);margin-top:7px;}
+  .cap .tok span{color:var(--apricot700);}
+
+  /* ═══════════ WIDGET 1 · AURA STAT TILE ═══════════ */
+  .stat-row{display:flex;gap:16px;width:100%;}
+  .stat{position:relative;flex:1;border-radius:var(--r);padding:20px;overflow:hidden;isolation:isolate;box-shadow:var(--shadow-md);}
+  .stat.ap{background:linear-gradient(150deg,#F7B27E 0%,#F5A060 55%,#E68A47 100%);}
+  .stat.ro{background:linear-gradient(150deg,#EE7DBA 0%,#E85BA8 55%,#D63F92 100%);}
+  .stat.la{background:linear-gradient(150deg,#B985DE 0%,#A666D9 55%,#9450C9 100%);}
+  /* the aura: a soft brighter bloom top-left, sanctioned by glow-* tokens */
+  .stat::before{content:"";position:absolute;inset:-30% 40% 40% -30%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.55),transparent 60%);z-index:-1;}
+  .stat .glyph{width:38px;height:38px;border-radius:var(--r);background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+  .stat .glyph svg{width:20px;height:20px;stroke:var(--paper);stroke-width:1.75;fill:none;}
+  .stat .fig{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;letter-spacing:-.02em;color:var(--paper);font-variant-numeric:tabular-nums;}
+  .stat .lbl{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(249,246,242,.82);margin-top:8px;}
+
+  /* ═══════════ WIDGET 2 · PROGRESS RING ═══════════ */
+  .ring-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .ring{--pct:75;width:132px;height:132px;border-radius:50%;position:relative;
+    background:conic-gradient(from -90deg,#F5A060 0%,#E85BA8 calc(var(--pct)*0.5*1%),#A666D9 calc(var(--pct)*1%),var(--ink100) calc(var(--pct)*1%));}
+  .ring::after{content:"";position:absolute;inset:13px;border-radius:50%;background:var(--surface);}
+  .ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;}
+  .ring .val .n{font-family:var(--display);font-weight:700;font-size:32px;letter-spacing:-.02em;color:var(--ink900);line-height:1;}
+  .ring .val .u{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink500);margin-top:4px;}
+  .ring-cap{font-family:var(--mono);font-size:12px;color:var(--ink600);}
+  .ring-cap b{color:var(--ink900);}
+
+  /* ═══════════ WIDGET 3 · GRADIENT METER ═══════════ */
+  .meter{width:100%;max-width:300px;display:flex;flex-direction:column;gap:12px;}
+  .meter .top{display:flex;align-items:baseline;justify-content:space-between;}
+  .meter .top .n{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.01em;color:var(--ink900);font-variant-numeric:tabular-nums;}
+  .meter .top .n small{color:var(--ink400);font-size:.7em;font-weight:700;}
+  .meter .top .noun{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink500);}
+  .meter .track{height:12px;border-radius:var(--r);background:var(--ink100);overflow:hidden;position:relative;}
+  .meter .fill{height:100%;width:64%;border-radius:var(--r);background:var(--brand-grad);position:relative;box-shadow:0 0 16px rgba(232,91,168,.35);}
+  .meter .fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35));}
+
+  /* ═══════════ WIDGET 4 · TREND / SPARKLINE ═══════════ */
+  .trend{width:100%;display:flex;flex-direction:column;gap:14px;}
+  .trend .head{display:flex;align-items:center;justify-content:space-between;}
+  .trend .head .t{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink500);}
+  .delta{display:inline-flex;align-items:center;gap:3px;background:var(--success100);color:var(--success700);border-radius:6px;padding:3px 8px;font-family:var(--mono);font-size:12px;font-weight:700;}
+  .delta svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.2;fill:none;}
+  .trend .figrow{display:flex;align-items:baseline;gap:8px;}
+  .trend .figrow .n{font-family:var(--display);font-weight:700;font-size:34px;letter-spacing:-.02em;color:var(--ink900);line-height:1;}
+  .spark{position:relative;width:100%;height:78px;}
+  .spark svg{width:100%;height:100%;display:block;overflow:visible;}
+  .bubble{position:absolute;top:-2px;left:62%;transform:translateX(-50%);background:var(--carbon);color:var(--paper);font-family:var(--mono);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;}
+  .bubble::after{content:"";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--carbon);border-bottom:0;}
+
+  /* ═══════════ WIDGET 5 · BAR CLUSTER ═══════════ */
+  .bars{width:100%;display:flex;flex-direction:column;gap:14px;}
+  .bars .legend2{display:flex;gap:16px;font-family:var(--mono);font-size:11px;color:var(--ink600);}
+  .bars .legend2 i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:middle;}
+  .plot{display:flex;align-items:flex-end;gap:9px;height:120px;}
+  .barpair{flex:1;display:flex;align-items:flex-end;gap:3px;height:100%;}
+  .barpair span{flex:1;border-radius:5px 5px 0 0;}
+  .barpair .a{background:linear-gradient(180deg,#F3A0CC,#E85BA8);}
+  .barpair .b{background:linear-gradient(180deg,#FBD9BE,#F5A060);}
+  .plot .mlabels{}
+  .xlabels{display:flex;gap:9px;}
+  .xlabels span{flex:1;text-align:center;font-family:var(--mono);font-size:10px;color:var(--ink400);}
+
+  /* ═══════════ WIDGET 6 · LIVE TIME TRACKER ═══════════ */
+  .tracker{width:100%;max-width:360px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+  .tracker::before{content:"";position:absolute;inset:auto -20% -60% 40%;height:150px;background:radial-gradient(circle at 70% 100%,rgba(166,102,217,.22),transparent 65%);pointer-events:none;}
+  .tracker .thead{display:flex;align-items:center;justify-content:space-between;position:relative;}
+  .tracker .live{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--success700);}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--success600);position:relative;}
+  .dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--success600);animation:breathe 2.6s ease-in-out infinite;}
+  @keyframes breathe{0%,100%{transform:scale(1);opacity:.5;}50%{transform:scale(2.4);opacity:0;}}
+  .tracker .kebab{color:var(--ink400);letter-spacing:2px;font-weight:700;}
+  .tracker .time{font-family:var(--mono);font-weight:700;font-size:46px;letter-spacing:.01em;color:var(--ink900);margin:14px 0 4px;font-variant-numeric:tabular-nums;position:relative;}
+  .tracker .time small{color:var(--ink400);font-size:.5em;}
+  .tracker .trow{display:flex;align-items:center;justify-content:space-between;margin-top:16px;position:relative;}
+  .tracker .task{font-family:var(--mono);font-size:12px;color:var(--ink600);}
+  .tracker .ctrls{display:flex;gap:8px;}
+  .tctrl{width:36px;height:36px;border-radius:var(--r);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .tctrl svg{width:15px;height:15px;fill:var(--paper);}
+  .tctrl.pause{background:linear-gradient(135deg,#B985DE,#A666D9);}
+  .tctrl.stop{background:linear-gradient(135deg,#EE7DBA,#E85BA8);}
+
+  /* ═══════════ WIDGET 7 · COUNTDOWN ═══════════ */
+  .countdown{display:flex;align-items:stretch;gap:10px;}
+  .cd{min-width:64px;border-radius:var(--r);padding:14px 12px;text-align:center;position:relative;overflow:hidden;color:var(--paper);box-shadow:var(--shadow-md);}
+  .cd:nth-child(1){background:linear-gradient(155deg,#F7B27E,#F5A060);}
+  .cd:nth-child(3){background:linear-gradient(155deg,#EE7DBA,#E85BA8);}
+  .cd:nth-child(5){background:linear-gradient(155deg,#B985DE,#A666D9);}
+  .cd::before{content:"";position:absolute;inset:-40% 30% 50% -20%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.5),transparent 60%);}
+  .cd .n{position:relative;font-family:var(--display);font-weight:700;font-size:28px;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;}
+  .cd .u{position:relative;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(249,246,242,.85);margin-top:6px;}
+  .cd-sep{align-self:center;font-family:var(--display);font-weight:700;font-size:22px;color:var(--ink300);}
+
+  /* ═══════════ WIDGET 8 · MULTI-RING TRACKING ═══════════ */
+  .tracking{width:100%;display:flex;justify-content:space-around;gap:12px;flex-wrap:wrap;}
+  .mini{display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .miniring{width:78px;height:78px;border-radius:50%;position:relative;}
+  .miniring::after{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--surface);}
+  .miniring .mv{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;font-family:var(--display);font-weight:700;font-size:19px;color:var(--ink900);}
+  .miniring.a{--pct:30;background:conic-gradient(from -90deg,#F5A060,#E85BA8 calc(var(--pct)*1%),var(--ink100) calc(var(--pct)*1%));}
+  .miniring.b{--pct:80;background:conic-gradient(from -90deg,#E85BA8,#A666D9 calc(var(--pct)*1%),var(--ink100) calc(var(--pct)*1%));}
+  .miniring.c{--pct:50;background:conic-gradient(from -90deg,#A666D9,#7E3CB0 calc(var(--pct)*1%),var(--ink100) calc(var(--pct)*1%));}
+  .mini .mlbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink500);}
+
+  /* ── closing note ── */
+  .note{margin-top:64px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--rose400);border-radius:var(--r);padding:24px 26px;max-width:760px;box-shadow:var(--shadow-md);}
+  .note h3{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink900);}
+  .note p{font-size:14px;color:var(--ink600);margin:0 0 10px;}
+  .note p:last-child{margin-bottom:0;}
+  .note code{background:var(--ink100);border-radius:4px;padding:.05em .4em;font-size:.9em;color:var(--apricot700);}
+
+  /* ═══════════════════ RELATIONAL WIDGETS ═══════════════════ */
+  /* a stage that hosts a full-width, top-aligned widget (lists, grids) */
+  .stage.block{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;text-align:left;padding:20px;}
+  .rhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .rhead .rt{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink500);}
+  .rhead .rlink{font-family:var(--mono);font-size:11px;color:var(--rose600);}
+
+  /* shared avatar squircle (8px, initials, gradient per hue) */
+  .av{width:32px;height:32px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--paper);flex:none;}
+  .av.ap{background:linear-gradient(140deg,#F7B27E,#E68A47);}
+  .av.ro{background:linear-gradient(140deg,#EE7DBA,#D63F92);}
+  .av.la{background:linear-gradient(140deg,#B985DE,#9450C9);}
+  .av.go{background:linear-gradient(140deg,#D9B23F,#BE9522);}
+  .av.ink{background:linear-gradient(140deg,#A39D96,#585552);}
+
+  /* 09 · leaderboard */
+  .lb{display:flex;flex-direction:column;gap:13px;}
+  .lb .row{display:flex;align-items:center;gap:12px;}
+  .lb .rank{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink400);width:14px;flex:none;text-align:center;font-variant-numeric:tabular-nums;}
+  .lb .who{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;}
+  .lb .nm{font-family:var(--mono);font-size:13px;color:var(--ink900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .lb .mbar{height:6px;border-radius:var(--r);background:var(--ink100);overflow:hidden;}
+  .lb .mbar i{display:block;height:100%;border-radius:var(--r);}
+  .lb .ct{font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink900);flex:none;font-variant-numeric:tabular-nums;}
+
+  /* 10 · agenda */
+  .ag{display:flex;flex-direction:column;}
+  .ag .row{display:flex;align-items:center;gap:13px;padding:12px 0;border-top:1px solid var(--line-soft);}
+  .ag .row:first-child{border-top:0;padding-top:0;}
+  .ag .tm{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink600);width:46px;flex:none;font-variant-numeric:tabular-nums;}
+  .ag .acc{width:3px;align-self:stretch;border-radius:2px;flex:none;}
+  .ag .abody{flex:1;min-width:0;}
+  .ag .ttl{font-family:var(--mono);font-size:13px;color:var(--ink900);}
+  .ag .sub{font-family:var(--mono);font-size:11px;color:var(--ink500);margin-top:3px;}
+  .pill{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:var(--r);flex:none;}
+  .pill.ok{background:var(--success100);color:var(--success700);}
+  .pill.wait{background:var(--apricot50);color:var(--apricot700);}
+  .pill.new{background:var(--lav50);color:var(--lav700);}
+
+  /* 11 · semicircle gauge */
+  .gauge-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;}
+  .gauge{position:relative;width:200px;max-width:100%;}
+  .gauge svg{width:100%;height:auto;display:block;overflow:visible;}
+  .gval{position:absolute;left:0;right:0;bottom:2px;text-align:center;}
+  .gval .n{font-family:var(--display);font-weight:700;font-size:40px;line-height:1;letter-spacing:-.02em;color:var(--ink900);font-variant-numeric:tabular-nums;}
+  .gval .u{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink500);margin-top:5px;}
+
+  /* 12 · stacked breakdown bar */
+  .stack{display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;width:100%;}
+  .stackbar{display:flex;height:18px;border-radius:var(--r);overflow:hidden;background:var(--ink100);}
+  .stackbar span{height:100%;}
+  .stlegend{display:flex;flex-direction:column;gap:9px;}
+  .stlegend .li{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;color:var(--ink600);}
+  .stlegend .li i{width:9px;height:9px;border-radius:3px;flex:none;}
+  .stlegend .li .ln{flex:1;}
+  .stlegend .li b{color:var(--ink900);font-weight:700;font-variant-numeric:tabular-nums;}
+
+  /* 13 · heatmap */
+  .heat{display:flex;flex-direction:column;gap:12px;flex:1;justify-content:center;}
+  .heatgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+  .hc{aspect-ratio:1;border-radius:4px;background:var(--ink100);}
+  .hc.l1{background:var(--rose50);}
+  .hc.l2{background:var(--rose100);}
+  .hc.l3{background:#EE7DBA;}
+  .hc.l4{background:var(--rose500);}
+  .heatfoot{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--ink400);text-transform:uppercase;letter-spacing:.06em;}
+  .heatscale{display:flex;align-items:center;gap:4px;}
+  .heatscale i{width:11px;height:11px;border-radius:3px;}
+
+  /* 14 · revenue card */
+  .rev{display:flex;flex-direction:column;gap:18px;flex:1;justify-content:center;}
+  .rev .amt{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .rev .amt .big{font-family:var(--display);font-weight:700;font-size:38px;line-height:1;letter-spacing:-.02em;color:var(--ink900);font-variant-numeric:tabular-nums;}
+  .rev .amt .of{font-family:var(--mono);font-size:12px;color:var(--ink500);}
+  .rev .bcbar{height:8px;border-radius:var(--r);background:var(--ink100);overflow:hidden;}
+  .rev .bcbar i{display:block;height:100%;border-radius:var(--r);background:var(--brand-grad);}
+  .rev .cats{display:flex;flex-direction:column;gap:12px;}
+  .rev .cat{display:flex;align-items:center;gap:11px;}
+  .rev .cat .cdot{width:9px;height:9px;border-radius:3px;flex:none;}
+  .rev .cat .cn{font-family:var(--mono);font-size:12px;color:var(--ink600);width:96px;flex:none;}
+  .rev .cat .cbar{flex:1;height:6px;border-radius:var(--r);background:var(--ink100);overflow:hidden;}
+  .rev .cat .cbar i{display:block;height:100%;border-radius:var(--r);}
+  .rev .cat .cv{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink900);width:60px;text-align:right;flex:none;font-variant-numeric:tabular-nums;}
+
+  /* 15 · conversion funnel */
+  .funnel{display:flex;flex-direction:column;gap:12px;width:100%;}
+  .fstage{display:flex;align-items:center;gap:16px;}
+  .fstage .fl{width:130px;flex:none;text-align:right;font-family:var(--mono);font-size:12px;color:var(--ink600);}
+  .fstage .ftrack{flex:1;display:flex;justify-content:center;}
+  .fbar{height:46px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;gap:8px;color:var(--paper);box-shadow:var(--shadow-md);min-width:120px;}
+  .fbar .fn{font-family:var(--display);font-weight:700;font-size:19px;font-variant-numeric:tabular-nums;}
+  .fbar.ap{background:linear-gradient(150deg,#F7B27E,#E68A47);}
+  .fbar.ro{background:linear-gradient(150deg,#EE7DBA,#D63F92);}
+  .fbar.la{background:linear-gradient(150deg,#B985DE,#9450C9);}
+  .fstage .fp{width:120px;flex:none;font-family:var(--mono);font-size:11px;color:var(--ink500);}
+  .fstage .fp b{color:var(--rose600);font-weight:700;}
+  @media(max-width:620px){.fstage .fl{width:88px;}.fstage .fp{width:74px;}}
+
+  /* 16 · avatar cluster */
+  .cluster{display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;}
+  .stack-av{display:flex;align-items:center;}
+  .stack-av .av{border:2px solid var(--surface);margin-left:-11px;}
+  .stack-av .av:first-child{margin-left:0;}
+  .stack-av .more,.stack-av .add{width:34px;height:34px;border-radius:var(--r);border:2px solid var(--surface);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;flex:none;margin-left:-11px;}
+  .stack-av .more{background:var(--ink100);color:var(--ink700);}
+  .stack-av .add{background:var(--surface);border:1.5px dashed var(--ink300);color:var(--ink500);font-size:18px;line-height:1;}
+  .cluster .clbl{font-family:var(--mono);font-size:12px;color:var(--ink600);}
+  .cluster .clbl b{color:var(--ink900);font-weight:700;}
+
+  /* ── ambient motion — calm, slow, low-amplitude (the "alive" layer) ── */
+  @keyframes auraPulse{0%,100%{opacity:.72;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
+  @keyframes sheen{0%{transform:translateX(-160%) skewX(-16deg);}100%{transform:translateX(280%) skewX(-16deg);}}
+  @keyframes epPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.55);}}
+  @keyframes blink{0%,42%{opacity:1;}58%,100%{opacity:.22;}}
+  .stat::before,.cd::before{animation:auraPulse 6.5s ease-in-out infinite;}
+  .tracker::before{animation:auraPulse 7.5s ease-in-out infinite;}
+  .stat .glyph,.stat .fig,.stat .lbl{position:relative;z-index:1;}
+  .stat::after{content:"";position:absolute;top:0;bottom:0;left:0;width:42%;z-index:0;pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.30),transparent);animation:sheen 7s ease-in-out infinite;}
+  .spark circle{transform-box:fill-box;transform-origin:center;animation:epPulse 2.8s ease-in-out infinite;}
+  .cd-sep{animation:blink 2s ease-in-out infinite;}
+
+  /* ═══════════════════ EXPANSION · WIDGETS 17–32 ═══════════════════ */
+  /* 17 metric strip */
+  .strip{display:flex;gap:14px;width:100%;flex-wrap:wrap;}
+  .kpi{flex:1;min-width:120px;border:1px solid var(--line);border-radius:var(--r);padding:14px 15px;position:relative;overflow:hidden;}
+  .kpi::before{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--brand-grad);}
+  .kpi .kl{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink500);}
+  .kpi .kv{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.01em;color:var(--ink900);margin-top:6px;font-variant-numeric:tabular-nums;}
+  .kpi .kd{font-family:var(--mono);font-size:11px;font-weight:700;margin-top:4px;}
+  .kd.up{color:var(--success700);} .kd.dn{color:var(--apricot700);}
+
+  /* 18 donut */
+  .donut-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center;}
+  .donut{width:118px;height:118px;border-radius:50%;position:relative;flex:none;
+    background:conic-gradient(#F5A060 0 42%,#E85BA8 0 68%,#A666D9 0 88%,#C7C1B9 0 100%);}
+  .donut::after{content:"";position:absolute;inset:20px;border-radius:50%;background:var(--surface);}
+  .donut .dc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;}
+  .donut .dc .n{font-family:var(--display);font-weight:700;font-size:22px;color:var(--ink900);line-height:1;}
+  .donut .dc .u{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink500);margin-top:3px;}
+  .dleg{display:flex;flex-direction:column;gap:8px;}
+  .dleg .li{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--ink600);}
+  .dleg .li i{width:9px;height:9px;border-radius:3px;}
+  .dleg .li b{color:var(--ink900);margin-left:auto;font-variant-numeric:tabular-nums;}
+
+  /* 19 progress rows */
+  .prows{display:flex;flex-direction:column;gap:14px;width:100%;}
+  .prow .top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;margin-bottom:6px;}
+  .prow .top .pn{color:var(--ink700);} .prow .top .pv{color:var(--ink900);font-weight:700;}
+  .prow .track{height:8px;border-radius:var(--r);background:var(--ink100);overflow:hidden;}
+  .prow .track i{display:block;height:100%;border-radius:var(--r);}
+
+  /* 20 ticked gauge */
+  .tgauge{display:flex;flex-direction:column;align-items:center;}
+  .tgauge svg{width:210px;max-width:100%;height:auto;overflow:visible;}
+  .tgauge .gv{margin-top:-30px;text-align:center;}
+  .tgauge .gv .n{font-family:var(--display);font-weight:700;font-size:36px;color:var(--ink900);line-height:1;}
+  .tgauge .gv .u{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink500);margin-top:4px;}
+
+  /* 21 goal progress */
+  .goal{width:100%;display:flex;flex-direction:column;gap:14px;}
+  .goal .grow{display:flex;align-items:baseline;justify-content:space-between;}
+  .goal .grow .n{font-family:var(--display);font-weight:700;font-size:30px;color:var(--ink900);font-variant-numeric:tabular-nums;}
+  .goal .grow .n small{color:var(--ink400);font-size:.55em;font-weight:700;}
+  .chip-ok{display:inline-flex;align-items:center;gap:6px;background:var(--success100);color:var(--success700);border-radius:var(--r);padding:4px 10px;font-family:var(--mono);font-size:11px;font-weight:700;}
+  .goal .gtrack{height:10px;border-radius:var(--r);background:var(--ink100);position:relative;overflow:hidden;}
+  .goal .gtrack i{display:block;height:100%;border-radius:var(--r);background:var(--brand-grad);}
+  .goal .marks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--ink400);}
+
+  /* 22 comparison */
+  .vs{display:flex;align-items:stretch;width:100%;}
+  .vs .side{flex:1;display:flex;flex-direction:column;gap:5px;}
+  .vs .side.r{text-align:right;align-items:flex-end;}
+  .vs .side .l{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink500);}
+  .vs .side .n{font-family:var(--display);font-weight:700;font-size:32px;color:var(--ink900);font-variant-numeric:tabular-nums;line-height:1;}
+  .vs .side.muted .n{color:var(--ink400);}
+  .vs .mid{width:1px;background:var(--line);margin:4px 18px;position:relative;}
+  .vs .mid span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink400);padding:4px 0;}
+  .vs-delta{margin-top:14px;text-align:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--success700);}
+
+  /* 23 calendar */
+  .cal{width:100%;}
+  .cal .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px;}
+  .cal .dow span{text-align:center;font-family:var(--mono);font-size:9px;text-transform:uppercase;color:var(--ink400);}
+  .cal .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+  .cal .d{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:6px;font-family:var(--mono);font-size:12px;color:var(--ink700);position:relative;}
+  .cal .d.mute{color:var(--ink300);}
+  .cal .d.book::after{content:"";position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:var(--rose400);}
+  .cal .d.today{background:var(--brand-grad);color:var(--paper);font-weight:700;}
+  .cal .d.sel{background:var(--lav100);color:var(--lav700);font-weight:700;}
+
+  /* 24 slot picker */
+  .slots{display:flex;flex-wrap:wrap;gap:8px;width:100%;}
+  .slot{font-family:var(--mono);font-size:13px;padding:8px 12px;border-radius:var(--r);border:1px solid var(--line);color:var(--ink700);font-variant-numeric:tabular-nums;}
+  .slot.sel{background:var(--brand-grad);color:var(--paper);border-color:transparent;font-weight:700;}
+  .slot.taken{color:var(--ink300);text-decoration:line-through;background:var(--ink100);border-color:transparent;}
+
+  /* 25 stepper */
+  .steps{display:flex;flex-direction:column;gap:0;width:100%;}
+  .step{display:flex;gap:13px;padding-bottom:16px;position:relative;}
+  .step:not(:last-child)::before{content:"";position:absolute;left:13px;top:26px;bottom:0;width:2px;background:var(--ink100);}
+  .step .mark{width:26px;height:26px;border-radius:var(--r);flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;z-index:1;}
+  .step.done .mark{background:var(--brand-grad);color:var(--paper);}
+  .step.now .mark{background:var(--surface);border:2px solid var(--lav400);color:var(--lav700);}
+  .step.next .mark{background:var(--ink100);color:var(--ink400);}
+  .step .sbody .st{font-family:var(--mono);font-size:13px;color:var(--ink900);}
+  .step .sbody .ss{font-family:var(--mono);font-size:11px;color:var(--ink500);margin-top:2px;}
+  .step.next .st{color:var(--ink400);}
+
+  /* 26 plan card */
+  .plan{width:100%;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}
+  .plan .ph{background:var(--brand-grad);padding:16px 18px;position:relative;overflow:hidden;}
+  .plan .ph::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);animation:sheen 7s ease-in-out infinite;}
+  .plan .ph .pt{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(249,246,242,.85);position:relative;}
+  .plan .ph .pp{font-family:var(--display);font-weight:700;font-size:34px;color:var(--paper);line-height:1.1;position:relative;}
+  .plan .ph .pp small{font-size:.4em;font-weight:700;opacity:.8;}
+  .plan .pb{padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
+  .plan .pf{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;color:var(--ink700);}
+  .plan .pf .tick{width:16px;height:16px;border-radius:5px;background:var(--brand-grad);display:flex;align-items:center;justify-content:center;flex:none;}
+  .plan .pf .tick svg{width:9px;height:9px;stroke:var(--paper);stroke-width:3;fill:none;}
+  .plan .cta{margin-top:4px;background:var(--carbon);color:var(--paper);text-align:center;font-family:var(--mono);font-size:12px;font-weight:700;padding:10px;border-radius:var(--r);}
+
+  /* 27 toggles */
+  .togs{display:flex;flex-direction:column;gap:16px;width:100%;}
+  .tog{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .tog .tl{font-family:var(--mono);font-size:13px;color:var(--ink900);}
+  .tog .tl small{display:block;font-size:11px;color:var(--ink500);}
+  .sw{width:40px;height:23px;border-radius:var(--r);background:var(--ink200);position:relative;flex:none;transition:background .2s;}
+  .sw.on{background:var(--brand-grad);}
+  .sw::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:5px;background:var(--surface);transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.2);}
+  .sw.on::after{transform:translateX(17px);}
+
+  /* 28 activity feed */
+  .feed{display:flex;flex-direction:column;gap:0;width:100%;}
+  .fitem{display:flex;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line-soft);}
+  .fitem:first-child{border-top:0;padding-top:0;}
+  .fitem .fb{flex:1;min-width:0;}
+  .fitem .fx{font-family:var(--mono);font-size:12.5px;color:var(--ink900);}
+  .fitem .fx b{font-weight:700;}
+  .fitem .ft{font-family:var(--mono);font-size:11px;color:var(--ink400);flex:none;}
+
+  /* 29 rating */
+  .rate{display:flex;gap:20px;width:100%;align-items:center;flex-wrap:wrap;}
+  .rate .big{text-align:center;flex:none;}
+  .rate .big .n{font-family:var(--display);font-weight:700;font-size:48px;color:var(--ink900);line-height:1;}
+  .rate .stars{display:flex;gap:2px;justify-content:center;margin-top:4px;}
+  .rate .stars svg{width:14px;height:14px;fill:#E68A47;}
+  .rate .big .c{font-family:var(--mono);font-size:11px;color:var(--ink500);margin-top:5px;}
+  .rate .dist{flex:1;min-width:150px;display:flex;flex-direction:column;gap:6px;}
+  .rate .drow{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--ink500);}
+  .rate .drow .bar{flex:1;height:6px;border-radius:var(--r);background:var(--ink100);overflow:hidden;}
+  .rate .drow .bar i{display:block;height:100%;border-radius:var(--r);background:linear-gradient(90deg,#F7B27E,#F5A060);}
+
+  /* 30 sage bubble */
+  .sage{display:flex;gap:12px;width:100%;align-items:flex-end;}
+  .sage .savatar{width:40px;height:40px;border-radius:var(--r);background:linear-gradient(140deg,#B985DE,#9450C9);flex:none;position:relative;overflow:hidden;}
+  .sage .savatar::after{content:"";position:absolute;inset:-30% 40% 40% -30%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.5),transparent 60%);}
+  .sage .bubble{background:var(--lav50);border-radius:var(--r);border-bottom-left-radius:2px;padding:12px 15px;max-width:82%;}
+  .sage .bubble .who{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lav700);margin-bottom:5px;}
+  .sage .bubble .msg{font-family:var(--mono);font-size:13px;color:#332b3a;line-height:1.5;}
+  .sage .typing{display:inline-flex;gap:4px;margin-top:8px;}
+  .sage .typing i{width:6px;height:6px;border-radius:50%;background:var(--lav400);animation:typingbounce 1.4s ease-in-out infinite;}
+  .sage .typing i:nth-child(2){animation-delay:.2s;} .sage .typing i:nth-child(3){animation-delay:.4s;}
+  @keyframes typingbounce{0%,80%,100%{opacity:.3;transform:translateY(0);}40%{opacity:1;transform:translateY(-3px);}}
+
+  /* 31 sentiment */
+  .senti{width:100%;text-align:center;}
+  .senti .q{font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink900);margin-bottom:16px;}
+  .senti .faces{display:flex;justify-content:center;gap:12px;}
+  .senti .face{width:52px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .senti .face svg{width:44px;height:44px;border-radius:var(--r);}
+  .senti .face.sel svg{outline:2px solid var(--lav400);outline-offset:2px;}
+  .senti .face span{font-family:var(--mono);font-size:9px;color:var(--ink500);}
+
+  /* 32 alert */
+  .alerts{display:flex;flex-direction:column;gap:12px;width:100%;}
+  .alert{display:flex;align-items:center;gap:13px;border:1px solid var(--line);border-left:3px solid var(--apricot400);border-radius:var(--r);padding:13px 16px;}
+  .alert.ok{border-left-color:var(--success600);}
+  .alert.info{border-left-color:var(--lav400);}
+  .alert .aic{width:30px;height:30px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex:none;}
+  .alert.warn .aic{background:var(--warn100);color:var(--warn700);} .alert.ok .aic{background:var(--success100);color:var(--success700);} .alert.info .aic{background:var(--lav50);color:var(--lav700);}
+  .alert .aic svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;}
+  .alert .ab{flex:1;}
+  .alert .at{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink900);}
+  .alert .as{font-family:var(--mono);font-size:11px;color:var(--ink500);}
+
+  @media(prefers-reduced-motion:reduce){.board *,.board *::before,.board *::after{animation:none!important;transition:none!important;}}
+
+</style>
+</head>
+<body>
+
+<div class="board">
+
+  <div class="eyebrow">Health OS · Widget library</div>
+  <h1 class="board-title">Aura <em>widgets</em></h1>
+  <p class="lead">The Health OS widget library — <b>32 live, on-brand components</b> across four groups. Built entirely from the system's own tokens: aura glow, the brand gradient and per-accent washes. Locked grammar throughout — 8px squircles, apricot / rose / lavender kept as <b>separate</b> families (no gold — that's Finance OS), Spline Sans figures over Anonymous Pro labels. Scroll and each piece animates once in view; all motion is reduced-motion safe.</p>
+
+  <div class="legend">
+    <span class="chip"><span class="sw ap"></span>Apricot family</span>
+    <span class="chip"><span class="sw ro"></span>Rose · signature</span>
+    <span class="chip"><span class="sw la"></span>Lavender family</span>
+    <span class="chip"><span class="sw sq"></span>8px squircle · flat</span>
+    <span class="chip"><b>Aura</b> = soft radial bloom</span>
+    <span class="chip"><b>Knockout</b> figures on saturated</span>
+  </div>
+
+  <!-- ═══ HERO CONCEPTS ═══ -->
+  <div class="grp-label">Hero figures — the pieces meant to pop</div>
+  <div class="grid">
+
+    <!-- 1 · Aura stat tiles -->
+    <div class="cell full">
+      <div class="stage ivory">
+        <div class="stat-row">
+          <div class="stat ap">
+            <div class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></div>
+            <div class="fig">15</div>
+            <div class="lbl">Tasks in progress</div>
+          </div>
+          <div class="stat ro">
+            <div class="glyph"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="fig">97</div>
+            <div class="lbl">Completed this month</div>
+          </div>
+          <div class="stat la">
+            <div class="glyph"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <div class="fig">1,284</div>
+            <div class="lbl">Active members</div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">01 · Aura stat tile</div>
+        <div class="why">The hero. A saturated squircle in one hue family, figure knocked out in ivory, glyph in a translucent chip, a white bloom top-left. Directly echoes your SERIES 1 "Aura" icon direction — one hue per tile, never blended.</div>
+        <div class="tok">upgrades <span>MembersCount / BigCount</span> · new saturated surface + knockout</div>
+      </div>
+    </div>
+
+    <!-- 2 · Progress ring -->
+    <div class="cell">
+      <div class="stage">
+        <div class="ring-wrap">
+          <div class="ring" style="--pct:75">
+            <div class="val"><div class="n">75%</div><div class="u">of plan</div></div>
+          </div>
+          <div class="ring-cap"><b>4 of 6</b> completed</div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">02 · Gradient ring</div>
+        <div class="why">The donut from every dashboard, but the stroke sweeps apricot → rose → lavender on a <code>conic-gradient</code>. Figure in Spline Sans at the centre.</div>
+        <div class="tok">new · uses <span>brand-gradient</span> as an arc</div>
+      </div>
+    </div>
+
+    <!-- 3 · Gradient meter -->
+    <div class="cell">
+      <div class="stage">
+        <div class="meter">
+          <div class="top"><div class="n">128<small> / 200</small></div><div class="noun">seats</div></div>
+          <div class="track"><div class="fill"></div></div>
+          <div class="top"><div class="noun" style="color:var(--rose600)">72 remaining</div><div class="noun">closing soon</div></div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">03 · Aura meter</div>
+        <div class="why">Your <code>SeatsRemaining</code> bar, re-skinned: the fill is the brand gradient with a faint outward glow so scarcity actually reads as urgent.</div>
+        <div class="tok">re-skins <span>SeatsRemaining</span> fill</div>
+      </div>
+    </div>
+
+    <!-- 4 · Trend / sparkline -->
+    <div class="cell">
+      <div class="stage">
+        <div class="trend">
+          <div class="head"><span class="t">Show-up rate</span><span class="delta"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>12.4%</span></div>
+          <div class="figrow"><span class="n">94%</span></div>
+          <div class="spark">
+            <div class="bubble">94%</div>
+            <svg viewBox="0 0 300 78" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="sparkfill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#E85BA8" stop-opacity=".28"/>
+                  <stop offset="1" stop-color="#E85BA8" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="sparkline" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#F5A060"/><stop offset="1" stop-color="#A666D9"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 60 L40 52 L80 58 L120 40 L160 46 L186 24 L220 34 L260 20 L300 14 L300 78 L0 78 Z" fill="url(#sparkfill)"/>
+              <path d="M0 60 L40 52 L80 58 L120 40 L160 46 L186 24 L220 34 L260 20 L300 14" fill="none" stroke="url(#sparkline)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="186" cy="24" r="4" fill="#E85BA8" stroke="#FFF" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">04 · Trend aura card</div>
+        <div class="why">Area fill fading to transparent, a gradient line, an emphasized endpoint and a carbon value bubble. Pairs with your <code>StatTrend</code> delta chip.</div>
+        <div class="tok">wraps <span>StatTrend</span> · new sparkline</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ LIVE + STRUCTURAL ═══ -->
+  <div class="grp-label">Live &amp; structural pieces</div>
+  <div class="grid">
+
+    <!-- 6 · Time tracker -->
+    <div class="cell wide">
+      <div class="stage ivory">
+        <div class="tracker">
+          <div class="thead">
+            <span class="live"><span class="dot"></span>Recording</span>
+            <span class="kebab">•••</span>
+          </div>
+          <div class="time">07:40<small>:00</small></div>
+          <div class="trow">
+            <span class="task">Onboarding call · Priya K.</span>
+            <div class="ctrls">
+              <button class="tctrl pause" aria-label="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+              <button class="tctrl stop" aria-label="Stop"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">05 · Live time tracker</div>
+        <div class="why">The most on-brand of the set — Anonymous Pro <em>is</em> the OS texture, so a big mono timer sings. Breathing status dot, squircle controls each in their own hue, a lavender bloom in the corner.</div>
+        <div class="tok">new · <span>BreathingDot</span> + mono figure + squircle IconButton</div>
+      </div>
+    </div>
+
+    <!-- 8 · Multi-ring tracking -->
+    <div class="cell wide">
+      <div class="stage">
+        <div class="tracking">
+          <div class="mini"><div class="miniring a"><div class="mv">30%</div></div><div class="mlbl">New users</div></div>
+          <div class="mini"><div class="miniring b"><div class="mv">80%</div></div><div class="mlbl">Page views</div></div>
+          <div class="mini"><div class="miniring c"><div class="mv">50%</div></div><div class="mlbl">Recurring</div></div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">06 · Tracking cluster</div>
+        <div class="why">Three small gradient rings read as a single panel — each ring stays in one hue family so the trio still reads apricot / rose / lavender across the row.</div>
+        <div class="tok">new · composes 02 at small size</div>
+      </div>
+    </div>
+
+    <!-- 5 · Bar cluster -->
+    <div class="cell wide">
+      <div class="stage">
+        <div class="bars">
+          <div class="legend2"><span><i style="background:#E85BA8"></i>This year</span><span><i style="background:#F5A060"></i>Last year</span></div>
+          <div class="plot">
+            <div class="barpair"><span class="a" style="height:50%"></span><span class="b" style="height:28%"></span></div>
+            <div class="barpair"><span class="a" style="height:74%"></span><span class="b" style="height:88%"></span></div>
+            <div class="barpair"><span class="a" style="height:34%"></span><span class="b" style="height:20%"></span></div>
+            <div class="barpair"><span class="a" style="height:90%"></span><span class="b" style="height:56%"></span></div>
+            <div class="barpair"><span class="a" style="height:60%"></span><span class="b" style="height:44%"></span></div>
+            <div class="barpair"><span class="a" style="height:100%"></span><span class="b" style="height:38%"></span></div>
+          </div>
+          <div class="xlabels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span></div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">07 · Bar cluster</div>
+        <div class="why">Rounded 8px bars, this-year in rose against last-year in apricot — the two families sit side by side without blending, so comparison stays legible.</div>
+        <div class="tok">new · rose vs apricot, gradient bars</div>
+      </div>
+    </div>
+
+    <!-- 7 · Countdown -->
+    <div class="cell wide">
+      <div class="stage ivory">
+        <div class="countdown">
+          <div class="cd"><div class="n">09</div><div class="u">days</div></div>
+          <span class="cd-sep">:</span>
+          <div class="cd"><div class="n">14</div><div class="u">hrs</div></div>
+          <span class="cd-sep">:</span>
+          <div class="cd"><div class="n">32</div><div class="u">min</div></div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">08 · Aura countdown</div>
+        <div class="why">Your flat countdown boxes become saturated squircle tiles running the sunset order left to right — apricot, rose, lavender — each with its own bloom.</div>
+        <div class="tok">re-skins <span>Countdown</span> units</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ RELATIONAL WIDGETS ═══ -->
+  <div class="grp-label">Relational widgets — the competitor gaps</div>
+  <p class="lead" style="margin-top:0">Every rival dashboard — Jane, Momence, Mindbody, Mangomint — leans as hard on <b>relational</b> pieces as on single figures: rankings, schedules, breakdowns and time-grids that answer <em>who</em>, <em>when</em> and <em>what's next</em>, not just <em>how many</em>. Your library had none. These eight fill that column, in the same aura grammar.</p>
+  <div class="grid">
+
+    <!-- 09 · leaderboard -->
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Top members · this quarter</span><span class="rlink">See all →</span></div>
+        <div class="lb">
+          <div class="row"><span class="rank">1</span><span class="av ro">PK</span><span class="who"><span class="nm">Priya Kapoor</span><span class="mbar"><i style="width:100%;background:linear-gradient(90deg,#F3A0CC,#E85BA8)"></i></span></span><span class="ct">48</span></div>
+          <div class="row"><span class="rank">2</span><span class="av ap">MV</span><span class="who"><span class="nm">Marcus Vaughn</span><span class="mbar"><i style="width:85%;background:linear-gradient(90deg,#FBD9BE,#F5A060)"></i></span></span><span class="ct">41</span></div>
+          <div class="row"><span class="rank">3</span><span class="av la">EF</span><span class="who"><span class="nm">Elena Fischer</span><span class="mbar"><i style="width:77%;background:linear-gradient(90deg,#DEC8F0,#A666D9)"></i></span></span><span class="ct">37</span></div>
+          <div class="row"><span class="rank">4</span><span class="av ro">TO</span><span class="who"><span class="nm">Tom Okafor</span><span class="mbar"><i style="width:60%;background:linear-gradient(90deg,#F3A0CC,#E85BA8)"></i></span></span><span class="ct">29</span></div>
+          <div class="row"><span class="rank">5</span><span class="av ap">AR</span><span class="who"><span class="nm">Aisha Rahman</span><span class="mbar"><i style="width:50%;background:linear-gradient(90deg,#FBD9BE,#F5A060)"></i></span></span><span class="ct">24</span></div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">09 · Leaderboard</div>
+        <div class="why">The #1 gap. Rank, squircle avatar, gradient mini-bar, figure. Top members, practitioners or services — the shape Jane's <em>Top Patients</em> and every gym leaderboard use.</div>
+        <div class="tok">new · first list-style widget in the set</div>
+      </div>
+    </div>
+
+    <!-- 10 · agenda -->
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Today · 4 sessions</span><span class="rlink">Day sheet →</span></div>
+        <div class="ag">
+          <div class="row"><span class="tm">09:00</span><span class="acc" style="background:#E85BA8"></span><span class="abody"><div class="ttl">Onboarding call</div><div class="sub">Priya Kapoor · 45 min</div></span><span class="pill ok">Confirmed</span></div>
+          <div class="row"><span class="tm">10:30</span><span class="acc" style="background:#F5A060"></span><span class="abody"><div class="ttl">Initial assessment</div><div class="sub">Marcus Vaughn · 60 min</div></span><span class="pill wait">Pending</span></div>
+          <div class="row"><span class="tm">13:00</span><span class="acc" style="background:#A666D9"></span><span class="abody"><div class="ttl">Group session</div><div class="sub">8 of 10 booked</div></span><span class="pill ok">Confirmed</span></div>
+          <div class="row"><span class="tm">15:15</span><span class="acc" style="background:#E85BA8"></span><span class="abody"><div class="ttl">Intro call</div><div class="sub">New lead · from website</div></span><span class="pill new">New</span></div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">10 · Agenda / up next</div>
+        <div class="why">The most-visited screen in any booking product — Jane's Day Sheet, Momence's home. Time, hue-coded accent, hue-coded status pill (confirmed / pending / new).</div>
+        <div class="tok">new · reuses the status-pill + BreathingDot grammar</div>
+      </div>
+    </div>
+
+    <!-- 11 · gauge -->
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Net promoter</span></div>
+        <div class="gauge-wrap">
+          <div class="gauge">
+            <svg viewBox="0 0 200 108" preserveAspectRatio="xMidYMax meet" role="img" aria-label="NPS 72">
+              <defs>
+                <linearGradient id="gaugegrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#F5A060"/><stop offset="0.5" stop-color="#E85BA8"/><stop offset="1" stop-color="#A666D9"/>
+                </linearGradient>
+              </defs>
+              <path d="M16 100 A84 84 0 0 1 184 100" fill="none" stroke="#E4DED6" stroke-width="14" stroke-linecap="round"/>
+              <path d="M16 100 A84 84 0 0 1 184 100" fill="none" stroke="url(#gaugegrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="190 264"/>
+            </svg>
+            <div class="gval"><div class="n">72</div><div class="u">promoters</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">11 · Score gauge</div>
+        <div class="why">A 180° arc — distinct from the full ring. Perfect for a bounded score: NPS, satisfaction, utilization, retention. Echoes the "86% battery" gauge you pinned.</div>
+        <div class="tok">new · half-arc variant of 02</div>
+      </div>
+    </div>
+
+    <!-- 12 · stacked breakdown -->
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Member mix · this month</span></div>
+        <div class="stack">
+          <div class="stackbar">
+            <span style="width:34%;background:#F5A060"></span>
+            <span style="width:52%;background:#E85BA8"></span>
+            <span style="width:14%;background:#A666D9"></span>
+          </div>
+          <div class="stlegend">
+            <div class="li"><i style="background:#F5A060"></i><span class="ln">New</span><b>34%</b></div>
+            <div class="li"><i style="background:#E85BA8"></i><span class="ln">Returning</span><b>52%</b></div>
+            <div class="li"><i style="background:#A666D9"></i><span class="ln">Reactivated</span><b>14%</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">12 · Breakdown bar</div>
+        <div class="why">One bar split by category — Jane's <em>new vs returning</em>, or a signed / draft / not-started status. Solid segments per family, so nothing blends.</div>
+        <div class="tok">new · stacked sibling of 07</div>
+      </div>
+    </div>
+
+    <!-- 13 · heatmap -->
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Booking density · 5 weeks</span></div>
+        <div class="heat">
+          <div class="heatgrid">
+            <div class="hc l2"></div><div class="hc l3"></div><div class="hc l4"></div><div class="hc l2"></div><div class="hc l3"></div><div class="hc l1"></div><div class="hc"></div>
+            <div class="hc l3"></div><div class="hc l4"></div><div class="hc l4"></div><div class="hc l3"></div><div class="hc l4"></div><div class="hc l2"></div><div class="hc l1"></div>
+            <div class="hc l1"></div><div class="hc l2"></div><div class="hc l3"></div><div class="hc l4"></div><div class="hc l3"></div><div class="hc l2"></div><div class="hc"></div>
+            <div class="hc l4"></div><div class="hc l3"></div><div class="hc l4"></div><div class="hc l2"></div><div class="hc l4"></div><div class="hc l3"></div><div class="hc l1"></div>
+            <div class="hc l2"></div><div class="hc l4"></div><div class="hc l3"></div><div class="hc l3"></div><div class="hc l4"></div><div class="hc l1"></div><div class="hc"></div>
+          </div>
+          <div class="heatfoot"><span>Mon → Sun</span><span class="heatscale">Less<i class="hc"></i><i class="hc l1"></i><i class="hc l2"></i><i class="hc l3"></i><i class="hc l4"></i>More</span></div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">13 · Activity heatmap</div>
+        <div class="why">A contribution-grid of density — peak times, attendance, streaks. Pure "OS" texture against your mono grammar. Single-hue intensity ramp (a sunset ramp is the alt).</div>
+        <div class="tok">new · rose 50 → 500 intensity scale</div>
+      </div>
+    </div>
+
+    <!-- 14 · revenue -->
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Revenue · March</span><span class="rlink">Report →</span></div>
+        <div class="rev">
+          <div>
+            <div class="amt"><span class="big">$12,480</span><span class="of">collected of $14,200 billed</span></div>
+            <div class="bcbar" style="margin-top:12px"><i style="width:88%"></i></div>
+          </div>
+          <div class="cats">
+            <div class="cat"><span class="cdot" style="background:#E85BA8"></span><span class="cn">Memberships</span><span class="cbar"><i style="width:100%;background:linear-gradient(90deg,#F3A0CC,#E85BA8)"></i></span><span class="cv">$7,240</span></div>
+            <div class="cat"><span class="cdot" style="background:#F5A060"></span><span class="cn">Sessions</span><span class="cbar"><i style="width:44%;background:linear-gradient(90deg,#FBD9BE,#F5A060)"></i></span><span class="cv">$3,180</span></div>
+            <div class="cat"><span class="cdot" style="background:#A666D9"></span><span class="cn">Products</span><span class="cbar"><i style="width:28%;background:linear-gradient(90deg,#DEC8F0,#A666D9)"></i></span><span class="cv">$2,060</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">14 · Revenue card</div>
+        <div class="why">Money-shaped at last — billed vs collected on a gradient track, then category legend rows. This is the banking-dashboard (Purse) look you attached, on brand.</div>
+        <div class="tok">new · maps to Jane's Billed / Collected</div>
+      </div>
+    </div>
+
+    <!-- 15 · avatar cluster -->
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Care team</span><span class="rlink">Manage →</span></div>
+        <div class="cluster">
+          <div class="stack-av">
+            <span class="av ro">PK</span><span class="av ap">MV</span><span class="av la">EF</span><span class="av ro">TO</span><span class="av ink">AR</span><span class="more">+20</span><span class="add">+</span>
+          </div>
+          <div class="clbl"><b>25 people</b> across 3 locations · 4 online now</div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">15 · Avatar cluster</div>
+        <div class="why">Small connective tissue — overlapping squircle avatars, an overflow chip, an add affordance. Glues the larger widgets together; appears in nearly every reference you sent.</div>
+        <div class="tok">new · shared <span>.av</span> squircle used across 09 / 14</div>
+      </div>
+    </div>
+
+    <!-- 16 · funnel -->
+    <div class="cell full">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Lead conversion · last 30 days</span><span class="rlink">Pipeline →</span></div>
+        <div class="funnel">
+          <div class="fstage"><span class="fl">Leads</span><span class="ftrack"><span class="fbar ap" style="width:100%"><span class="fn">1,420</span></span></span><span class="fp">website + referral</span></div>
+          <div class="fstage"><span class="fl">Booked a trial</span><span class="ftrack"><span class="fbar ro" style="width:62%"><span class="fn">540</span></span></span><span class="fp"><b>38%</b> of leads</span></div>
+          <div class="fstage"><span class="fl">Became members</span><span class="ftrack"><span class="fbar la" style="width:30%"><span class="fn">168</span></span></span><span class="fp"><b>31%</b> of trials</span></div>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="name">16 · Conversion funnel</div>
+        <div class="why">Leads → trials → members, narrowing in sunset order with drop-off at each step. PushPress / Mindbody lead management — and it doubles as a marketing-site asset, not just an in-app widget.</div>
+        <div class="tok">new · widest surface-area piece</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ MORE METRICS & CHARTS ═══ -->
+  <div class="grp-label">More metrics &amp; charts</div>
+  <div class="grid">
+
+    <div class="cell full">
+      <div class="stage ivory">
+        <div class="strip">
+          <div class="kpi"><div class="kl">Revenue</div><div class="kv">$17.9k</div><div class="kd up">▲ 8.2% wk</div></div>
+          <div class="kpi"><div class="kl">Bookings</div><div class="kv">342</div><div class="kd up">▲ 4.1% wk</div></div>
+          <div class="kpi"><div class="kl">Show-up</div><div class="kv">94%</div><div class="kd up">▲ 1.3% wk</div></div>
+          <div class="kpi"><div class="kl">Churn</div><div class="kv">2.1%</div><div class="kd dn">▼ 0.4% wk</div></div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">17 · Metric strip</div><div class="why">Four headline KPIs in one row, each with a gradient underline and delta — the at-a-glance top band of any dashboard or hero.</div><div class="tok">new · composes 04's delta chip ×4</div></div>
+    </div>
+
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Revenue mix</span></div>
+        <div class="donut-wrap">
+          <div class="donut"><div class="dc"><div class="n">$17.9k</div><div class="u">total</div></div></div>
+          <div class="dleg">
+            <div class="li"><i style="background:#F5A060"></i>Memberships<b>42%</b></div>
+            <div class="li"><i style="background:#E85BA8"></i>Sessions<b>26%</b></div>
+            <div class="li"><i style="background:#A666D9"></i>Retail<b>20%</b></div>
+            <div class="li"><i style="background:#C7C1B9"></i>Other<b>12%</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">18 · Category donut</div><div class="why">Multi-segment share — one solid family per slice, neutral grey for "other", so it reads as composition without blending. The sibling of 02's single-value ring.</div><div class="tok">new · 3 families + neutral, legend</div></div>
+    </div>
+
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">By location</span></div>
+        <div class="prows">
+          <div class="prow"><div class="top"><span class="pn">Perth</span><span class="pv">82%</span></div><div class="track"><i style="width:82%;background:linear-gradient(90deg,#F3A0CC,#E85BA8)"></i></div></div>
+          <div class="prow"><div class="top"><span class="pn">Melbourne</span><span class="pv">64%</span></div><div class="track"><i style="width:64%;background:linear-gradient(90deg,#FBD9BE,#F5A060)"></i></div></div>
+          <div class="prow"><div class="top"><span class="pn">Sydney</span><span class="pv">45%</span></div><div class="track"><i style="width:45%;background:linear-gradient(90deg,#DEC8F0,#A666D9)"></i></div></div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">19 · Progress rows</div><div class="why">Several labeled bars stacked — locations, goals, capacity. Distinct from 12's single stacked bar; this compares separate items.</div><div class="tok">new · one family per row</div></div>
+    </div>
+
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Capacity</span></div>
+        <div class="tgauge">
+          <svg viewBox="0 0 200 108">
+            <g stroke-linecap="round">
+              <line x1="16" y1="100" x2="24" y2="100" stroke="#F5A060" stroke-width="3"/>
+              <line x1="19.5" y1="79.5" x2="27" y2="82" stroke="#F5A060" stroke-width="3"/>
+              <line x1="28" y1="61" x2="34.5" y2="65.5" stroke="#F19A7E" stroke-width="3"/>
+              <line x1="41" y1="46.5" x2="46" y2="52.5" stroke="#EE7DBA" stroke-width="3"/>
+              <line x1="57.5" y1="37" x2="61" y2="44" stroke="#EA6FB0" stroke-width="3"/>
+              <line x1="76" y1="32" x2="77.5" y2="39.5" stroke="#E85BA8" stroke-width="3"/>
+              <line x1="95" y1="31.5" x2="95" y2="39.5" stroke="#D95FB8" stroke-width="3"/>
+              <line x1="114" y1="34" x2="112.5" y2="41.5" stroke="#C06AD0" stroke-width="3"/>
+              <line x1="132" y1="40" x2="129" y2="47" stroke="#B673DC" stroke-width="3"/>
+              <line x1="148" y1="49.5" x2="143.5" y2="55.5" stroke="#AC6BD9" stroke-width="3"/>
+              <line x1="161.5" y1="62.5" x2="155.5" y2="67" stroke="#DCC9DC" stroke-width="3" opacity=".5"/>
+              <line x1="171.5" y1="78" x2="164.5" y2="80.5" stroke="#DCC9DC" stroke-width="3" opacity=".5"/>
+              <line x1="176.5" y1="100" x2="168.5" y2="100" stroke="#DCC9DC" stroke-width="3" opacity=".5"/>
+            </g>
+          </svg>
+          <div class="gv"><div class="n">78%</div><div class="u">booked</div></div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">20 · Ticked gauge</div><div class="why">The tick-mark meter from your dark-charts reference — radial ticks that light up along the sunset. A richer cousin of 11's plain arc.</div><div class="tok">new · apricot→lavender tick ramp</div></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Monthly goal</span><span class="chip-ok">✓ On track</span></div>
+        <div class="goal">
+          <div class="grow"><span class="n">$14,200<small> / $18k</small></span></div>
+          <div class="gtrack"><i style="width:79%"></i></div>
+          <div class="marks"><span>$0</span><span>halfway</span><span>target</span></div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">21 · Goal progress</div><div class="why">A target with milestones and an "on track" state — the motivating money shot for a dashboard or a pitch. Gradient fill to current.</div><div class="tok">new · uses success chip + brand-grad</div></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">This week vs last</span></div>
+        <div class="vs">
+          <div class="side"><span class="l">This week</span><span class="n">342</span></div>
+          <div class="mid"><span>vs</span></div>
+          <div class="side r muted"><span class="l">Last week</span><span class="n">316</span></div>
+        </div>
+        <div class="vs-delta">▲ 26 more bookings (+8.2%)</div>
+      </div>
+      <div class="cap"><div class="name">22 · Comparison</div><div class="why">Two figures head-to-head with the delta spelled out — period-over-period, A/B, location-vs-location. Quiet, legible, universal.</div><div class="tok">new · paired figures + delta</div></div>
+    </div>
+
+  </div>
+
+  <!-- ═══ SCHEDULING & PRODUCT UI ═══ -->
+  <div class="grp-label">Scheduling &amp; product UI</div>
+  <div class="grid">
+
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">June</span><span class="rlink">→</span></div>
+        <div class="cal">
+          <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+          <div class="days">
+            <div class="d mute">30</div><div class="d">1</div><div class="d book">2</div><div class="d">3</div><div class="d book">4</div><div class="d">5</div><div class="d">6</div>
+            <div class="d">7</div><div class="d book">8</div><div class="d">9</div><div class="d today">10</div><div class="d book">11</div><div class="d">12</div><div class="d">13</div>
+            <div class="d book">14</div><div class="d">15</div><div class="d sel">16</div><div class="d book">17</div><div class="d">18</div><div class="d book">19</div><div class="d">20</div>
+            <div class="d">21</div><div class="d book">22</div><div class="d">23</div><div class="d">24</div><div class="d book">25</div><div class="d">26</div><div class="d">27</div>
+          </div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">23 · Mini calendar</div><div class="why">Month grid with booked-day dots, a gradient "today" and a selected day. The scheduling anchor no booking product goes without.</div><div class="tok">new · today = brand-grad squircle</div></div>
+    </div>
+
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Wed 11 · slots</span></div>
+        <div class="slots">
+          <span class="slot">09:00</span><span class="slot taken">09:30</span><span class="slot">10:00</span>
+          <span class="slot sel">10:30</span><span class="slot">11:00</span><span class="slot taken">11:30</span>
+          <span class="slot">13:00</span><span class="slot">13:30</span><span class="slot taken">14:00</span>
+        </div>
+      </div>
+      <div class="cap"><div class="name">24 · Slot picker</div><div class="why">Time chips with available / selected / taken states — the booking moment itself. Selected fills with the brand gradient.</div><div class="tok">new · 8px chips, single-family fill</div></div>
+    </div>
+
+    <div class="cell">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Setup · 3 of 5</span></div>
+        <div class="steps">
+          <div class="step done"><span class="mark">✓</span><div class="sbody"><div class="st">Create your account</div><div class="ss">Done</div></div></div>
+          <div class="step done"><span class="mark">✓</span><div class="sbody"><div class="st">Add your services</div><div class="ss">Done</div></div></div>
+          <div class="step now"><span class="mark">3</span><div class="sbody"><div class="st">Connect payments</div><div class="ss">In progress</div></div></div>
+          <div class="step next"><span class="mark">4</span><div class="sbody"><div class="st">Invite your team</div></div></div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">25 · Onboarding stepper</div><div class="why">Vertical checklist — done / current / upcoming. Completed steps carry the gradient check. The activation nudge in-app.</div><div class="tok">new · gradient check + lav "now" ring</div></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="stage ivory">
+        <div class="plan">
+          <div class="ph"><div class="pt">Studio plan</div><div class="pp">$79<small>/mo</small></div></div>
+          <div class="pb">
+            <div class="pf"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>Unlimited bookings &amp; classes</div>
+            <div class="pf"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>Payments, memberships &amp; POS</div>
+            <div class="pf"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>Marketing &amp; automations</div>
+            <div class="cta">Start free trial</div>
+          </div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">26 · Plan card</div><div class="why">A pricing tier with a gradient header (with the widget-family sheen), feature ticks and a dark-pill CTA. Doubles as a marketing-page asset.</div><div class="tok">new · brand-grad header + carbon CTA</div></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Automations</span></div>
+        <div class="togs">
+          <div class="tog"><div class="tl">Booking reminders<small>SMS 24h before</small></div><div class="sw on"></div></div>
+          <div class="tog"><div class="tl">Win-back campaign<small>Lapsed 30+ days</small></div><div class="sw on"></div></div>
+          <div class="tog"><div class="tl">Waitlist auto-fill<small>Offer freed slots</small></div><div class="sw"></div></div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">27 · Toggle settings</div><div class="why">Feature switches — on-state fills with the brand gradient so "live" reads instantly. The control surface of any settings panel.</div><div class="tok">new · gradient switch, 8px knob</div></div>
+    </div>
+
+  </div>
+
+  <!-- ═══ SOCIAL, BRAND & STATUS ═══ -->
+  <div class="grp-label">Social, brand &amp; status</div>
+  <div class="grid">
+
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt" style="display:flex;align-items:center;gap:8px;"><span class="dot"></span>Live activity</span><span class="rlink">All →</span></div>
+        <div class="feed">
+          <div class="fitem"><span class="av ro">PK</span><div class="fb"><div class="fx"><b>Priya</b> booked a 1:1 session</div></div><span class="ft">now</span></div>
+          <div class="fitem"><span class="av ap">MV</span><div class="fb"><div class="fx"><b>Marcus</b> renewed a membership</div></div><span class="ft">4m</span></div>
+          <div class="fitem"><span class="av la">EF</span><div class="fb"><div class="fx"><b>Elena</b> left a 5-star review</div></div><span class="ft">12m</span></div>
+          <div class="fitem"><span class="av ink">TO</span><div class="fb"><div class="fx"><b>Tom</b> joined the waitlist</div></div><span class="ft">28m</span></div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">28 · Activity feed</div><div class="why">The live event stream — who did what, just now. Past-tense complement to 10's upcoming agenda; reuses the avatar chip.</div><div class="tok">new · reuses <span>.av</span> + breathing dot</div></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="stage block">
+        <div class="rhead"><span class="rt">Reviews</span></div>
+        <div class="rate">
+          <div class="big">
+            <div class="n">4.9</div>
+            <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5 6 .6-4.5 4 1.3 5.9L12 21l-5.3 3 1.3-5.9-4.5-4 6-.6Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5 6 .6-4.5 4 1.3 5.9L12 21l-5.3 3 1.3-5.9-4.5-4 6-.6Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5 6 .6-4.5 4 1.3 5.9L12 21l-5.3 3 1.3-5.9-4.5-4 6-.6Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5 6 .6-4.5 4 1.3 5.9L12 21l-5.3 3 1.3-5.9-4.5-4 6-.6Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5 6 .6-4.5 4 1.3 5.9L12 21l-5.3 3 1.3-5.9-4.5-4 6-.6Z"/></svg></div>
+            <div class="c">328 reviews</div>
+          </div>
+          <div class="dist">
+            <div class="drow">5<div class="bar"><i style="width:88%"></i></div></div>
+            <div class="drow">4<div class="bar"><i style="width:9%"></i></div></div>
+            <div class="drow">3<div class="bar"><i style="width:2%"></i></div></div>
+            <div class="drow">2<div class="bar"><i style="width:1%"></i></div></div>
+            <div class="drow">1<div class="bar"><i style="width:0.5%"></i></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">29 · Rating summary</div><div class="why">Average score, gradient stars and the 5→1 distribution. Social proof for testimonials, listings and landing pages.</div><div class="tok">new · apricot star fill + dist bars</div></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="stage ivory">
+        <div class="sage">
+          <div class="savatar"></div>
+          <div class="bubble">
+            <div class="who">Sage · AI</div>
+            <div class="msg">You've got 3 open slots tomorrow afternoon. Want me to text your waitlist?</div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">30 · Sage message</div><div class="why">The AI assistant moment — a gradient Sage avatar and a chat bubble with a live typing pulse. Puts the "OS AI" brand on screen.</div><div class="tok">new · lav aura avatar + typing dots</div></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="stage ivory">
+        <div class="senti">
+          <div class="q">How are you feeling today?</div>
+          <div class="faces">
+            <div class="face"><svg viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#EDE1F7"/><circle cx="18" cy="21" r="2" fill="#2A2320"/><circle cx="30" cy="21" r="2" fill="#2A2320"/><path d="M17 31q7 4 14 0" fill="none" stroke="#2A2320" stroke-width="2" stroke-linecap="round"/></svg><span>Great</span></div>
+            <div class="face sel"><svg viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#FDECDF"/><circle cx="18" cy="21" r="2" fill="#2A2320"/><circle cx="30" cy="21" r="2" fill="#2A2320"/><path d="M18 30q6 2.5 12 0" fill="none" stroke="#2A2320" stroke-width="2" stroke-linecap="round"/></svg><span>Good</span></div>
+            <div class="face"><svg viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#F8C6E0"/><circle cx="18" cy="21" r="2" fill="#2A2320"/><circle cx="30" cy="21" r="2" fill="#2A2320"/><path d="M18 30h12" fill="none" stroke="#2A2320" stroke-width="2" stroke-linecap="round"/></svg><span>Okay</span></div>
+            <div class="face"><svg viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#FADEEE"/><circle cx="18" cy="21" r="2" fill="#2A2320"/><circle cx="30" cy="21" r="2" fill="#2A2320"/><path d="M18 31q6-3 12 0" fill="none" stroke="#2A2320" stroke-width="2" stroke-linecap="round"/></svg><span>Low</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">31 · Sentiment check-in</div><div class="why">A wellness mood picker built from the memoji face language — ties the widget set to the avatar set. Selected gets the lavender ring.</div><div class="tok">new · shares memoji face grammar</div></div>
+    </div>
+
+    <div class="cell full">
+      <div class="stage ivory">
+        <div class="alerts">
+          <div class="alert ok"><span class="aic"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><div class="ab"><div class="at">Payment received — $79.00</div><div class="as">Studio plan renewed · receipt sent</div></div></div>
+          <div class="alert warn"><span class="aic"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 2 18a2 2 0 0 0 1.7 3h16.6A2 2 0 0 0 22 18L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></span><div class="ab"><div class="at">Class nearly full — 1 seat left</div><div class="as">Sunrise Flow · Sat 8:00am</div></div></div>
+        </div>
+      </div>
+      <div class="cap"><div class="name">32 · Inline alert</div><div class="why">Status banners — success, warning, info — with a single-family edge and tonal icon well. Semantic colour stays separate from the brand accent.</div><div class="tok">new · reuses accent well + semantic tones</div></div>
+    </div>
+
+  </div>
+
+  <!-- closing note -->
+  <div class="note">
+    <h3>Using this library</h3>
+    <p><b>32 widgets in four groups:</b> hero figures (01–08), relational (09–16), metrics &amp; charts (17–22), and scheduling, product &amp; status (23–32). Each tile is captioned with what it is and where it maps.</p>
+    <p>Every widget is self-contained HTML + CSS with a light vanilla-JS animation layer (count-ups, bar-grows, live timers) that fires once on scroll and is fully <code>prefers-reduced-motion</code> safe. Three families only — apricot, rose, lavender; no gold (that's Finance OS).</p>
+    <p>This is a reference / preview board for the marketing system — copy from it freely. For the product these become <code>SquircleWidget</code> components mirroring the design-system tokens. Nothing here modifies the read-only design system.</p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var board = document.querySelector('.board');
+  if (!board) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return; // DOM already shows final static values — leave everything still.
+
+  var EASE = 'cubic-bezier(.22,1,.36,1)';
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function onView(el, cb) {
+    // Embedded in an auto-height iframe — fire on load, not on intersection, so
+    // every widget reliably animates to its final state regardless of scroll.
+    requestAnimationFrame(cb);
+  }
+
+  /* ── count-ups (fire once in view, easeOutCubic — mirrors the real Counter) ── */
+  function parseNum(str) {
+    var m = str.match(/^(\D*?)([\d,]*\.?\d+)(\D*)$/);
+    if (!m) return null;
+    var raw = m[2];
+    return { prefix: m[1] || '', suffix: m[3] || '', num: parseFloat(raw.replace(/,/g, '')),
+             dec: (raw.split('.')[1] || '').length, comma: raw.indexOf(',') >= 0 };
+  }
+  function fmt(v, info) {
+    var s = v.toFixed(info.dec);
+    if (info.comma) { var p = s.split('.'); p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','); s = p.join('.'); }
+    return info.prefix + s + info.suffix;
+  }
+  function numTextNode(el) {
+    for (var i = 0; i < el.childNodes.length; i++) {
+      var n = el.childNodes[i];
+      if (n.nodeType === 3 && /\d/.test(n.nodeValue)) return n;
+    }
+    return null;
+  }
+  document.querySelectorAll(
+    '.stat .fig, .ring .val .n, .meter .top .n, .trend .figrow .n, .gval .n, .rev .amt .big, .fbar .fn, .lb .ct, .miniring .mv, .kpi .kv, .donut .dc .n, .goal .grow .n, .vs .side .n, .rate .big .n'
+  ).forEach(function (el) {
+    var node = numTextNode(el);
+    if (!node) return;
+    var info = parseNum(node.nodeValue.trim());
+    if (!info) return;
+    node.nodeValue = fmt(0, info);
+    onView(el, function () {
+      var start = null, dur = 1400;
+      function step(ts) {
+        if (!start) start = ts;
+        var t = Math.min(1, (ts - start) / dur);
+        node.nodeValue = fmt(info.num * easeOut(t), info);
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  });
+
+  /* ── width-grow tracks (meter, stacked, revenue, funnel, leaderboard) ── */
+  document.querySelectorAll('.meter .fill, .stackbar span, .rev .cat .cbar i, .rev .bcbar i, .fbar, .lb .mbar i, .prow .track i, .goal .gtrack i, .rate .drow .bar i')
+    .forEach(function (el) {
+      var target = el.style.width || getComputedStyle(el).width;
+      el.style.width = '0';
+      onView(el, function () {
+        el.style.transition = 'width 1.1s ' + EASE;
+        requestAnimationFrame(function () { el.style.width = target; });
+      });
+    });
+
+  /* ── height-grow bars (bar cluster) ── */
+  document.querySelectorAll('.barpair span').forEach(function (el) {
+    var target = el.style.height;
+    el.style.height = '0';
+    onView(el, function () {
+      el.style.transition = 'height 1s ' + EASE;
+      requestAnimationFrame(function () { el.style.height = target; });
+    });
+  });
+
+  /* ── ring sweeps (rAF drives the --pct used in the conic gradient) ── */
+  document.querySelectorAll('.ring, .miniring').forEach(function (el) {
+    var target = parseFloat(getComputedStyle(el).getPropertyValue('--pct')) || 0;
+    el.style.setProperty('--pct', 0);
+    onView(el, function () {
+      var start = null, dur = 1400;
+      function step(ts) {
+        if (!start) start = ts;
+        var t = Math.min(1, (ts - start) / dur);
+        el.style.setProperty('--pct', (target * easeOut(t)).toFixed(2));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  });
+
+  /* ── sparkline draws itself, fill fades up ── */
+  var spark = document.querySelector('.spark');
+  if (spark) {
+    var line = spark.querySelector('path:nth-of-type(2)');
+    var fill = spark.querySelector('path:nth-of-type(1)');
+    if (line) {
+      var L = line.getTotalLength();
+      line.style.strokeDasharray = L;
+      line.style.strokeDashoffset = L;
+      if (fill) fill.style.opacity = 0;
+      onView(spark, function () {
+        line.style.transition = 'stroke-dashoffset 1.5s ' + EASE;
+        line.style.strokeDashoffset = 0;
+        if (fill) { fill.style.transition = 'opacity 1.2s ease'; fill.style.opacity = 1; }
+      });
+    }
+  }
+
+  /* ── gauge arc draws to 72% ── */
+  var gauge = document.querySelector('.gauge');
+  if (gauge) {
+    var val = gauge.querySelector('svg path:nth-of-type(2)');
+    if (val) {
+      var GL = val.getTotalLength();
+      val.style.strokeDasharray = GL;
+      val.style.strokeDashoffset = GL;
+      onView(gauge, function () {
+        val.style.transition = 'stroke-dashoffset 1.5s ' + EASE;
+        val.style.strokeDashoffset = GL - GL * 0.72;
+      });
+    }
+  }
+
+  /* ── heatmap: staggered cell reveal ── */
+  var hg = document.querySelector('.heatgrid');
+  if (hg) {
+    var cells = hg.querySelectorAll('.hc');
+    cells.forEach(function (c) { c.style.opacity = 0; c.style.transform = 'scale(.55)'; });
+    onView(hg, function () {
+      cells.forEach(function (c, i) {
+        c.style.transition = 'opacity .45s ease, transform .45s ' + EASE;
+        setTimeout(function () { c.style.opacity = 1; c.style.transform = 'scale(1)'; }, i * 20);
+      });
+    });
+  }
+
+  /* ── live stopwatch (07:40:00 counting up) ── */
+  var timeEl = document.querySelector('.tracker .time');
+  if (timeEl) {
+    var base = 7 * 3600 + 40 * 60, t0 = Date.now();
+    (function tick() {
+      var s = base + Math.floor((Date.now() - t0) / 1000);
+      timeEl.innerHTML = pad(Math.floor(s / 3600)) + ':' + pad(Math.floor((s % 3600) / 60)) +
+        '<small>:' + pad(s % 60) + '</small>';
+      setTimeout(tick, 1000);
+    })();
+  }
+
+  /* ── live countdown (ticks down toward a fixed horizon) ── */
+  var cds = document.querySelectorAll('.countdown .cd .n');
+  if (cds.length >= 3) {
+    var horizon = Date.now() + (9 * 86400 + 14 * 3600 + 32 * 60) * 1000;
+    (function cdTick() {
+      var s = Math.max(0, Math.floor((horizon - Date.now()) / 1000));
+      cds[0].textContent = pad(Math.floor(s / 86400));
+      cds[1].textContent = pad(Math.floor((s % 86400) / 3600));
+      cds[2].textContent = pad(Math.floor((s % 3600) / 60));
+      setTimeout(cdTick, 1000);
+    })();
+  }
+})();
+</script>
+</body>
+</html>
