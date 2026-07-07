@@ -101,10 +101,28 @@ const TYPE_SCALE = [
 const RADII = [
   { name: 'xs · 4px', cls: 'rounded-xs' },
   { name: 'sm · 6px', cls: 'rounded-sm' },
-  { name: 'md · 8px · max', cls: 'rounded-md' },
+  { name: 'md · 8px · UI', cls: 'rounded-md' },
+  { name: 'lg · 12px · cards', cls: 'rounded-lg' },
+  { name: 'xl · 20px · bento', cls: 'rounded-xl' },
+  { name: '2xl · 28px', cls: 'rounded-2xl' },
+  { name: 'full · pill', cls: 'rounded-full' },
 ];
 
-const SHADOWS = ['shadow-sm', 'shadow-md', 'shadow-lg'];
+const SHADOWS = ['shadow-xs', 'shadow-sm', 'shadow-md', 'shadow-lg', 'shadow-xl'];
+
+const DURATIONS = [
+  { name: 'duration-xs', ms: '80ms', use: 'taps, toggles' },
+  { name: 'duration-sm', ms: '160ms', use: 'buttons, hovers, focus' },
+  { name: 'duration-md', ms: '240ms', use: 'cards, inputs, menus' },
+  { name: 'duration-lg', ms: '360ms', use: 'scroll reveals' },
+  { name: 'duration-xl', ms: '480ms', use: 'the ceiling — largest hero reveal' },
+];
+
+const EASINGS = [
+  { name: 'ease-out', value: 'cubic-bezier(0.22, 1, 0.36, 1)', use: 'entrances + reveals' },
+  { name: 'ease-standard', value: 'cubic-bezier(0.4, 0, 0.2, 1)', use: 'UI state changes' },
+  { name: 'linear', value: 'linear', use: 'marquee + ticker loops only' },
+];
 
 const Block = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="mt-12 first:mt-0">
@@ -258,7 +276,7 @@ export const TokensSection = () => {
     {/* Radius + elevation */}
     <div className="mt-12 grid gap-12 md:grid-cols-2">
       <div>
-        <MonoLabel>Radius — 8px max</MonoLabel>
+        <MonoLabel>Radius — 8 UI · 12 cards · 20 bento · pills</MonoLabel>
         <div className="mt-5 flex flex-wrap gap-4">
           {RADII.map((r) => (
             <div key={r.name} className="flex flex-col items-center gap-2">
@@ -280,6 +298,39 @@ export const TokensSection = () => {
         </div>
       </div>
     </div>
+
+    {/* Motion tokens — durations, easings, loops */}
+    <Block title="Motion — durations, easings, loops">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="flex flex-col divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
+          {DURATIONS.map((d) => (
+            <div key={d.name} className="flex items-center justify-between gap-4 px-5 py-3.5">
+              <span className="font-mono text-body-sm text-ink-900">{d.name}</span>
+              <span className="shrink-0 font-mono text-caption text-ink-600">{d.ms} · {d.use}</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
+            {EASINGS.map((e) => (
+              <div key={e.name} className="flex flex-col gap-1 px-5 py-3.5">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="font-mono text-body-sm text-ink-900">{e.name}</span>
+                  <span className="shrink-0 font-mono text-caption text-ink-600">{e.use}</span>
+                </div>
+                <span className="font-mono text-caption text-ink-500">{e.value}</span>
+              </div>
+            ))}
+          </div>
+          <p className="font-mono text-caption leading-relaxed text-ink-500">
+            Interactions 150–250ms · reveals 300–400ms · 480ms is the ceiling. Loops: marquee
+            40–60s, ticker 32–45s, plus a breathing status dot and the skeleton shimmer — one
+            ambient loop per view, all frozen under reduced motion. Count-ups may settle over
+            1.4s and snap for reduced-motion users.
+          </p>
+        </div>
+      </div>
+    </Block>
   </Section>
   );
 };

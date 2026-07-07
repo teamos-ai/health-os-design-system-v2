@@ -5,15 +5,18 @@
  *
  * The card components live in @/components/cards and are self-contained (React + the DS
  * token object, re-tokenised to Health OS brand). Palette: pink→rose, orange→apricot,
- * purple→lavender, green→success. Radius normalised to the 8px global max. A few
- * float/glass cards deliberately keep their frosted backdrop-blur (approved exception
- * to the zero-glass rule). Images are served from /public/media/cards.
+ * purple→lavender, green→success. Radius normalised to the 8px global max. The former
+ * float/glass cards are rebuilt as flat solid panels (zero-glass rule — no backdrop
+ * blur anywhere). Images are served from /public/media/cards.
  */
 import type { CSSProperties } from 'react';
-import { Section } from '@/showcase/Section';
 import {
-  DS,
-  Badge,
+  Heart, Calendar, Activity, Moon, Settings,
+  Type, MessageSquare, Check, Sparkles,
+} from 'lucide-react';
+import { Section } from '@/showcase/Section';
+import { DS, Badge } from '@/components/cards/BentoCard';
+import {
   HeroBentoSection,
   HeroCard,
   StatCard,
@@ -80,22 +83,17 @@ const imgBokehCool    = '/media/cards/ChatGPT_Image_Jun_14__2026__08_36_24_PM.pn
 const imgDuskCity     = '/media/cards/ChatGPT_Image_Jun_14__2026__08_35_44_PM.png';
 const imgGoldenHour   = '/media/cards/ChatGPT_Image_Jun_14__2026__08_35_28_PM.png';
 
-/* ── Tiny SVG icons (accent-coloured, 16px) ────────────────────────────────────── */
-const ip = (c: string) => ({
-  width: 16, height: 16, viewBox: '0 0 24 24',
-  fill: 'none', stroke: c, strokeWidth: 1.9,
-  strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const,
-});
-const HeartIcon    = ({ c = DS.pink }: { c?: string }) => <svg {...ip(c)}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
-const CalIcon      = ({ c = DS.purple }: { c?: string }) => <svg {...ip(c)}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>;
-const ActivityIcon = ({ c = DS.orange }: { c?: string }) => <svg {...ip(c)}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>;
-const MoonIcon     = ({ c = DS.purple }: { c?: string }) => <svg {...ip(c)}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
-const SettingsIcon = ({ c = DS.pink }: { c?: string }) => <svg {...ip(c)}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>;
+/* ── Tiny Lucide icons (accent-coloured, 16px, 1.5 stroke) ─────────────────────── */
+const HeartIcon    = ({ c = DS.pink }: { c?: string })   => <Heart size={16} color={c} strokeWidth={1.5} aria-hidden />;
+const CalIcon      = ({ c = DS.purple }: { c?: string }) => <Calendar size={16} color={c} strokeWidth={1.5} aria-hidden />;
+const ActivityIcon = ({ c = DS.orange }: { c?: string }) => <Activity size={16} color={c} strokeWidth={1.5} aria-hidden />;
+const MoonIcon     = ({ c = DS.purple }: { c?: string }) => <Moon size={16} color={c} strokeWidth={1.5} aria-hidden />;
+const SettingsIcon = ({ c = DS.pink }: { c?: string })   => <Settings size={16} color={c} strokeWidth={1.5} aria-hidden />;
 
-/* Badge icons (small, used inside guideline badge pills) */
-const TypeIcon  = () => <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>;
-const VoiceIcon = () => <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>;
-const DoIcon    = () => <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
+/* Badge icons (small, used inside guideline badge pills — inherit currentColor) */
+const TypeIcon  = () => <Type size={10} strokeWidth={1.5} aria-hidden />;
+const VoiceIcon = () => <MessageSquare size={10} strokeWidth={1.5} aria-hidden />;
+const DoIcon    = () => <Check size={10} strokeWidth={1.5} aria-hidden />;
 
 /* ── Ported section helpers ─────────────────────────────────────────────────────── */
 function SectionHead({ num, title, sub }: { num: string; title: string; sub?: string }) {
@@ -182,8 +180,8 @@ export const CardsSection = () => (
       <SectionHead num="05" title="Split & corner" sub="Hard-edge split cards and corner image cards — clean structural layouts." />
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '5rem' }}>
         <SplitCard src={imgGoldenMeadow} badge="Morning" badgeColor="orange" title="Golden hour practice" description="10-minute movement sequence timed to sunrise for optimal cortisol response." style={{ gridColumn: 'span 2', minHeight: '220px' }} />
-        <CornerImageCard src={imgPinkOcean} badge="Calm" badgeColor="pink" title="Ocean breath protocol" description="Box breathing calibrated to wave rhythm — proven to reduce HRV within 4 minutes." />
-        <CornerImageCard src={imgCrescentMoon} badge="Sleep" badgeColor="purple" title="Lunar sleep tracking" description="Your rest patterns mapped alongside lunar phases — the connection is real." />
+        <CornerImageCard src={imgPinkOcean} badge="Calm" badgeColor="pink" title="Ocean breath protocol" description="Box breathing calibrated to wave rhythm — a four-minute wind-down before sessions." />
+        <CornerImageCard src={imgCrescentMoon} badge="Sleep" badgeColor="purple" title="Lunar sleep tracking" description="Your rest patterns mapped alongside gentle evening routines, tracked." />
         <SplitCard src={imgSnowyMtn} badge="Recovery" badgeColor="purple" title="Cold recovery" description="Breathwork + cold exposure protocol. 14-day adaptive programme." imageOnRight style={{ gridColumn: 'span 2', minHeight: '220px' }} />
       </div>
 
@@ -198,7 +196,7 @@ export const CardsSection = () => (
         </div>
         <div>
           <VariantLabel letter="B" name="Photo Band" color="purple" />
-          <PhotoBandCard src={imgCrescentMoon} badge="Band image" badgeColor="purple" icon={<MoonIcon />} iconColor="purple" title="Nature band fades into white" description="Seamless multi-stop gradient transition." style={{ minHeight: '270px' }} />
+          <PhotoBandCard src={imgCrescentMoon} badge="Band image" badgeColor="purple" icon={<MoonIcon />} iconColor="purple" title="Nature band fades into the surface" description="Seamless multi-stop gradient transition." style={{ minHeight: '270px' }} />
         </div>
         <div>
           <VariantLabel letter="C" name="Feature" color="orange" />
@@ -218,11 +216,11 @@ export const CardsSection = () => (
         </div>
         <div>
           <VariantLabel letter="G" name="Tint" color="orange" />
-          <TintCard src={imgAutumnMaple} badge="Texture wash" badgeColor="orange" title="Image as living texture" description="12% opacity beneath clean white surface — subtle depth without distraction." style={{ minHeight: '270px' }} />
+          <TintCard src={imgAutumnMaple} badge="Texture wash" badgeColor="orange" title="Image as living texture" description="12% opacity beneath the clean card surface — subtle depth without distraction." style={{ minHeight: '270px' }} />
         </div>
         <div>
           <VariantLabel letter="H" name="Float Panel" color="pink" />
-          <FloatPanelCard src={imgPurpleOrange} badge="Frosted panel" badgeColor="pink" title="Frosted glass content panel" description="Backdrop-blur over full-bleed image." style={{ minHeight: '270px' }} />
+          <FloatPanelCard src={imgPurpleOrange} badge="Float panel" badgeColor="pink" title="Flat floating content panel" description="Solid surface panel over full-bleed image." style={{ minHeight: '270px' }} />
         </div>
         <div>
           <VariantLabel letter="I" name="Corner Image" color="purple" />
@@ -234,7 +232,7 @@ export const CardsSection = () => (
         </div>
         <div>
           <VariantLabel letter="K" name="Mood" color="pink" />
-          <MoodCard src={imgSeagulls} emoji="✨" value="9.1" label="Mood card" sublabel="Centered metric over image wash" color="pink" style={{ minHeight: '270px' }} />
+          <MoodCard src={imgSeagulls} icon={Sparkles} value="9.1" label="Mood card" sublabel="Centred metric over image wash" color="pink" style={{ minHeight: '270px' }} />
         </div>
       </div>
 
@@ -250,7 +248,7 @@ export const CardsSection = () => (
       </div>
       <p style={rowLabel}>M · Quote — editorial pull-quote over tinted nature image</p>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '2rem' }}>
-        <QuoteCard src={imgHiker} color="purple" quote="Rest is not the absence of activity — it is the presence of recovery." attribution="Dr. Sarah Nguyen, Sleep Science" style={{ minHeight: '240px' }} />
+        <QuoteCard src={imgHiker} color="purple" quote="Rest is not the absence of activity — it is the presence of recovery." attribution="Dr Sarah Nguyen, Sleep Science" style={{ minHeight: '240px' }} />
         <QuoteCard src={imgPinkOcean} color="pink" quote="The body keeps the score. Listen before it raises its voice." attribution="Health OS · Daily prompt" style={{ minHeight: '240px' }} />
       </div>
       <p style={rowLabel}>O · Progress ring &nbsp;&nbsp; P · Billboard — oversized typographic display</p>
@@ -281,7 +279,7 @@ export const CardsSection = () => (
         <CirclePortraitCard src={imgCrescentMoon} badge="U · Squircle portrait" color="purple" title="Squircle centred photo" description="Squircle-cropped nature image anchors the card from the top centre." />
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '2rem' }}>
-        <FullTextOnImageCard src={imgHiker} badge="V · Full text on image" color="purple" title="No white section at all" body="All content lives directly on the photograph. Diagonal gradient scrim keeps text readable." stat="8.4" style={{ minHeight: '240px' }} />
+        <FullTextOnImageCard src={imgHiker} badge="V · Full text on image" color="purple" title="No surface section at all" body="All content lives directly on the photograph. Diagonal gradient scrim keeps text readable." stat="8.4" style={{ minHeight: '240px' }} />
         <MosaicHeaderCard images={[imgBokehWarm, imgOceanSunset, imgGoldenHour]} badge="W · Mosaic header" color="orange" title="Three-tile image strip" description="Three nature photos tiled side by side as the card header — gallery feel." />
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '14px', marginBottom: '2rem' }}>
@@ -291,7 +289,7 @@ export const CardsSection = () => (
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '5rem' }}>
         <MultiStatCard src={imgSeagulls} title="Weekly overview" stats={[{ label: 'Sleep', value: '87%', color: 'purple' }, { label: 'Movement', value: '73%', color: 'orange' }, { label: 'Mindfulness', value: '91%', color: 'pink' }, { label: 'Hydration', value: '62%', color: 'green' }]} />
-        <DepthStackCard src={imgMtnMist} badge="BB · Depth stack" color="pink" title="Card on card — 3D depth" description="Shadow cards peek from behind the main card, creating spatial layering without any animation." />
+        <DepthStackCard src={imgMtnMist} badge="BB · Depth stack" color="pink" title="Card on card — layered depth" description="Flat cards peek from behind the main card, creating spatial layering without any animation." />
       </div>
 
       <Divider />
@@ -308,36 +306,36 @@ export const CardsSection = () => (
       <Divider />
 
       {/* Float + — 8 new float, tint & mood */}
-      <SectionHead num="Float +" title="8 new float, tint & mood" sub="Flip on hover, colour overlays, layered glass, radial washes, slide reveals, and more." />
+      <SectionHead num="Float +" title="8 new float, tint & mood" sub="Crossfade reveal, colour overlays, layered panels, radial washes, slide reveals, and more." />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '14px', marginBottom: '2rem' }}>
-        <FlipCard frontSrc={imgOceanSunset} frontBadge="FTM1 · Flip" frontTitle="Hover or tap to flip" backBadge="Revealed" backColor="purple" backTitle="Evening restore protocol" backBody="7-minute breathwork sequence to lower cortisol after a high-output day." backStats={[{ label: 'Duration', value: '7 min' }, { label: 'Effect', value: '+34%' }]} height={280} />
+        <FlipCard frontSrc={imgOceanSunset} frontBadge="FTM1 · Flip" frontTitle="Hover, focus or tap to reveal" backBadge="Revealed" backColor="purple" backTitle="Evening restore protocol" backBody="7-minute breathwork sequence to lower cortisol after a high-output day." backStats={[{ label: 'Duration', value: '7 min' }, { label: 'Effect', value: '+34%' }]} height={280} />
         <ColorOverlayCard src={imgGoldenHour} color="orange" badge="FTM2 · Colour overlay" title="Brand tint on photo" description="Photo stays visible through a 36 % brand-colour overlay — tinted warmth." style={{ minHeight: '280px' }} />
         <VignetteCard src={imgBokehWarm} badge="FTM3 · Vignette" color="purple" title="Radial dark vignette" description="Hard vignette edges draw the eye to the clear centre of the image." style={{ minHeight: '280px' }} />
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '14px', marginBottom: '5rem' }}>
-        <CenteredPanelCard src={imgDuskCity} badge="FTM4 · Centre panel" color="pink" title="Frosted panel at centre" description="Glass panel floating in the middle of the image — full bleed, full depth." style={{ minHeight: '280px' }} />
-        <PeekBehindCard src={imgMtnMist} badge="FTM5 · Peek behind" color="orange" title="Image rotated behind card" description="White card sits in front while the nature image peeks out at 3.5°." style={{ minHeight: '280px' }} />
-        <LayeredGlassCard src={imgCrescentMoon} badge="FTM6 · Layered glass" color="purple" title="Three frosted panels" description="Three glass panels stacked at staggered positions — spatial depth on the image." style={{ minHeight: '280px' }} />
+        <CenteredPanelCard src={imgDuskCity} badge="FTM4 · Centre panel" color="pink" title="Flat panel at centre" description="Solid panel floating in the middle of the image — full bleed, full depth." style={{ minHeight: '280px' }} />
+        <PeekBehindCard src={imgMtnMist} badge="FTM5 · Peek behind" color="orange" title="Image offset behind card" description="The main card sits in front while the nature image peeks out behind." style={{ minHeight: '280px' }} />
+        <LayeredGlassCard src={imgCrescentMoon} badge="FTM6 · Layered panels" color="purple" title="Three layered panels" description="Three flat panels stacked at staggered positions — spatial depth on the image." style={{ minHeight: '280px' }} />
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '5rem' }}>
-        <SlideRevealCard src={imgSeagulls} badge="FTM7 · Slide reveal" color="pink" title="Hover to unlock stat" description="A hidden metric row slides up from below the content on hover — interactive discovery." revealLabel="Best mood score this month" revealValue="9.4 / 10" style={{ minHeight: '280px' }} />
+        <SlideRevealCard src={imgSeagulls} badge="FTM7 · Slide reveal" color="pink" title="Hover or focus to unlock" description="A hidden metric row slides up from below the content on hover or focus — interactive discovery." revealLabel="Best mood score this month" revealValue="9.4 / 10" style={{ minHeight: '280px' }} />
         <RadialWashCard src={imgBokehCool} badge="FTM8 · Radial wash" color="purple" title="Radial glow from centre" description="A radial brand-colour wash emanates from the image centre — subtle yet distinctive." style={{ minHeight: '280px' }} />
       </div>
 
       <Divider />
 
       {/* Push + — 7 interactive push concepts */}
-      <SectionHead num="Push +" title="7 interactive push concepts" sub="Zoom, tilt, pop, outline, tight spacing, stamp frame, and glowing border — all respond to hover or touch." />
+      <SectionHead num="Push +" title="7 interactive push concepts" sub="Zoom, lift, pop, outline, tight spacing, stamp frame, and accent border — all respond to hover or touch." />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '14px', marginBottom: '2rem' }}>
-        <ZoomHoverCard src={imgGoldenHour} badge="P7A · Zoom" color="orange" title="Image zooms on hover" description="The photo scales up inside its container — movement without layout shift." style={{ minHeight: '280px' }} />
-        <TiltHoverCard src={imgOceanSunset} badge="P7B · 3D tilt" color="purple" title="Perspective tilt follows mouse" description="Move your cursor across the card — the 3D perspective tracks your position." style={{ minHeight: '280px' }} />
-        <PopHoverCard src={imgSeagulls} badge="P7C · Pop" color="pink" title="Lifts with spring shadow" description="Card rises 7 px with a spring easing and deeper shadow on hover — satisfying pop." style={{ minHeight: '280px' }} />
+        <ZoomHoverCard src={imgGoldenHour} badge="P7A · Zoom" color="orange" title="Image zooms on hover" description="The photo scales up gently inside its container — movement without layout shift." style={{ minHeight: '280px' }} />
+        <TiltHoverCard src={imgOceanSunset} badge="P7B · Lift" color="purple" title="Lifts gently on hover" description="The card rises 4 px with a soft shadow on hover — calm, standard motion." style={{ minHeight: '280px' }} />
+        <PopHoverCard src={imgSeagulls} badge="P7C · Pop" color="pink" title="Lifts with deeper shadow" description="Card rises 4 px with a deeper shadow on hover — a calm, satisfying lift." style={{ minHeight: '280px' }} />
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '14px', marginBottom: '2rem' }}>
         <OutlineCard src={imgCrescentMoon} badge="P7D · Outline" color="purple" title="No fill — border only" description="Transparent background, bold border, greyscale image ghost." style={{ minHeight: '240px' }} />
         <TightEdgeCard src={imgBokehCool} badge="P7E · Tight edge" color="orange" title="Ultra-dense spacing" description="10 px padding — content pushed to the very edges." style={{ minHeight: '240px' }} />
         <StampCard src={imgDuskCity} badge="P7F · Stamp" color="pink" title="Postcard / stamp frame" description="Dashed border and postmark circle — tactile, editorial aesthetic." style={{ minHeight: '240px' }} />
-        <PulseGlowCard src={imgMtnMist} badge="P7G · Pulse glow" color="purple" title="Glowing ring on hover" description="Brand-coloured glow ring pulses outward on hover — subtle but premium." style={{ minHeight: '240px' }} />
+        <PulseGlowCard src={imgMtnMist} badge="P7G · Pulse glow" color="purple" title="Accent border on hover" description="Brand-coloured border appears on hover — subtle but premium." style={{ minHeight: '240px' }} />
       </div>
 
       <style>{`

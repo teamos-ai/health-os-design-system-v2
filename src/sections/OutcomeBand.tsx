@@ -9,10 +9,11 @@ import { MonoLabel } from '@/components/ui/mono-label';
 import { OUTCOME_STATS } from '@/data/system';
 
 export const OutcomeBand = ({ id = 'outcomes' }: { id?: string }) => (
-  <section id={id} className="py-20 md:py-24">
+  <section id={id} className="py-16 md:py-24">
     <div className="mx-auto max-w-container px-6">
-      <FadeIn className="mb-10 text-center">
+      <FadeIn className="mb-10 flex flex-col items-center text-center">
         <MonoLabel>The outcome</MonoLabel>
+        <h2 className="mt-4 font-display text-h2 text-ink-900">What changes in the first month</h2>
       </FadeIn>
 
       <FadeIn delay={0.05} y={16}>

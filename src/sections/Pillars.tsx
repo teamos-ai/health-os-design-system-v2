@@ -8,7 +8,7 @@ import { MonoLabel } from '@/components/ui/mono-label';
 import { PILLARS } from '@/data/system';
 
 export const Pillars = ({ id = 'why' }: { id?: string }) => (
-  <section id={id} className="border-y border-line bg-surface py-20 md:py-24">
+  <section id={id} className="border-y border-line bg-surface py-16 md:py-24">
     <div className="mx-auto max-w-container px-6">
       <div className="mb-12 mx-auto flex max-w-2xl flex-col items-center text-center">
         <FadeIn>

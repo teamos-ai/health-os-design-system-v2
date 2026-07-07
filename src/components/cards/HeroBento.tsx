@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Leaf, Moon, Sun } from "lucide-react";
+import { PAPER_IVORY } from "@/lib/palette";
 import { DS, Badge } from "./BentoCard";
 
 // ── New nature imagery (served from public/media/cards) ─────────────────────────
@@ -13,22 +15,40 @@ const GAP = "14px";
 const R   = DS.radius;
 const SQ  = "8px"; // squircle button radius (Health OS 8px max)
 
+// Theme-aware surface fade stops (mirrors the helper in BentoCard.tsx)
+const S = (a: number) => `rgb(var(--surface) / ${a})`;
+const SURFACE = "rgb(var(--surface))";
+
+// Shared focus-visible ring for the real buttons below
+const focusRing = (focused: boolean): React.CSSProperties =>
+  focused
+    ? { outline: "2px solid rgb(var(--accent-text))", outlineOffset: "2px" }
+    : { outline: "none" };
+
 // ── Squircle primary button ───────────────────────────────────────────────────
 function PrimaryBtn({ children }: { children: React.ReactNode }) {
   const [on, setOn] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [pressed, setPressed] = useState(false);
   return (
     <button
+      type="button"
       onMouseEnter={() => setOn(true)}
-      onMouseLeave={() => setOn(false)}
+      onMouseLeave={() => { setOn(false); setPressed(false); }}
+      onFocus={() => setFocused(true)}
+      onBlur={() => { setFocused(false); setPressed(false); }}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
       style={{
         display: "flex", alignItems: "center", justifyContent: "center", gap: "0.45rem",
         padding: "0.78rem 1.6rem", borderRadius: SQ,
-        background: DS.orange, color: "#fff",
+        background: DS.orange, color: PAPER_IVORY,
         fontFamily: DS.fontDisplay, fontWeight: 600, fontSize: "0.88rem",
         border: "none", cursor: "pointer", width: "100%",
-        boxShadow: on ? "0 8px 28px rgba(232,136,26,0.42)" : "0 4px 16px rgba(232,136,26,0.26)",
-        transform: on ? "translateY(-3px) scale(1.01)" : "translateY(0) scale(1)",
-        transition: "all 0.24s cubic-bezier(0.34,1.56,0.64,1)",
+        boxShadow: on ? DS.shadowMd : DS.shadow,
+        transform: pressed ? "scale(0.98)" : on ? "translateY(-2px)" : "translateY(0)",
+        transition: "all 240ms cubic-bezier(0.22,1,0.36,1)",
+        ...focusRing(focused),
       }}
     >
       {children}
@@ -39,17 +59,26 @@ function PrimaryBtn({ children }: { children: React.ReactNode }) {
 // ── Squircle ghost button ─────────────────────────────────────────────────────
 function GhostBtn({ children }: { children: React.ReactNode }) {
   const [on, setOn] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [pressed, setPressed] = useState(false);
   return (
     <button
+      type="button"
       onMouseEnter={() => setOn(true)}
-      onMouseLeave={() => setOn(false)}
+      onMouseLeave={() => { setOn(false); setPressed(false); }}
+      onFocus={() => setFocused(true)}
+      onBlur={() => { setFocused(false); setPressed(false); }}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
       style={{
         display: "flex", alignItems: "center", justifyContent: "center", gap: "0.45rem",
         padding: "0.76rem 1.6rem", borderRadius: SQ,
-        background: on ? "rgba(0,0,0,0.04)" : "transparent",
+        background: on ? "rgb(var(--ink-900) / 0.05)" : "transparent",
         color: DS.fg, fontFamily: DS.fontDisplay, fontWeight: 500, fontSize: "0.88rem",
-        border: `1.5px solid rgba(0,0,0,0.13)`, cursor: "pointer", width: "100%",
-        transition: "background 0.18s ease",
+        border: `1px solid ${DS.border}`, cursor: "pointer", width: "100%",
+        transform: pressed ? "scale(0.98)" : "scale(1)",
+        transition: "background 180ms ease, transform 180ms ease",
+        ...focusRing(focused),
       }}
     >
       {children}
@@ -66,8 +95,8 @@ function StatChip({
   const map = { pink: { bg: DS.pinkLight, fg: DS.pink }, purple: { bg: DS.purpleLight, fg: DS.purple }, orange: { bg: DS.orangeLight, fg: DS.orange } };
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
-      <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: map[color].bg, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontFamily: DS.fontMono, fontWeight: 700, fontSize: "0.62rem", color: map[color].fg, lineHeight: 1, textAlign: "center" }}>{value}</span>
+      <div style={{ width: "40px", height: "40px", borderRadius: "12px", background: map[color].bg, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <span style={{ fontFamily: DS.fontMono, fontWeight: 700, fontSize: "10px", color: map[color].fg, lineHeight: 1, textAlign: "center" }}>{value}</span>
       </div>
       <span style={{ fontFamily: DS.fontMono, fontSize: "0.74rem", color: DS.fgMuted, lineHeight: 1.35 }}>{label}</span>
     </div>
@@ -77,43 +106,26 @@ function StatChip({
 // ── Mini category chip (like reference's sofa/chair icons) ───────────────────
 function CategoryChip({ icon, label }: { icon: React.ReactNode; label: string }) {
   const [on, setOn] = useState(false);
+  const [focused, setFocused] = useState(false);
   return (
-    <div
+    <button
+      type="button"
       onMouseEnter={() => setOn(true)} onMouseLeave={() => setOn(false)}
+      onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
       style={{
         display: "flex", alignItems: "center", gap: "0.45rem",
         padding: "0.45rem 0.75rem", borderRadius: SQ,
         background: on ? DS.pinkLight : DS.bg,
         border: `1px solid ${on ? DS.pinkMid : DS.border}`,
-        cursor: "default", transition: "all 0.18s ease", flexShrink: 0,
+        cursor: "pointer", transition: "all 180ms ease", flexShrink: 0,
+        ...focusRing(focused),
       }}
     >
       <span style={{ color: on ? DS.pink : DS.fgMuted, display: "flex" }}>{icon}</span>
       <span style={{ fontFamily: DS.fontMono, fontSize: "0.68rem", color: on ? DS.pink : DS.fgMuted }}>{label}</span>
-    </div>
+    </button>
   );
 }
-
-// tiny SVG icons for category chips
-const LeafSVG = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
-    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-  </svg>
-);
-const MoonSVG = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-  </svg>
-);
-const SunSVG = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="4"/>
-    <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
-    <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
-    <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
-  </svg>
-);
 
 // ── Bottom feature card ────────────────────────────────────────────────────────
 function FeatureCard({
@@ -131,15 +143,15 @@ function FeatureCard({
         border: `1px solid ${DS.border}`,
         boxShadow: on ? DS.shadowMd : DS.shadow,
         transform: on ? "translateY(-3px)" : "translateY(0)",
-        transition: "transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease",
+        transition: "transform 220ms cubic-bezier(0.22,1,0.36,1), box-shadow 220ms ease",
         height: "100%", display: "flex", flexDirection: "column", cursor: "default",
       }}
     >
       {/* image header band */}
       <div style={{ position: "relative", height: "46%", overflow: "hidden", flexShrink: 0 }}>
-        <img src={src} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: objectPos,
-          transform: on ? "scale(1.04)" : "scale(1)", transition: "transform 0.45s ease" }} />
-        <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 0%, transparent 24%, rgba(255,255,255,0.01) 34%, rgba(255,255,255,0.06) 44%, rgba(255,255,255,0.18) 54%, rgba(255,255,255,0.40) 64%, rgba(255,255,255,0.66) 74%, rgba(255,255,255,0.88) 85%, #ffffff 97%)` }} />
+        <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: objectPos,
+          transform: on ? "scale(1.03)" : "scale(1)", transition: "transform 240ms ease" }} />
+        <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 0%, transparent 24%, ${S(0.01)} 34%, ${S(0.06)} 44%, ${S(0.18)} 54%, ${S(0.40)} 64%, ${S(0.66)} 74%, ${S(0.88)} 85%, ${SURFACE} 97%)` }} />
       </div>
       {/* content */}
       <div style={{ padding: "0.55rem 0.8rem 0.7rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.25rem" }}>
@@ -152,7 +164,14 @@ function FeatureCard({
 }
 
 // ── Main export ───────────────────────────────────────────────────────────────
-export function HeroBentoSection() {
+export function HeroBentoSection({
+  headingLevel = "h2",
+}: {
+  /** Heading element for the hero headline — pages that already have an h1
+   *  (CardsSection, LivePage) keep the default 'h2'. */
+  headingLevel?: "h1" | "h2";
+} = {}) {
+  const Heading = headingLevel;
   return (
     <div>
       {/* ── Section label ─────────────────────────────────────────── */}
@@ -171,10 +190,11 @@ export function HeroBentoSection() {
 
       {/* ═══════════════════════════════════════════════════════════ */}
       {/* TOP ROW — 3 columns, height driven by left panel content   */}
+      {/* (responsive collapse via Tailwind: 1 col → 2 cols → 3 cols) */}
       {/* ═══════════════════════════════════════════════════════════ */}
       <div
-        className="hero-bento-top"
-        style={{ display: "grid", gridTemplateColumns: "1.1fr 1.85fr 0.9fr", gap: GAP }}
+        className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] lg:grid-cols-[1.1fr_1.85fr_0.9fr]"
+        style={{ gap: GAP }}
       >
 
         {/* ── LEFT — typography + CTA panel ──────────────────────── */}
@@ -186,14 +206,14 @@ export function HeroBentoSection() {
         }}>
           {/* brand micro-tag */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.9rem" }}>
-            <div style={{ width: "6px", height: "6px", borderRadius: "2px", background: DS.orange, flexShrink: 0 }} />
+            <div style={{ width: "6px", height: "6px", borderRadius: "4px", background: DS.orange, flexShrink: 0 }} />
             <span style={{ fontFamily: DS.fontMono, fontSize: "0.63rem", letterSpacing: "0.14em", textTransform: "uppercase", color: DS.fgSoft }}>
-              Health OS · 2025
+              Health OS · 2026
             </span>
           </div>
 
           {/* main headline */}
-          <h1 style={{
+          <Heading style={{
             fontFamily: DS.fontDisplay, fontWeight: 700,
             fontSize: "clamp(1.9rem, 2.4vw, 2.75rem)",
             color: DS.fg, lineHeight: 1.08, margin: 0, letterSpacing: "-0.025em",
@@ -201,7 +221,7 @@ export function HeroBentoSection() {
             Care that<br />
             <span style={{ color: DS.orange }}>moves</span> with<br />
             the seasons.
-          </h1>
+          </Heading>
 
           {/* accent rule — tighter above description */}
           <div style={{ width: "36px", height: "2.5px", background: DS.orange, borderRadius: "999px", margin: "0.75rem 0 0.65rem" }} />
@@ -216,15 +236,15 @@ export function HeroBentoSection() {
 
           {/* CTA buttons — right below description */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            <PrimaryBtn>Explore the system &nbsp;→</PrimaryBtn>
+            <PrimaryBtn>Explore the system <span aria-hidden="true">→</span></PrimaryBtn>
             <GhostBtn>View collections</GhostBtn>
           </div>
 
           {/* category chips */}
           <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", marginTop: "0.75rem" }}>
-            <CategoryChip icon={<LeafSVG />} label="Morning" />
-            <CategoryChip icon={<MoonSVG />} label="Evening" />
-            <CategoryChip icon={<SunSVG />} label="Seasonal" />
+            <CategoryChip icon={<Leaf size={13} strokeWidth={1.5} aria-hidden />} label="Morning" />
+            <CategoryChip icon={<Moon size={13} strokeWidth={1.5} aria-hidden />} label="Evening" />
+            <CategoryChip icon={<Sun size={13} strokeWidth={1.5} aria-hidden />} label="Seasonal" />
           </div>
 
           {/* stat chips — pushed to bottom with auto margin + subtle separator */}
@@ -242,8 +262,9 @@ export function HeroBentoSection() {
         {/* ── CENTER — full-bleed hero image ──────────────────────── */}
         <div style={{
           borderRadius: R, overflow: "hidden",
-          boxShadow: "0 12px 48px rgba(0,0,0,0.13), 0 4px 12px rgba(0,0,0,0.08)",
+          boxShadow: DS.shadowLg,
           position: "relative",
+          minHeight: "280px",
         }}>
           <img
             src={imgGoldenGrass}
@@ -251,28 +272,26 @@ export function HeroBentoSection() {
             style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 55%" }}
           />
           {/* ultra-subtle top vignette */}
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, transparent 30%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(31,31,31,0.06) 0%, transparent 30%)" }} />
 
-          {/* floating glass badge — top-left */}
+          {/* floating flat badge — top-left (zero-glass: solid surface + line) */}
           <div style={{
             position: "absolute", top: "1.1rem", left: "1.1rem",
-            padding: "0.48rem 0.85rem", borderRadius: "10px",
-            background: "rgba(255,255,255,0.84)", backdropFilter: "blur(18px) saturate(160%)",
-            WebkitBackdropFilter: "blur(18px) saturate(160%)",
-            border: "1px solid rgba(255,255,255,0.9)", boxShadow: "0 4px 16px rgba(0,0,0,0.07)",
+            padding: "0.48rem 0.85rem", borderRadius: "12px",
+            background: SURFACE,
+            border: `1px solid ${DS.border}`, boxShadow: DS.shadow,
           }}>
-            <span style={{ fontFamily: DS.fontMono, fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: DS.fg, fontWeight: 700 }}>
+            <span style={{ fontFamily: DS.fontMono, fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: DS.fg, fontWeight: 700 }}>
               Golden hour
             </span>
           </div>
 
-          {/* floating metric pill — bottom-right */}
+          {/* floating metric chip — bottom-right (flat, solid surface) */}
           <div style={{
             position: "absolute", bottom: "1.1rem", right: "1.1rem",
             padding: "0.6rem 1rem", borderRadius: SQ,
-            background: "rgba(255,255,255,0.86)", backdropFilter: "blur(18px) saturate(160%)",
-            WebkitBackdropFilter: "blur(18px) saturate(160%)",
-            border: "1px solid rgba(255,255,255,0.9)", boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+            background: SURFACE,
+            border: `1px solid ${DS.border}`, boxShadow: DS.shadow,
             display: "flex", flexDirection: "column", gap: "0.1rem",
           }}>
             <span style={{ fontFamily: DS.fontMono, fontWeight: 700, fontSize: "1.1rem", color: DS.fg, lineHeight: 1 }}>8.4 / 10</span>
@@ -281,13 +300,16 @@ export function HeroBentoSection() {
         </div>
 
         {/* ── RIGHT — two stacked cards ───────────────────────────── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: GAP, height: "100%" }}>
+        <div
+          className="flex flex-col h-full md:col-span-full md:flex-row md:h-[180px] lg:col-span-1 lg:flex-col lg:h-full"
+          style={{ gap: GAP }}
+        >
 
           {/* TOP portrait card — hanging cones at dusk */}
           <div style={{
             flex: "0 0 calc(58% - 6px)",
             borderRadius: R, overflow: "hidden",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
+            boxShadow: DS.shadowLg,
             position: "relative",
           }}>
             <img
@@ -296,13 +318,13 @@ export function HeroBentoSection() {
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }}
             />
             {/* bottom scrim */}
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.22) 42%, transparent 68%)" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(31,31,31,0.65) 0%, rgba(31,31,31,0.22) 42%, transparent 68%)" }} />
             {/* content overlay */}
             <div style={{ position: "absolute", bottom: "0.9rem", left: "0.9rem", right: "0.9rem" }}>
               <Badge label="Winter" color="purple" />
               <p style={{
                 fontFamily: DS.fontDisplay, fontWeight: 600, fontSize: "0.9rem",
-                color: "#fff", margin: "0.3rem 0 0", lineHeight: 1.25,
+                color: PAPER_IVORY, margin: "0.3rem 0 0", lineHeight: 1.25,
               }}>
                 Stillness between seasons
               </p>
@@ -322,7 +344,7 @@ export function HeroBentoSection() {
                 src={imgLarchLS} alt="" aria-hidden
                 style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%" }}
               />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 0%, transparent 24%, rgba(255,255,255,0.02) 35%, rgba(255,255,255,0.10) 47%, rgba(255,255,255,0.30) 59%, rgba(255,255,255,0.58) 71%, rgba(255,255,255,0.84) 83%, #ffffff 96%)" }} />
+              <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 0%, transparent 24%, ${S(0.02)} 35%, ${S(0.10)} 47%, ${S(0.30)} 59%, ${S(0.58)} 71%, ${S(0.84)} 83%, ${SURFACE} 96%)` }} />
             </div>
 
             {/* content */}
@@ -333,22 +355,29 @@ export function HeroBentoSection() {
               <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginTop: "0.5rem" }}>
                 <div>
                   <div style={{ fontFamily: DS.fontMono, fontSize: "2rem", fontWeight: 700, color: DS.fg, lineHeight: 1 }}>91%</div>
-                  <div style={{ fontFamily: DS.fontMono, fontSize: "0.62rem", color: DS.fgMuted, marginTop: "0.15rem" }}>
+                  <div style={{ fontFamily: DS.fontMono, fontSize: "10px", color: DS.fgMuted, marginTop: "0.15rem" }}>
                     Client satisfaction
                   </div>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <div style={{ fontFamily: DS.fontMono, fontSize: "0.88rem", fontWeight: 700, color: DS.green, lineHeight: 1 }}>↑ 3.2%</div>
-                  <div style={{ fontFamily: DS.fontMono, fontSize: "0.6rem", color: DS.fgSoft, marginTop: "0.15rem" }}>vs last qtr</div>
+                  <div style={{ fontFamily: DS.fontMono, fontSize: "10px", color: DS.fgSoft, marginTop: "0.15rem" }}>vs last qtr</div>
                 </div>
               </div>
 
               {/* progress bar */}
               <div style={{ marginTop: "0.65rem" }}>
-                <div style={{ height: "5px", borderRadius: "999px", background: DS.pinkLight, overflow: "hidden" }}>
+                <div
+                  role="progressbar"
+                  aria-valuenow={91}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label="Client satisfaction"
+                  style={{ height: "5px", borderRadius: "999px", background: DS.pinkLight, overflow: "hidden" }}
+                >
                   <div style={{ width: "91%", height: "100%", background: DS.pink, borderRadius: "999px" }} />
                 </div>
-                <div style={{ fontFamily: DS.fontMono, fontSize: "0.58rem", color: DS.fgSoft, marginTop: "0.3rem" }}>Q1 2025 · 1,240 clients</div>
+                <div style={{ fontFamily: DS.fontMono, fontSize: "10px", color: DS.fgSoft, marginTop: "0.3rem" }}>Q1 2026 · 1,240 clients</div>
               </div>
             </div>
           </div>
@@ -356,9 +385,12 @@ export function HeroBentoSection() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════════ */}
-      {/* BOTTOM ROW — 5 feature cards (sits cleanly below via flex) */}
+      {/* BOTTOM ROW — 5 feature cards (responsive: 2 → 3 → 5 cols)  */}
       {/* ═══════════════════════════════════════════════════════════ */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: GAP, height: "210px" }}>
+      <div
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+        style={{ gap: GAP, gridAutoRows: "210px" }}
+      >
         <FeatureCard
           src={imgLarchLS}
           badge="Morning"
@@ -402,24 +434,6 @@ export function HeroBentoSection() {
       </div>
 
       </div>{/* ── end bento flex wrapper ── */}
-
-      <style>{`
-        @media (max-width: 1100px) {
-          .hero-bento-top {
-            grid-template-columns: 1fr 1.5fr !important;
-          }
-          .hero-bento-top > *:last-child {
-            grid-column: 1 / -1;
-            flex-direction: row !important;
-            height: 180px;
-          }
-        }
-        @media (max-width: 700px) {
-          .hero-bento-top {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

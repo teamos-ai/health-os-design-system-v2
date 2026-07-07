@@ -158,7 +158,7 @@ export const ImageLibrarySection = () => {
       </div>
 
       {/* ── Result count ───────────────────────────────────────── */}
-      <div className="mb-6 mt-4 flex items-center justify-between">
+      <div className="mb-6 mt-4 flex items-center justify-between" aria-live="polite">
         <MonoLabel>
           {filtered.length === PHOTOS.length ? `${PHOTOS.length} images` : `${filtered.length} of ${PHOTOS.length}`}
         </MonoLabel>
@@ -172,6 +172,11 @@ export const ImageLibrarySection = () => {
           </button>
         )}
       </div>
+
+      <p className="mb-6 font-mono text-caption text-ink-500">
+        Manifest: src/data/photos.ts — add new photography there (sentence-case names,
+        structured facets) and it appears here with accurate counts.
+      </p>
 
       {/* ── Results ────────────────────────────────────────────── */}
       {filtered.length === 0 ? (

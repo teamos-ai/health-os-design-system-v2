@@ -15,16 +15,15 @@ export const HeroSection = () => (
   <Hero id="hero">
     <HeroContainer>
       <FadeIn delay={0.05}>
-        <h1 className="font-display text-display-lg leading-[1.05] tracking-tight text-ink-900 md:text-display-xl">
-          The only <span className="text-gradient">design system</span>
-          <br />
-          that matters.
+        <h1 className="font-display text-display-lg text-ink-900 md:text-display-xl">
+          The design system behind
+          <br />a <span className="text-gradient">calm</span> practice.
         </h1>
       </FadeIn>
 
       <FadeIn delay={0.1} className="mt-hero-gap-sm">
         <p className="max-w-xl font-sans text-body-lg leading-relaxed text-ink-500">
-          No boring designs. Beauty in all lines and curves.
+          Tokens, components and voice — locked, documented, and ready to build with.
         </p>
       </FadeIn>
 

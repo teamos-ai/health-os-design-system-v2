@@ -15,7 +15,8 @@ import { PracticeDashboard } from '@/components/ui/practice-dashboard';
 const Band = ({ label, children }: { label: string; children: ReactNode }) => (
   <div>
     <div className="border-y border-line bg-surface px-6 py-2.5 md:px-12">
-      <span className="font-mono text-caption text-ink-500">{label}</span>
+      {/* A real heading so the five compositions appear in the document outline */}
+      <h3 className="font-mono text-caption font-normal text-ink-500">{label}</h3>
     </div>
     {children}
   </div>
@@ -39,24 +40,24 @@ export const SignatureSection = () => (
       </div>
     </div>
 
-    <Band label="a · command-palette hero">
-      <CommandHero id="sig-hero" />
+    <Band label="a · CommandHero — command-palette hero">
+      <CommandHero id="sig-hero" headingLevel="h2" />
     </Band>
-    <Band label="b · horizontal tool-card carousel">
+    <Band label="b · ToolCarousel — horizontal tool-card marquee">
       <ToolCarousel id="sig-carousel" />
     </Band>
-    <Band label="c · bento grid">
+    <Band label="c · BentoSection — bento grid">
       <BentoSection id="sig-bento" />
     </Band>
-    <Band label="d · directory / comparison">
+    <Band label="d · DirectoryCompare — directory / comparison">
       <DirectoryCompare id="sig-compare" />
     </Band>
-    <Band label="e · admin dashboard">
+    <Band label="e · PracticeDashboard — admin dashboard">
       <section className="px-6 py-16 md:px-12 md:py-24">
         <div className="mx-auto max-w-5xl">
           <header className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <MonoLabel>Analytics</MonoLabel>
-            <h2 className="mt-3 font-display text-h1 text-ink-900">Admin dashboard</h2>
+            <h4 className="mt-3 font-display text-h1 text-ink-900">Admin dashboard</h4>
             <p className="mt-4 font-sans text-body-lg leading-relaxed text-ink-500">
               The practice at a glance — revenue, clients and programmes on a calm carbon
               rail, with apricot leading the charts and lavender a step behind, so the

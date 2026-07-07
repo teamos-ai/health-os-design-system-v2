@@ -41,10 +41,18 @@ export const SocialMediaSection = () => (
       ))}
     </div>
 
-    {/* Links out to the generators (to be built later) */}
+    {/* Generators are on the roadmap — buttons stay honestly disabled until they exist */}
     <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-      <Button as="a" {...{ href: '#' }} variant="primary">Open the social media generator</Button>
-      <Button as="a" {...{ href: '#' }} variant="secondary">Open the image generator</Button>
+      <Button variant="primary" disabled title="Coming soon">
+        Social media generator — coming soon
+      </Button>
+      <Button variant="secondary" disabled title="Coming soon">
+        Image generator — coming soon
+      </Button>
     </div>
+    <p className="mt-4 text-center font-mono text-caption text-ink-500">
+      Format specs: feed 1080×1080 · story and reel 1080×1920 (keep type inside the centre
+      1080×1420) · link/OG 1200×630.
+    </p>
   </Section>
 );

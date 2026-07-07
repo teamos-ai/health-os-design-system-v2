@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Play, ArrowRight } from 'lucide-react';
 import { Section, Demo } from '@/showcase/Section';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { SaveButton } from '@/components/ui/save-button';
 import { CelebrationButton } from '@/components/ui/celebration-button';
 import { ConfettiButton } from '@/components/ui/confetti-button';
@@ -125,18 +126,36 @@ export const ButtonsSection = () => {
           </div>
         </Demo>
 
-        {/* Expressive motion buttons */}
-        <Demo label="Button motion — save, complete, sign-up & book-a-call">
+        {/* The sanctioned save confirmation */}
+        <Demo label="Save confirmation — the sanctioned exception">
           <div className="flex flex-col gap-3">
             <div className="flex flex-wrap items-center gap-3">
               <SaveButton>Save changes</SaveButton>
+            </div>
+            <p className="font-sans text-body-sm text-ink-500">
+              The one celebratory moment in the standard system: quiet green check chips,
+              under 400ms, announced politely to screen readers. Reduced-motion users get an
+              instant confirmation with no particles.
+            </p>
+          </div>
+        </Demo>
+
+        {/* Quarantined expressive group — off-brand, opt-in only (motion.md §Sanctioned exceptions) */}
+        <Demo
+          label="Expressive — off-brand, opt-in only"
+          action={<Badge variant="warn" size="sm">Not for standard surfaces</Badge>}
+        >
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <CelebrationButton>Mark complete</CelebrationButton>
               <ConfettiButton>Sign up free</ConfettiButton>
               <MagnetizeButton>Book a call</MagnetizeButton>
             </div>
             <p className="font-sans text-body-sm text-ink-500">
-              Save sends up green check chips; Mark complete throws a shower of streamers; Sign up free bursts brand
-              confetti; Book a call magnetises its particles toward the centre on hover. All reduced-motion safe.
+              Kept for deliberate one-off moments only. These break the locked motion rules
+              (confetti, streamers, spring physics) and are excluded from the component
+              catalogue — never use them on standard Health OS marketing or product surfaces.
+              All reduced-motion safe.
             </p>
           </div>
         </Demo>

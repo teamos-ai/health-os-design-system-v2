@@ -10,7 +10,7 @@ import { MonoLabel } from '@/components/ui/mono-label';
 import { TOOLS } from '@/data/system';
 
 export const ToolCarousel = ({ id = 'platform' }: { id?: string }) => (
-  <section id={id} className="overflow-hidden py-20 md:py-24">
+  <section id={id} className="overflow-hidden py-16 md:py-24">
     <div className="mx-auto mb-12 max-w-container px-6 text-center">
       <FadeIn>
         <MonoLabel>Everything in one place</MonoLabel>
