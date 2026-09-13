@@ -28,15 +28,15 @@ These come from the decisions recorded on 13 September 2026. Detail for each is 
 
 1. **Tokens only.** Every colour, size, radius, shadow and duration comes from a token. Tailwind generates nothing for an off-system class, and `npm run check` fails on one.
 2. **Two themes: light and paper.** Light is the default. Paper is `.theme-paper` on `<html>` and changes only the grounds. There is no dark theme.
-3. **Three brand colours, three shades each.** Rose, apricot and lavender in 50 (soft fills), 400 (gradient stops and marks, never text) and 700 (text, links and filled buttons). Neutrals are the ink ramp plus carbon. Success, warning and error report real states only.
-4. **Three gradients, one moment per view.** `bg-brand-gradient` (signature), `bg-brand-gradient-soft` (soft wash) and `bg-brand-gradient-warm` (warm sunrise). Gradient text is not used: to mark a word, put `.text-highlight` behind it.
+3. **Three brand colours, each at full strength with two lighter shades.** Sunlit Apricot `#F5A060`, Expressive Rose `#E85BA8` and Neutral Lavender `#A668D9` at 400, with 200 (edges, outlines, chart tracks) and 50 (tinted fills). There are no darker shades. Text stays in the ink neutrals; colour comes from fills, marks, icons and borders. Success, warning and error follow the same pattern at 600, 300 and 100.
+4. **Three gradients, one moment per view.** `bg-brand-gradient` (signature, used small: the logo, a highlighted word, a thin accent), `bg-brand-gradient-soft` (soft wash) and `bg-brand-gradient-dawn` (soft dawn, for action cards). A saturated gradient is never a card, panel or banner fill. Gradient text is not used: to mark a word, put `.text-highlight` behind it.
 5. **Two families, four roles.** Spline Sans for `text-heading` and `text-subheading`; Anonymous Pro for `text-body` and `text-label`. One weight per role, set by the token.
 6. **8px rhythm, 4px compact steps.** Section padding `py-16 md:py-24`. Heroes use the `Hero` component and its hero spacing tokens.
 7. **Radius and shadow are small sets.** `rounded-md` for controls, `rounded-lg` for containers, `rounded-full` for round things. `shadow-sm`, `shadow-md` and `shadow-lg` for hover, floating UI and dialogs. Surfaces are otherwise flat with a hairline.
-8. **Buttons: primary, secondary, text.** One primary per view. Primary uses rose, or carbon when rose would clash. Two sizes: default and small. Icon-only actions use `IconButton`.
+8. **Buttons: primary, secondary, text.** One primary per view, and it is always Expressive Rose with white text, on every ground. Secondary is a surface with a hairline; text is ink on a rose underline. Two sizes: default and small. Icon-only actions use `IconButton`.
 9. **Six card types.** Content, feature, service, pricing, resource and action. Each is styled for its job; do not force one into another's role.
 10. **Widgets are functional.** Every widget takes real data through documented inputs. Experimental widgets are available and labelled. Figures in the reference site are sample data and never go into marketing.
-11. **Images come from the tagged library.** Match the image to its suggested use. Never put text on a raw photo, never imply a person in a photo is a client.
+11. **Images come from the tagged library.** Match the image to its suggested use. Inside a card, the photo dissolves toward the text with the shared `image-fade-*` class. Never put text on a raw photo, never imply a person in a photo is a client.
 12. **Motion is on by default and calm.** Use the motion library and the duration and easing tokens. Nothing people need can wait on an animation.
 13. **Icons are being replaced.** The filled icon set is not chosen yet. Until it is, components keep their current Lucide icons; do not add a second icon library.
 14. **Docs change with the design.** A change to a token, component or rule updates `tokens.json` or `reference/catalog.json` in the same change.

@@ -17,11 +17,13 @@ In practice that means a lot of air, warm neutrals, soft colour used with intent
 | Area | The system |
 |---|---|
 | Themes | Light (white ground) and paper (warm ivory ground). No dark theme |
-| Colour | Rose, apricot and lavender, each in 50, 400 and 700. Warm ink neutrals and carbon. Success, warning and error kept apart from the brand colours |
-| Gradients | Signature (apricot to rose to lavender), soft wash and warm sunrise. One gradient moment per view |
+| Colour | Sunlit Apricot `#F5A060`, Expressive Rose `#E85BA8` and Neutral Lavender `#A668D9`, each at full strength with two lighter shades and nothing darker. Text in warm ink neutrals. Success, warning and error kept apart from the brand colours |
+| Gradients | Signature (apricot to rose to lavender, used small), soft wash and soft dawn. One gradient moment per view, never a saturated fill |
 | Type | Spline Sans headings and subheadings. Anonymous Pro body and labels: the monospaced body is the Health OS texture |
 | Spacing | 8px rhythm with 4px compact steps; spacious heroes by rule |
 | Shape | 8px controls, 12px containers, round only for round things. Flat surfaces with hairlines, soft neutral shadows when something lifts or floats |
+| Buttons | One primary colour everywhere: Expressive Rose with white text |
+| Image cards | Photos dissolve into the card along one long, eased fade |
 | Motion | On by default, calm and flowing, from the motion library and tokens |
 | Imagery | The full tagged library of lifestyle photos and nature backgrounds, each with a suggested use |
 | Logo | The gradient OS mark, used on its own |

@@ -2,7 +2,7 @@
 
 What to reach for when building each kind of asset. Each recipe names the ground, type, colour moments, components and checks. Values and props are in [REFERENCE.md](REFERENCE.md); copy and claims follow [VOICE.md](VOICE.md) and the Health OS database. Finish every asset with [CHECKLIST.md](CHECKLIST.md).
 
-**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 400 and 700 · one gradient moment · flat surfaces with hairlines · images from the tagged library · sentence case, no em dashes, no invented numbers.
+**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 200 and 400, text in ink · one gradient moment, never a saturated fill · primary buttons in rose-400 · flat surfaces with hairlines · images from the tagged library · sentence case, no em dashes, no invented numbers.
 
 ## 1. Marketing page
 
@@ -11,7 +11,7 @@ The live page in the reference site is this recipe, assembled.
 | Order | Build with | Notes |
 |---|---|---|
 | Ticker | `Ticker` | Optional. Tone `subtle` on light, `carbon` on paper, `tint` for a softer moment. One per page |
-| Navigation | `Nav` | One neutral primary button in the bar |
+| Navigation | `Nav` | One primary button in the bar |
 | Hero | `CommandHero`, or `Hero` + `HeroContainer` + `HeroGlow` | Spacing comes from the hero tokens. One `.text-highlight` word in the headline |
 | Why it works | `Pillars` (feature grid) | Up to four `FeatureCard`s |
 | What runs | `BentoSection`, or `BentoGrid` with `ContentCard`, `FeatureCard` and one `ActionCard` | Mix card types; one action card |
@@ -41,7 +41,7 @@ Sections sit at `py-16 md:py-24` inside `max-w-container px-6`. Every third sect
 
 - 600px single column. Page ground outside, `surface` card inside with a `line` hairline and 12px corners.
 - Logo mark at 40px, top left. Headline in Spline Sans 700 at the subheading size or the heading's 36px floor; body 16px on 26px in Anonymous Pro, with `ui-monospace, Menlo, monospace` as the fallback.
-- One button: rose-700 or carbon fill, white text, 8px corners, written as a bulletproof link.
+- One button: rose-400 `#E85BA8` fill, white text, 8px corners, written as a bulletproof link.
 - Gradients are unreliable in email clients: use a solid `rose-50` or `apricot-50` panel for the one colour moment.
 - Transactional email drops the colour moment entirely.
 
@@ -71,7 +71,7 @@ The reference site's social templates are the starting point.
 
 - A4, paper ground (or white with `line` rules for print). 72px side margins.
 - Title in Spline Sans 700, section titles in Spline Sans 600, body in Anonymous Pro 400 at a size that keeps about 70 characters a line.
-- Tables with hairline rows and `text-label` headers. Links and key figures in rose-700.
+- Tables with hairline rows and `text-label` headers. Links in ink with a rose-400 underline; key figures in ink-900.
 - The logo mark on the title page only.
 
 ## 8. Product screen or dashboard
@@ -79,7 +79,7 @@ The reference site's social templates are the starting point.
 - `bg-paper` page, `surface` cards with `border-line rounded-lg`, `surface-2` wells and table headers.
 - Build from widgets first: pick by their "Use it for" line and wire their documented inputs to real data.
 - Controls from Elements: `Input`, `Select`, `Checkbox`, `Switch`, `Segmented`, `Tabs`, `Table`, `Pagination`.
-- Status uses the 100 tint with 700 text. Numbers use tabular figures.
+- Status uses the 100 tint with ink text and a 600 icon or dot. Numbers use tabular figures.
 - Design the empty, loading (`Skeleton`) and error (`Alert`) states for every view.
 - Experimental widgets can be used. Check their notes in REFERENCE.md first.
 
