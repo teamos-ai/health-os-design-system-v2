@@ -2,7 +2,7 @@
  * The widget colour system: soft by rule. Every fill, bar, ring, tile, chart mark and
  * selected state inside a widget uses the light (200) and soft (50) shades, so a screen
  * full of widgets reads calm rather than loud. Full-strength colour is not used for data.
- * The one exception is the rose primary button, which keeps the global button colour.
+ * Buttons inside widgets use the global button colour, apricot-200 with ink text.
  */
 import { APRICOT, ROSE, LAVENDER, INK } from '@/lib/palette';
 

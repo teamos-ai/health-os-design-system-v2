@@ -22,8 +22,8 @@ In practice that means a lot of air, warm neutrals, soft colour used with intent
 | Type | Spline Sans headings and subheadings. Anonymous Pro body and labels: the monospaced body is the Health OS texture |
 | Spacing | 8px rhythm with 4px compact steps; spacious heroes by rule |
 | Shape | 8px controls, 12px containers, round only for round things. Flat surfaces with hairlines, soft neutral shadows when something lifts or floats |
-| Buttons | One primary colour everywhere: Expressive Rose with white text |
-| Widgets and cards | Soft by rule: the light and soft shades only, with the rose button as the one strong colour. Photos dissolve into the card along one long, eased fade |
+| Buttons | One button colour everywhere: apricot-200 `#F8C39C` with dark ink text |
+| Widgets and cards | Soft by rule: the light and soft shades only, with apricot buttons. Photos dissolve into the card along one long, eased fade |
 | Motion | On by default, calm and flowing, from the motion library and tokens |
 | Imagery | The full tagged library of lifestyle photos and nature backgrounds, each with a suggested use |
 | Logo | The gradient OS mark, used on its own |

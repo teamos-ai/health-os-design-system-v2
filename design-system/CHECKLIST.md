@@ -9,7 +9,7 @@ A quick check for every page, post, email or asset built from this system. If an
 3. Headings use the heading or subheading role, running text uses body, small text uses label.
 4. Rose, apricot and lavender appear only in their 50, 200 and 400 shades, and text stays in the ink neutrals. Status colours report real states only.
 5. At most one gradient moment per view, using one of the three gradients, and never a saturated gradient as a large fill.
-6. Widgets and cards use the light (200) and soft (50) shades only. Full strength is for primary buttons, checked controls and focus rings.
+6. Widgets and cards use the light (200) and soft (50) shades only, and every button fill is apricot-200 #F8C39C with ink text. Full strength is for checked controls and focus rings.
 7. There is one primary button per view. Other actions are secondary or text.
 8. Cards are the right type for their job: content, feature, service, pricing, resource or action.
 9. Images come from the tagged library, match their suggested use, dissolve into their card with the shared image fade, and text never sits on a raw photo.

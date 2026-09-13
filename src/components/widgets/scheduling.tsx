@@ -193,7 +193,7 @@ export const PlanCard = ({
       <li className="mt-1">
         <button
           type="button"
-          className="h-11 w-full rounded-md bg-rose-400 font-display text-body text-white transition-colors hover:bg-rose-400/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2"
+          className="h-11 w-full rounded-md bg-apricot-200 font-display text-body text-ink-900 transition-colors hover:bg-apricot-200/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2"
         >
           {action}
         </button>

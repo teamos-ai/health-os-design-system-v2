@@ -101,7 +101,7 @@ export const CommandWidget = ({
             aria-label="Submit"
             tabIndex={toolbarTabIndex}
             onClick={onSubmit ? submit : undefined}
-            className="flex h-9 w-9 items-center justify-center rounded-md bg-rose-400 text-white transition-colors duration-sm hover:bg-rose-400/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-apricot-200 text-ink-900 transition-colors duration-sm hover:bg-apricot-200/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
           >
             <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
           </button>

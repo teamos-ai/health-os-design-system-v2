@@ -1,10 +1,10 @@
 /**
  * Button: the three Health OS button styles, one colour everywhere.
  *
- *   primary    the one main action in a view. Expressive Rose (rose-400) with white text,
+ *   primary    the one main action in a view. Apricot-200 (#F8C39C) with dark ink text,
  *              on every ground: light, paper, tinted panels and carbon.
  *   secondary  a supporting action beside a primary. Surface fill with a hairline.
- *   text       a low-emphasis action inside copy, cards and rows. Ink text on a rose underline.
+ *   text       a low-emphasis action inside copy, cards and rows. Ink text on an apricot underline.
  *
  * Sizes: `default` everywhere, `small` only in dense areas (tables, toolbars, cards).
  * Every style supports `disabled` and `loading`. Same shape and behaviour in both themes.
@@ -22,9 +22,9 @@ const button = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-rose-400 text-white hover:bg-rose-400/90',
+        primary: 'bg-apricot-200 text-ink-900 hover:bg-apricot-200/80',
         secondary: 'border border-line bg-surface text-ink-900 hover:border-ink-400',
-        text: 'rounded-none text-ink-900 underline decoration-rose-400 decoration-2 underline-offset-4 hover:decoration-ink-900 active:scale-100',
+        text: 'rounded-none text-ink-900 underline decoration-apricot-200 decoration-2 underline-offset-4 hover:decoration-ink-900 active:scale-100',
       },
       size: {
         default: 'h-11 px-6',

@@ -46,7 +46,7 @@ export const SocialMediaSection = () => (
             <div className="flex flex-col gap-3 bg-surface p-5 pt-0">
               <LogoMark size={24} />
               <p className="font-display text-subheading text-ink-900">Ten questions. Under two minutes.</p>
-              <span className="self-start rounded-md bg-rose-400 px-3 py-2 font-display text-body text-white">Start the check</span>
+              <span className="self-start rounded-md bg-apricot-200 px-3 py-2 font-display text-body text-ink-900">Start the check</span>
             </div>
           </div>
         </Frame>

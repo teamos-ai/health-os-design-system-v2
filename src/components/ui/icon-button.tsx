@@ -1,7 +1,7 @@
 /**
  * IconButton: a square, icon-only button that mirrors the three Button styles.
  *
- *   primary    a main action shown as an icon (play, send). Expressive Rose with a white icon.
+ *   primary    a main action shown as an icon (play, send). Apricot-200 with a dark ink icon.
  *   secondary  a supporting icon action on a surface (copy, filter, more).
  *   text       a quiet icon action inside rows, toolbars and headers (close, menu).
  *
@@ -18,7 +18,7 @@ const iconButton = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-rose-400 text-white hover:bg-rose-400/90',
+        primary: 'bg-apricot-200 text-ink-900 hover:bg-apricot-200/80',
         secondary: 'border border-line bg-surface text-ink-900 hover:border-ink-400',
         text: 'text-ink-600 hover:bg-ink-100 hover:text-ink-900',
       },

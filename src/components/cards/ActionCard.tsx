@@ -2,7 +2,7 @@
  * ActionCard: the one thing to do next. Booking a call, starting a diagnostic.
  *
  * Calm by design: the soft dawn gradient (`tone="dawn"`, default) or the soft wash
- * (`tone="soft"`), a hairline edge, dark text and the rose primary button. Saturated
+ * (`tone="soft"`), a hairline edge, dark text and the apricot primary button. Saturated
  * gradients are never used as a card fill. Add an image to split the card on wide screens;
  * it dissolves toward the text with the shared image fade. One action only.
  */

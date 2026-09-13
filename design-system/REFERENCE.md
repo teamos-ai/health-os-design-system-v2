@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-13 · 106 entries · 32 components · 31 widgets · 12 patterns · 12 open decisions
+Updated 2026-09-13 · 106 entries · 32 components · 31 widgets · 12 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -29,7 +29,6 @@ Decisions still waiting on Tumai, and what the system does until each one is mad
 | Topic | Ref | Question | For now |
 | --- | --- | --- | --- |
 | Radius | R4.1 · C10 | Keep md 8px, lg 12px and full, or return to the earlier 8px cap? | Provisional: md 8px for controls, lg 12px for containers, full for round things only. No pill buttons. |
-| Primary button colour | R2.6 · C12 | Keep Expressive Rose (rose-400) with white text as the one primary button colour? | rose-400 #E85BA8 with white text on every ground; carbon buttons are gone. White on this rose measures about 3.2:1, under the 4.5:1 usually asked of body text. There is no contrast gate, so this is Tumai's call. |
 | Audience noun | R1.2 · C02 | Which word does copy use for the customer: operator, practitioner or something else? | The database says operator. Demo copy in this system says you and clients, and names neither. |
 | Archetype | R1.3 · C03 | Sage 70 / Creator 30, or Creator 70 / Explorer 30? | Not used anywhere in this system until decided. |
 | Icon library | R4.7 | Which filled icon set, in which two sizes? | The Icons section is intentionally empty. Components still use Lucide line icons until the set is chosen. |
@@ -62,15 +61,15 @@ Light is the default. Paper is `.theme-paper` on `<html>`. Grounds are RGB chann
 
 ### Colour
 
-Every colour stops at its full strength and has two lighter shades. There are no darker shades. Widgets and cards use only the two lighter shades, full strength is kept for primary buttons, checked controls and focus rings, and text stays in the ink neutrals.
+Every colour stops at its full strength and has two lighter shades. There are no darker shades. Widgets and cards use only the two lighter shades, buttons use apricot-200, full strength is kept for checked controls and focus rings, and text stays in the ink neutrals.
 
 | Token | Hex | CSS variable | Role |
 | --- | --- | --- | --- |
 | `rose-50` | #FADEEE | `--hos-rose-50` | Soft. Tinted fills: badges, selected rows, quiet panels. |
 | `rose-200` | #F3A0CC | `--hos-rose-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons, selected states and borders on tinted fills. |
-| `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Primary buttons, checked form controls, focus rings and gradient stops. Not for text, widgets or card colour. |
+| `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Checked form controls, focus rings and gradient stops. Not for text, buttons, widgets or card colour. |
 | `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Warm tinted fills. |
-| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons and borders on warm fills. |
+| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The button colour: primary buttons and icon buttons, with ink text. Also widgets and cards: bars, rings, tiles, chart data, icons and borders on warm fills. |
 | `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. Gradient stop only. Not for text, widgets or card colour. |
 | `lavender-50` | #EDE1F7 | `--hos-lavender-50` | Soft. Cool tinted fills. |
 | `lavender-200` | #C9A3E6 | `--hos-lavender-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons and borders on cool fills. |
@@ -91,7 +90,7 @@ Every colour stops at its full strength and has two lighter shades. There are no
 | `error-300` | #E6A5A1 | `--hos-error-300` | Light. Borders on error tints and chart tracks. |
 | `error-600` | #C8382F | `--hos-error-600` | Full strength. Icons, dots, solid marks, and error messages. |
 | `carbon` | #1F1F1F | `--hos-carbon` | The one dark surface: the footer panel and dark tiles. White text on top. |
-| `white` | #FFFFFF | `--hos-white` | Text and marks on carbon and on the rose primary button. Never a hand-coded page ground. |
+| `white` | #FFFFFF | `--hos-white` | Text and marks on carbon. Never a hand-coded page ground. |
 
 Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg-carbon`. Text stays in the ink neutrals.
 
@@ -101,7 +100,7 @@ Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg
 | --- | --- | --- | --- |
 | `bg-brand-gradient` | `--hos-brand-gradient` | `linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A668D9 100%)` | Signature. Apricot to rose to lavender, never reversed. The logo, a highlight behind one headline word, thin accents such as a progress fill. Never a large fill for a card, panel or banner. |
 | `bg-brand-gradient-soft` | `--hos-brand-gradient-soft` | `linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)` | Soft wash. Large quiet fills: section panels, media placeholders, highlight bars. Dark text on top. |
-| `bg-brand-gradient-dawn` | `--hos-brand-gradient-dawn` | `linear-gradient(160deg, #FFFFFF 0%, #FDECDF 55%, #FADEEE 100%)` | Soft dawn. A gentle warm light from white into apricot and rose tints. Action cards and invitations, with dark text and the rose primary button on top. |
+| `bg-brand-gradient-dawn` | `--hos-brand-gradient-dawn` | `linear-gradient(160deg, #FFFFFF 0%, #FDECDF 55%, #FADEEE 100%)` | Soft dawn. A gentle warm light from white into apricot and rose tints. Action cards and invitations, with dark text and the primary button on top. |
 
 ### Type
 
@@ -190,16 +189,17 @@ Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strengt
 **Use it for**
 
 - 200 for widgets and cards: bars, rings, tiles, chart data, icons, selected states and borders on tints
+- apricot-200 #F8C39C for every button fill, with ink text
 - 50 for tinted fills: badges, selected rows, tile ends and quiet panels
-- 400 only for primary buttons, checked form controls, focus rings and gradient stops
+- 400 only for checked form controls, focus rings and gradient stops
 
 **Not for**
 
-- Full-strength colour inside a widget or card, apart from its primary button
+- Full-strength colour inside a widget, card or button
 - Coloured text: text stays in the ink neutrals
 - Any shade darker than 400, or shades outside 50, 200 and 400
 
-**API** `Tailwind: bg-rose-200 · bg-rose-50 · ring-rose-200 · text-lavender-200 (icons) · bg-rose-400 (primary button) … Widgets: LIGHT, SOFT, TILE, BAR, SWEEP (src/components/widgets/tones.ts)`
+**API** `Tailwind: bg-apricot-200 (buttons) · bg-rose-200 · bg-rose-50 · ring-rose-200 · text-lavender-200 (icons) … Widgets: LIGHT, SOFT, TILE, BAR, SWEEP (src/components/widgets/tones.ts)`
 
 **Source** `design-system/tokens/tokens.json → color.rose, color.apricot, color.lavender`
 
@@ -318,7 +318,7 @@ White into apricot and rose tints. A gentle, warm invitation.
 
 **Use it for**
 
-- Action cards and invitations, with the rose primary button on top
+- Action cards and invitations, with the primary button on top
 - A calm band that asks for one next step
 
 **Not for**
@@ -756,19 +756,20 @@ Library · Three styles, two sizes, and loading and disabled states for each. Ic
 
 `button` · component · Stable
 
-The standard action in three styles, in one colour everywhere.
+The standard action in three styles. One button colour for the whole system: apricot-200 #F8C39C.
 
 **Use it for**
 
-- primary for the one main action in a view: Expressive Rose with white text, the same on every ground
-- secondary beside a primary for the alternative
-- text for low-emphasis actions inside copy, cards and rows: ink text on a rose underline
+- primary for the one main action in a view: apricot-200 #F8C39C with dark ink text, the same on every ground
+- secondary beside a primary for the alternative: surface with a hairline
+- text for low-emphasis actions inside copy, cards and rows: ink text on an apricot underline
 - size small only in dense areas: tables, toolbars, cards
 
 **Not for**
 
 - Two primary buttons in one view
-- Carbon, gradient or custom-coloured buttons, or pill shapes
+- Any other button colour: rose, carbon, gradients or custom fills, or pill shapes
+- White text on the apricot fill
 - A button for navigation inside running text: use a link
 
 **API** `variant: primary | secondary | text · size: default | small · loading · disabled · href · leadingIcon · trailingIcon`
@@ -779,7 +780,7 @@ The standard action in three styles, in one colour everywhere.
 
 `icon-button` · component · Stable
 
-An icon-only action that mirrors the three button styles.
+An icon-only action that mirrors the three button styles. Primary is apricot-200 with an ink icon.
 
 **Use it for**
 
@@ -1319,7 +1320,7 @@ A guide, ebook, checklist or template to take away. The cover photo dissolves in
 
 `action-card` · component · Stable
 
-The one next step: book a call, start a diagnostic. Calm: a soft gradient, a hairline edge and the rose primary button.
+The one next step: book a call, start a diagnostic. Calm: a soft gradient, a hairline edge and the primary button.
 
 **Use it for**
 

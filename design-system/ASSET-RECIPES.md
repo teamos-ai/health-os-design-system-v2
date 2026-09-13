@@ -2,7 +2,7 @@
 
 What to reach for when building each kind of asset. Each recipe names the ground, type, colour moments, components and checks. Values and props are in [REFERENCE.md](REFERENCE.md); copy and claims follow [VOICE.md](VOICE.md) and the Health OS database. Finish every asset with [CHECKLIST.md](CHECKLIST.md).
 
-**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · one gradient moment, never a saturated fill · primary buttons in rose-400 · flat surfaces with hairlines · images from the tagged library · sentence case, no em dashes, no invented numbers.
+**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · sentence case, no em dashes, no invented numbers.
 
 ## 1. Marketing page
 
@@ -41,7 +41,7 @@ Sections sit at `py-16 md:py-24` inside `max-w-container px-6`. Every third sect
 
 - 600px single column. Page ground outside, `surface` card inside with a `line` hairline and 12px corners.
 - Logo mark at 40px, top left. Headline in Spline Sans 700 at the subheading size or the heading's 36px floor; body 16px on 26px in Anonymous Pro, with `ui-monospace, Menlo, monospace` as the fallback.
-- One button: rose-400 `#E85BA8` fill, white text, 8px corners, written as a bulletproof link.
+- One button: apricot-200 `#F8C39C` fill, dark ink `#1F1F1F` text, 8px corners, written as a bulletproof link.
 - Gradients are unreliable in email clients: use a solid `rose-50` or `apricot-50` panel for the one colour moment.
 - Transactional email drops the colour moment entirely.
 

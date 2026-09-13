@@ -87,7 +87,7 @@ export const Footer = ({ className }: { className?: string }) => {
                   />
                   <button
                     type="submit"
-                    className={cn('shrink-0 rounded-md bg-white px-4 py-2 font-display text-body text-carbon transition-colors hover:bg-white/90', CARBON_FOCUS)}
+                    className={cn('shrink-0 rounded-md bg-apricot-200 px-4 py-2 font-display text-body text-ink-900 transition-colors hover:bg-apricot-200/80', CARBON_FOCUS)}
                   >
                     Join
                   </button>

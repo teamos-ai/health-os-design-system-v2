@@ -181,7 +181,7 @@ export const LiveTimer = ({ label, startSeconds = 0 }: { label: string; startSec
             type="button"
             aria-label={state === 'running' ? 'Pause' : 'Resume'}
             onClick={() => setState((v) => (v === 'running' ? 'paused' : 'running'))}
-            className="flex h-9 w-9 items-center justify-center rounded-md bg-rose-400 text-white transition-[background-color,transform] hover:bg-rose-400/90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2"
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-apricot-200 text-ink-900 transition-[background-color,transform] hover:bg-apricot-200/80 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2"
           >
             {state === 'running' ? <Pause className="h-4 w-4 fill-current" strokeWidth={0} /> : <Play className="h-4 w-4 fill-current" strokeWidth={0} />}
           </button>
