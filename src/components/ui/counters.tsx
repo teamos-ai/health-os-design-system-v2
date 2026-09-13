@@ -8,7 +8,7 @@
  * ticks on a single setInterval that is cleared on unmount.
  *
  * Tokens only: font-display figures, font-sans labels, ink delta text with a
- * success-600 (up) or apricot-400 (down) arrow. Flat bars, neutral shadows, no glass.
+ * success-600 (up) or ink-500 (down) arrow. Flat bars, neutral shadows, no glass.
  *
  * Exports: Counter · StatTrend · SeatsRemaining · TicketsSold · MembersCount · Countdown
  */
@@ -150,7 +150,7 @@ export const StatTrend = ({
             up ? 'bg-success-100 text-ink-900' : 'bg-apricot-50 text-ink-900',
           )}
         >
-          <Arrow className={cn('h-3 w-3', up ? 'text-success-600' : 'text-apricot-400')} aria-hidden />
+          <Arrow className={cn('h-3 w-3', up ? 'text-success-600' : 'text-ink-500')} aria-hidden />
           {/* direction is never colour-only — announce it for screen readers */}
           <span className="sr-only">{up ? 'up ' : 'down '}</span>
           {Math.abs(delta).toFixed(deltaDecimals)}%
@@ -176,10 +176,10 @@ export interface SeatsRemainingProps {
   className?: string;
 }
 const SEAT_FILL: Record<NonNullable<SeatsRemainingProps['accent']>, string> = {
-  rose: 'bg-rose-400',
-  apricot: 'bg-apricot-400',
-  lavender: 'bg-lavender-400',
-  gold: 'bg-apricot-400',
+  rose: 'bg-rose-200',
+  apricot: 'bg-apricot-200',
+  lavender: 'bg-lavender-200',
+  gold: 'bg-apricot-200',
 };
 export const SeatsRemaining = ({
   taken,

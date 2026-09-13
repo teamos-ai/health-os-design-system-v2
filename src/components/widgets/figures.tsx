@@ -10,14 +10,9 @@ import { EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Figure, Grow, SweepRing, useSeen } from './motion';
 
-export type WidgetAccent = 'apricot' | 'rose' | 'lavender';
+import { TILE, SWEEP, SWEEP_BAR, LIGHT, SOFT, type WidgetAccent } from './tones';
 
-/** Tiles run from full strength into the light shade, with dark ink figures on top. */
-const TILE: Record<WidgetAccent, string> = {
-  apricot: `linear-gradient(150deg, ${APRICOT[400]} 0%, ${APRICOT[200]} 100%)`,
-  rose: `linear-gradient(150deg, ${ROSE[400]} 0%, ${ROSE[200]} 100%)`,
-  lavender: `linear-gradient(150deg, ${LAVENDER[400]} 0%, ${LAVENDER[200]} 100%)`,
-};
+export type { WidgetAccent } from './tones';
 
 /* ── 01 · Aura stat tiles ─────────────────────────────────────────────── */
 export interface StatTileItem {
@@ -53,7 +48,7 @@ export const AuraStatTiles = ({ items }: { items: StatTileItem[] }) => (
 /* ── 02 · Gradient ring ───────────────────────────────────────────────── */
 export const GradientRing = ({ value, unit, caption }: { value: number; unit: string; caption: React.ReactNode }) => (
   <div className="flex flex-col items-center gap-4">
-    <SweepRing pct={value} size={132} thickness={13} stops={[APRICOT[400], ROSE[400], LAVENDER[400]]}>
+    <SweepRing pct={value} size={132} thickness={13} stops={[...SWEEP]}>
       <Figure value={value} suffix="%" className="font-display text-subheading text-ink-900" />
       <span className="font-sans text-label uppercase text-ink-500">{unit}</span>
     </SweepRing>
@@ -72,7 +67,7 @@ export const CapacityMeter = ({ used, total, unit, note }: { used: number; total
       <span className="font-sans text-label uppercase text-ink-500">{unit}</span>
     </div>
     <div className="h-3 overflow-hidden rounded-md bg-ink-100">
-      <Grow pct={(used / total) * 100} className="rounded-md bg-brand-gradient" />
+      <Grow pct={(used / total) * 100} className="rounded-md" style={{ backgroundImage: SWEEP_BAR }} />
     </div>
     <div className="flex items-baseline justify-between font-sans text-label uppercase">
       <span className="text-ink-900">{total - used} open</span>
@@ -104,12 +99,12 @@ export const TrendCard = ({ label, value, suffix = '', delta, points }: { label:
       <svg ref={ref} viewBox="0 0 300 78" preserveAspectRatio="none" className="h-20 w-full overflow-visible" aria-hidden>
         <defs>
           <linearGradient id="trend-fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor={ROSE[400]} stopOpacity=".28" />
-            <stop offset="1" stopColor={ROSE[400]} stopOpacity="0" />
+            <stop offset="0" stopColor={ROSE[200]} stopOpacity=".55" />
+            <stop offset="1" stopColor={ROSE[200]} stopOpacity="0" />
           </linearGradient>
           <linearGradient id="trend-line" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor={APRICOT[400]} />
-            <stop offset="1" stopColor={LAVENDER[400]} />
+            <stop offset="0" stopColor={APRICOT[200]} />
+            <stop offset="1" stopColor={LAVENDER[200]} />
           </linearGradient>
         </defs>
         <motion.path
@@ -123,7 +118,7 @@ export const TrendCard = ({ label, value, suffix = '', delta, points }: { label:
           d={line}
           fill="none"
           stroke="url(#trend-line)"
-          strokeWidth={2.5}
+          strokeWidth={3}
           strokeLinecap="round"
           strokeLinejoin="round"
           initial={reduced ? false : { pathLength: 0 }}
@@ -134,7 +129,7 @@ export const TrendCard = ({ label, value, suffix = '', delta, points }: { label:
           cx={peak[0]}
           cy={peak[1]}
           r={4}
-          fill={ROSE[400]}
+          fill={ROSE[200]}
           stroke="#FFFFFF"
           strokeWidth={2}
           initial={reduced ? false : { scale: 0 }}
@@ -210,9 +205,9 @@ export const LiveTimer = ({ label, startSeconds = 0 }: { label: string; startSec
 /* ── 06 · Tracking cluster ────────────────────────────────────────────── */
 export const TrackingCluster = ({ items }: { items: { label: string; value: number; accent: WidgetAccent }[] }) => {
   const pairs: Record<WidgetAccent, string[]> = {
-    apricot: [APRICOT[400], ROSE[400]],
-    rose: [ROSE[400], LAVENDER[400]],
-    lavender: [LAVENDER[200], LAVENDER[400]],
+    apricot: [APRICOT[200], ROSE[200]],
+    rose: [ROSE[200], LAVENDER[200]],
+    lavender: [LAVENDER[200], ROSE[200]],
   };
   return (
     <div className="flex w-full flex-wrap justify-around gap-4">
@@ -243,19 +238,19 @@ export const BarCluster = ({
     <div className="flex w-full flex-col gap-4">
       <div className="flex gap-4 font-sans text-label text-ink-600">
         <span className="inline-flex items-center gap-2">
-          <i className="h-2 w-2 rounded-full" style={{ background: ROSE[400] }} />
+          <i className="h-2 w-2 rounded-full" style={{ background: LIGHT.rose }} />
           {currentLabel}
         </span>
         <span className="inline-flex items-center gap-2">
-          <i className="h-2 w-2 rounded-full" style={{ background: APRICOT[400] }} />
+          <i className="h-2 w-2 rounded-full" style={{ background: LIGHT.apricot }} />
           {previousLabel}
         </span>
       </div>
       <div className="flex h-32 items-end gap-2">
         {series.map((s, i) => (
           <div key={s.label} className="flex h-full flex-1 items-end gap-1" title={`${s.label}: ${s.current} vs ${s.previous}`}>
-            <Grow axis="y" pct={(s.current / max) * 100} delay={i * 0.05} className="rounded-t-md" style={{ background: `linear-gradient(180deg, ${ROSE[400]}, ${ROSE[200]})` }} />
-            <Grow axis="y" pct={(s.previous / max) * 100} delay={i * 0.05 + 0.04} className="rounded-t-md" style={{ background: `linear-gradient(180deg, ${APRICOT[50]}, ${APRICOT[400]})` }} />
+            <Grow axis="y" pct={(s.current / max) * 100} delay={i * 0.05} className="rounded-t-md" style={{ background: `linear-gradient(180deg, ${LIGHT.rose}, ${SOFT.rose})` }} />
+            <Grow axis="y" pct={(s.previous / max) * 100} delay={i * 0.05 + 0.04} className="rounded-t-md" style={{ background: `linear-gradient(180deg, ${SOFT.apricot}, ${LIGHT.apricot})` }} />
           </div>
         ))}
       </div>
@@ -290,7 +285,7 @@ export const AuraCountdown = ({ target }: { target: Date }) => {
       {units.map((x, i) => (
         <React.Fragment key={x.u}>
           {i > 0 && (
-            <span aria-hidden className="self-center font-display text-subheading text-ink-400">
+            <span aria-hidden className="self-center font-display text-subheading text-ink-200">
               :
             </span>
           )}

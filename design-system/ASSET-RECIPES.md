@@ -2,7 +2,7 @@
 
 What to reach for when building each kind of asset. Each recipe names the ground, type, colour moments, components and checks. Values and props are in [REFERENCE.md](REFERENCE.md); copy and claims follow [VOICE.md](VOICE.md) and the Health OS database. Finish every asset with [CHECKLIST.md](CHECKLIST.md).
 
-**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 200 and 400, text in ink · one gradient moment, never a saturated fill · primary buttons in rose-400 · flat surfaces with hairlines · images from the tagged library · sentence case, no em dashes, no invented numbers.
+**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · one gradient moment, never a saturated fill · primary buttons in rose-400 · flat surfaces with hairlines · images from the tagged library · sentence case, no em dashes, no invented numbers.
 
 ## 1. Marketing page
 
@@ -65,7 +65,7 @@ The reference site's social templates are the starting point.
 - 16:9 on the paper ground. Title slides may use `HeroGlow`'s soft wash at the top; content slides stay clean.
 - Slide titles use the heading role at its largest size. Slides are the one place body text runs larger than 16px: size it for the room and keep it Anonymous Pro 400. Labels stay uppercase Anonymous Pro 700.
 - One idea per slide, at most three supporting points, 96px outer margins, hairline dividers.
-- Charts use the widget styles: 400 shades as data colours, labels in ink-500.
+- Charts use the widget styles: 200 shades as data colours on ink-100 tracks, labels in ink-500.
 
 ## 7. Document: proposal, report or one-pager
 
@@ -77,7 +77,7 @@ The reference site's social templates are the starting point.
 ## 8. Product screen or dashboard
 
 - `bg-paper` page, `surface` cards with `border-line rounded-lg`, `surface-2` wells and table headers.
-- Build from widgets first: pick by their "Use it for" line and wire their documented inputs to real data.
+- Build from widgets first: pick by their "Use it for" line and wire their documented inputs to real data. Their colours stay in the light and soft shades.
 - Controls from Elements: `Input`, `Select`, `Checkbox`, `Switch`, `Segmented`, `Tabs`, `Table`, `Pagination`.
 - Status uses the 100 tint with ink text and a 600 icon or dot. Numbers use tabular figures.
 - Design the empty, loading (`Skeleton`) and error (`Alert`) states for every view.

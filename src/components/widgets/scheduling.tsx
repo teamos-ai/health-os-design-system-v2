@@ -67,11 +67,11 @@ export const MiniCalendar = ({
               aria-label={`${d} ${monthLabel}${booked.includes(d) ? ', has bookings' : ''}${isToday ? ', today' : ''}`}
               className={cn(
                 'relative flex aspect-square items-center justify-center rounded-md font-sans text-body transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400',
-                isToday ? 'bg-rose-400 text-white' : isSel ? 'bg-rose-50 text-ink-900 ring-1 ring-inset ring-rose-200' : 'text-ink-900 hover:bg-ink-100'
+                isToday ? 'bg-rose-200 text-ink-900' : isSel ? 'bg-rose-50 text-ink-900 ring-1 ring-inset ring-rose-200' : 'text-ink-900 hover:bg-ink-100'
               )}
             >
               {d}
-              {booked.includes(d) && !isToday && <span aria-hidden className="absolute bottom-1 h-1 w-1 rounded-full bg-rose-400" />}
+              {booked.includes(d) && !isToday && <span aria-hidden className="absolute bottom-1 h-1 w-1 rounded-full bg-lavender-200" />}
             </motion.button>
           );
         })}
@@ -115,7 +115,7 @@ export const SlotPicker = ({
                 s.taken
                   ? 'cursor-not-allowed border-transparent bg-ink-100 text-ink-400 line-through'
                   : isSel
-                    ? 'border-transparent bg-rose-400 text-white'
+                    ? 'border-transparent bg-rose-200 text-ink-900'
                     : 'border-line text-ink-900 hover:border-ink-400'
               )}
             >
@@ -138,8 +138,8 @@ export const OnboardingStepper = ({ steps }: { steps: { title: string; status: S
         <span
           className={cn(
             'relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-sans text-label',
-            s.status === 'done' && 'bg-rose-400 text-white',
-            s.status === 'current' && 'border-2 border-lavender-400 bg-surface text-ink-900',
+            s.status === 'done' && 'bg-rose-200 text-ink-900',
+            s.status === 'current' && 'border-2 border-lavender-200 bg-surface text-ink-900',
             s.status === 'next' && 'bg-ink-100 text-ink-500'
           )}
         >
@@ -184,7 +184,7 @@ export const PlanCard = ({
     <ul className="flex flex-col gap-3 p-5">
       {features.map((f, i) => (
         <motion.li key={f} className="flex items-center gap-3 font-sans text-body text-ink-900" {...pop(i, 0.1)}>
-          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-rose-400 text-white">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-rose-50 text-ink-900 ring-1 ring-inset ring-rose-200">
             <Check className="h-3 w-3" strokeWidth={3} aria-hidden />
           </span>
           {f}
@@ -232,7 +232,7 @@ export const ToggleSettings = ({
               }}
               className={cn(
                 'relative h-6 w-11 shrink-0 rounded-full transition-colors duration-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2',
-                on ? 'bg-brand-gradient' : 'bg-ink-200'
+                on ? 'bg-rose-200' : 'bg-ink-200'
               )}
             >
               <motion.span

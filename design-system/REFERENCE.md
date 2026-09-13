@@ -62,19 +62,19 @@ Light is the default. Paper is `.theme-paper` on `<html>`. Grounds are RGB chann
 
 ### Colour
 
-Every colour stops at its full strength and has two lighter shades. There are no darker shades: text stays in the ink neutrals, and colour comes from fills, marks, icons and borders.
+Every colour stops at its full strength and has two lighter shades. There are no darker shades. Widgets and cards use only the two lighter shades, full strength is kept for primary buttons, checked controls and focus rings, and text stays in the ink neutrals.
 
 | Token | Hex | CSS variable | Role |
 | --- | --- | --- | --- |
 | `rose-50` | #FADEEE | `--hos-rose-50` | Soft. Tinted fills: badges, selected rows, quiet panels. |
-| `rose-200` | #F3A0CC | `--hos-rose-200` | Light. Borders on tinted fills, selected outlines, chart tracks, text selection. |
-| `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Primary buttons, checked controls, focus rings, gradient stops, icons and chart fills. Not for text. |
+| `rose-200` | #F3A0CC | `--hos-rose-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons, selected states and borders on tinted fills. |
+| `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Primary buttons, checked form controls, focus rings and gradient stops. Not for text, widgets or card colour. |
 | `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Warm tinted fills. |
-| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. Borders on warm fills, chart tracks, secondary data. |
-| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. Gradient stop, warm icons, marks and chart fills. Not for text. |
+| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons and borders on warm fills. |
+| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. Gradient stop only. Not for text, widgets or card colour. |
 | `lavender-50` | #EDE1F7 | `--hos-lavender-50` | Soft. Cool tinted fills. |
-| `lavender-200` | #C9A3E6 | `--hos-lavender-200` | Light. Borders on cool fills, chart tracks, secondary data. |
-| `lavender-400` | #A668D9 | `--hos-lavender-400` | Full strength. Gradient stop, cool icons, marks and chart fills. Not for text. |
+| `lavender-200` | #C9A3E6 | `--hos-lavender-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons and borders on cool fills. |
+| `lavender-400` | #A668D9 | `--hos-lavender-400` | Full strength. Gradient stop only. Not for text, widgets or card colour. |
 | `ink-100` | #F2EFEB | `--hos-ink-100` | Quiet fills and hover backgrounds. |
 | `ink-200` | #E3DDD6 | `--hos-ink-200` | Stronger dividers and pressed fills. |
 | `ink-400` | #A39B91 | `--hos-ink-400` | Placeholder text, disabled text, hover borders, muted icons. |
@@ -185,21 +185,21 @@ Health OS motion is its own: calm, flowing and on by default. Durations and easi
 
 `colour-brand` · token · Stable
 
-Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at its full strength (400) and has two lighter shades (200, 50), so colour always reads as a variation of calm.
+Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strength (400) with two lighter shades (200, 50). Widgets and cards use only the lighter two, so colour always reads soft and calm.
 
 **Use it for**
 
-- 400 for primary buttons, checked controls, focus rings, icons, gradient stops and chart fills
-- 200 for borders on tinted fills, selected outlines and chart tracks
-- 50 for tinted fills: badges, selected rows and quiet panels
+- 200 for widgets and cards: bars, rings, tiles, chart data, icons, selected states and borders on tints
+- 50 for tinted fills: badges, selected rows, tile ends and quiet panels
+- 400 only for primary buttons, checked form controls, focus rings and gradient stops
 
 **Not for**
 
-- Coloured text: text stays in the ink neutrals, colour comes from fills, marks and borders
+- Full-strength colour inside a widget or card, apart from its primary button
+- Coloured text: text stays in the ink neutrals
 - Any shade darker than 400, or shades outside 50, 200 and 400
-- All three colours at equal weight in one small component
 
-**API** `Tailwind: bg-rose-400 · bg-rose-50 · ring-rose-200 · text-apricot-400 (icons) · from-lavender-400 … CSS: var(--hos-rose-400)`
+**API** `Tailwind: bg-rose-200 · bg-rose-50 · ring-rose-200 · text-lavender-200 (icons) · bg-rose-400 (primary button) … Widgets: LIGHT, SOFT, TILE, BAR, SWEEP (src/components/widgets/tones.ts)`
 
 **Source** `design-system/tokens/tokens.json → color.rose, color.apricot, color.lavender`
 
@@ -1481,7 +1481,7 @@ Library · A full, functional widget library. Each widget takes real data, anima
 
 `widget-01` · widget · Stable
 
-The three numbers that matter most, on saturated tiles.
+The three numbers that matter most, on soft tiles.
 
 **Use it for**
 

@@ -56,7 +56,7 @@ export const RatingSummary = ({ average, count, distribution }: { average: numbe
               animate={seen ? { opacity: 1, scale: 1 } : undefined}
               transition={{ duration: 0.3, delay: 0.3 + i * 0.08, ease: EASE_OUT }}
             >
-              <Star className="h-4 w-4" fill={i < Math.round(average) ? APRICOT[400] : 'none'} stroke={APRICOT[400]} strokeWidth={1.5} aria-hidden />
+              <Star className="h-4 w-4" fill={i < Math.round(average) ? APRICOT[200] : 'none'} stroke={APRICOT[200]} strokeWidth={1.5} aria-hidden />
             </motion.span>
           ))}
         </span>
@@ -67,7 +67,7 @@ export const RatingSummary = ({ average, count, distribution }: { average: numbe
           <li key={i} className="flex items-center gap-2 font-sans text-label text-ink-500">
             <span className="w-2">{5 - i}</span>
             <span className="h-2 flex-1 overflow-hidden rounded-md bg-ink-100">
-              <Grow pct={(n / total) * 100} delay={i * 0.08} className="rounded-md bg-apricot-400" />
+              <Grow pct={(n / total) * 100} delay={i * 0.08} className="rounded-md bg-apricot-200" />
             </span>
           </li>
         ))}
@@ -91,7 +91,7 @@ export const AssistantMessage = ({ name, message }: { name: string; message: str
       <span
         aria-hidden
         className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md"
-        style={{ backgroundImage: `linear-gradient(140deg, ${LAVENDER[400]}, ${LAVENDER[200]})` }}
+        style={{ backgroundImage: `linear-gradient(140deg, ${LAVENDER[200]}, ${LAVENDER[50]})` }}
       >
         <span className="widget-bloom" />
       </span>
@@ -104,7 +104,7 @@ export const AssistantMessage = ({ name, message }: { name: string; message: str
                 <motion.i
                   key={i}
                   className="h-2 w-2 rounded-full"
-                  style={{ background: LAVENDER[400] }}
+                  style={{ background: LAVENDER[200] }}
                   animate={{ opacity: [0.3, 1, 0.3] }}
                   transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
                 />
@@ -163,7 +163,7 @@ export const CheckIn = ({
               transition={{ duration: 0.36, delay: i * 0.08, ease: EASE_OUT }}
               whileTap={{ scale: 0.96 }}
             >
-              <svg viewBox="0 0 48 48" className={cn('h-11 w-11 rounded-md transition-shadow duration-sm', on && 'ring-2 ring-lavender-400 ring-offset-2 ring-offset-surface')} aria-hidden>
+              <svg viewBox="0 0 48 48" className={cn('h-11 w-11 rounded-md transition-shadow duration-sm', on && 'ring-2 ring-lavender-200 ring-offset-2 ring-offset-surface')} aria-hidden>
                 <rect width="48" height="48" rx="10" fill={FACE_FILL[i % FACE_FILL.length]} />
                 <circle cx="18" cy="21" r="2" fill="#1F1F1F" />
                 <circle cx="30" cy="21" r="2" fill="#1F1F1F" />

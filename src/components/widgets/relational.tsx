@@ -6,20 +6,15 @@ import { APRICOT, ROSE, LAVENDER, INK } from '@/lib/palette';
 import { EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Figure, Grow, useSeen } from './motion';
-import type { WidgetAccent } from './figures';
+import { LIGHT, SOFT, BAR, SWEEP_BAR, type WidgetAccent } from './tones';
 
 const AVATAR: Record<WidgetAccent | 'ink', string> = {
-  apricot: `linear-gradient(140deg, ${APRICOT[400]}, ${APRICOT[200]})`,
-  rose: `linear-gradient(140deg, ${ROSE[400]}, ${ROSE[200]})`,
-  lavender: `linear-gradient(140deg, ${LAVENDER[400]}, ${LAVENDER[200]})`,
+  apricot: `linear-gradient(140deg, ${APRICOT[200]}, ${APRICOT[50]})`,
+  rose: `linear-gradient(140deg, ${ROSE[200]}, ${ROSE[50]})`,
+  lavender: `linear-gradient(140deg, ${LAVENDER[200]}, ${LAVENDER[50]})`,
   ink: `linear-gradient(140deg, ${INK[200]}, ${INK[100]})`,
 };
-const BAR: Record<WidgetAccent, string> = {
-  apricot: `linear-gradient(90deg, ${APRICOT[50]}, ${APRICOT[400]})`,
-  rose: `linear-gradient(90deg, ${ROSE[50]}, ${ROSE[400]})`,
-  lavender: `linear-gradient(90deg, ${LAVENDER[50]}, ${LAVENDER[400]})`,
-};
-const SOLID: Record<WidgetAccent, string> = { apricot: APRICOT[400], rose: ROSE[400], lavender: LAVENDER[400] };
+const SOLID = LIGHT;
 
 export const Avatar = ({ initials, accent = 'rose', className }: { initials: string; accent?: WidgetAccent | 'ink'; className?: string }) => (
   <span
@@ -100,9 +95,9 @@ export const ScoreGauge = ({ value, max = 100, unit }: { value: number; max?: nu
       <svg ref={ref} viewBox="0 0 200 108" className="block w-full overflow-visible" role="img" aria-label={`${value} of ${max}`}>
         <defs>
           <linearGradient id="gauge-grad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor={APRICOT[400]} />
-            <stop offset="0.5" stopColor={ROSE[400]} />
-            <stop offset="1" stopColor={LAVENDER[400]} />
+            <stop offset="0" stopColor={APRICOT[200]} />
+            <stop offset="0.5" stopColor={ROSE[200]} />
+            <stop offset="1" stopColor={LAVENDER[200]} />
           </linearGradient>
         </defs>
         <path d="M16 100 A84 84 0 0 1 184 100" fill="none" stroke={INK[100]} strokeWidth={14} strokeLinecap="round" />
@@ -158,7 +153,7 @@ export const BreakdownBar = ({ segments }: { segments: { label: string; value: n
 };
 
 /* ── 13 · Activity heatmap ────────────────────────────────────────────── */
-const HEAT = [INK[100], ROSE[50], `${ROSE[400]}66`, `${ROSE[400]}B3`, ROSE[400]];
+const HEAT = [INK[100], ROSE[50], `${ROSE[200]}99`, ROSE[200], LAVENDER[200]];
 export const ActivityHeatmap = ({ weeks, caption }: { weeks: number[][]; caption: string }) => {
   const { ref, seen, reduced } = useSeen<HTMLDivElement>(0.3);
   const cells = weeks.flat();
@@ -209,7 +204,7 @@ export const RevenueCard = ({
           <span className="font-sans text-label text-ink-500">collected of ${billed.toLocaleString('en-AU')} billed</span>
         </div>
         <div className="mt-3 h-2 overflow-hidden rounded-md bg-ink-100">
-          <Grow pct={(collected / billed) * 100} className="rounded-md bg-brand-gradient" />
+          <Grow pct={(collected / billed) * 100} className="rounded-md" style={{ backgroundImage: SWEEP_BAR }} />
         </div>
       </div>
       <ul className="flex flex-col gap-3">
@@ -286,7 +281,6 @@ export const ConversionFunnel = ({ stages }: { stages: { label: string; value: n
   );
 };
 
-const LIGHT: Record<WidgetAccent, string> = { apricot: APRICOT[200], rose: ROSE[200], lavender: LAVENDER[200] };
 
 const FunnelBar = ({ pct, accent, delay, children }: { pct: number; accent: WidgetAccent; delay: number; children: React.ReactNode }) => {
   const { ref, seen, reduced } = useSeen<HTMLDivElement>(0.4);
@@ -295,7 +289,7 @@ const FunnelBar = ({ pct, accent, delay, children }: { pct: number; accent: Widg
       <motion.span
         aria-hidden
         className="absolute inset-0 rounded-md shadow-sm"
-        style={{ backgroundImage: `linear-gradient(150deg, ${SOLID[accent]}, ${LIGHT[accent]})` }}
+        style={{ backgroundImage: `linear-gradient(150deg, ${LIGHT[accent]}, ${SOFT[accent]})` }}
         initial={reduced ? false : { scaleX: 0.15, opacity: 0 }}
         animate={seen ? { scaleX: 1, opacity: 1 } : undefined}
         transition={{ duration: 0.8, delay, ease: EASE_OUT }}

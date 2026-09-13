@@ -1,13 +1,14 @@
 /**
- * Accent map. The three brand colours plus a calm neutral, each expressed with the
- * three shades only (50 soft, 200 light, 400 full strength), so tonal surfaces never drift.
+ * Accent map for cards and tiles. The three brand colours plus a calm neutral, in the
+ * lighter shades only (50 soft, 200 light), so cards never read loud. Full strength (400)
+ * is kept for primary buttons, checked controls and focus rings, not for card colour.
  */
 export type Accent = 'rose' | 'apricot' | 'lavender' | 'ink';
 
 export interface AccentStyle {
-  /** soft tonal well for an icon: tint background + full-strength icon colour */
+  /** soft tonal well for an icon: tint background + light icon colour */
   well: string;
-  /** icon and mark colour at full strength. Not for text: text stays in ink */
+  /** icon and mark colour in the light shade. Not for text: text stays in ink */
   icon: string;
   /** solid dot or marker */
   dot: string;
@@ -18,8 +19,8 @@ export interface AccentStyle {
 }
 
 export const ACCENTS: Record<Accent, AccentStyle> = {
-  rose: { well: 'bg-rose-50 text-rose-400', icon: 'text-rose-400', dot: 'bg-rose-400', badge: 'rose', wash: 'bg-rose-50' },
-  apricot: { well: 'bg-apricot-50 text-apricot-400', icon: 'text-apricot-400', dot: 'bg-apricot-400', badge: 'apricot', wash: 'bg-apricot-50' },
-  lavender: { well: 'bg-lavender-50 text-lavender-400', icon: 'text-lavender-400', dot: 'bg-lavender-400', badge: 'lavender', wash: 'bg-lavender-50' },
+  rose: { well: 'bg-rose-50 text-rose-200', icon: 'text-rose-200', dot: 'bg-rose-200', badge: 'rose', wash: 'bg-rose-50' },
+  apricot: { well: 'bg-apricot-50 text-apricot-200', icon: 'text-apricot-200', dot: 'bg-apricot-200', badge: 'apricot', wash: 'bg-apricot-50' },
+  lavender: { well: 'bg-lavender-50 text-lavender-200', icon: 'text-lavender-200', dot: 'bg-lavender-200', badge: 'lavender', wash: 'bg-lavender-50' },
   ink: { well: 'bg-ink-100 text-ink-900', icon: 'text-ink-900', dot: 'bg-ink-400', badge: 'neutral', wash: 'bg-ink-100' },
 };

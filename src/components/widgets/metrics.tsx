@@ -6,20 +6,15 @@ import { CheckCircle2, TrendingDown, TrendingUp } from 'lucide-react';
 import { APRICOT, ROSE, LAVENDER, INK } from '@/lib/palette';
 import { EASE_OUT } from '@/lib/motion';
 import { Figure, Grow, SweepRing, useSeen } from './motion';
-import type { WidgetAccent } from './figures';
+import { LIGHT, BAR, SWEEP_BAR, TRACK, type WidgetAccent } from './tones';
 
-const SOLID: Record<WidgetAccent | 'ink', string> = { apricot: APRICOT[400], rose: ROSE[400], lavender: LAVENDER[400], ink: INK[200] };
-const BAR: Record<WidgetAccent, string> = {
-  apricot: `linear-gradient(90deg, ${APRICOT[50]}, ${APRICOT[400]})`,
-  rose: `linear-gradient(90deg, ${ROSE[50]}, ${ROSE[400]})`,
-  lavender: `linear-gradient(90deg, ${LAVENDER[50]}, ${LAVENDER[400]})`,
-};
+const SOLID: Record<WidgetAccent | 'ink', string> = { ...LIGHT, ink: INK[200] };
 
 const Delta = ({ value, unit = '%', period }: { value: number; unit?: string; period?: string }) => {
   const up = value >= 0;
   return (
     <span className="inline-flex items-center gap-1 font-sans text-label text-ink-900">
-      {up ? <TrendingUp className="h-3 w-3 text-success-600" aria-hidden /> : <TrendingDown className="h-3 w-3 text-apricot-400" aria-hidden />}
+      {up ? <TrendingUp className="h-3 w-3 text-success-600" aria-hidden /> : <TrendingDown className="h-3 w-3 text-ink-500" aria-hidden />}
       {up ? '+' : ''}
       {value}
       {unit}
@@ -46,7 +41,7 @@ export const MetricStrip = ({ items, period }: { items: MetricItem[]; period: st
         <span className="mt-1 block">
           <Delta value={m.delta} period={period} />
         </span>
-        <Grow pct={100} delay={0.1 + i * 0.08} className="absolute inset-x-0 bottom-0 h-1 bg-brand-gradient" />
+        <Grow pct={100} delay={0.1 + i * 0.08} className="absolute inset-x-0 bottom-0 h-1" style={{ backgroundImage: SWEEP_BAR }} />
       </div>
     ))}
   </div>
@@ -128,7 +123,7 @@ export const ProgressRows = ({ rows }: { rows: { label: string; value: number; a
 );
 
 /* ── 20 · Ticked gauge ────────────────────────────────────────────────── */
-const TICK_COLOURS = [APRICOT[400], APRICOT[400], APRICOT[400], ROSE[400], ROSE[400], ROSE[400], ROSE[400], LAVENDER[400], LAVENDER[400], LAVENDER[400], LAVENDER[400], LAVENDER[400], LAVENDER[400]];
+const TICK_COLOURS = [APRICOT[200], APRICOT[200], APRICOT[200], ROSE[200], ROSE[200], ROSE[200], ROSE[200], LAVENDER[200], LAVENDER[200], LAVENDER[200], LAVENDER[200], LAVENDER[200], LAVENDER[200]];
 export const TickedGauge = ({ value, unit }: { value: number; unit: string }) => {
   const { ref, seen, reduced } = useSeen<SVGSVGElement>(0.4);
   const count = TICK_COLOURS.length;
@@ -152,7 +147,7 @@ export const TickedGauge = ({ value, unit }: { value: number; unit: string }) =>
               y2={y2}
               strokeWidth={4}
               strokeLinecap="round"
-              stroke={on ? c : INK[200]}
+              stroke={on ? c : TRACK}
               initial={reduced ? false : { opacity: 0.25 }}
               animate={seen ? { opacity: 1 } : undefined}
               transition={{ duration: 0.2, delay: on ? i * 0.07 : 0 }}
@@ -194,7 +189,7 @@ export const GoalProgress = ({
       <span className="text-ink-500"> / ${target.toLocaleString('en-AU')}</span>
     </p>
     <div className="h-3 overflow-hidden rounded-md bg-ink-100">
-      <Grow pct={(current / target) * 100} className="rounded-md bg-brand-gradient" />
+      <Grow pct={(current / target) * 100} className="rounded-md" style={{ backgroundImage: SWEEP_BAR }} />
     </div>
     <div className="flex justify-between font-sans text-label text-ink-500">
       <span>$0</span>

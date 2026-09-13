@@ -29,7 +29,7 @@ export const PricingCard = ({ name, price, cadence, fee, description, features, 
   <article
     className={cn(
       'flex h-full flex-col overflow-hidden rounded-lg border bg-surface transition-shadow duration-md ease-out',
-      featured ? 'border-rose-400/60 shadow-md' : 'border-line hover:shadow-sm',
+      featured ? 'border-rose-200 shadow-sm' : 'border-line hover:shadow-sm',
       className
     )}
   >
@@ -54,7 +54,7 @@ export const PricingCard = ({ name, price, cadence, fee, description, features, 
       <ul className="flex flex-col gap-3">
         {features.map((f) => (
           <li key={f} className="flex items-start gap-3 font-sans text-body text-ink-900">
-            <span className={cn('mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full', featured ? 'bg-rose-400 text-white' : 'bg-ink-100 text-ink-900')}>
+            <span className={cn('mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full', featured ? 'bg-rose-50 text-ink-900 ring-1 ring-inset ring-rose-200' : 'bg-ink-100 text-ink-900')}>
               <Check className="h-3 w-3" strokeWidth={2.5} aria-hidden />
             </span>
             {f}

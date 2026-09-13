@@ -22,9 +22,9 @@ const SIDEBAR = [
 ];
 
 const TODAY = [
-  { time: '9:00', name: 'Initial consult, Maya R.', tone: 'bg-rose-400' },
-  { time: '11:30', name: 'Follow-up, James P.', tone: 'bg-lavender-400' },
-  { time: '2:15', name: 'Program review, Sana K.', tone: 'bg-apricot-400' },
+  { time: '9:00', name: 'Initial consult, Maya R.', tone: 'bg-rose-200' },
+  { time: '11:30', name: 'Follow-up, James P.', tone: 'bg-lavender-200' },
+  { time: '2:15', name: 'Program review, Sana K.', tone: 'bg-apricot-200' },
 ];
 
 const BARS = [38, 52, 44, 61, 70, 58, 76];
@@ -71,7 +71,7 @@ export const DashboardPreview = ({ className }: { className?: string }) => (
         <div className="mt-auto rounded-lg border border-line bg-surface p-4">
           <p className="font-sans text-label text-ink-500">Setup progress</p>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-ink-100">
-            <div className="h-full w-[72%] rounded-full bg-brand-gradient" />
+            <div className="h-full w-[72%] rounded-full bg-rose-200" />
           </div>
         </div>
       </aside>
