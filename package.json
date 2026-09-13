@@ -3,12 +3,14 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "description": "The Health OS Design System — a calm, warm, fully tokenised living showcase in the locked Health OS warm-ivory + carbon + rose palette (React + Vite + TS + Tailwind v3 + Framer Motion).",
+  "description": "The Health OS design system: one token file, two themes, three brand colours, six card types and a full widget library, documented for AI agents and people (React + Vite + TypeScript + Tailwind + Framer Motion).",
   "scripts": {
     "dev": "vite --port 5183 --strictPort",
-    "build": "tsc --noEmit && vite build",
+    "tokens": "node scripts/tokens.mjs",
+    "docs": "node scripts/docs.mjs",
+    "check": "node scripts/tokens.mjs --check && node scripts/docs.mjs --check && node scripts/lint-tokens.mjs",
+    "build": "npm run check && tsc --noEmit && vite build",
     "preview": "vite preview --port 5183 --strictPort",
-    "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

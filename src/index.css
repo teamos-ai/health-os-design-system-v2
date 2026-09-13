@@ -5,39 +5,43 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    color-scheme: light;
-  }
-
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-paper text-ink-900 font-sans antialiased;
+    @apply bg-paper font-sans text-body text-ink-900 antialiased;
     font-feature-settings: 'kern';
     text-rendering: optimizeLegibility;
   }
 
-  /* Headings always Spline Sans, sentence case is enforced in copy (never via CSS) */
-  h1, h2, h3, h4, h5, h6 {
+  /* Headings are always Spline Sans. Sentence case lives in the copy, never in CSS. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display text-ink-900;
+    text-wrap: balance;
   }
 
-  /* Selection — rose wash with theme-aware text (rose-700 vanishes on the dark ground) */
+  p {
+    text-wrap: pretty;
+  }
+
   ::selection {
-    @apply bg-brand-400/[0.18] text-brand-700 dark:bg-brand-400/[0.28] dark:text-brand-100;
+    @apply bg-rose-50 text-rose-700;
   }
 
-  /* Focus visibility — links and non-component interactives get a branded ring.
-     Components (button / input / chip / command-bar) set their own ring + outline-none. */
+  /* Links and non-component interactives get the rose focus ring. Components set their own. */
   a:focus-visible,
   [tabindex]:focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-brand-600;
+    @apply outline outline-2 outline-offset-2 outline-rose-700;
   }
 
-  /* Honour reduced motion globally: kill marquee/ticker + soften transitions */
+  /* Reduced motion: loops stop, transitions snap. Components also read useReducedMotion(). */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -47,53 +51,44 @@
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
-
-    /* Belt-and-braces: the CelebrationButton burst is JS-guarded (useReducedMotion),
-       but this hard-stops the particle layer entirely should any future variant
-       ever bypass that guard. */
-    .btn-celebrate-particle {
-      display: none !important;
-    }
   }
 }
 
 @layer components {
-  /* Gradient text — apricot → rose → lavender, used with restraint */
-  .text-gradient {
-    @apply bg-brand-gradient bg-clip-text text-transparent;
-  }
-
-  /* Signature moment — the one gradient word sweeps its gradient into place on entrance.
-     A single 480ms pass (the reveal ceiling), never a loop; the brand gradient is the
-     device, so revealing it is on-brand delight. The global reduced-motion guard snaps
-     it to the resting gradient. Pair with a FadeIn wrapper for the fade + rise. */
-  .text-gradient-sweep {
-    @apply bg-brand-gradient bg-clip-text text-transparent;
-    background-size: 220% 100%;
-    background-position: 100% 50%;
-    animation: hos-gradient-sweep 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  @keyframes hos-gradient-sweep {
-    from { background-position: 100% 50%; }
-    to { background-position: 0% 50%; }
-  }
-
-  /* Mono label / overline — the command-UI texture */
+  /* Eyebrow label: short uppercase context above a heading. Use sparingly. */
   .mono-label {
-    @apply font-mono text-overline uppercase text-ink-500;
+    @apply font-sans text-label uppercase text-ink-500;
   }
 
-  /* Hairline card — flat, 1px line, soft neutral hover lift (zero glass) */
-  .card-hairline {
-    @apply rounded-lg border border-line bg-surface transition-all duration-md ease-out;
+  /* Highlight: the signature gradient sits BEHIND one headline word at a soft strength
+     (a veil of the page ground over it), so the text itself stays solid. It sweeps in once
+     on entrance; reduced motion shows it at rest. Use on one word or short phrase per view. */
+  .text-highlight {
+    --veil: rgb(var(--paper) / 0.55);
+    background-image: linear-gradient(var(--veil), var(--veil)), var(--hos-brand-gradient);
+    background-repeat: no-repeat;
+    background-position: 0 90%, 0 90%;
+    background-size: 100% 0.36em, 100% 0.36em;
+    padding-inline: 0.04em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    animation: hos-highlight 480ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
   }
-  .card-hairline:hover {
-    @apply border-ink-300 shadow-md;
+  .text-highlight-warm {
+    background-image: linear-gradient(var(--veil), var(--veil)), var(--hos-brand-gradient-warm);
+  }
+  @keyframes hos-highlight {
+    from {
+      background-size: 0% 0.36em, 0% 0.36em;
+    }
+    to {
+      background-size: 100% 0.36em, 100% 0.36em;
+    }
   }
 }
 
 @layer utilities {
-  /* Subtle grain texture — apply over a surface as a sibling overlay */
+  /* Subtle grain: apply to a positioned surface; the noise sits on a pseudo-element. */
   .grain::after {
     content: '';
     position: absolute;
@@ -103,17 +98,7 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   }
 
-  /* Grain tuned for dark carbon panels (footer) */
-  .grain-dark::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.12;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* Edge-fade mask for marquee rows */
+  /* Edge fade for marquee rows */
   .marquee-mask {
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
@@ -132,60 +117,31 @@
   }
 }
 
-/* ── Alternating section texture ("crinkle") ─────────────────────────────────
-   Every 3rd content section (the 2nd, 5th, 8th… <section> in <main>) gets a subtly
-   different ground + a fine fractal-noise "crinkle", so scrolling reveals each section
-   change. The hero is section nth-of-type(1) and is never matched — it stays clean.
-   Rhythm down the page: clean · crinkled · clean · clean · crinkled · clean · clean …
-   Matches the Bliss "On Fire" section-grain technique: one tiled noise blended INTO the
-   ground — `multiply` on the warm light/paper ivory (darkens the speckle into a crinkle),
-   `screen` on true-black dark (lifts a faint speckle, since `multiply` is invisible on
-   black). The grain is isolated and sits behind content (z-0; content z-1), so text
-   contrast is untouched. Static texture — nothing to freeze for reduced-motion. */
-main > section:nth-of-type(3n + 2) {
-  position: relative;
-  isolation: isolate;
-  background-color: rgb(var(--ground-textured));
-}
-main > section:nth-of-type(3n + 2) > * {
-  position: relative;
-  z-index: 1;
-}
-main > section:nth-of-type(3n + 2)::before {
+/* ── Paper theme: a faint reading-paper grain over the whole page ─────────────
+   Fixed, pointer-events-none and behind content, so it never repaints on scroll
+   or touches text contrast. Light theme stays perfectly clean. */
+.theme-paper body::before {
   content: '';
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  opacity: 0.5;
+  opacity: 0.4;
   mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
 }
-.dark main > section:nth-of-type(3n + 2)::before {
-  opacity: 0.1;
-  mix-blend-mode: screen;
+.theme-paper #root {
+  position: relative;
+  z-index: 1;
 }
 
-/* Animated gradient demos (Tokens → signature gradient + glows).
-   Frozen automatically under prefers-reduced-motion by the global guard above. */
-.anim-grad-pan { animation: hos-grad-pan 9s ease-in-out infinite; }
-.anim-grad-drift { animation: hos-grad-drift 16s ease-in-out infinite; }
-.anim-grad-spin { animation: hos-grad-spin 18s linear infinite; }
-@keyframes hos-grad-pan {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-@keyframes hos-grad-drift {
-  0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
-  50% { background-position: 100% 50%, 0% 60%, 60% 40%; }
-}
-@keyframes hos-grad-spin { to { transform: rotate(360deg); } }
-
-/* Celestial twinkle — the ambient sparkles on the GlowButton (signature glow CTA).
-   Pure opacity/scale pulse; frozen automatically under prefers-reduced-motion. */
-.hos-twinkle { animation: hos-twinkle 2.4s ease-in-out infinite; transform-origin: center; }
-@keyframes hos-twinkle {
-  0%, 100% { opacity: 0.25; transform: scale(0.7); }
-  50% { opacity: 1; transform: scale(1); }
+/* ── Alternating section texture ─────────────────────────────────────────────
+   Every third content section (the 2nd, 5th, 8th <section> in <main>) sits on the
+   textured ground so a change of section is felt while scrolling. The noise is a
+   static background image with its own low alpha: no pseudo-element, no blend mode,
+   so tall sections never become a separate compositing layer. */
+main > section:nth-of-type(3n + 2) {
+  background-color: rgb(var(--ground-textured));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
 }

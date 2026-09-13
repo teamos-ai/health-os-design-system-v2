@@ -1,22 +1,19 @@
 import * as React from 'react';
 
-export type Theme = 'light' | 'paper' | 'dark';
+/** The two Health OS themes. They share every colour and component; only the ground changes. */
+export type Theme = 'light' | 'paper';
 
-export const THEMES: Theme[] = ['light', 'paper', 'dark'];
+export const THEMES: Theme[] = ['light', 'paper'];
 
 function current(): Theme {
   if (typeof document === 'undefined') return 'light';
-  const el = document.documentElement;
-  if (el.classList.contains('dark')) return 'dark';
-  if (el.classList.contains('theme-paper')) return 'paper';
-  return 'light';
+  return document.documentElement.classList.contains('theme-paper') ? 'paper' : 'light';
 }
 
 /**
- * Theme hook — reads/sets the theme class on <html> (light = none, paper =
- * `.theme-paper`, dark = `.dark`), persists to localStorage, and keeps every control
- * in sync via a `themechange` event. Default is light (white). Initial class is set
- * pre-paint by the inline script in index.html, so there is no flash.
+ * Theme hook. Light is the default (no class); paper sets `.theme-paper` on <html>.
+ * Persists to localStorage and keeps every toggle in sync through a `themechange` event.
+ * The pre-paint script in index.html applies the saved theme before first render.
  */
 export function useTheme() {
   const [theme, setState] = React.useState<Theme>(current);
@@ -28,13 +25,11 @@ export function useTheme() {
   }, []);
 
   const setTheme = React.useCallback((t: Theme) => {
-    const el = document.documentElement;
-    el.classList.toggle('dark', t === 'dark');
-    el.classList.toggle('theme-paper', t === 'paper');
+    document.documentElement.classList.toggle('theme-paper', t === 'paper');
     try {
       localStorage.setItem('theme', t);
     } catch {
-      /* ignore */
+      /* storage can be unavailable (private mode); the theme still applies */
     }
     window.dispatchEvent(new Event('themechange'));
   }, []);

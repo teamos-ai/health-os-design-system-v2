@@ -4,32 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/health-os-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="The Health OS Design System — a calm, warm, fully tokenised design system for practitioners. Warm, flat, premium, calm."
-    />
-    <meta name="theme-color" content="#F9F6F2" />
+    <meta name="description" content="The Health OS design system: tokens, components, widgets and imagery, documented for AI agents and people." />
+    <meta name="theme-color" content="#FFFFFF" />
 
-    <!-- Theme: light (white, default) · paper (ivory) · dark (carbon). No flash. -->
+    <!-- Theme: light (default, no class) or paper (.theme-paper). Applied before paint. -->
     <script>
       (function () {
         try {
-          var t = localStorage.getItem('theme');
-          if (t === 'dark') document.documentElement.classList.add('dark');
-          else if (t === 'paper') document.documentElement.classList.add('theme-paper');
+          if (localStorage.getItem('theme') === 'paper') document.documentElement.classList.add('theme-paper');
         } catch (e) {}
       })();
     </script>
 
-    <!-- Locked type pairing: Spline Sans (headings) + Anonymous Pro (body / mono) -->
+    <!-- Spline Sans (display) and Anonymous Pro (body and labels) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&family=Anonymous+Pro:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;600;700&family=Anonymous+Pro:wght@400;700&display=swap" rel="stylesheet" />
 
-    <title>Health OS Design System v2</title>
+    <title>Health OS Design System</title>
   </head>
   <body>
     <div id="root"></div>
