@@ -1,24 +1,23 @@
 /**
- * BlogSection — the content layer: how blog articles and the comparison blocks inside
- * them are structured. A clear hierarchy of headline, byline, lead, body, pull-quote
- * and figure, plus a real (semantic) comparison table. The demo headline is an h3 so
- * the showcase document keeps its single h1; on a real article page it would be the h1.
+ * BlogSection: the article layout on the reading column. The demo headline is an h3 so
+ * the reference keeps one h1; on a real article page it is the h1.
  */
 import { Check, X } from 'lucide-react';
-import { Section, Demo } from '@/showcase/Section';
+import { Section, Example } from '@/showcase/Section';
 import { Badge } from '@/components/ui/badge';
 import { PHOTOS } from '@/data/photos';
+import { thumb } from '@/lib/images';
 
 const ROWS = [
-  { feature: 'Online booking', a: true, b: false },
-  { feature: 'Automated reminders', a: true, b: true },
-  { feature: 'Client records in one place', a: true, b: false },
+  { job: 'Online booking', one: true, stack: false },
+  { job: 'Automatic reminders', one: true, stack: true },
+  { job: 'Client records in one place', one: true, stack: false },
 ];
 
 const Mark = ({ yes }: { yes: boolean }) =>
   yes ? (
     <>
-      <Check className="h-4 w-4 text-success-600" strokeWidth={1.5} aria-hidden />
+      <Check className="h-4 w-4 text-success-600" strokeWidth={2} aria-hidden />
       <span className="sr-only">Included</span>
     </>
   ) : (
@@ -28,90 +27,66 @@ const Mark = ({ yes }: { yes: boolean }) =>
     </>
   );
 
-const figurePhoto = PHOTOS.find((p) => p.ratio === '16:9') ?? PHOTOS[0];
+const figure = PHOTOS.find((p) => p.src.includes('woman-filming-content-on-laptop-by-city-window-16-9')) ?? PHOTOS[0];
 
 export const BlogSection = () => (
-  <Section
-    id="blog"
-    eyebrow="Content"
-    title="Blog"
-    lead="How long-form articles are structured — a clear hierarchy of heading, lead, body and pull-quote, with comparison tables dropped in where a decision needs framing. Headline text-h1 · lead body-lg · body body-md at max-w-2xl · pull-quote h4 italic with a 2px brand-400 left border."
-  >
-    <Demo label="Article layout">
-      <article className="mx-auto max-w-2xl">
-        <Badge variant="lavender" size="sm">Practice growth</Badge>
-        {/* h3 in the showcase document; h1 on a real article page */}
-        <h3 className="mt-4 font-display text-h1 text-ink-900">
-          Choosing the right tools for a calmer practice
-        </h3>
-        <p className="mt-3 font-mono text-caption text-ink-500">
-          Dr Elise Warner • 11 June 2026 • 6 min read
+  <Section id="blog">
+    <Example id="article" label="Article layout">
+      <article className="mx-auto max-w-reading py-4">
+        <Badge variant="lavender">Operations</Badge>
+        <h3 className="mt-6 font-display text-heading text-ink-900">Fewer tools, wired together</h3>
+        <p className="mt-4 font-sans text-label text-ink-500">
+          <span className="block text-ink-900">Jordan Lee</span>
+          11 September 2026 · 6 min read
         </p>
 
-        <p className="mt-6 font-sans text-body-lg leading-relaxed text-ink-700">
-          Most practitioners end up juggling six or eight disconnected tools. This is a look
-          at what to consolidate first, and what genuinely moves the needle for clients.
+        <p className="mt-8 font-sans text-body text-ink-900">
+          Most wellness businesses end up running on a handful of separate tools. This is a look at what to bring together first, and what can wait.
         </p>
 
-        <h4 className="mt-8 font-display text-h3 text-ink-900">Where the time really goes</h4>
-        <p className="mt-3 font-sans text-body-md leading-relaxed text-ink-600">
-          Admin rarely shows up as one big block. It leaks out across the week — a reminder
-          here, a rescheduled session there, a payment chased the next morning. Added up, it
-          is often the single largest line item in a week of work.
+        <h4 className="mt-10 font-display text-subheading text-ink-900">Where the time goes</h4>
+        <p className="mt-3 font-sans text-body text-ink-600">
+          Admin rarely arrives as one big block. It leaks across the week: a reminder here, a rescheduled session there, a payment chased the next morning.
         </p>
-        <p className="mt-3 font-sans text-body-md leading-relaxed text-ink-600">
-          The fix is rarely a new tool. More often it is fewer tools, wired together, so the
-          same booking, record and message live in one place rather than three.
+        <p className="mt-4 font-sans text-body text-ink-600">
+          The answer is rarely another tool. It is usually fewer tools, connected, so the same booking, record and message live in one place.
         </p>
 
-        <blockquote className="my-7 border-l-2 border-brand-400 pl-4 font-display text-h4 italic text-ink-700">
-          The goal is not more software. It is one calm surface that holds the whole
-          relationship with a client.
+        <blockquote className="my-10 rounded-lg bg-brand-gradient-soft px-8 py-6">
+          <p className="font-display text-subheading text-ink-900">The goal is not more software. It is one place that holds the whole relationship with a client.</p>
         </blockquote>
 
         <figure>
-          <img
-            src={figurePhoto.src}
-            alt={figurePhoto.name}
-            loading="lazy"
-            decoding="async"
-            className="aspect-video w-full rounded-lg border border-line object-cover"
-          />
-          <figcaption className="mt-2 font-mono text-caption text-ink-500">
-            Real photography from the image library — warm, natural light, calm.
-          </figcaption>
+          <img src={thumb(figure.src)} alt={figure.description} loading="lazy" decoding="async" className="aspect-video w-full rounded-lg border border-line object-cover" />
+          <figcaption className="mt-3 font-sans text-label text-ink-500">Recording a short update between client sessions.</figcaption>
         </figure>
 
-        <h4 className="mt-8 font-display text-h3 text-ink-900">A quick comparison</h4>
-        <div className="mt-4 overflow-hidden rounded-md border border-line">
-          <table className="w-full border-collapse">
-            <caption className="sr-only">
-              Capability comparison between Health OS and a patchwork of tools
-            </caption>
+        <h4 className="mt-10 font-display text-subheading text-ink-900">A quick comparison</h4>
+        <div className="mt-4 overflow-x-auto rounded-lg border border-line">
+          <table className="w-full min-w-[420px] border-collapse">
+            <caption className="sr-only">One connected system compared with separate tools</caption>
             <thead>
-              <tr className="border-b border-line bg-surface">
-                <th scope="col" className="px-4 py-2.5 text-left font-mono text-caption font-normal uppercase text-ink-600">
-                  Capability
-                </th>
-                <th scope="col" className="w-24 px-2 py-2.5 text-center font-mono text-caption font-normal uppercase text-ink-600">
-                  Health OS
-                </th>
-                <th scope="col" className="w-24 px-2 py-2.5 text-center font-mono text-caption font-normal uppercase text-ink-600">
-                  Patchwork
-                </th>
+              <tr className="border-b border-line bg-surface-2">
+                <th scope="col" className="px-4 py-3 text-left font-sans text-label uppercase text-ink-500">Job</th>
+                <th scope="col" className="w-32 px-2 py-3 text-center font-sans text-label uppercase text-ink-500">One system</th>
+                <th scope="col" className="w-32 px-2 py-3 text-center font-sans text-label uppercase text-ink-500">Separate tools</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-surface">
               {ROWS.map((row) => (
-                <tr key={row.feature} className="border-b border-line last:border-b-0">
-                  <th scope="row" className="px-4 py-3 text-left font-sans text-body-sm font-normal text-ink-700">
-                    {row.feature}
+                <tr key={row.job} className="border-b border-line last:border-b-0">
+                  <th scope="row" className="px-4 py-3 text-left font-sans text-body font-normal text-ink-900">
+                    {row.job}
                   </th>
                   <td className="px-2 py-3">
-                    <span className="flex justify-center"><Mark yes={row.a} /></span>
+                    <span className="flex justify-center">
+                      <Mark yes={row.one} />
+                    </span>
                   </td>
                   <td className="px-2 py-3">
-                    <span className="flex justify-center"><Mark yes={row.b} /></span>
+                    <span className="flex justify-center">
+                      <Mark yes={row.stack} />
+                    </span>
                   </td>
                 </tr>
               ))}
@@ -119,6 +94,6 @@ export const BlogSection = () => (
           </table>
         </div>
       </article>
-    </Demo>
+    </Example>
   </Section>
 );

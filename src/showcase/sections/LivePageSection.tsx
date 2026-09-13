@@ -1,57 +1,57 @@
 /**
- * LivePageSection — the whole system assembled into one page, inside a browser frame.
- * Ticker + nav + command hero + carousel + pillars + outcomes + bento + comparison +
- * the dark-carbon footer. Proof the system dresses a real Health OS page end to end.
+ * LivePageSection: a whole marketing page assembled from the system, in a browser frame.
  */
-import { Section } from '@/showcase/Section';
+import { Section, Usage } from '@/showcase/Section';
 import { Ticker } from '@/components/layout/Ticker';
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/layout/Footer';
 import { CommandHero } from '@/sections/CommandHero';
-import { ToolCarousel } from '@/sections/ToolCarousel';
 import { Pillars } from '@/sections/Pillars';
-import { OutcomeBand } from '@/sections/OutcomeBand';
 import { BentoSection } from '@/sections/BentoSection';
 import { DirectoryCompare } from '@/sections/DirectoryCompare';
+import { PricingTable } from '@/components/blocks/PricingTable';
+import { Faq } from '@/components/blocks/Faq';
+import { PLANS, PRICING_NOTE, FAQ_ITEMS } from '@/data/offer';
 
 export const LivePageSection = () => (
-  <Section
-    id="live"
-    eyebrow="Assembled"
-    title="The live page"
-    lead="Every token, component and section, composed into a single Health OS marketing page. Scroll inside the frame."
-    className="border-b-0"
-  >
-    <div className="overflow-hidden rounded-2xl border border-line shadow-lg">
-      {/* Browser chrome */}
-      <div className="flex items-center justify-between border-b border-line bg-paper px-4 py-3">
-        <div className="flex gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
-          <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
-          <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
-        </div>
-        <span className="font-mono text-caption text-ink-400">healthos.com.au</span>
+  <Section id="live" className="border-b-0 [&>div]:max-w-6xl">
+    <div className="overflow-hidden rounded-lg border border-line bg-surface shadow-lg">
+      <div className="flex items-center justify-between border-b border-line bg-surface-2 px-4 py-3">
+        <span aria-hidden className="flex gap-2">
+          <i className="h-2 w-2 rounded-full bg-ink-200" />
+          <i className="h-2 w-2 rounded-full bg-ink-200" />
+          <i className="h-2 w-2 rounded-full bg-ink-200" />
+        </span>
+        <span className="font-sans text-label text-ink-500">healthos.au</span>
         <span className="w-10" />
       </div>
-
-      {/* Scrollable assembled page — a labelled, keyboard-focusable scroll region;
-          role="group" keeps the demo's Nav/Footer landmarks from polluting the outline */}
       <div
         role="group"
-        aria-label="Assembled page preview — scrollable"
+        aria-label="Assembled page preview, scrollable"
         tabIndex={0}
-        className="max-h-[80vh] overflow-y-auto bg-paper [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40"
+        className="max-h-[80vh] overflow-y-auto bg-paper [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-rose-700/40"
       >
         <Ticker />
         <Nav sticky={false} />
         <CommandHero id="live-hero" headingLevel="h2" />
-        <ToolCarousel id="live-carousel" />
         <Pillars id="live-pillars" />
-        <OutcomeBand id="live-outcomes" />
         <BentoSection id="live-bento" />
+        <section id="live-pricing" className="py-16 md:py-24">
+          <div className="mx-auto max-w-container px-6">
+            <h2 className="mb-12 max-w-2xl font-display text-heading text-ink-900">Three plans</h2>
+            <PricingTable plans={PLANS} note={PRICING_NOTE} />
+          </div>
+        </section>
         <DirectoryCompare id="live-compare" />
+        <section id="live-faq" className="py-16 md:py-24">
+          <div className="mx-auto max-w-container px-6">
+            <h2 className="mb-8 max-w-2xl font-display text-heading text-ink-900">Questions</h2>
+            <Faq items={FAQ_ITEMS} columns={2} />
+          </div>
+        </section>
         <Footer />
       </div>
+      <Usage id="live-page" />
     </div>
   </Section>
 );

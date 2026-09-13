@@ -1,48 +1,47 @@
 /**
- * LogoSection — the Health OS logo. The exact brand asset (gradient "OS" tile,
- * background removed) used on its own everywhere, on light and dark grounds, and as
- * the favicon. No wordmark.
+ * LogoSection: the gradient OS mark on each ground it is used on, at the sizes in use.
  */
-import { Section, Demo } from '@/showcase/Section';
+import { Section, Usage } from '@/showcase/Section';
 import { LogoMark } from '@/components/brand/Logo';
+import { PAPER_IVORY } from '@/lib/palette';
+
+const Ground = ({ label, className, style, children }: { label: string; className: string; style?: React.CSSProperties; children: React.ReactNode }) => (
+  <figure className="flex flex-col gap-3">
+    <div className={`flex min-h-40 items-center justify-center gap-8 rounded-lg ${className}`} style={style}>
+      {children}
+    </div>
+    <figcaption className="font-sans text-label uppercase text-ink-500">{label}</figcaption>
+  </figure>
+);
 
 export const LogoSection = () => (
-  <Section
-    id="logo"
-    eyebrow="Brand"
-    title="Logo"
-    lead="The Health OS logo — the gradient 'OS' tile with its background removed. It sits cleanly on any ground and always stands on its own; no wordmark beside it."
-  >
-    <div className="grid gap-4 md:grid-cols-2">
-      <Demo label="On light">
-        <div className="flex min-h-[136px] items-center justify-center gap-8">
+  <Section id="logo">
+    <div className="overflow-hidden rounded-lg border border-line bg-surface">
+      <div className="grid gap-6 p-6 md:grid-cols-3 md:p-8">
+        <Ground label="Light" className="border border-line bg-white">
           <LogoMark size={72} />
-          <LogoMark size={44} />
-          <LogoMark size={28} />
-        </div>
-      </Demo>
-      <Demo label="On carbon" padded={false}>
-        <div className="flex min-h-[152px] items-center justify-center gap-8 bg-carbon">
+          <LogoMark size={40} />
+          <LogoMark size={24} />
+        </Ground>
+        <Ground label="Paper" className="border border-line" style={{ background: PAPER_IVORY }}>
           <LogoMark size={72} />
-          <LogoMark size={44} />
-          <LogoMark size={28} />
-        </div>
-      </Demo>
-      <Demo label="As favicon">
-        <div className="flex min-h-[120px] items-center justify-center">
-          <span className="flex items-center gap-2 rounded-md border border-line bg-surface px-3 py-2">
-            <LogoMark size={16} />
-            <span className="font-mono text-caption text-ink-600">healthos.com.au</span>
-          </span>
-        </div>
-      </Demo>
-      <Demo label="Clear space + min size">
-        <div className="flex min-h-[120px] flex-col justify-center gap-3 font-mono text-body-sm text-ink-600">
-          <p>Clear space ≥ a quarter of the tile on all sides.</p>
-          <p>Minimum 16px (favicon). Works on light and dark as-is.</p>
-          <p>Never recolour, outline, or stretch the logo.</p>
-        </div>
-      </Demo>
+          <LogoMark size={40} />
+          <LogoMark size={24} />
+        </Ground>
+        <Ground label="Carbon" className="bg-carbon">
+          <LogoMark size={72} />
+          <LogoMark size={40} />
+          <LogoMark size={24} />
+        </Ground>
+      </div>
+      <div className="flex flex-wrap items-center gap-4 border-t border-line px-6 py-4 md:px-8">
+        <span className="flex items-center gap-2 rounded-md border border-line bg-paper px-3 py-2">
+          <LogoMark size={16} />
+          <span className="font-sans text-label text-ink-600">healthos.au</span>
+        </span>
+        <span className="font-sans text-label text-ink-500">As a 16px favicon, the smallest size in use</span>
+      </div>
+      <Usage id="logo" />
     </div>
   </Section>
 );

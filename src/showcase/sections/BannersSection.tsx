@@ -1,28 +1,18 @@
 /**
- * BannersSection — the scrolling banner (ticker) variants. Three tones, both
- * directions, different paces. Each pauses on hover and honours reduced motion.
+ * BannersSection: the ticker in its three tones.
  */
-import { Section, Demo } from '@/showcase/Section';
+import { Section, Example } from '@/showcase/Section';
 import { Ticker } from '@/components/layout/Ticker';
 import { TICKER_ITEMS, TICKER_PRINCIPLES, TICKER_CRAFT } from '@/data/system';
 
 export const BannersSection = () => (
-  <Section
-    id="banners"
-    eyebrow="Banners"
-    title="Scrolling banners"
-    lead="A thin ticker for the top of any page. Three tones, either direction, any pace — it pauses on hover and stills under reduced motion. The tones adapt to the theme: the carbon bar is bold black in light, and inverts to a gentle tint in dark."
-  >
-    <div className="flex flex-col gap-4">
-      <Demo label="Subtle — outcomes, scrolling left" padded={false}>
-        <Ticker items={TICKER_ITEMS} tone="subtle" />
-      </Demo>
-      <Demo label="Carbon — principles (black on light, gentle tint on dark)" padded={false}>
-        <Ticker items={TICKER_PRINCIPLES} tone="carbon" reverse speed={36} />
-      </Demo>
-      <Demo label="Tint — the craft, gentle (soft pastel, every theme)" padded={false}>
-        <Ticker items={TICKER_CRAFT} tone="tint" speed={42} />
-      </Demo>
-    </div>
+  <Section id="banners">
+    <Example id="ticker" label="Ticker: subtle, carbon and tint" padded={false}>
+      <div className="flex flex-col gap-4 py-6">
+        <Ticker items={TICKER_ITEMS} tone="subtle" ariaLabel="Subtle banner" />
+        <Ticker items={TICKER_PRINCIPLES} tone="carbon" reverse speed={36} ariaLabel="Carbon banner" />
+        <Ticker items={TICKER_CRAFT} tone="tint" speed={42} ariaLabel="Tint banner" />
+      </div>
+    </Example>
   </Section>
 );
