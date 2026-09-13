@@ -22,16 +22,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const describedBy =
       [error && errorId, hint && hintId].filter(Boolean).join(' ') || undefined;
     return (
-      <div className="flex w-full flex-col gap-1.5">
+      <div className="flex w-full flex-col gap-2">
         {label && (
-          <label htmlFor={inputId} className="font-mono text-caption text-ink-700">
+          <label htmlFor={inputId} className="font-sans text-label text-ink-900">
             {label}
           </label>
         )}
         <div className="relative">
           {Icon && (
             <Icon
-              className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-ink-400"
+              className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-ink-400"
               strokeWidth={1.5}
               aria-hidden
             />
@@ -40,13 +40,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={cn(
-              'w-full rounded-md border bg-surface font-sans text-body-md text-ink-900',
+              'w-full rounded-md border bg-surface font-sans text-body text-ink-900',
               'placeholder:text-ink-500 transition-colors duration-sm ease-out',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/35 focus-visible:border-brand-400',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/35 focus-visible:border-rose-400',
               'disabled:opacity-50 disabled:cursor-not-allowed',
               Icon ? 'pl-11 pr-4' : 'px-4',
-              'py-2.5',
-              error ? 'border-danger-600' : 'border-line',
+              'py-3',
+              error ? 'border-error-600' : 'border-line',
               className
             )}
             aria-invalid={error ? true : undefined}
@@ -55,7 +55,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
         </div>
         {error && (
-          <p id={errorId} aria-live="polite" className="font-mono text-caption text-danger-600">
+          <p id={errorId} aria-live="polite" className="font-sans text-label text-error-600">
             {error}
           </p>
         )}
@@ -63,7 +63,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {hint && (
           <p
             id={hintId}
-            className={cn('font-mono text-caption', error ? 'text-ink-500' : 'text-ink-600')}
+            className={cn('font-sans text-label', error ? 'text-ink-500' : 'text-ink-600')}
           >
             {hint}
           </p>

@@ -1,11 +1,12 @@
 /**
- * Footer — the rounded dark-carbon panel. Inset
- * rounded carbon card with subtle grain, a "ready to simplify" CTA, link columns, a
- * newsletter field and a calm bottom row. Wordmark goes inverse. No glass.
+ * Footer: the rounded carbon panel. One closing message and action on the left, link
+ * columns and a newsletter field on the right, then the legal line. The carbon panel is a
+ * fixed dark surface in both themes, so its text and focus rings are white.
  */
 import * as React from 'react';
 import { Instagram, Linkedin, Youtube, ArrowRight } from 'lucide-react';
 import { LogoMark } from '@/components/brand/Logo';
+import { Button } from '@/components/ui/button';
 import { FOOTER_COLUMNS } from '@/data/system';
 import { cn } from '@/lib/utils';
 
@@ -15,7 +16,6 @@ const SOCIALS = [
   { icon: Youtube, label: 'YouTube' },
 ];
 
-/* White focus ring — the carbon ground makes the branded ring unreadable. */
 const CARBON_FOCUS =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-carbon';
 
@@ -24,52 +24,36 @@ export const Footer = ({ className }: { className?: string }) => {
 
   return (
     <footer className={cn('bg-paper px-4 pb-4', className)}>
-      <div className="grain-dark relative mx-auto max-w-container-wide overflow-hidden rounded-3xl bg-carbon px-8 py-16 text-white shadow-carbon dark:border dark:border-line dark:bg-carbon-800 md:px-14 md:py-20">
-        <div className="relative z-10 grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
-          {/* Left — CTA */}
-          <div className="flex flex-col gap-8">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1">
-              <span className="h-2 w-2 rounded-full bg-success-600" />
-              <span className="font-mono text-overline uppercase text-white/70">Systems operational</span>
-            </span>
-
+      <div className="relative mx-auto max-w-container-wide overflow-hidden rounded-lg bg-carbon px-8 py-16 text-white md:px-16 md:py-20">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className="flex flex-col items-start gap-8">
+            <LogoMark size={36} />
             <div className="max-w-md">
-              <h2 className="font-display text-h2 leading-tight text-white">
-                Ready to simplify your practice?
-              </h2>
-              <p className="mt-4 font-sans text-body-lg leading-relaxed text-white/60">
-                Book a discovery call and we will map your current stack onto one calm system.
+              <h2 className="font-display text-subheading text-white">You built it. Now make it run without you.</h2>
+              <p className="mt-4 font-sans text-body text-white/70">
+                A short walkthrough of what still routes through you, and what could run on its own.
               </p>
             </div>
-
-            <a
+            <Button
+              variant="secondary"
               href="#book"
-              className={cn(
-                'inline-flex w-fit items-center gap-2 rounded-full bg-white px-7 py-3.5 font-display text-body-md font-medium text-carbon transition-transform duration-sm ease-out hover:-translate-y-0.5',
-                CARBON_FOCUS
-              )}
+              className="border-white bg-white text-carbon hover:border-white hover:bg-white/90 focus-visible:ring-white/70 focus-visible:ring-offset-carbon"
+              trailingIcon={<ArrowRight className="h-4 w-4" strokeWidth={1.5} aria-hidden />}
             >
-              Book a discovery call
-              <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
-            </a>
-
-            <LogoMark size={36} inverse />
+              Book the walkthrough
+            </Button>
           </div>
 
-          {/* Right — columns + newsletter */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
             <nav aria-label="Footer" className="contents">
               {FOOTER_COLUMNS.map((col) => (
-                <div key={col.heading} className="flex flex-col gap-3.5">
-                  <h4 className="font-mono text-overline uppercase text-white/60">{col.heading}</h4>
+                <div key={col.heading} className="flex flex-col gap-3">
+                  <h3 className="font-sans text-label uppercase text-white/60">{col.heading}</h3>
                   {col.links.map((link) => (
                     <a
                       key={link}
                       href="#"
-                      className={cn(
-                        'rounded-sm font-sans text-body-sm text-white/75 transition-colors duration-sm hover:text-white',
-                        CARBON_FOCUS
-                      )}
+                      className={cn('rounded-md font-sans text-body text-white/80 transition-colors duration-sm hover:text-white', CARBON_FOCUS)}
                     >
                       {link}
                     </a>
@@ -78,30 +62,33 @@ export const Footer = ({ className }: { className?: string }) => {
               ))}
             </nav>
 
-            <div className="col-span-2 max-w-xs sm:col-span-4 lg:col-span-2 xl:col-span-4">
-              <h4 className="mb-3 font-mono text-overline uppercase text-white/60">Stay in the loop</h4>
+            <div className="col-span-2 max-w-sm sm:col-span-4 lg:col-span-2 xl:col-span-4">
+              <h3 className="mb-3 font-sans text-label uppercase text-white/60">Notes, now and then</h3>
               {subscribed ? (
-                <p aria-live="polite" className="font-sans text-body-sm text-white/75">
-                  Thanks — you&rsquo;re on the list.
+                <p aria-live="polite" className="font-sans text-body text-white/80">
+                  You are on the list.
                 </p>
               ) : (
                 <form
-                  className="flex w-full items-center gap-2 rounded-full bg-white/10 p-1 pr-1.5 transition-colors focus-within:bg-white/15"
-                  onSubmit={(e: React.FormEvent) => {
+                  className="flex w-full items-center gap-2 rounded-md bg-white/10 p-1 transition-colors focus-within:bg-white/15"
+                  onSubmit={(e) => {
                     e.preventDefault();
                     setSubscribed(true);
                   }}
                 >
+                  <label htmlFor="footer-email" className="sr-only">
+                    Email address
+                  </label>
                   <input
+                    id="footer-email"
                     type="email"
                     required
                     placeholder="Email address"
-                    aria-label="Email address"
-                    className="w-full rounded-full bg-transparent px-4 py-2 font-mono text-body-sm text-white placeholder-white/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                    className="w-full rounded-md bg-transparent px-3 py-2 font-sans text-body text-white placeholder-white/60 focus:outline-none"
                   />
                   <button
                     type="submit"
-                    className="shrink-0 rounded-full bg-white px-4 py-2 font-display text-body-sm font-medium text-carbon transition-colors hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-carbon"
+                    className={cn('shrink-0 rounded-md bg-white px-4 py-2 font-display text-body text-carbon transition-colors hover:bg-white/90', CARBON_FOCUS)}
                   >
                     Join
                   </button>
@@ -111,20 +98,11 @@ export const Footer = ({ className }: { className?: string }) => {
           </div>
         </div>
 
-        {/* Bottom row */}
-        <div className="relative z-10 mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 font-mono text-caption text-white/60 sm:flex-row">
-          <p>© 2026 Health OS. Built for practitioners.</p>
-          <div className="flex gap-5">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 font-sans text-label text-white/60 sm:flex-row">
+          <p>© 2026 Health OS, a product of OS A.I</p>
+          <div className="flex gap-4">
             {SOCIALS.map(({ icon: Icon, label }) => (
-              <a
-                key={label}
-                href="#"
-                aria-label={label}
-                className={cn(
-                  'rounded-sm text-white/50 transition-colors hover:text-white',
-                  CARBON_FOCUS
-                )}
-              >
+              <a key={label} href="#" aria-label={label} className={cn('rounded-md p-1 text-white/60 transition-colors hover:text-white', CARBON_FOCUS)}>
                 <Icon className="h-4 w-4" strokeWidth={1.5} />
               </a>
             ))}

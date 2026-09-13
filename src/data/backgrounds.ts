@@ -1,1929 +1,1726 @@
 /**
- * Backgrounds — real Health OS background fields (abstract nature/gradient photography).
- * Auto-generated from the marketing image library on 2026-07-07. Each entry maps to a
- * file in `public/backgrounds/`; tags (colour family + subject) support search and
- * asset selection for future pages, decks and ads.
+ * Background library: nature and abstract fields in public/backgrounds, 16:9 for web and
+ * slides, 9:16 for stories. Every file was inspected (13 Sep 2026) and carries a subject,
+ * palette, tone, the calm area for text, 2 to 3 context tags, a description and one
+ * suggested use. `colors` and `tags` are the older filename-derived search terms.
+ * `note` flags byte-identical copies and anything to check before use.
  */
+import type { ImageTone, TextSpace } from './photos';
+
 export type BgRatio = '16:9' | '9:16';
 
 export interface Background {
-  /** path under /public */
   src: string;
-  /** sentence-case display name */
   name: string;
   ratio: BgRatio;
-  /** colour-family tags parsed from the source filename */
+  /** filename-derived colour words (search only) */
   colors: string[];
-  /** all searchable tags (colours + subject) */
+  /** filename-derived search tags */
   tags: string[];
+  subject: string;
+  /** dominant colours, as inspected */
+  palette: string[];
+  tone: ImageTone;
+  textSpace: TextSpace;
+  /** 2 to 3 contextual tags, shown on the tile */
+  context: string[];
+  description: string;
+  suggestedUse: string;
+  note?: string;
 }
 
 export const BACKGROUNDS: Background[] = [
   {
-    "src": "/backgrounds/nature-cream-brown-alder-catkins-winter-landscape.png",
-    "name": "Alder catkins winter",
-    "ratio": "16:9",
-    "colors": [
-      "cream",
-      "brown"
-    ],
-    "tags": [
-      "cream",
-      "brown",
-      "alder",
-      "catkins",
-      "winter"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-brown-cream-alder-cones-frost-landscape.png",
-    "name": "Alder cones frost",
-    "ratio": "16:9",
-    "colors": [
-      "brown",
-      "cream"
-    ],
-    "tags": [
-      "brown",
-      "cream",
-      "alder",
-      "cones",
-      "frost"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-red-autumn-maple-leaves-landscape.png",
-    "name": "Autumn maple leaves",
-    "ratio": "16:9",
-    "colors": [
-      "orange",
-      "red"
-    ],
-    "tags": [
-      "orange",
-      "red",
-      "autumn",
-      "maple",
-      "leaves"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-backlit-wildflowers-haze-landscape.png",
-    "name": "Backlit wildflowers haze",
-    "ratio": "16:9",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "backlit",
-      "wildflowers",
-      "haze"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-billowing-cumulus-clouds-landscape.png",
-    "name": "Billowing cumulus clouds",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "billowing",
-      "cumulus",
-      "clouds"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-grey-copper-grass-blades-landscape.png",
-    "name": "Copper grass blades",
-    "ratio": "16:9",
-    "colors": [
-      "orange",
-      "grey"
-    ],
-    "tags": [
-      "orange",
-      "grey",
-      "copper",
-      "grass",
-      "blades"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-navy-pink-crescent-moon-forest-landscape.png",
-    "name": "Crescent moon forest",
-    "ratio": "16:9",
-    "colors": [
-      "navy",
-      "pink"
-    ],
-    "tags": [
-      "navy",
-      "pink",
-      "crescent",
-      "moon",
-      "forest"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-purple-crescent-moon-grass-landscape.png",
-    "name": "Crescent moon grass",
-    "ratio": "16:9",
-    "colors": [
-      "pink",
-      "purple"
-    ],
-    "tags": [
-      "pink",
-      "purple",
-      "crescent",
-      "moon",
-      "grass"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-daisy-sun-silhouette-landscape.png",
-    "name": "Daisy sun silhouette",
-    "ratio": "16:9",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "daisy",
-      "sun",
-      "silhouette"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-blue-purple-dreamy-dandelion-haze-landscape.png",
-    "name": "Dreamy dandelion haze",
-    "ratio": "16:9",
-    "colors": [
-      "blue",
-      "purple"
-    ],
-    "tags": [
-      "blue",
-      "purple",
-      "dreamy",
-      "dandelion",
-      "haze"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-navy-dusk-afterglow-water-landscape.png",
-    "name": "Dusk afterglow water",
-    "ratio": "16:9",
-    "colors": [
-      "orange",
-      "navy"
-    ],
-    "tags": [
-      "orange",
-      "navy",
-      "dusk",
-      "afterglow",
-      "water"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-orange-dusk-street-bokeh-landscape.png",
-    "name": "Dusk street bokeh",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "orange"
-    ],
-    "tags": [
-      "purple",
-      "orange",
-      "dusk",
-      "street",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-amber-dusk-town-lights-landscape.png",
-    "name": "Dusk town lights",
-    "ratio": "16:9",
-    "colors": [
-      "pink",
-      "amber"
-    ],
-    "tags": [
-      "pink",
-      "amber",
-      "dusk",
-      "town",
-      "lights"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-peach-dusk-tree-streetlights-landscape.png",
-    "name": "Dusk tree streetlights",
-    "ratio": "16:9",
-    "colors": [
-      "pink",
-      "peach"
-    ],
-    "tags": [
-      "pink",
-      "peach",
-      "dusk",
-      "tree",
-      "streetlights"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-lavender-field-wooden-post-landscape.png",
-    "name": "Field wooden post",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "lavender"
-    ],
-    "tags": [
-      "purple",
-      "lavender",
-      "field",
-      "wooden",
-      "post"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-green-gold-garden-foliage-bokeh-landscape.png",
-    "name": "Garden foliage bokeh",
-    "ratio": "16:9",
-    "colors": [
-      "green",
-      "gold"
-    ],
-    "tags": [
-      "green",
-      "gold",
-      "garden",
-      "foliage",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-red-orange-glowing-flower-bloom-landscape.png",
-    "name": "Glowing flower bloom",
-    "ratio": "16:9",
-    "colors": [
-      "red",
-      "orange"
-    ],
-    "tags": [
-      "red",
-      "orange",
-      "glowing",
-      "flower",
-      "bloom"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-black-glowing-snowy-summit-landscape.png",
-    "name": "Glowing snowy summit",
-    "ratio": "16:9",
-    "colors": [
-      "pink",
-      "black"
-    ],
-    "tags": [
-      "pink",
-      "black",
-      "glowing",
-      "snowy",
-      "summit"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-golden-bokeh-orbs-landscape.png",
-    "name": "Golden bokeh orbs",
-    "ratio": "16:9",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "golden",
-      "bokeh",
-      "orbs"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-gradient-sky-bokeh-landscape.png",
-    "name": "Gradient sky bokeh",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "gradient",
-      "sky",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-grass-dusk-silhouette-landscape.png",
-    "name": "Grass dusk silhouette",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "grass",
-      "dusk",
-      "silhouette"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-amber-brown-grass-golden-hour-landscape.png",
-    "name": "Grass golden hour",
-    "ratio": "16:9",
-    "colors": [
-      "amber",
-      "brown"
-    ],
-    "tags": [
-      "amber",
-      "brown",
-      "grass",
-      "golden",
-      "hour"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-grass-motion-blur-landscape.png",
-    "name": "Grass motion blur",
-    "ratio": "16:9",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "grass",
-      "motion",
-      "blur"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-green-grass-seedheads-backlit-dew-landscape.png",
-    "name": "Grass seedheads backlit dew",
-    "ratio": "16:9",
-    "colors": [
-      "green"
-    ],
-    "tags": [
-      "green",
-      "grass",
-      "seedheads",
-      "backlit",
-      "dew"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-brown-blue-hanging-cones-sunset-landscape.png",
-    "name": "Hanging cones sunset",
-    "ratio": "16:9",
-    "colors": [
-      "brown",
-      "blue"
-    ],
-    "tags": [
-      "brown",
-      "blue",
-      "hanging",
-      "cones",
-      "sunset"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-navy-orange-harbor-lights-reflection-landscape.png",
-    "name": "Harbor lights reflection",
-    "ratio": "16:9",
-    "colors": [
-      "navy",
-      "orange"
-    ],
-    "tags": [
-      "navy",
-      "orange",
-      "harbor",
-      "lights",
-      "reflection"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-lavender-purple-hydrangea-pastel-haze-landscape.png",
-    "name": "Hydrangea pastel haze",
-    "ratio": "16:9",
-    "colors": [
-      "lavender",
-      "purple"
-    ],
-    "tags": [
-      "lavender",
-      "purple",
-      "hydrangea",
-      "pastel",
-      "haze"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-amber-gold-indoor-cafe-bokeh-landscape.png",
-    "name": "Indoor cafe bokeh",
-    "ratio": "16:9",
-    "colors": [
-      "amber",
-      "gold"
-    ],
-    "tags": [
-      "amber",
-      "gold",
-      "indoor",
-      "cafe",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-navy-pink-lake-mirror-reflection-landscape.png",
-    "name": "Lake mirror reflection",
-    "ratio": "16:9",
-    "colors": [
-      "navy",
-      "pink"
-    ],
-    "tags": [
-      "navy",
-      "pink",
-      "lake",
-      "mirror",
-      "reflection"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-gold-lantana-golden-bokeh-landscape.png",
-    "name": "Lantana golden bokeh",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "gold"
-    ],
-    "tags": [
-      "purple",
-      "gold",
-      "lantana",
-      "golden",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-brown-cream-larch-pinecones-branch-landscape.png",
-    "name": "Larch pinecones branch",
-    "ratio": "16:9",
-    "colors": [
-      "brown",
-      "cream"
-    ],
-    "tags": [
-      "brown",
-      "cream",
-      "larch",
-      "pinecones",
-      "branch"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-amber-misty-forest-pines-landscape.png",
-    "name": "Misty forest pines",
-    "ratio": "16:9",
-    "colors": [
-      "orange",
-      "amber"
-    ],
-    "tags": [
-      "orange",
-      "amber",
-      "misty",
-      "forest",
-      "pines"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-peach-lavender-misty-mountains-sunrise-landscape.png",
-    "name": "Misty mountains sunrise",
-    "ratio": "16:9",
-    "colors": [
-      "peach",
-      "lavender"
-    ],
-    "tags": [
-      "peach",
-      "lavender",
-      "misty",
-      "mountains",
-      "sunrise"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-grey-misty-rocky-peaks-landscape.png",
-    "name": "Misty rocky peaks",
-    "ratio": "16:9",
-    "colors": [
-      "pink",
-      "grey"
-    ],
-    "tags": [
-      "pink",
-      "grey",
-      "misty",
-      "rocky",
-      "peaks"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-blue-ocean-calm-sunrise-landscape.png",
-    "name": "Ocean calm sunrise",
-    "ratio": "16:9",
-    "colors": [
-      "orange",
-      "blue"
-    ],
-    "tags": [
-      "orange",
-      "blue",
-      "ocean",
-      "calm",
-      "sunrise"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-gold-ocean-mountain-silhouette-landscape.png",
-    "name": "Ocean mountain silhouette",
-    "ratio": "16:9",
-    "colors": [
-      "orange",
-      "gold"
-    ],
-    "tags": [
-      "orange",
-      "gold",
-      "ocean",
-      "mountain",
-      "silhouette"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-teal-ocean-mountain-wave-landscape.png",
-    "name": "Ocean mountain wave",
-    "ratio": "16:9",
-    "colors": [
-      "pink",
-      "teal"
-    ],
-    "tags": [
-      "pink",
-      "teal",
-      "ocean",
-      "mountain",
-      "wave"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-navy-ocean-splash-sunset-landscape.png",
-    "name": "Ocean splash sunset",
-    "ratio": "16:9",
-    "colors": [
-      "orange",
-      "navy"
-    ],
-    "tags": [
-      "orange",
-      "navy",
-      "ocean",
-      "splash",
-      "sunset"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-peach-pink-ocean-sunset-waves-landscape.png",
-    "name": "Ocean sunset waves",
-    "ratio": "16:9",
-    "colors": [
-      "peach",
-      "pink"
-    ],
-    "tags": [
-      "peach",
-      "pink",
-      "ocean",
-      "sunset",
-      "waves"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-coral-navy-ocean-pink-wave-landscape.png",
-    "name": "Ocean wave",
-    "ratio": "16:9",
-    "colors": [
-      "coral",
-      "navy",
-      "pink"
-    ],
-    "tags": [
-      "coral",
-      "navy",
-      "pink",
-      "ocean",
-      "wave"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-amber-orange-palm-fronds-glow-landscape.png",
-    "name": "Palm fronds glow",
-    "ratio": "16:9",
-    "colors": [
-      "amber",
-      "orange"
-    ],
-    "tags": [
-      "amber",
-      "orange",
-      "palm",
-      "fronds",
-      "glow"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-pampas-mountains-twilight-landscape.png",
-    "name": "Pampas mountains twilight",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "pampas",
-      "mountains",
-      "twilight"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-cream-peach-pampas-soft-seedheads-landscape.png",
-    "name": "Pampas soft seedheads",
-    "ratio": "16:9",
-    "colors": [
-      "cream",
-      "peach"
-    ],
-    "tags": [
-      "cream",
-      "peach",
-      "pampas",
-      "soft",
-      "seedheads"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-brown-navy-pinecone-cluster-branch-landscape.png",
-    "name": "Pinecone cluster branch",
-    "ratio": "16:9",
-    "colors": [
-      "brown",
-      "navy"
-    ],
-    "tags": [
-      "brown",
-      "navy",
-      "pinecone",
-      "cluster",
-      "branch"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-lavender-peach-seascape-birds-flock-landscape.png",
-    "name": "Seascape birds flock",
-    "ratio": "16:9",
-    "colors": [
-      "lavender",
-      "peach"
-    ],
-    "tags": [
-      "lavender",
-      "peach",
-      "seascape",
-      "birds",
-      "flock"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-snowy-peak-moon-landscape.png",
-    "name": "Snowy peak moon",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "snowy",
-      "peak",
-      "moon"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-snowy-peaks-contrail-landscape.png",
-    "name": "Snowy peaks contrail",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "snowy",
-      "peaks",
-      "contrail"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-snowy-rocky-ridges-landscape.png",
-    "name": "Snowy rocky ridges",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "snowy",
-      "rocky",
-      "ridges"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-white-snowy-suspension-bridge-landscape.png",
-    "name": "Snowy suspension bridge",
-    "ratio": "16:9",
-    "colors": [
-      "pink",
-      "white"
-    ],
-    "tags": [
-      "pink",
-      "white",
-      "snowy",
-      "suspension",
-      "bridge"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-navy-peach-soft-snowy-dusk-landscape.png",
-    "name": "Soft snowy dusk",
-    "ratio": "16:9",
-    "colors": [
-      "navy",
-      "peach"
-    ],
-    "tags": [
-      "navy",
-      "peach",
-      "soft",
-      "snowy",
-      "dusk"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-navy-starry-mountain-horizon-landscape.png",
-    "name": "Starry mountain horizon",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "navy"
-    ],
-    "tags": [
-      "purple",
-      "navy",
-      "starry",
-      "mountain",
-      "horizon"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-sun-backlit-flowers-landscape.png",
-    "name": "Sun backlit flowers",
-    "ratio": "16:9",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "sun",
-      "backlit",
-      "flowers"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-purple-sunset-water-reflection-landscape.png",
-    "name": "Sunset water reflection",
-    "ratio": "16:9",
-    "colors": [
-      "orange",
-      "purple"
-    ],
-    "tags": [
-      "orange",
-      "purple",
-      "sunset",
-      "water",
-      "reflection"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-green-amber-warm-garden-bokeh-landscape.png",
-    "name": "Warm garden bokeh",
-    "ratio": "16:9",
-    "colors": [
-      "green",
-      "amber"
-    ],
-    "tags": [
-      "green",
-      "amber",
-      "warm",
-      "garden",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-wheat-golden-stalk-landscape.png",
-    "name": "Wheat golden stalk",
-    "ratio": "16:9",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "wheat",
-      "golden",
-      "stalk"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-orange-wildflowers-sunset-meadow-landscape.png",
-    "name": "Wildflowers sunset meadow",
-    "ratio": "16:9",
-    "colors": [
-      "purple",
-      "orange"
-    ],
-    "tags": [
-      "purple",
-      "orange",
-      "wildflowers",
-      "sunset",
-      "meadow"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-cream-brown-alder-catkins-winter-portrait.png",
-    "name": "Alder catkins winter",
-    "ratio": "9:16",
-    "colors": [
-      "cream",
-      "brown"
-    ],
-    "tags": [
-      "cream",
-      "brown",
-      "alder",
-      "catkins",
-      "winter"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-brown-cream-alder-cones-frost-portrait.png",
-    "name": "Alder cones frost",
-    "ratio": "9:16",
-    "colors": [
-      "brown",
-      "cream"
-    ],
-    "tags": [
-      "brown",
-      "cream",
-      "alder",
-      "cones",
-      "frost"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-red-autumn-maple-leaves-portrait.png",
-    "name": "Autumn maple leaves",
-    "ratio": "9:16",
-    "colors": [
-      "orange",
-      "red"
-    ],
-    "tags": [
-      "orange",
-      "red",
-      "autumn",
-      "maple",
-      "leaves"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-backlit-wildflowers-haze-portrait.png",
-    "name": "Backlit wildflowers haze",
-    "ratio": "9:16",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "backlit",
-      "wildflowers",
-      "haze"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-billowing-cumulus-clouds-portrait.png",
-    "name": "Billowing cumulus clouds",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "billowing",
-      "cumulus",
-      "clouds"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-grey-copper-grass-blades-portrait.png",
-    "name": "Copper grass blades",
-    "ratio": "9:16",
-    "colors": [
-      "orange",
-      "grey"
-    ],
-    "tags": [
-      "orange",
-      "grey",
-      "copper",
-      "grass",
-      "blades"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-crescent-moon-field-portrait.png",
-    "name": "Crescent moon field",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "crescent",
-      "moon",
-      "field"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-navy-pink-crescent-moon-forest-portrait.png",
-    "name": "Crescent moon forest",
-    "ratio": "9:16",
-    "colors": [
-      "navy",
-      "pink"
-    ],
-    "tags": [
-      "navy",
-      "pink",
-      "crescent",
-      "moon",
-      "forest"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-purple-crescent-moon-grass-portrait.png",
-    "name": "Crescent moon grass",
-    "ratio": "9:16",
-    "colors": [
-      "pink",
-      "purple"
-    ],
-    "tags": [
-      "pink",
-      "purple",
-      "crescent",
-      "moon",
-      "grass"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-crescent-moon-hillside-portrait.png",
-    "name": "Crescent moon hillside",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "crescent",
-      "moon",
-      "hillside"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-daisy-sun-silhouette-portrait.png",
-    "name": "Daisy sun silhouette",
-    "ratio": "9:16",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "daisy",
-      "sun",
-      "silhouette"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-blue-purple-dreamy-dandelion-haze-portrait.png",
-    "name": "Dreamy dandelion haze",
-    "ratio": "9:16",
-    "colors": [
-      "blue",
-      "purple"
-    ],
-    "tags": [
-      "blue",
-      "purple",
-      "dreamy",
-      "dandelion",
-      "haze"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-navy-dusk-afterglow-water-portrait.png",
-    "name": "Dusk afterglow water",
-    "ratio": "9:16",
-    "colors": [
-      "orange",
-      "navy"
-    ],
-    "tags": [
-      "orange",
-      "navy",
-      "dusk",
-      "afterglow",
-      "water"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-orange-dusk-street-bokeh-portrait.png",
-    "name": "Dusk street bokeh",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "orange"
-    ],
-    "tags": [
-      "purple",
-      "orange",
-      "dusk",
-      "street",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-amber-dusk-town-lights-portrait.png",
-    "name": "Dusk town lights",
-    "ratio": "9:16",
-    "colors": [
-      "pink",
-      "amber"
-    ],
-    "tags": [
-      "pink",
-      "amber",
-      "dusk",
-      "town",
-      "lights"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-peach-dusk-tree-streetlights-portrait.png",
-    "name": "Dusk tree streetlights",
-    "ratio": "9:16",
-    "colors": [
-      "pink",
-      "peach"
-    ],
-    "tags": [
-      "pink",
-      "peach",
-      "dusk",
-      "tree",
-      "streetlights"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-lavender-field-wooden-post-portrait.png",
-    "name": "Field wooden post",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "lavender"
-    ],
-    "tags": [
-      "purple",
-      "lavender",
-      "field",
-      "wooden",
-      "post"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-green-gold-garden-foliage-bokeh-portrait.png",
-    "name": "Garden foliage bokeh",
-    "ratio": "9:16",
-    "colors": [
-      "green",
-      "gold"
-    ],
-    "tags": [
-      "green",
-      "gold",
-      "garden",
-      "foliage",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-red-orange-glowing-flower-bloom-portrait.png",
-    "name": "Glowing flower bloom",
-    "ratio": "9:16",
-    "colors": [
-      "red",
-      "orange"
-    ],
-    "tags": [
-      "red",
-      "orange",
-      "glowing",
-      "flower",
-      "bloom"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-black-glowing-snowy-summit-portrait.png",
-    "name": "Glowing snowy summit",
-    "ratio": "9:16",
-    "colors": [
-      "pink",
-      "black"
-    ],
-    "tags": [
-      "pink",
-      "black",
-      "glowing",
-      "snowy",
-      "summit"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-golden-bokeh-orbs-portrait.png",
-    "name": "Golden bokeh orbs",
-    "ratio": "9:16",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "golden",
-      "bokeh",
-      "orbs"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-gradient-sky-bokeh-portrait.png",
-    "name": "Gradient sky bokeh",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "gradient",
-      "sky",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-grass-dusk-silhouette-portrait.png",
-    "name": "Grass dusk silhouette",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "grass",
-      "dusk",
-      "silhouette"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-lavender-grass-dusk-twilight-portrait.png",
-    "name": "Grass dusk twilight",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "lavender"
-    ],
-    "tags": [
-      "purple",
-      "lavender",
-      "grass",
-      "dusk",
-      "twilight"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-amber-brown-grass-golden-hour-portrait.png",
-    "name": "Grass golden hour",
-    "ratio": "9:16",
-    "colors": [
-      "amber",
-      "brown"
-    ],
-    "tags": [
-      "amber",
-      "brown",
-      "grass",
-      "golden",
-      "hour"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-grass-motion-blur-portrait.png",
-    "name": "Grass motion blur",
-    "ratio": "9:16",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "grass",
-      "motion",
-      "blur"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-green-grass-seedheads-backlit-dew-portrait.png",
-    "name": "Grass seedheads backlit dew",
-    "ratio": "9:16",
-    "colors": [
-      "green"
-    ],
-    "tags": [
-      "green",
-      "grass",
-      "seedheads",
-      "backlit",
-      "dew"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-brown-blue-hanging-cones-sunset-portrait.png",
-    "name": "Hanging cones sunset",
-    "ratio": "9:16",
-    "colors": [
-      "brown",
-      "blue"
-    ],
-    "tags": [
-      "brown",
-      "blue",
-      "hanging",
-      "cones",
-      "sunset"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-navy-orange-harbor-lights-reflection-portrait.png",
-    "name": "Harbor lights reflection",
-    "ratio": "9:16",
-    "colors": [
-      "navy",
-      "orange"
-    ],
-    "tags": [
-      "navy",
-      "orange",
-      "harbor",
-      "lights",
-      "reflection"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-lavender-purple-hydrangea-pastel-haze-portrait.png",
-    "name": "Hydrangea pastel haze",
-    "ratio": "9:16",
-    "colors": [
-      "lavender",
-      "purple"
-    ],
-    "tags": [
-      "lavender",
-      "purple",
-      "hydrangea",
-      "pastel",
-      "haze"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-amber-blue-indoor-bokeh-cluster-portrait.png",
-    "name": "Indoor bokeh cluster",
-    "ratio": "9:16",
-    "colors": [
-      "amber",
-      "blue"
-    ],
-    "tags": [
-      "amber",
-      "blue",
-      "indoor",
-      "bokeh",
-      "cluster"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-amber-gold-indoor-cafe-bokeh-portrait.png",
-    "name": "Indoor cafe bokeh",
-    "ratio": "9:16",
-    "colors": [
-      "amber",
-      "gold"
-    ],
-    "tags": [
-      "amber",
-      "gold",
-      "indoor",
-      "cafe",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-navy-pink-lake-mirror-reflection-portrait.png",
-    "name": "Lake mirror reflection",
-    "ratio": "9:16",
-    "colors": [
-      "navy",
-      "pink"
-    ],
-    "tags": [
-      "navy",
-      "pink",
-      "lake",
-      "mirror",
-      "reflection"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-gold-lantana-golden-bokeh-portrait.png",
-    "name": "Lantana golden bokeh",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "gold"
-    ],
-    "tags": [
-      "purple",
-      "gold",
-      "lantana",
-      "golden",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-green-lantana-twilight-bokeh-portrait.png",
-    "name": "Lantana twilight bokeh",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "green"
-    ],
-    "tags": [
-      "purple",
-      "green",
-      "lantana",
-      "twilight",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-brown-cream-larch-pinecones-branch-portrait.png",
-    "name": "Larch pinecones branch",
-    "ratio": "9:16",
-    "colors": [
-      "brown",
-      "cream"
-    ],
-    "tags": [
-      "brown",
-      "cream",
-      "larch",
-      "pinecones",
-      "branch"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-amber-misty-forest-pines-portrait.png",
-    "name": "Misty forest pines",
-    "ratio": "9:16",
-    "colors": [
-      "orange",
-      "amber"
-    ],
-    "tags": [
-      "orange",
-      "amber",
-      "misty",
-      "forest",
-      "pines"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-peach-lavender-misty-mountains-sunrise-portrait.png",
-    "name": "Misty mountains sunrise",
-    "ratio": "9:16",
-    "colors": [
-      "peach",
-      "lavender"
-    ],
-    "tags": [
-      "peach",
-      "lavender",
-      "misty",
-      "mountains",
-      "sunrise"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-grey-misty-rocky-peaks-portrait.png",
-    "name": "Misty rocky peaks",
-    "ratio": "9:16",
-    "colors": [
-      "pink",
-      "grey"
-    ],
-    "tags": [
-      "pink",
-      "grey",
-      "misty",
-      "rocky",
-      "peaks"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-blue-ocean-calm-sunrise-portrait.png",
-    "name": "Ocean calm sunrise",
-    "ratio": "9:16",
-    "colors": [
-      "orange",
-      "blue"
-    ],
-    "tags": [
-      "orange",
-      "blue",
-      "ocean",
-      "calm",
-      "sunrise"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-coral-blue-ocean-pink-crest-portrait.png",
-    "name": "Ocean crest",
-    "ratio": "9:16",
-    "colors": [
-      "coral",
-      "blue",
-      "pink"
-    ],
-    "tags": [
-      "coral",
-      "blue",
-      "pink",
-      "ocean",
-      "crest"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-gold-ocean-mountain-silhouette-portrait.png",
-    "name": "Ocean mountain silhouette",
-    "ratio": "9:16",
-    "colors": [
-      "orange",
-      "gold"
-    ],
-    "tags": [
-      "orange",
-      "gold",
-      "ocean",
-      "mountain",
-      "silhouette"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-teal-ocean-mountain-wave-portrait.png",
-    "name": "Ocean mountain wave",
-    "ratio": "9:16",
-    "colors": [
-      "pink",
-      "teal"
-    ],
-    "tags": [
-      "pink",
-      "teal",
-      "ocean",
-      "mountain",
-      "wave"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-navy-ocean-splash-sunset-portrait.png",
-    "name": "Ocean splash sunset",
-    "ratio": "9:16",
-    "colors": [
-      "orange",
-      "navy"
-    ],
-    "tags": [
-      "orange",
-      "navy",
-      "ocean",
-      "splash",
-      "sunset"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-peach-pink-ocean-sunset-waves-portrait.png",
-    "name": "Ocean sunset waves",
-    "ratio": "9:16",
-    "colors": [
-      "peach",
-      "pink"
-    ],
-    "tags": [
-      "peach",
-      "pink",
-      "ocean",
-      "sunset",
-      "waves"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-coral-navy-ocean-pink-wave-portrait.png",
-    "name": "Ocean wave",
-    "ratio": "9:16",
-    "colors": [
-      "coral",
-      "navy",
-      "pink"
-    ],
-    "tags": [
-      "coral",
-      "navy",
-      "pink",
-      "ocean",
-      "wave"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-amber-orange-palm-fronds-glow-portrait.png",
-    "name": "Palm fronds glow",
-    "ratio": "9:16",
-    "colors": [
-      "amber",
-      "orange"
-    ],
-    "tags": [
-      "amber",
-      "orange",
-      "palm",
-      "fronds",
-      "glow"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-pampas-mountains-twilight-portrait.png",
-    "name": "Pampas mountains twilight",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "pampas",
-      "mountains",
-      "twilight"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-cream-peach-pampas-soft-seedheads-portrait.png",
-    "name": "Pampas soft seedheads",
-    "ratio": "9:16",
-    "colors": [
-      "cream",
-      "peach"
-    ],
-    "tags": [
-      "cream",
-      "peach",
-      "pampas",
-      "soft",
-      "seedheads"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-brown-navy-pinecone-cluster-branch-portrait.png",
-    "name": "Pinecone cluster branch",
-    "ratio": "9:16",
-    "colors": [
-      "brown",
-      "navy"
-    ],
-    "tags": [
-      "brown",
-      "navy",
-      "pinecone",
-      "cluster",
-      "branch"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-lavender-peach-seascape-birds-flock-portrait.png",
-    "name": "Seascape birds flock",
-    "ratio": "9:16",
-    "colors": [
-      "lavender",
-      "peach"
-    ],
-    "tags": [
-      "lavender",
-      "peach",
-      "seascape",
-      "birds",
-      "flock"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-snowy-peak-moon-portrait.png",
-    "name": "Snowy peak moon",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "snowy",
-      "peak",
-      "moon"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-snowy-peaks-contrail-portrait.png",
-    "name": "Snowy peaks contrail",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "snowy",
-      "peaks",
-      "contrail"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-pink-snowy-rocky-ridges-portrait.png",
-    "name": "Snowy rocky ridges",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "pink"
-    ],
-    "tags": [
-      "purple",
-      "pink",
-      "snowy",
-      "rocky",
-      "ridges"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-pink-white-snowy-suspension-bridge-portrait.png",
-    "name": "Snowy suspension bridge",
-    "ratio": "9:16",
-    "colors": [
-      "pink",
-      "white"
-    ],
-    "tags": [
-      "pink",
-      "white",
-      "snowy",
-      "suspension",
-      "bridge"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-navy-peach-soft-snowy-dusk-portrait.png",
-    "name": "Soft snowy dusk",
-    "ratio": "9:16",
-    "colors": [
-      "navy",
-      "peach"
-    ],
-    "tags": [
-      "navy",
-      "peach",
-      "soft",
-      "snowy",
-      "dusk"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-navy-starry-mountain-horizon-portrait.png",
-    "name": "Starry mountain horizon",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "navy"
-    ],
-    "tags": [
-      "purple",
-      "navy",
-      "starry",
-      "mountain",
-      "horizon"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-sun-backlit-flowers-portrait.png",
-    "name": "Sun backlit flowers",
-    "ratio": "9:16",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "sun",
-      "backlit",
-      "flowers"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-orange-purple-sunset-water-reflection-portrait.png",
-    "name": "Sunset water reflection",
-    "ratio": "9:16",
-    "colors": [
-      "orange",
-      "purple"
-    ],
-    "tags": [
-      "orange",
-      "purple",
-      "sunset",
-      "water",
-      "reflection"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-green-amber-warm-garden-bokeh-portrait.png",
-    "name": "Warm garden bokeh",
-    "ratio": "9:16",
-    "colors": [
-      "green",
-      "amber"
-    ],
-    "tags": [
-      "green",
-      "amber",
-      "warm",
-      "garden",
-      "bokeh"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-amber-gold-warm-garden-candle-portrait.png",
-    "name": "Warm garden candle",
-    "ratio": "9:16",
-    "colors": [
-      "amber",
-      "gold"
-    ],
-    "tags": [
-      "amber",
-      "gold",
-      "warm",
-      "garden",
-      "candle"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-gold-amber-wheat-golden-stalk-portrait.png",
-    "name": "Wheat golden stalk",
-    "ratio": "9:16",
-    "colors": [
-      "gold",
-      "amber"
-    ],
-    "tags": [
-      "gold",
-      "amber",
-      "wheat",
-      "golden",
-      "stalk"
-    ]
-  },
-  {
-    "src": "/backgrounds/nature-purple-orange-wildflowers-sunset-meadow-portrait.png",
-    "name": "Wildflowers sunset meadow",
-    "ratio": "9:16",
-    "colors": [
-      "purple",
-      "orange"
-    ],
-    "tags": [
-      "purple",
-      "orange",
-      "wildflowers",
-      "sunset",
-      "meadow"
-    ]
-  }
+    src: "/backgrounds/nature-cream-brown-alder-catkins-winter-landscape.png",
+    name: "Alder catkins winter",
+    ratio: "16:9",
+    colors: ["cream", "brown"],
+    tags: ["cream", "brown", "alder", "catkins", "winter"],
+    subject: "branches",
+    palette: ["cream", "brown", "grey"],
+    tone: "light",
+    textSpace: "right",
+    context: ["catkin silhouettes", "cream sky", "layered twigs"],
+    description: "Twigs with hanging catkins and small cones silhouetted against a soft cream sky, blurred branches behind",
+    suggestedUse: "Blog header for an article on protecting practitioner downtime",
+    note: "Same image as media/cards/nature-cream-brown-alder-catkins-winter-landscape.png",
+  },
+  {
+    src: "/backgrounds/nature-brown-cream-alder-cones-frost-landscape.png",
+    name: "Alder cones frost",
+    ratio: "16:9",
+    colors: ["brown", "cream"],
+    tags: ["brown", "cream", "alder", "cones", "frost"],
+    subject: "branches",
+    palette: ["white", "grey", "brown"],
+    tone: "light",
+    textSpace: "top",
+    context: ["small cones", "pale backdrop", "fine twigs"],
+    description: "Clusters of small dark cones on fine twigs against a pale white and grey blur of bare trunks",
+    suggestedUse: "Slide background for a minimal year in review presentation",
+  },
+  {
+    src: "/backgrounds/nature-orange-red-autumn-maple-leaves-landscape.png",
+    name: "Autumn maple leaves",
+    ratio: "16:9",
+    colors: ["orange", "red"],
+    tags: ["orange", "red", "autumn", "maple", "leaves"],
+    subject: "foliage",
+    palette: ["orange", "brown", "cream"],
+    tone: "mid",
+    textSpace: "left",
+    context: ["maple leaves", "orange foliage", "trunk bokeh"],
+    description: "Bright orange maple leaves on dark branches fill the right side, with blurred trunks and light on the left",
+    suggestedUse: "Blog header for an article on preparing a studio for autumn",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-backlit-wildflowers-haze-landscape.png",
+    name: "Backlit wildflowers haze",
+    ratio: "16:9",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "backlit", "wildflowers", "haze"],
+    subject: "meadow",
+    palette: ["orange", "amber", "cream"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["misty field", "backlit wildflowers", "orange haze"],
+    description: "A field of small backlit wildflowers glows orange under a hazy sky with a faint misty treeline",
+    suggestedUse: "Email header for a new season timetable announcement",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-billowing-cumulus-clouds-landscape.png",
+    name: "Billowing cumulus clouds",
+    ratio: "16:9",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "billowing", "cumulus", "clouds"],
+    subject: "clouds",
+    palette: ["navy", "lavender", "white"],
+    tone: "dark",
+    textSpace: "right",
+    context: ["cumulus clouds", "deep navy sky", "pink light"],
+    description: "Billowing white and lavender cumulus clouds lit pink at the left, under a deep navy sky on the right",
+    suggestedUse: "Website hero for a cloud-based practice software page",
+  },
+  {
+    src: "/backgrounds/nature-orange-grey-copper-grass-blades-landscape.png",
+    name: "Copper grass blades",
+    ratio: "16:9",
+    colors: ["orange", "grey"],
+    tags: ["orange", "grey", "copper", "grass", "blades"],
+    subject: "foliage",
+    palette: ["orange", "lavender", "brown"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["copper blades", "mauve backdrop", "diagonal blur"],
+    description: "Blurred copper and dark red grass blades sweep diagonally across a pale mauve background",
+    suggestedUse: "Blog header for an article on refreshing your studio brand",
+  },
+  {
+    src: "/backgrounds/nature-navy-pink-crescent-moon-forest-landscape.png",
+    name: "Crescent moon forest",
+    ratio: "16:9",
+    colors: ["navy", "pink"],
+    tags: ["navy", "pink", "crescent", "moon", "forest"],
+    subject: "forest",
+    palette: ["navy", "blue", "pink"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["crescent moon", "pine silhouettes", "pink glow band"],
+    description: "A crescent moon hangs in a teal blue sky over a pink glow band and a hillside of silhouetted pines",
+    suggestedUse: "Blog header for an article on automations that run after hours",
+  },
+  {
+    src: "/backgrounds/nature-pink-purple-crescent-moon-grass-landscape.png",
+    name: "Crescent moon grass",
+    ratio: "16:9",
+    colors: ["pink", "purple"],
+    tags: ["pink", "purple", "crescent", "moon", "grass"],
+    subject: "sky",
+    palette: ["purple", "pink", "lavender"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["crescent moon", "grass silhouettes", "purple gradient"],
+    description: "A thin crescent moon in a purple to pink gradient sky above a line of silhouetted tall grass",
+    suggestedUse: "Blog header for an article on boundaries around after-hours messages",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-daisy-sun-silhouette-landscape.png",
+    name: "Daisy sun silhouette",
+    ratio: "16:9",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "daisy", "sun", "silhouette"],
+    subject: "florals",
+    palette: ["amber", "gold", "black"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["backlit daisies", "sun flare", "dark foreground"],
+    description: "Yellow daisy-like flowers backlit by a low sun, with blurred dark stems and warm brown shadow below",
+    suggestedUse: "Blog header for an article on starting the business day with a plan",
+  },
+  {
+    src: "/backgrounds/nature-blue-purple-dreamy-dandelion-haze-landscape.png",
+    name: "Dreamy dandelion haze",
+    ratio: "16:9",
+    colors: ["blue", "purple"],
+    tags: ["blue", "purple", "dreamy", "dandelion", "haze"],
+    subject: "florals",
+    palette: ["lavender", "blue", "purple"],
+    tone: "light",
+    textSpace: "top",
+    context: ["fluffy flower heads", "pastel haze", "soft focus"],
+    description: "Fluffy purple flower heads on thin stems drift in soft focus against a pale blue and lavender haze",
+    suggestedUse: "Email header for a spring newsletter to practice clients",
+  },
+  {
+    src: "/backgrounds/nature-orange-navy-dusk-afterglow-water-landscape.png",
+    name: "Dusk afterglow water",
+    ratio: "16:9",
+    colors: ["orange", "navy"],
+    tags: ["orange", "navy", "dusk", "afterglow", "water"],
+    subject: "sky",
+    palette: ["navy", "orange", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["afterglow", "headland silhouettes", "still water"],
+    description: "A dusky slate sky glows orange at the horizon between dark headlands, a small structure on the right, still water below",
+    suggestedUse: "Email header for a public holiday closure notice",
+  },
+  {
+    src: "/backgrounds/nature-purple-orange-dusk-street-bokeh-landscape.png",
+    name: "Dusk street bokeh",
+    ratio: "16:9",
+    colors: ["purple", "orange"],
+    tags: ["purple", "orange", "dusk", "street", "bokeh"],
+    subject: "sky",
+    palette: ["purple", "orange", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["dramatic clouds", "orange sunset", "street bokeh"],
+    description: "Purple streaked clouds over an orange sunset, with tree silhouettes and blurred orange lights below",
+    suggestedUse: "Slide background for an end of year celebration deck",
+  },
+  {
+    src: "/backgrounds/nature-pink-amber-dusk-town-lights-landscape.png",
+    name: "Dusk town lights",
+    ratio: "16:9",
+    colors: ["pink", "amber"],
+    tags: ["pink", "amber", "dusk", "town", "lights"],
+    subject: "city",
+    palette: ["pink", "black", "amber"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["town lights", "bare trees", "pink dusk"],
+    description: "Pink dusk sky over blurred bare trees and a town scattered with warm out-of-focus lights",
+    suggestedUse: "Email header for a local community update from the studio",
+  },
+  {
+    src: "/backgrounds/nature-pink-peach-dusk-tree-streetlights-landscape.png",
+    name: "Dusk tree streetlights",
+    ratio: "16:9",
+    colors: ["pink", "peach"],
+    tags: ["pink", "peach", "dusk", "tree", "streetlights"],
+    subject: "bokeh",
+    palette: ["pink", "black", "amber"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["bokeh lights", "bare tree", "dusk silhouettes"],
+    description: "Blurred bare tree and dark building shapes under a pink dusk sky, with scattered warm and white light orbs below",
+    suggestedUse: "Slide background for an evening networking event deck",
+  },
+  {
+    src: "/backgrounds/nature-purple-lavender-field-wooden-post-landscape.png",
+    name: "Field wooden post",
+    ratio: "16:9",
+    colors: ["purple", "lavender"],
+    tags: ["purple", "lavender", "field", "wooden", "post"],
+    subject: "florals",
+    palette: ["purple", "lavender", "orange"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["lavender field", "wooden post", "low sun"],
+    description: "Lavender flower spikes fill the foreground beside a weathered wooden post, with a low sun glowing at upper left",
+    suggestedUse: "Website hero for a day spa booking page",
+  },
+  {
+    src: "/backgrounds/nature-green-gold-garden-foliage-bokeh-landscape.png",
+    name: "Garden foliage bokeh",
+    ratio: "16:9",
+    colors: ["green", "gold"],
+    tags: ["green", "gold", "garden", "foliage", "bokeh"],
+    subject: "bokeh",
+    palette: ["green", "amber", "brown"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["outdoor gathering", "golden bokeh", "leafy frame"],
+    description: "Out-of-focus outdoor gathering with golden light orbs, green leaves and blurred people seated at a table",
+    suggestedUse: "Email header inviting members to a studio social evening",
+  },
+  {
+    src: "/backgrounds/nature-red-orange-glowing-flower-bloom-landscape.png",
+    name: "Glowing flower bloom",
+    ratio: "16:9",
+    colors: ["red", "orange"],
+    tags: ["red", "orange", "glowing", "flower", "bloom"],
+    subject: "florals",
+    palette: ["orange", "navy", "purple"],
+    tone: "dark",
+    textSpace: "right",
+    context: ["motion blur", "glowing bloom", "dark gradient"],
+    description: "A single red-orange flower with streaky motion blur glows against a deep blue and purple background",
+    suggestedUse: "Slide background for a bold section opener in a sales deck",
+  },
+  {
+    src: "/backgrounds/nature-pink-black-glowing-snowy-summit-landscape.png",
+    name: "Glowing snowy summit",
+    ratio: "16:9",
+    colors: ["pink", "black"],
+    tags: ["pink", "black", "glowing", "snowy", "summit"],
+    subject: "mountains",
+    palette: ["black", "pink", "blue"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["glowing summit", "black backdrop", "snow ridges"],
+    description: "A single snowy peak glows pink at the tip and blue below, isolated against a solid black background",
+    suggestedUse: "Slide background for a milestone announcement slide",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-golden-bokeh-orbs-landscape.png",
+    name: "Golden bokeh orbs",
+    ratio: "16:9",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "golden", "bokeh", "orbs"],
+    subject: "bokeh",
+    palette: ["amber", "cream", "brown"],
+    tone: "mid",
+    textSpace: "centre",
+    context: ["golden bokeh", "even texture", "warm glow"],
+    description: "Soft golden and cream light orbs blur across the frame, darker brown towards the right edge",
+    suggestedUse: "Website section background behind a plan comparison block",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-gradient-sky-bokeh-landscape.png",
+    name: "Gradient sky bokeh",
+    ratio: "16:9",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "gradient", "sky", "bokeh"],
+    subject: "bokeh",
+    palette: ["pink", "lavender", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["pink sky", "hillside blur", "lavender orbs"],
+    description: "Pink and lavender sky above a dark blurred hillside dotted with lavender and gold light orbs",
+    suggestedUse: "Email header for a soft launch announcement",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-grass-dusk-silhouette-landscape.png",
+    name: "Grass dusk silhouette",
+    ratio: "16:9",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "grass", "dusk", "silhouette"],
+    subject: "clouds",
+    palette: ["purple", "lavender", "pink"],
+    tone: "mid",
+    textSpace: "left",
+    context: ["grass silhouettes", "soft clouds", "dusk light"],
+    description: "Spiky grass heads silhouetted on the right against soft purple clouds and a pink glow",
+    suggestedUse: "Slide background for a weekly planning session",
+  },
+  {
+    src: "/backgrounds/nature-amber-brown-grass-golden-hour-landscape.png",
+    name: "Grass golden hour",
+    ratio: "16:9",
+    colors: ["amber", "brown"],
+    tags: ["amber", "brown", "grass", "golden", "hour"],
+    subject: "meadow",
+    palette: ["amber", "brown", "black"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["backlit grass", "golden hour", "dark treeline"],
+    description: "Backlit grass seed heads glow in a golden field, with a dark blurred treeline and pale sky across the top",
+    suggestedUse: "Blog header for an article on end of financial year planning for studios",
+    note: "Same image as media/cards/nature-amber-brown-grass-golden-hour-landscape.png",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-grass-motion-blur-landscape.png",
+    name: "Grass motion blur",
+    ratio: "16:9",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "grass", "motion", "blur"],
+    subject: "meadow",
+    palette: ["cream", "amber", "brown"],
+    tone: "light",
+    textSpace: "top",
+    context: ["motion blur", "warm light", "soft sky"],
+    description: "Streaked, motion-blurred grass along the bottom under a pale warm sky with a hint of blue at top left",
+    suggestedUse: "Slide background for a section divider in a strategy deck",
+  },
+  {
+    src: "/backgrounds/nature-green-grass-seedheads-backlit-dew-landscape.png",
+    name: "Grass seedheads backlit dew",
+    ratio: "16:9",
+    colors: ["green"],
+    tags: ["green", "grass", "seedheads", "backlit", "dew"],
+    subject: "meadow",
+    palette: ["green", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["green seed heads", "deep green blur", "sharp detail"],
+    description: "Green grass seed heads in sharp focus arc across a deep green blurred background",
+    suggestedUse: "Blog header for an article on growing a practice without more admin",
+  },
+  {
+    src: "/backgrounds/nature-brown-blue-hanging-cones-sunset-landscape.png",
+    name: "Hanging cones sunset",
+    ratio: "16:9",
+    colors: ["brown", "blue"],
+    tags: ["brown", "blue", "hanging", "cones", "sunset"],
+    subject: "branches",
+    palette: ["brown", "grey", "blue"],
+    tone: "mid",
+    textSpace: "bottom",
+    context: ["hanging cones", "bare branch", "forest blur"],
+    description: "A bare branch with small dark hanging cones crosses a blurred forest of trunks, blue sky and warm light spots",
+    suggestedUse: "Blog header for an article on planning for the winter slow season",
+    note: "Same image as media/cards/nature-brown-blue-hanging-cones-sunset-landscape.png",
+  },
+  {
+    src: "/backgrounds/nature-navy-orange-harbor-lights-reflection-landscape.png",
+    name: "Harbor lights reflection",
+    ratio: "16:9",
+    colors: ["navy", "orange"],
+    tags: ["navy", "orange", "harbor", "lights", "reflection"],
+    subject: "bokeh",
+    palette: ["navy", "blue", "orange"],
+    tone: "mid",
+    textSpace: "bottom",
+    context: ["lights on water", "orange orbs", "blue dusk"],
+    description: "Two orange light orbs and their reflections glow over blurred blue water at dusk, dark shoreline at lower left",
+    suggestedUse: "Slide background for an evening webinar title slide",
+  },
+  {
+    src: "/backgrounds/nature-lavender-purple-hydrangea-pastel-haze-landscape.png",
+    name: "Hydrangea pastel haze",
+    ratio: "16:9",
+    colors: ["lavender", "purple"],
+    tags: ["lavender", "purple", "hydrangea", "pastel", "haze"],
+    subject: "florals",
+    palette: ["lavender", "white", "purple"],
+    tone: "light",
+    textSpace: "top",
+    context: ["clustered blooms", "lavender haze", "pale top"],
+    description: "Soft purple flower clusters and green leaves sit low in the frame under a pale white and lavender haze",
+    suggestedUse: "Email header for a Mother's Day gift voucher campaign",
+  },
+  {
+    src: "/backgrounds/nature-amber-gold-indoor-cafe-bokeh-landscape.png",
+    name: "Indoor cafe bokeh",
+    ratio: "16:9",
+    colors: ["amber", "gold"],
+    tags: ["amber", "gold", "indoor", "cafe", "bokeh"],
+    subject: "bokeh",
+    palette: ["amber", "brown", "white"],
+    tone: "mid",
+    textSpace: "left",
+    context: ["indoor bokeh", "blurred figure", "bright side light"],
+    description: "A blurred interior with warm light orbs, bright pale light on the right and the soft silhouette of a person",
+    suggestedUse: "Website section background for a studio events page",
+  },
+  {
+    src: "/backgrounds/nature-navy-pink-lake-mirror-reflection-landscape.png",
+    name: "Lake mirror reflection",
+    ratio: "16:9",
+    colors: ["navy", "pink"],
+    tags: ["navy", "pink", "lake", "mirror", "reflection"],
+    subject: "mountains",
+    palette: ["navy", "pink", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["mirror reflection", "mountain silhouettes", "pink horizon"],
+    description: "Dark mountain silhouettes frame a pink glowing horizon reflected in still water under a deep navy sky",
+    suggestedUse: "Website hero for a year planning workshop landing page",
+  },
+  {
+    src: "/backgrounds/nature-purple-gold-lantana-golden-bokeh-landscape.png",
+    name: "Lantana golden bokeh",
+    ratio: "16:9",
+    colors: ["purple", "gold"],
+    tags: ["purple", "gold", "lantana", "golden", "bokeh"],
+    subject: "florals",
+    palette: ["purple", "gold", "green"],
+    tone: "dark",
+    textSpace: "left",
+    context: ["purple flower clusters", "golden bokeh", "twilight"],
+    description: "Small purple flower clusters on a leafy stem in front of golden and white light orbs under a violet dusk sky",
+    suggestedUse: "Email header for an evening event invitation",
+  },
+  {
+    src: "/backgrounds/nature-brown-cream-larch-pinecones-branch-landscape.png",
+    name: "Larch pinecones branch",
+    ratio: "16:9",
+    colors: ["brown", "cream"],
+    tags: ["brown", "cream", "larch", "pinecones", "branch"],
+    subject: "branches",
+    palette: ["brown", "cream", "amber"],
+    tone: "mid",
+    textSpace: "bottom",
+    context: ["two small cones", "dry needles", "beige blur"],
+    description: "Thin branches with two small brown cones and tufts of dry needles over a warm beige, softly blurred background",
+    suggestedUse: "Blog header for an article on simplifying your booking systems",
+    note: "Same image as media/cards/nature-brown-cream-larch-pinecones-branch-landscape.png",
+  },
+  {
+    src: "/backgrounds/nature-orange-amber-misty-forest-pines-landscape.png",
+    name: "Misty forest pines",
+    ratio: "16:9",
+    colors: ["orange", "amber"],
+    tags: ["orange", "amber", "misty", "forest", "pines"],
+    subject: "forest",
+    palette: ["orange", "cream", "green"],
+    tone: "light",
+    textSpace: "left",
+    context: ["misty pines", "warm fog", "open negative space"],
+    description: "Conifer trees emerge from warm orange fog on the right, leaving soft open mist across the left side",
+    suggestedUse: "Website hero for a done-for-you setup service page",
+  },
+  {
+    src: "/backgrounds/nature-peach-lavender-misty-mountains-sunrise-landscape.png",
+    name: "Misty mountains sunrise",
+    ratio: "16:9",
+    colors: ["peach", "lavender"],
+    tags: ["peach", "lavender", "misty", "mountains", "sunrise"],
+    subject: "mountains",
+    palette: ["pink", "lavender", "cream"],
+    tone: "light",
+    textSpace: "top",
+    context: ["layered peaks", "small figure", "pale sun"],
+    description: "Layered lavender mountains in mist beneath a peach sky, a pale sun behind the peak and a small figure on a ridge",
+    suggestedUse: "Website hero for a practice growth roadmap page",
+  },
+  {
+    src: "/backgrounds/nature-pink-grey-misty-rocky-peaks-landscape.png",
+    name: "Misty rocky peaks",
+    ratio: "16:9",
+    colors: ["pink", "grey"],
+    tags: ["pink", "grey", "misty", "rocky", "peaks"],
+    subject: "mountains",
+    palette: ["pink", "lavender", "blue"],
+    tone: "light",
+    textSpace: "top",
+    context: ["sea of mist", "rocky peaks", "pink sky"],
+    description: "Two small rocky peaks break through a lavender sea of mist beneath a glowing pink sky",
+    suggestedUse: "Website hero for a page on clearing an admin backlog",
+  },
+  {
+    src: "/backgrounds/nature-orange-blue-ocean-calm-sunrise-landscape.png",
+    name: "Ocean calm sunrise",
+    ratio: "16:9",
+    colors: ["orange", "blue"],
+    tags: ["orange", "blue", "ocean", "calm", "sunrise"],
+    subject: "ocean",
+    palette: ["navy", "orange", "blue"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["sun on horizon", "eye-level waves", "blue water"],
+    description: "A low sun sits on the horizon above deep blue waves seen at water level, with an orange glow in the sky",
+    suggestedUse: "Email header for a weekly practice update sent early Monday",
+  },
+  {
+    src: "/backgrounds/nature-orange-gold-ocean-mountain-silhouette-landscape.png",
+    name: "Ocean mountain silhouette",
+    ratio: "16:9",
+    colors: ["orange", "gold"],
+    tags: ["orange", "gold", "ocean", "mountain", "silhouette"],
+    subject: "ocean",
+    palette: ["orange", "gold", "navy"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["golden sky", "ridge silhouette", "calm ripples"],
+    description: "Golden orange sunset sky over a dark mountain ridge and softly rippling blue water",
+    suggestedUse: "Slide background for a quarterly business review deck",
+  },
+  {
+    src: "/backgrounds/nature-pink-teal-ocean-mountain-wave-landscape.png",
+    name: "Ocean mountain wave",
+    ratio: "16:9",
+    colors: ["pink", "teal"],
+    tags: ["pink", "teal", "ocean", "mountain", "wave"],
+    subject: "ocean",
+    palette: ["teal", "pink", "blue"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["teal waves", "sunset horizon", "distant peak"],
+    description: "Eye-level teal sea with a gentle wave, a small mountain on the horizon and the sun setting under a lavender sky",
+    suggestedUse: "Website hero for a beachside studio or coastal clinic site",
+  },
+  {
+    src: "/backgrounds/nature-orange-navy-ocean-splash-sunset-landscape.png",
+    name: "Ocean splash sunset",
+    ratio: "16:9",
+    colors: ["orange", "navy"],
+    tags: ["orange", "navy", "ocean", "splash", "sunset"],
+    subject: "ocean",
+    palette: ["navy", "gold", "orange"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["water splash", "sun on horizon", "textured sea"],
+    description: "Water droplets splash up in front of a sun on the horizon, over dark textured navy sea and a gold sky",
+    suggestedUse: "Slide background for a product launch title slide",
+  },
+  {
+    src: "/backgrounds/nature-peach-pink-ocean-sunset-waves-landscape.png",
+    name: "Ocean sunset waves",
+    ratio: "16:9",
+    colors: ["peach", "pink"],
+    tags: ["peach", "pink", "ocean", "sunset", "waves"],
+    subject: "ocean",
+    palette: ["pink", "lavender", "orange"],
+    tone: "light",
+    textSpace: "top",
+    context: ["pink sun", "rolling waves", "pastel sea"],
+    description: "A pink sun sits low in a pastel pink sky over rolling waves washing towards the shore",
+    suggestedUse: "Website section background for a newsletter sign-up block",
+  },
+  {
+    src: "/backgrounds/nature-coral-navy-ocean-pink-wave-landscape.png",
+    name: "Ocean wave",
+    ratio: "16:9",
+    colors: ["coral", "navy", "pink"],
+    tags: ["coral", "navy", "pink", "ocean", "wave"],
+    subject: "ocean",
+    palette: ["navy", "pink", "orange"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["sunset water", "wave ripples", "eye-level view"],
+    description: "Low view across rippling navy water with pink highlights, under a thin band of pink and orange sunset sky",
+    suggestedUse: "Website hero for a coastal studio or retreat booking page",
+  },
+  {
+    src: "/backgrounds/nature-amber-orange-palm-fronds-glow-landscape.png",
+    name: "Palm fronds glow",
+    ratio: "16:9",
+    colors: ["amber", "orange"],
+    tags: ["amber", "orange", "palm", "fronds", "glow"],
+    subject: "foliage",
+    palette: ["amber", "navy", "black"],
+    tone: "dark",
+    textSpace: "left",
+    context: ["palm fronds", "amber glow", "deep shadow"],
+    description: "Palm fronds silhouetted against warm amber light, fading into deep navy shadow on the right",
+    suggestedUse: "Website hero for an evening massage booking page",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-pampas-mountains-twilight-landscape.png",
+    name: "Pampas mountains twilight",
+    ratio: "16:9",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "pampas", "mountains", "twilight"],
+    subject: "meadow",
+    palette: ["purple", "pink", "navy"],
+    tone: "mid",
+    textSpace: "left",
+    context: ["pampas plumes", "mountain silhouette", "violet sky"],
+    description: "Feathery grass plumes silhouetted against a pink and violet twilight sky above a blue mountain range",
+    suggestedUse: "Website hero for a mid-year planning webinar page",
+  },
+  {
+    src: "/backgrounds/nature-cream-peach-pampas-soft-seedheads-landscape.png",
+    name: "Pampas soft seedheads",
+    ratio: "16:9",
+    colors: ["cream", "peach"],
+    tags: ["cream", "peach", "pampas", "soft", "seedheads"],
+    subject: "meadow",
+    palette: ["cream", "green"],
+    tone: "light",
+    textSpace: "left",
+    context: ["grass plumes", "pale green blur", "airy light"],
+    description: "Soft tan grass plumes on thin stems rise against a pale cream and green blurred background",
+    suggestedUse: "Website hero for a pricing page with a light, uncluttered feel",
+  },
+  {
+    src: "/backgrounds/nature-brown-navy-pinecone-cluster-branch-landscape.png",
+    name: "Pinecone cluster branch",
+    ratio: "16:9",
+    colors: ["brown", "navy"],
+    tags: ["brown", "navy", "pinecone", "cluster", "branch"],
+    subject: "branches",
+    palette: ["black", "brown", "blue"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["open cones", "dark backdrop", "macro detail"],
+    description: "A twig with several open brown cones in sharp focus against a dark blurred background with a patch of blue",
+    suggestedUse: "Slide background for a dark title slide in an onboarding deck",
+    note: "Same image as media/cards/nature-brown-navy-pinecone-cluster-branch-landscape.png",
+  },
+  {
+    src: "/backgrounds/nature-lavender-peach-seascape-birds-flock-landscape.png",
+    name: "Seascape birds flock",
+    ratio: "16:9",
+    colors: ["lavender", "peach"],
+    tags: ["lavender", "peach", "seascape", "birds", "flock"],
+    subject: "sky",
+    palette: ["lavender", "pink", "orange"],
+    tone: "light",
+    textSpace: "top",
+    context: ["flying birds", "pastel sky", "gentle surf"],
+    description: "Birds fly across a lavender to peach sunset sky above a soft cloud bank and gentle waves on a beach",
+    suggestedUse: "Website hero for a coastal workshop landing page",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-snowy-peak-moon-landscape.png",
+    name: "Snowy peak moon",
+    ratio: "16:9",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "snowy", "peak", "moon"],
+    subject: "sky",
+    palette: ["purple", "pink", "white"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["full moon", "snowy range", "pink gradient"],
+    description: "A full moon rises in a purple to pink gradient sky over a snow-covered mountain range with a wisp of cloud",
+    suggestedUse: "Website section background for a monthly reporting feature",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-snowy-peaks-contrail-landscape.png",
+    name: "Snowy peaks contrail",
+    ratio: "16:9",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "snowy", "peaks", "contrail"],
+    subject: "sky",
+    palette: ["purple", "pink", "navy"],
+    tone: "mid",
+    textSpace: "centre",
+    context: ["contrail", "purple gradient", "snowy peaks"],
+    description: "A thin contrail crosses a purple sky that fades to pink above a line of snowy mountain peaks",
+    suggestedUse: "Website hero with a centred headline for the Health OS home page",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-snowy-rocky-ridges-landscape.png",
+    name: "Snowy rocky ridges",
+    ratio: "16:9",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "snowy", "rocky", "ridges"],
+    subject: "mountains",
+    palette: ["lavender", "purple", "pink"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["rocky massif", "lavender sky", "snow dusting"],
+    description: "A rocky, snow-dusted mountain rises at lower left under a lavender sky with a pink streak of cloud",
+    suggestedUse: "Slide background for a strategy offsite agenda",
+    note: "Looks soft at full size: avoid large hero use",
+  },
+  {
+    src: "/backgrounds/nature-pink-white-snowy-suspension-bridge-landscape.png",
+    name: "Snowy suspension bridge",
+    ratio: "16:9",
+    colors: ["pink", "white"],
+    tags: ["pink", "white", "snowy", "suspension", "bridge"],
+    subject: "bridge",
+    palette: ["pink", "navy", "white"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["suspension bridge", "snowy pines", "misty water"],
+    description: "A suspension bridge crosses misty water under a pink sky, with snowy pine trees in the foreground",
+    suggestedUse: "Blog header for an article on bridging old systems and new software",
+  },
+  {
+    src: "/backgrounds/nature-navy-peach-soft-snowy-dusk-landscape.png",
+    name: "Soft snowy dusk",
+    ratio: "16:9",
+    colors: ["navy", "peach"],
+    tags: ["navy", "peach", "soft", "snowy", "dusk"],
+    subject: "sky",
+    palette: ["navy", "purple", "pink"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["dusk gradient", "snowy ridge", "open negative space"],
+    description: "A smooth navy to pink dusk gradient fills the sky above a soft snowy mountain ridge along the bottom edge",
+    suggestedUse: "Website hero for the Health OS platform overview page",
+  },
+  {
+    src: "/backgrounds/nature-purple-navy-starry-mountain-horizon-landscape.png",
+    name: "Starry mountain horizon",
+    ratio: "16:9",
+    colors: ["purple", "navy"],
+    tags: ["purple", "navy", "starry", "mountain", "horizon"],
+    subject: "sky",
+    palette: ["navy", "purple", "pink"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["starry sky", "snowy peak", "indigo gradient"],
+    description: "Faint stars dot an indigo night sky that fades to pink over a small snowy peak at the bottom",
+    suggestedUse: "Website hero for a page about 24/7 online booking",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-sun-backlit-flowers-landscape.png",
+    name: "Sun backlit flowers",
+    ratio: "16:9",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "sun", "backlit", "flowers"],
+    subject: "florals",
+    palette: ["amber", "gold", "black"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["yellow petals", "low sun", "warm blur"],
+    description: "Backlit yellow flowers and grass silhouettes against a bright sun glow, fading to deep brown blur at the base",
+    suggestedUse: "Slide background for a morning team huddle agenda",
+  },
+  {
+    src: "/backgrounds/nature-orange-purple-sunset-water-reflection-landscape.png",
+    name: "Sunset water reflection",
+    ratio: "16:9",
+    colors: ["orange", "purple"],
+    tags: ["orange", "purple", "sunset", "water", "reflection"],
+    subject: "abstract",
+    palette: ["purple", "orange", "pink"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["blurred sunset", "water reflection", "soft gradient"],
+    description: "A heavily blurred sunset with purple sky, an orange glow at the horizon and its reflection in water",
+    suggestedUse: "Slide background for a section break in a webinar deck",
+  },
+  {
+    src: "/backgrounds/nature-green-amber-warm-garden-bokeh-landscape.png",
+    name: "Warm garden bokeh",
+    ratio: "16:9",
+    colors: ["green", "amber"],
+    tags: ["green", "amber", "warm", "garden", "bokeh"],
+    subject: "bokeh",
+    palette: ["green", "amber", "brown"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["garden blur", "warm lights", "soft figures"],
+    description: "Heavily blurred garden with green foliage, warm light orbs and soft figures of people on the right",
+    suggestedUse: "Website section background for a community events calendar",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-wheat-golden-stalk-landscape.png",
+    name: "Wheat golden stalk",
+    ratio: "16:9",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "wheat", "golden", "stalk"],
+    subject: "meadow",
+    palette: ["gold", "amber", "brown"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["grain field", "shallow focus", "amber backdrop"],
+    description: "Golden grain stalks in soft focus with a few taller heads, under a smooth dark amber blur",
+    suggestedUse: "Website hero for a nutrition practice services page",
+  },
+  {
+    src: "/backgrounds/nature-purple-orange-wildflowers-sunset-meadow-landscape.png",
+    name: "Wildflowers sunset meadow",
+    ratio: "16:9",
+    colors: ["purple", "orange"],
+    tags: ["purple", "orange", "wildflowers", "sunset", "meadow"],
+    subject: "meadow",
+    palette: ["orange", "purple", "brown"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["wildflower meadow", "vivid sunset", "grass stalks"],
+    description: "Purple and orange wildflowers and tall grass in the foreground of a meadow under a vivid orange sunset sky",
+    suggestedUse: "Blog header for an article on summer marketing for wellness studios",
+  },
+  {
+    src: "/backgrounds/nature-cream-brown-alder-catkins-winter-portrait.png",
+    name: "Alder catkins winter",
+    ratio: "9:16",
+    colors: ["cream", "brown"],
+    tags: ["cream", "brown", "alder", "catkins", "winter"],
+    subject: "branches",
+    palette: ["white", "grey", "brown"],
+    tone: "light",
+    textSpace: "top",
+    context: ["cone cluster", "white trunks", "winter blur"],
+    description: "Tall frame of small dark cones on a twig against a pale blurred stand of white and grey trunks",
+    suggestedUse: "Instagram story for a winter timetable announcement",
+  },
+  {
+    src: "/backgrounds/nature-brown-cream-alder-cones-frost-portrait.png",
+    name: "Alder cones frost",
+    ratio: "9:16",
+    colors: ["brown", "cream"],
+    tags: ["brown", "cream", "alder", "cones", "frost"],
+    subject: "branches",
+    palette: ["cream", "brown"],
+    tone: "light",
+    textSpace: "right",
+    context: ["hanging catkins", "cream backdrop", "twig silhouettes"],
+    description: "Tall frame of twigs with hanging catkins and small cones silhouetted on a soft cream background",
+    suggestedUse: "Instagram story for a quiet week or reduced hours notice",
+  },
+  {
+    src: "/backgrounds/nature-orange-red-autumn-maple-leaves-portrait.png",
+    name: "Autumn maple leaves",
+    ratio: "9:16",
+    colors: ["orange", "red"],
+    tags: ["orange", "red", "autumn", "maple", "leaves"],
+    subject: "foliage",
+    palette: ["orange", "brown", "black"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["orange maple", "dark branches", "soft light spots"],
+    description: "Tall frame of orange and red maple leaves on fine branches against blurred trunks and pale light",
+    suggestedUse: "Instagram story for an autumn timetable change",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-backlit-wildflowers-haze-portrait.png",
+    name: "Backlit wildflowers haze",
+    ratio: "9:16",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "backlit", "wildflowers", "haze"],
+    subject: "meadow",
+    palette: ["orange", "cream", "brown"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["hazy horizon", "flower silhouettes", "warm glow"],
+    description: "Tall frame of dark orange wildflower stems below a pale hazy sky and soft misty trees",
+    suggestedUse: "Story background for an early morning class launch",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-billowing-cumulus-clouds-portrait.png",
+    name: "Billowing cumulus clouds",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "billowing", "cumulus", "clouds"],
+    subject: "clouds",
+    palette: ["navy", "lavender", "white"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["towering clouds", "navy top", "lavender shadows"],
+    description: "Tall frame of towering white and lavender cumulus clouds against a dark navy sky with pink light at left",
+    suggestedUse: "Story background announcing client records kept in one place",
+  },
+  {
+    src: "/backgrounds/nature-orange-grey-copper-grass-blades-portrait.png",
+    name: "Copper grass blades",
+    ratio: "9:16",
+    colors: ["orange", "grey"],
+    tags: ["orange", "grey", "copper", "grass", "blades"],
+    subject: "foliage",
+    palette: ["orange", "lavender", "brown"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["grass blades", "soft mauve", "warm streaks"],
+    description: "Tall frame of orange and brown grass blades streaking across a smooth lilac background",
+    suggestedUse: "Reel cover for a design tip on social media templates",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-crescent-moon-field-portrait.png",
+    name: "Crescent moon field",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "crescent", "moon", "field"],
+    subject: "sky",
+    palette: ["purple", "pink", "lavender"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["night sky", "crescent moon", "reed silhouettes"],
+    description: "Tall purple and pink twilight sky with a small crescent moon and a band of feathery grass along the bottom",
+    suggestedUse: "Reel cover for a clip on automating end of day admin",
+    note: "Same image as backgrounds/nature-pink-purple-crescent-moon-grass-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-navy-pink-crescent-moon-forest-portrait.png",
+    name: "Crescent moon forest",
+    ratio: "9:16",
+    colors: ["navy", "pink"],
+    tags: ["navy", "pink", "crescent", "moon", "forest"],
+    subject: "forest",
+    palette: ["navy", "black", "pink"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["moonlit hillside", "pine forest", "night sky"],
+    description: "Tall frame of a crescent moon above a pink haze and dark pine-covered slopes filling the lower half",
+    suggestedUse: "Story background for an automated appointment reminder series",
+  },
+  {
+    src: "/backgrounds/nature-pink-purple-crescent-moon-grass-portrait.png",
+    name: "Crescent moon grass",
+    ratio: "9:16",
+    colors: ["pink", "purple"],
+    tags: ["pink", "purple", "crescent", "moon", "grass"],
+    subject: "sky",
+    palette: ["purple", "pink", "lavender"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["thin crescent", "tall grass", "twilight gradient"],
+    description: "Tall frame of a purple sky fading to pink, a tiny crescent moon and silhouetted grasses at the base",
+    suggestedUse: "Story background for an evening reminder to book next week",
+    note: "Same image as backgrounds/nature-purple-pink-crescent-moon-field-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-crescent-moon-hillside-portrait.png",
+    name: "Crescent moon hillside",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "crescent", "moon", "hillside"],
+    subject: "forest",
+    palette: ["navy", "black", "pink"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["crescent moon", "dark treeline", "pink haze"],
+    description: "Tall frame of a large crescent moon over a pink misty band and black pine silhouettes on a slope",
+    suggestedUse: "Reel cover for a clip on setting up evening booking hours",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-daisy-sun-silhouette-portrait.png",
+    name: "Daisy sun silhouette",
+    ratio: "9:16",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "daisy", "sun", "silhouette"],
+    subject: "florals",
+    palette: ["amber", "gold", "black"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["sun glow", "flower silhouettes", "dark base"],
+    description: "Tall frame of yellow flowers backlit by a bright sun at the top, dropping into dark blurred foreground",
+    suggestedUse: "Story background for an early bird booking reminder",
+    note: "Same image as media/cards/ChatGPT_Image_Jun_14__2026__08_35_28_PM.png",
+  },
+  {
+    src: "/backgrounds/nature-blue-purple-dreamy-dandelion-haze-portrait.png",
+    name: "Dreamy dandelion haze",
+    ratio: "9:16",
+    colors: ["blue", "purple"],
+    tags: ["blue", "purple", "dreamy", "dandelion", "haze"],
+    subject: "florals",
+    palette: ["blue", "lavender", "purple"],
+    tone: "light",
+    textSpace: "top",
+    context: ["purple blooms", "pale blue haze", "thin stems"],
+    description: "Tall frame of soft purple flower heads on thin stems, rising into a pale blue haze at the top",
+    suggestedUse: "Instagram story background for a new services menu launch",
+  },
+  {
+    src: "/backgrounds/nature-orange-navy-dusk-afterglow-water-portrait.png",
+    name: "Dusk afterglow water",
+    ratio: "9:16",
+    colors: ["orange", "navy"],
+    tags: ["orange", "navy", "dusk", "afterglow", "water"],
+    subject: "sky",
+    palette: ["navy", "orange", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["dusk glow", "low headland", "calm water"],
+    description: "Tall frame of dark sky fading to orange above low headlands with a small structure, over calm reflective water",
+    suggestedUse: "Story background for a public holiday opening hours update",
+  },
+  {
+    src: "/backgrounds/nature-purple-orange-dusk-street-bokeh-portrait.png",
+    name: "Dusk street bokeh",
+    ratio: "9:16",
+    colors: ["purple", "orange"],
+    tags: ["purple", "orange", "dusk", "street", "bokeh"],
+    subject: "sky",
+    palette: ["purple", "orange", "black"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["sunset streaks", "orange light orbs", "dark base"],
+    description: "Tall frame of purple and orange cloud streaks above a row of blurred orange and red lights and deep shadow",
+    suggestedUse: "Story background for a Friday wrap-up post",
+  },
+  {
+    src: "/backgrounds/nature-pink-amber-dusk-town-lights-portrait.png",
+    name: "Dusk town lights",
+    ratio: "9:16",
+    colors: ["pink", "amber"],
+    tags: ["pink", "amber", "dusk", "town", "lights"],
+    subject: "city",
+    palette: ["pink", "black", "amber"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["street lights", "tree silhouettes", "pink sky"],
+    description: "Tall frame of a pink sky above blurred tree silhouettes and a dark street with warm light orbs",
+    suggestedUse: "Story background for a local pop-up class announcement",
+  },
+  {
+    src: "/backgrounds/nature-pink-peach-dusk-tree-streetlights-portrait.png",
+    name: "Dusk tree streetlights",
+    ratio: "9:16",
+    colors: ["pink", "peach"],
+    tags: ["pink", "peach", "dusk", "tree", "streetlights"],
+    subject: "bokeh",
+    palette: ["pink", "black", "amber"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["dusk street", "warm orbs", "pale pink sky"],
+    description: "Tall frame of a pale pink sky over blurred bare trees and a dark street dotted with warm lights",
+    suggestedUse: "Reel cover for a clip about the drive home after clinic",
+    note: "Same image as media/cards/ChatGPT_Image_Jun_14__2026__08_35_44_PM.png",
+  },
+  {
+    src: "/backgrounds/nature-purple-lavender-field-wooden-post-portrait.png",
+    name: "Field wooden post",
+    ratio: "9:16",
+    colors: ["purple", "lavender"],
+    tags: ["purple", "lavender", "field", "wooden", "post"],
+    subject: "florals",
+    palette: ["purple", "lavender", "orange"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["lavender spikes", "fence post", "sunset glow"],
+    description: "Tall frame of lavender spikes and a weathered timber post lit by a warm sunset glow at the top",
+    suggestedUse: "Instagram story promoting a spa package booking link",
+  },
+  {
+    src: "/backgrounds/nature-green-gold-garden-foliage-bokeh-portrait.png",
+    name: "Garden foliage bokeh",
+    ratio: "9:16",
+    colors: ["green", "gold"],
+    tags: ["green", "gold", "garden", "foliage", "bokeh"],
+    subject: "bokeh",
+    palette: ["green", "amber", "brown"],
+    tone: "mid",
+    textSpace: "bottom",
+    context: ["golden light orbs", "blurred table", "green grass"],
+    description: "Tall frame of blurred garden greenery and golden light orbs above a softly lit table with white cloths",
+    suggestedUse: "Story background for a members night RSVP link",
+    note: "Same image as media/cards/ChatGPT_Image_Jun_14__2026__08_37_20_PM.png",
+  },
+  {
+    src: "/backgrounds/nature-red-orange-glowing-flower-bloom-portrait.png",
+    name: "Glowing flower bloom",
+    ratio: "9:16",
+    colors: ["red", "orange"],
+    tags: ["red", "orange", "glowing", "flower", "bloom"],
+    subject: "florals",
+    palette: ["orange", "purple", "navy"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["flame-like petals", "long stems", "deep violet"],
+    description: "Tall frame of a red-orange flower with streaked, glowing petals on two thin stems over a dark violet background",
+    suggestedUse: "Reel cover for a brand campaign teaser",
+  },
+  {
+    src: "/backgrounds/nature-pink-black-glowing-snowy-summit-portrait.png",
+    name: "Glowing snowy summit",
+    ratio: "9:16",
+    colors: ["pink", "black"],
+    tags: ["pink", "black", "glowing", "snowy", "summit"],
+    subject: "mountains",
+    palette: ["black", "pink", "blue"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["pink peak", "solid black", "snow texture"],
+    description: "Tall frame of a snow-covered peak lit pink at the top, set against plain black with dark lower slopes",
+    suggestedUse: "Story background for a major product launch teaser",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-golden-bokeh-orbs-portrait.png",
+    name: "Golden bokeh orbs",
+    ratio: "9:16",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "golden", "bokeh", "orbs"],
+    subject: "bokeh",
+    palette: ["cream", "amber", "gold"],
+    tone: "light",
+    textSpace: "centre",
+    context: ["cream light orbs", "soft blur", "warm tones"],
+    description: "Tall frame of large overlapping cream and amber light orbs with no sharp detail",
+    suggestedUse: "Instagram story background for a gift voucher promotion",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-gradient-sky-bokeh-portrait.png",
+    name: "Gradient sky bokeh",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "gradient", "sky", "bokeh"],
+    subject: "bokeh",
+    palette: ["pink", "lavender", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["diagonal hillside", "soft orbs", "rose gradient"],
+    description: "Tall frame of rose pink sky over a dark diagonal slope with soft pink and gold light orbs",
+    suggestedUse: "Instagram story countdown to a new website launch",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-grass-dusk-silhouette-portrait.png",
+    name: "Grass dusk silhouette",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "grass", "dusk", "silhouette"],
+    subject: "clouds",
+    palette: ["purple", "navy", "pink"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["twilight clouds", "seed head silhouettes", "violet tones"],
+    description: "Silhouetted grass seed heads reach up into a violet sky of soft clouds with patches of pink light",
+    suggestedUse: "Reel cover for a clip on planning the week ahead",
+    note: "Same image as backgrounds/nature-purple-lavender-grass-dusk-twilight-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-purple-lavender-grass-dusk-twilight-portrait.png",
+    name: "Grass dusk twilight",
+    ratio: "9:16",
+    colors: ["purple", "lavender"],
+    tags: ["purple", "lavender", "grass", "dusk", "twilight"],
+    subject: "clouds",
+    palette: ["purple", "navy", "pink"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["purple clouds", "grass silhouettes", "pink glow"],
+    description: "Tall frame of soft purple clouds with a pink glow, and black silhouettes of spiky grass heads rising from below",
+    suggestedUse: "Story background for a Sunday planning reminder",
+    note: "Same image as backgrounds/nature-purple-pink-grass-dusk-silhouette-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-amber-brown-grass-golden-hour-portrait.png",
+    name: "Grass golden hour",
+    ratio: "9:16",
+    colors: ["amber", "brown"],
+    tags: ["amber", "brown", "grass", "golden", "hour"],
+    subject: "meadow",
+    palette: ["amber", "brown", "cream"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["grass stems", "cloudy sky", "warm field"],
+    description: "Tall backlit grass stems in a golden field, under a dark treeline and a pale cloudy sky at the top",
+    suggestedUse: "Instagram story for a weekend outdoor session update",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-grass-motion-blur-portrait.png",
+    name: "Grass motion blur",
+    ratio: "9:16",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "grass", "motion", "blur"],
+    subject: "meadow",
+    palette: ["cream", "amber", "brown"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["blurred grass", "pale sky", "gradient fade"],
+    description: "Tall frame of pale warm sky fading into dark, motion-blurred grass across the lower half",
+    suggestedUse: "Story background for a quick poll or question sticker",
+  },
+  {
+    src: "/backgrounds/nature-green-grass-seedheads-backlit-dew-portrait.png",
+    name: "Grass seedheads backlit dew",
+    ratio: "9:16",
+    colors: ["green"],
+    tags: ["green", "grass", "seedheads", "backlit", "dew"],
+    subject: "meadow",
+    palette: ["green", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["grass stems", "dark green", "close-up"],
+    description: "Tall frame of green grass seed heads leaning in from the left over a smooth dark green blur",
+    suggestedUse: "Story background announcing a new practitioner joining the team",
+  },
+  {
+    src: "/backgrounds/nature-brown-blue-hanging-cones-sunset-portrait.png",
+    name: "Hanging cones sunset",
+    ratio: "9:16",
+    colors: ["brown", "blue"],
+    tags: ["brown", "blue", "hanging", "cones", "sunset"],
+    subject: "branches",
+    palette: ["brown", "blue", "grey"],
+    tone: "mid",
+    textSpace: "bottom",
+    context: ["dangling cones", "pale sky", "warm bokeh"],
+    description: "Tall frame of a thin branch with small hanging cones, pale blue sky at the top and warm blurred forest below",
+    suggestedUse: "Story background announcing winter opening hours",
+    note: "Same image as media/cards/nature-brown-blue-hanging-cones-sunset-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-navy-orange-harbor-lights-reflection-portrait.png",
+    name: "Harbor lights reflection",
+    ratio: "9:16",
+    colors: ["navy", "orange"],
+    tags: ["navy", "orange", "harbor", "lights", "reflection"],
+    subject: "bokeh",
+    palette: ["navy", "blue", "orange"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["light reflections", "deep blue water", "soft dusk"],
+    description: "Tall frame of blurred blue water with two orange lights reflected, a pale sky band above and dark water below",
+    suggestedUse: "Story background for a late session availability update",
+  },
+  {
+    src: "/backgrounds/nature-lavender-purple-hydrangea-pastel-haze-portrait.png",
+    name: "Hydrangea pastel haze",
+    ratio: "9:16",
+    colors: ["lavender", "purple"],
+    tags: ["lavender", "purple", "hydrangea", "pastel", "haze"],
+    subject: "florals",
+    palette: ["lavender", "white", "purple"],
+    tone: "light",
+    textSpace: "top",
+    context: ["purple flower clusters", "white glow", "soft focus"],
+    description: "Tall frame of lavender flower clusters in the lower half with a bright white haze above",
+    suggestedUse: "Instagram story linking to a newly opened booking calendar",
+  },
+  {
+    src: "/backgrounds/nature-amber-blue-indoor-bokeh-cluster-portrait.png",
+    name: "Indoor bokeh cluster",
+    ratio: "9:16",
+    colors: ["amber", "blue"],
+    tags: ["amber", "blue", "indoor", "bokeh", "cluster"],
+    subject: "bokeh",
+    palette: ["amber", "brown", "blue"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["warm bokeh", "dark foliage", "pale blue light"],
+    description: "Soft warm light orbs and pale blue patches blur beneath dark leaves at the top, with no sharp detail anywhere",
+    suggestedUse: "Instagram story background for a new evening class announcement",
+    note: "Same image as backgrounds/nature-amber-gold-indoor-cafe-bokeh-portrait.png and media/cards/ChatGPT_Image_Jun_14__2026__08_36_24_PM.png",
+  },
+  {
+    src: "/backgrounds/nature-amber-gold-indoor-cafe-bokeh-portrait.png",
+    name: "Indoor cafe bokeh",
+    ratio: "9:16",
+    colors: ["amber", "gold"],
+    tags: ["amber", "gold", "indoor", "cafe", "bokeh"],
+    subject: "bokeh",
+    palette: ["amber", "brown", "blue"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["light orbs", "out of focus", "dark leaves"],
+    description: "Out-of-focus warm light orbs with pale blue highlights, framed by dark leafy blur across the top",
+    suggestedUse: "Reel cover for a behind-the-scenes clip from a studio open night",
+    note: "Same image as backgrounds/nature-amber-blue-indoor-bokeh-cluster-portrait.png and media/cards/ChatGPT_Image_Jun_14__2026__08_36_24_PM.png",
+  },
+  {
+    src: "/backgrounds/nature-navy-pink-lake-mirror-reflection-portrait.png",
+    name: "Lake mirror reflection",
+    ratio: "9:16",
+    colors: ["navy", "pink"],
+    tags: ["navy", "pink", "lake", "mirror", "reflection"],
+    subject: "mountains",
+    palette: ["navy", "pink", "black"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["still water", "navy sky", "valley glow"],
+    description: "Tall frame of navy sky, a pink glow between dark mountains and its reflection in calm water below",
+    suggestedUse: "Story background for a new year business planning reminder",
+  },
+  {
+    src: "/backgrounds/nature-purple-gold-lantana-golden-bokeh-portrait.png",
+    name: "Lantana golden bokeh",
+    ratio: "9:16",
+    colors: ["purple", "gold"],
+    tags: ["purple", "gold", "lantana", "golden", "bokeh"],
+    subject: "florals",
+    palette: ["purple", "green", "gold"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["violet blooms", "light orbs", "dark greenery"],
+    description: "Tall frame of purple flower clusters on leafy stems below a row of golden light orbs and a grey violet sky",
+    suggestedUse: "Instagram story for a garden studio open evening",
+    note: "Same image as backgrounds/nature-purple-green-lantana-twilight-bokeh-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-purple-green-lantana-twilight-bokeh-portrait.png",
+    name: "Lantana twilight bokeh",
+    ratio: "9:16",
+    colors: ["purple", "green"],
+    tags: ["purple", "green", "lantana", "twilight", "bokeh"],
+    subject: "florals",
+    palette: ["purple", "green", "gold"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["flower stems", "bokeh row", "dusky sky"],
+    description: "Tall frame of leafy stems with small purple flowers, soft golden orbs across the middle and violet sky above",
+    suggestedUse: "Reel cover for a clip showing a studio's evening set-up",
+    note: "Same image as backgrounds/nature-purple-gold-lantana-golden-bokeh-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-brown-cream-larch-pinecones-branch-portrait.png",
+    name: "Larch pinecones branch",
+    ratio: "9:16",
+    colors: ["brown", "cream"],
+    tags: ["brown", "cream", "larch", "pinecones", "branch"],
+    subject: "branches",
+    palette: ["brown", "amber", "grey"],
+    tone: "mid",
+    textSpace: "bottom",
+    context: ["brown cones", "needle tufts", "soft brown base"],
+    description: "Tall frame of a branch with two brown cones and dry needles near the top, over a smooth brown blur",
+    suggestedUse: "Story background for a monthly business tip series",
+  },
+  {
+    src: "/backgrounds/nature-orange-amber-misty-forest-pines-portrait.png",
+    name: "Misty forest pines",
+    ratio: "9:16",
+    colors: ["orange", "amber"],
+    tags: ["orange", "amber", "misty", "forest", "pines"],
+    subject: "forest",
+    palette: ["orange", "cream", "green"],
+    tone: "light",
+    textSpace: "top",
+    context: ["foggy forest", "golden treetops", "pale top"],
+    description: "Tall frame of conifer trees in golden orange mist, with a pale cream haze across the top",
+    suggestedUse: "Instagram story announcing a move from old software to Health OS",
+  },
+  {
+    src: "/backgrounds/nature-peach-lavender-misty-mountains-sunrise-portrait.png",
+    name: "Misty mountains sunrise",
+    ratio: "9:16",
+    colors: ["peach", "lavender"],
+    tags: ["peach", "lavender", "misty", "mountains", "sunrise"],
+    subject: "mountains",
+    palette: ["pink", "lavender", "cream"],
+    tone: "light",
+    textSpace: "top",
+    context: ["misty ranges", "peach sky", "lone figure"],
+    description: "Tall frame of a peach sky, pale sun behind a peak and lavender ridges fading into mist, with a small figure",
+    suggestedUse: "Instagram story for a goal-setting workshop for practice owners",
+  },
+  {
+    src: "/backgrounds/nature-pink-grey-misty-rocky-peaks-portrait.png",
+    name: "Misty rocky peaks",
+    ratio: "9:16",
+    colors: ["pink", "grey"],
+    tags: ["pink", "grey", "misty", "rocky", "peaks"],
+    subject: "mountains",
+    palette: ["pink", "lavender", "purple"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["misty summits", "pink gradient", "cloud layer"],
+    description: "Tall frame of pink sky over two small rocky peaks poking through thick lavender mist",
+    suggestedUse: "Instagram story for a free admin audit offer",
+  },
+  {
+    src: "/backgrounds/nature-orange-blue-ocean-calm-sunrise-portrait.png",
+    name: "Ocean calm sunrise",
+    ratio: "9:16",
+    colors: ["orange", "blue"],
+    tags: ["orange", "blue", "ocean", "calm", "sunrise"],
+    subject: "ocean",
+    palette: ["navy", "orange", "blue"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["low sun", "rolling swell", "orange horizon"],
+    description: "Tall narrow frame of a sun on the sea horizon, orange glow fading to blue sky above deep blue swell",
+    suggestedUse: "Story background for a new week booking availability post",
+    note: "Taller than 9:16 (825 × 1906): crop before use",
+  },
+  {
+    src: "/backgrounds/nature-coral-blue-ocean-pink-crest-portrait.png",
+    name: "Ocean crest",
+    ratio: "9:16",
+    colors: ["coral", "blue", "pink"],
+    tags: ["coral", "blue", "pink", "ocean", "crest"],
+    subject: "ocean",
+    palette: ["navy", "pink", "blue"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["water level", "pink reflections", "blurred horizon"],
+    description: "Close, low view of navy waves with pink reflections, under a blurred pink and orange sunset band",
+    suggestedUse: "Reel cover for a short clip about switching off after clinic hours",
+    note: "Same image as backgrounds/nature-coral-navy-ocean-pink-wave-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-orange-gold-ocean-mountain-silhouette-portrait.png",
+    name: "Ocean mountain silhouette",
+    ratio: "9:16",
+    colors: ["orange", "gold"],
+    tags: ["orange", "gold", "ocean", "mountain", "silhouette"],
+    subject: "ocean",
+    palette: ["orange", "gold", "navy"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["sunset ripples", "dark headland", "warm sky"],
+    description: "Tall frame of an orange and gold sky above a dark ridge line and gently rippling water",
+    suggestedUse: "Story background for an end of week wrap-up post",
+  },
+  {
+    src: "/backgrounds/nature-pink-teal-ocean-mountain-wave-portrait.png",
+    name: "Ocean mountain wave",
+    ratio: "9:16",
+    colors: ["pink", "teal"],
+    tags: ["pink", "teal", "ocean", "mountain", "wave"],
+    subject: "ocean",
+    palette: ["blue", "teal", "pink"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["teal sea", "horizon sun", "lavender sky"],
+    description: "Tall frame of lavender blue sky, a setting sun and small peak on the horizon, and teal water below",
+    suggestedUse: "Story background announcing a new beachside class location",
+  },
+  {
+    src: "/backgrounds/nature-orange-navy-ocean-splash-sunset-portrait.png",
+    name: "Ocean splash sunset",
+    ratio: "9:16",
+    colors: ["orange", "navy"],
+    tags: ["orange", "navy", "ocean", "splash", "sunset"],
+    subject: "ocean",
+    palette: ["navy", "gold", "orange"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["splashing water", "gold sunset", "dark sea"],
+    description: "Tall frame of a gold sunset sun over the sea, with glinting water droplets and dark textured waves below",
+    suggestedUse: "Reel cover announcing a new Health OS feature",
+    note: "Taller than 9:16 (862 × 1825): crop before use. Same image as media/cards/ChatGPT_Image_Jun_14__2026__08_37_50_PM.png",
+  },
+  {
+    src: "/backgrounds/nature-peach-pink-ocean-sunset-waves-portrait.png",
+    name: "Ocean sunset waves",
+    ratio: "9:16",
+    colors: ["peach", "pink"],
+    tags: ["peach", "pink", "ocean", "sunset", "waves"],
+    subject: "ocean",
+    palette: ["pink", "lavender", "orange"],
+    tone: "light",
+    textSpace: "top",
+    context: ["rose sky", "breaking waves", "sun disc"],
+    description: "Tall frame of a soft pink sky with a pink sun near the horizon and lines of breaking waves below",
+    suggestedUse: "Instagram story inviting followers to join the email list",
+  },
+  {
+    src: "/backgrounds/nature-coral-navy-ocean-pink-wave-portrait.png",
+    name: "Ocean wave",
+    ratio: "9:16",
+    colors: ["coral", "navy", "pink"],
+    tags: ["coral", "navy", "pink", "ocean", "wave"],
+    subject: "ocean",
+    palette: ["navy", "pink", "blue"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["rippling waves", "sunset band", "deep navy"],
+    description: "Tall frame of rippling navy sea at eye level with pink light on the water and a soft sunset glow at the top",
+    suggestedUse: "Story background for a coastal retreat save the date",
+    note: "Same image as backgrounds/nature-coral-blue-ocean-pink-crest-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-amber-orange-palm-fronds-glow-portrait.png",
+    name: "Palm fronds glow",
+    ratio: "9:16",
+    colors: ["amber", "orange"],
+    tags: ["amber", "orange", "palm", "fronds", "glow"],
+    subject: "foliage",
+    palette: ["amber", "navy", "black"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["frond silhouettes", "warm lamp light", "dark lower half"],
+    description: "Tall view of palm fronds against warm amber light, with dark navy shadow and a low orange glow below",
+    suggestedUse: "Story background for after-hours appointment availability",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-pampas-mountains-twilight-portrait.png",
+    name: "Pampas mountains twilight",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "pampas", "mountains", "twilight"],
+    subject: "meadow",
+    palette: ["purple", "pink", "navy"],
+    tone: "mid",
+    textSpace: "left",
+    context: ["feathery plumes", "pink twilight", "blue ridge"],
+    description: "Tall frame of dark feathery grass plumes on the right against violet clouds, pink light and a blue ridge",
+    suggestedUse: "Story background for a webinar registration link",
+  },
+  {
+    src: "/backgrounds/nature-cream-peach-pampas-soft-seedheads-portrait.png",
+    name: "Pampas soft seedheads",
+    ratio: "9:16",
+    colors: ["cream", "peach"],
+    tags: ["cream", "peach", "pampas", "soft", "seedheads"],
+    subject: "meadow",
+    palette: ["cream", "green"],
+    tone: "light",
+    textSpace: "top",
+    context: ["fluffy seed heads", "cream haze", "slender stems"],
+    description: "Tall frame of fluffy tan seed heads on slender stems against a very pale cream and green background",
+    suggestedUse: "Instagram story background for a new client intake form link",
+  },
+  {
+    src: "/backgrounds/nature-brown-navy-pinecone-cluster-branch-portrait.png",
+    name: "Pinecone cluster branch",
+    ratio: "9:16",
+    colors: ["brown", "navy"],
+    tags: ["brown", "navy", "pinecone", "cluster", "branch"],
+    subject: "branches",
+    palette: ["black", "brown", "blue"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["cone-lined twig", "dark blur", "cool accent"],
+    description: "Tall frame of open brown cones along a twig across the middle, with dark blurred shadow above and below",
+    suggestedUse: "Story background for an evening webinar reminder",
+  },
+  {
+    src: "/backgrounds/nature-lavender-peach-seascape-birds-flock-portrait.png",
+    name: "Seascape birds flock",
+    ratio: "9:16",
+    colors: ["lavender", "peach"],
+    tags: ["lavender", "peach", "seascape", "birds", "flock"],
+    subject: "sky",
+    palette: ["lavender", "pink", "orange"],
+    tone: "light",
+    textSpace: "top",
+    context: ["bird flock", "lavender gradient", "shoreline waves"],
+    description: "Tall frame of a lavender and peach sky with a small flock of birds, low clouds and waves at the bottom",
+    suggestedUse: "Instagram story announcing summer holiday opening hours",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-snowy-peak-moon-portrait.png",
+    name: "Snowy peak moon",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "snowy", "peak", "moon"],
+    subject: "sky",
+    palette: ["purple", "pink", "white"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["rising moon", "snow-capped peaks", "violet sky"],
+    description: "Tall frame of violet sky fading to pink, a full moon low at centre and snowy peaks in the lower right",
+    suggestedUse: "Instagram story for a monthly business report reminder",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-snowy-peaks-contrail-portrait.png",
+    name: "Snowy peaks contrail",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "snowy", "peaks", "contrail"],
+    subject: "sky",
+    palette: ["purple", "pink", "navy"],
+    tone: "mid",
+    textSpace: "centre",
+    context: ["jet trail", "pink horizon", "dark forest base"],
+    description: "Tall frame of purple sky with a thin contrail, glowing pink low down, above snowy peaks and dark forest",
+    suggestedUse: "Story background for a conference travel schedule update",
+  },
+  {
+    src: "/backgrounds/nature-purple-pink-snowy-rocky-ridges-portrait.png",
+    name: "Snowy rocky ridges",
+    ratio: "9:16",
+    colors: ["purple", "pink"],
+    tags: ["purple", "pink", "snowy", "rocky", "ridges"],
+    subject: "mountains",
+    palette: ["lavender", "purple", "pink"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["rock face", "pink streak", "snowy ridges"],
+    description: "Tall frame of lavender sky with a pink cloud streak above a snow-dusted rocky peak and dark slopes",
+    suggestedUse: "Story background for a team offsite or planning day update",
+    note: "Looks soft at full size: avoid large hero use",
+  },
+  {
+    src: "/backgrounds/nature-pink-white-snowy-suspension-bridge-portrait.png",
+    name: "Snowy suspension bridge",
+    ratio: "9:16",
+    colors: ["pink", "white"],
+    tags: ["pink", "white", "snowy", "suspension", "bridge"],
+    subject: "bridge",
+    palette: ["pink", "navy", "white"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["bridge tower", "pink mist", "snow-covered trees"],
+    description: "Tall frame of a bridge tower and cables over misty water at pink dusk, with snowy pines along the bottom",
+    suggestedUse: "Story background for a software migration update to clients",
+  },
+  {
+    src: "/backgrounds/nature-navy-peach-soft-snowy-dusk-portrait.png",
+    name: "Soft snowy dusk",
+    ratio: "9:16",
+    colors: ["navy", "peach"],
+    tags: ["navy", "peach", "soft", "snowy", "dusk"],
+    subject: "sky",
+    palette: ["navy", "purple", "pink"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["indigo to pink", "snow slope", "clean sky"],
+    description: "Tall frame of indigo sky fading to pink over a snow-covered peak at the bottom",
+    suggestedUse: "Instagram story announcing a new app feature release",
+  },
+  {
+    src: "/backgrounds/nature-purple-navy-starry-mountain-horizon-portrait.png",
+    name: "Starry mountain horizon",
+    ratio: "9:16",
+    colors: ["purple", "navy"],
+    tags: ["purple", "navy", "starry", "mountain", "horizon"],
+    subject: "sky",
+    palette: ["navy", "purple", "pink"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["faint stars", "night gradient", "mountain base"],
+    description: "Tall frame of a deep purple starry sky fading to pink above a snow-capped mountain at the bottom",
+    suggestedUse: "Story background promoting round-the-clock online booking",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-sun-backlit-flowers-portrait.png",
+    name: "Sun backlit flowers",
+    ratio: "9:16",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "sun", "backlit", "flowers"],
+    subject: "florals",
+    palette: ["amber", "gold", "black"],
+    tone: "dark",
+    textSpace: "bottom",
+    context: ["backlit flowers", "bright sun", "soft bokeh"],
+    description: "Tall frame of yellow flowers silhouetted against a low sun, with small light spots and a dark lower half",
+    suggestedUse: "Reel cover for a weekly business tip from the Health OS team",
+  },
+  {
+    src: "/backgrounds/nature-orange-purple-sunset-water-reflection-portrait.png",
+    name: "Sunset water reflection",
+    ratio: "9:16",
+    colors: ["orange", "purple"],
+    tags: ["orange", "purple", "sunset", "water", "reflection"],
+    subject: "abstract",
+    palette: ["purple", "orange", "pink"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["sunset blur", "purple to orange", "glow reflection"],
+    description: "Tall frame of an out-of-focus purple sky with an orange sun glow and a streak of reflection below",
+    suggestedUse: "Story background for a text-only studio announcement",
+  },
+  {
+    src: "/backgrounds/nature-green-amber-warm-garden-bokeh-portrait.png",
+    name: "Warm garden bokeh",
+    ratio: "9:16",
+    colors: ["green", "amber"],
+    tags: ["green", "amber", "warm", "garden", "bokeh"],
+    subject: "bokeh",
+    palette: ["green", "amber", "cream"],
+    tone: "mid",
+    textSpace: "left",
+    context: ["long table", "green foliage", "golden light orbs"],
+    description: "Out-of-focus outdoor table setting with a white cloth, blurred people, warm light orbs and leafy greenery on the left",
+    suggestedUse: "Story background inviting clients to an end of year gathering",
+    note: "Same image as backgrounds/nature-amber-gold-warm-garden-candle-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-amber-gold-warm-garden-candle-portrait.png",
+    name: "Warm garden candle",
+    ratio: "9:16",
+    colors: ["amber", "gold"],
+    tags: ["amber", "gold", "warm", "garden", "candle"],
+    subject: "bokeh",
+    palette: ["green", "amber", "cream"],
+    tone: "mid",
+    textSpace: "left",
+    context: ["garden bokeh", "blurred figures", "white tablecloth"],
+    description: "Blurred garden scene with warm light orbs, green foliage on the left and soft figures around a table with a white cloth",
+    suggestedUse: "Instagram story promoting a community long lunch for members",
+    note: "Same image as backgrounds/nature-green-amber-warm-garden-bokeh-portrait.png",
+  },
+  {
+    src: "/backgrounds/nature-gold-amber-wheat-golden-stalk-portrait.png",
+    name: "Wheat golden stalk",
+    ratio: "9:16",
+    colors: ["gold", "amber"],
+    tags: ["gold", "amber", "wheat", "golden", "stalk"],
+    subject: "meadow",
+    palette: ["gold", "amber", "brown"],
+    tone: "mid",
+    textSpace: "top",
+    context: ["golden stalks", "eye-level field", "dark amber top"],
+    description: "Tall frame of golden grain and grass stalks rising into a smooth, dark amber blur",
+    suggestedUse: "Instagram story for a seasonal membership renewal reminder",
+  },
+  {
+    src: "/backgrounds/nature-purple-orange-wildflowers-sunset-meadow-portrait.png",
+    name: "Wildflowers sunset meadow",
+    ratio: "9:16",
+    colors: ["purple", "orange"],
+    tags: ["purple", "orange", "wildflowers", "sunset", "meadow"],
+    subject: "meadow",
+    palette: ["orange", "purple", "brown"],
+    tone: "dark",
+    textSpace: "top",
+    context: ["sunset meadow", "purple wildflowers", "low sun"],
+    description: "Tall frame of an orange sunset with clouds, the sun on the horizon and a meadow of wildflowers below",
+    suggestedUse: "Instagram story for a summer class pass offer",
+  },
 ];
 
 export const BACKGROUNDS_16x9 = BACKGROUNDS.filter((b) => b.ratio === '16:9');

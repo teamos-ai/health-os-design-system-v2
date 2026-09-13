@@ -30,7 +30,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       <label
         htmlFor={fieldId}
         className={cn(
-          'group inline-flex cursor-pointer items-center gap-2.5 font-mono text-body-sm text-ink-900',
+          'group inline-flex cursor-pointer items-center gap-3 font-sans text-body text-ink-900',
           disabled && 'cursor-not-allowed opacity-50',
           className
         )}
@@ -42,7 +42,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             type="checkbox"
             checked={checked}
             disabled={disabled}
-            className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-md border border-line bg-surface transition-colors duration-sm ease-out checked:border-brand-600 checked:bg-brand-600 indeterminate:border-brand-600 indeterminate:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
+            className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-md border border-line bg-surface transition-colors duration-sm ease-out checked:border-rose-700 checked:bg-rose-700 indeterminate:border-rose-700 indeterminate:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
             {...props}
           />
           {indeterminate ? (

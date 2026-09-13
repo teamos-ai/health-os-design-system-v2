@@ -1,10 +1,7 @@
 /**
- * CommandBar — the command-palette search input that anchors the hero.
- * Leading Search icon, mono placeholder ("type / for commands"), a trailing
- * ⌘K kbd hint. Flat hairline + soft shadow, brand focus ring, zero glass.
- *
- * `size="hero"` is the large hero variant; `size="md"` is the in-nav search.
- * It's a real, focusable input — wire `value`/`onChange` if you need it live.
+ * CommandBar: the command-palette search input. A leading search icon, a mono
+ * placeholder and a trailing ⌘K hint. `size="hero"` for a hero, `size="md"` in a nav.
+ * A real, focusable input: wire `value` and `onChange` to make it live.
  */
 import * as React from 'react';
 import { Search } from 'lucide-react';
@@ -12,14 +9,14 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const bar = cva(
-  'group flex items-center gap-3 rounded-xl border border-line bg-surface ' +
-    'transition-all duration-md ease-out shadow-sm has-[:disabled]:opacity-60 ' +
-    'focus-within:border-brand-400 focus-within:shadow-md focus-within:ring-2 focus-within:ring-brand-600/35',
+  'group flex items-center gap-3 rounded-lg border border-line bg-surface ' +
+    'transition-[border-color,box-shadow,opacity] duration-md ease-out shadow-sm has-[:disabled]:opacity-60 ' +
+    'focus-within:border-rose-400 focus-within:shadow-md focus-within:ring-2 focus-within:ring-rose-700/35',
   {
     variants: {
       size: {
         hero: 'px-5 py-4',
-        md: 'px-4 py-2.5',
+        md: 'px-4 py-3',
       },
     },
     defaultVariants: { size: 'hero' },
@@ -41,7 +38,7 @@ export const CommandBar = React.forwardRef<HTMLInputElement, CommandBarProps>(
       shortcut = true,
       className,
       containerClassName,
-      placeholder = 'Search the platform — type / for commands',
+      placeholder = 'Search the platform, or type / for commands',
       'aria-label': ariaLabel,
       ...props
     },
@@ -51,7 +48,7 @@ export const CommandBar = React.forwardRef<HTMLInputElement, CommandBarProps>(
     return (
       <div className={cn(bar({ size }), containerClassName)}>
         <Search
-          className="shrink-0 text-ink-400 transition-colors group-focus-within:text-brand-500"
+          className="shrink-0 text-ink-400 transition-colors group-focus-within:text-rose-400"
           width={iconSize}
           height={iconSize}
           strokeWidth={1.5}
@@ -63,8 +60,8 @@ export const CommandBar = React.forwardRef<HTMLInputElement, CommandBarProps>(
           placeholder={placeholder}
           aria-label={ariaLabel ?? 'Search the platform'}
           className={cn(
-            'w-full bg-transparent font-mono text-ink-900 placeholder:text-ink-500 focus:outline-none',
-            size === 'md' ? 'text-body-sm' : 'text-body-md',
+            'w-full bg-transparent font-sans text-ink-900 placeholder:text-ink-500 focus:outline-none',
+            'text-body',
             className
           )}
           {...props}
@@ -73,8 +70,8 @@ export const CommandBar = React.forwardRef<HTMLInputElement, CommandBarProps>(
           <kbd
             aria-hidden
             className={cn(
-              'hidden shrink-0 items-center gap-0.5 rounded-md border border-line bg-paper',
-              'px-2 py-1 font-mono text-caption text-ink-600 sm:inline-flex'
+              'hidden shrink-0 items-center gap-1 rounded-md border border-line bg-paper',
+              'px-2 py-1 font-sans text-label text-ink-600 sm:inline-flex'
             )}
           >
             ⌘K

@@ -45,15 +45,15 @@ export const Pagination = ({
 
   const cell =
     'inline-flex h-10 min-w-10 items-center justify-center rounded-md px-2 ' +
-    'font-display text-body-sm font-medium transition-all duration-sm ease-out ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 ' +
+    'font-display text-body transition-[background-color,border-color,color,transform] duration-sm ease-out ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 ' +
     'focus-visible:ring-offset-2 focus-visible:ring-offset-paper active:scale-[0.98]';
 
   return (
-    <nav aria-label="Pagination" className={cn('flex items-center gap-1.5', className)}>
+    <nav aria-label="Pagination" className={cn('flex items-center gap-2', className)}>
       <IconButton
-        size="sm"
-        variant="outline"
+        size="small"
+        variant="secondary"
         aria-label="Previous page"
         disabled={page <= 1}
         onClick={() => go(page - 1)}
@@ -63,7 +63,7 @@ export const Pagination = ({
 
       {items.map((it, i) =>
         it === 'gap' ? (
-          <span key={`gap-${i}`} className="px-1.5 font-mono text-body-sm text-ink-400" aria-hidden>
+          <span key={`gap-${i}`} className="px-2 font-sans text-body text-ink-400" aria-hidden>
             …
           </span>
         ) : (
@@ -75,7 +75,7 @@ export const Pagination = ({
             className={cn(
               cell,
               it === page
-                ? 'bg-carbon text-white dark:bg-ink-900 dark:text-paper'
+                ? 'bg-carbon text-white'
                 : 'text-ink-500 hover:bg-ink-100 hover:text-ink-900'
             )}
           >
@@ -85,8 +85,8 @@ export const Pagination = ({
       )}
 
       <IconButton
-        size="sm"
-        variant="outline"
+        size="small"
+        variant="secondary"
         aria-label="Next page"
         disabled={page >= total}
         onClick={() => go(page + 1)}

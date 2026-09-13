@@ -1,20 +1,17 @@
 /**
- * CommandWidget — the rich command / "ask AI" search widget: a
- * search row (icon + placeholder + "/" hint) above a toolbar (add · search · chat on
- * the left; voice + a dark circular submit on the right). Flat hairline + soft shadow,
- * zero glass. The dark submit inverts to a light disc on the dark theme.
+ * CommandWidget: a larger search and ask input. A search row above a small toolbar
+ * (add, search, chat on the left; voice and submit on the right).
  *
- * Decorative by default; pass `value`/`onChange` to control the input and `onSubmit`
- * to fire on Enter and on the submit disc. With no handlers, the toolbar buttons drop
- * out of the tab order (tabIndex -1) so keyboard users don't tab through inert chrome.
+ * Decorative by default; pass `value`/`onChange` to control the input and `onSubmit` to
+ * fire on Enter and on submit. Without handlers the toolbar leaves the tab order.
  */
 import * as React from 'react';
 import { Search, Plus, MessageCircle, Mic, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const iconBtn =
-  'flex h-8 w-8 items-center justify-center rounded-full text-ink-500 transition-colors duration-sm ' +
-  'hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40';
+  'flex h-8 w-8 items-center justify-center rounded-md text-ink-500 transition-colors duration-sm ' +
+  'hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40';
 
 export interface CommandWidgetProps {
   className?: string;
@@ -42,7 +39,7 @@ export const CommandWidget = ({
   const submit = () => onSubmit?.(inputRef.current?.value ?? '');
 
   return (
-    <div className={cn('rounded-2xl border border-line bg-surface p-2.5 shadow-md', className)}>
+    <div className={cn('rounded-lg border border-line bg-surface p-3 shadow-md', className)}>
       {/* search row */}
       <div className="flex items-center gap-3 px-3 pb-3 pt-2">
         <Search className="h-5 w-5 shrink-0 text-ink-400" strokeWidth={1.5} aria-hidden />
@@ -61,19 +58,19 @@ export const CommandWidget = ({
                 }
               : undefined
           }
-          className="w-full bg-transparent font-mono text-body-md text-ink-900 placeholder:text-ink-500 focus:outline-none"
+          className="w-full bg-transparent font-sans text-body text-ink-900 placeholder:text-ink-500 focus:outline-none"
         />
         <kbd
           aria-hidden
-          className="hidden shrink-0 rounded-md border border-line bg-paper px-2 py-1 font-mono text-caption text-ink-600 sm:block"
+          className="hidden shrink-0 rounded-md border border-line bg-paper px-2 py-1 font-sans text-label text-ink-600 sm:block"
         >
           /
         </kbd>
       </div>
 
       {/* toolbar row */}
-      <div className="flex items-center justify-between border-t border-line px-1 pt-2.5">
-        <div className="flex items-center gap-0.5">
+      <div className="flex items-center justify-between border-t border-line px-1 pt-3">
+        <div className="flex items-center gap-1">
           <button type="button" aria-label="Add" tabIndex={toolbarTabIndex} className={iconBtn}>
             <Plus className="h-4 w-4" strokeWidth={1.5} />
           </button>
@@ -82,7 +79,7 @@ export const CommandWidget = ({
             aria-label="Search"
             aria-pressed="true"
             tabIndex={toolbarTabIndex}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-rose-50 text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40"
+            className="flex h-8 w-8 items-center justify-center rounded-md bg-rose-50 text-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
           >
             <Search className="h-4 w-4" strokeWidth={1.5} />
           </button>
@@ -90,7 +87,7 @@ export const CommandWidget = ({
             <MessageCircle className="h-4 w-4" strokeWidth={1.5} />
           </button>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             aria-label="Voice input"
@@ -104,7 +101,7 @@ export const CommandWidget = ({
             aria-label="Submit"
             tabIndex={toolbarTabIndex}
             onClick={onSubmit ? submit : undefined}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-carbon text-white transition-colors duration-sm hover:bg-carbon-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 dark:bg-ink-900 dark:text-paper dark:hover:bg-ink-700"
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-carbon text-white transition-colors duration-sm hover:bg-carbon/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
           >
             <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
           </button>

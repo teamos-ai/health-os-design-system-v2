@@ -7,7 +7,7 @@
  * (Framer's `useInView`, mirroring the existing CountUp). The live Countdown
  * ticks on a single setInterval that is cleared on unmount.
  *
- * Tokens only: font-display figures, font-mono labels, success-700 (up) /
+ * Tokens only: font-display figures, font-sans labels, success-700 (up) /
  * apricot-800 (warm, down) deltas — both AA on the page ground. Flat, 8px-max
  * squircle bars, neutral shadows, no glass.
  *
@@ -131,13 +131,13 @@ export const StatTrend = ({
   return (
     <div
       className={cn(
-        'flex flex-col gap-1.5',
+        'flex flex-col gap-2',
         align === 'center' && 'items-center text-center',
         className,
       )}
     >
       <div className="flex items-baseline gap-2">
-        <span ref={ref} className="font-display text-display-lg leading-none text-ink-900 tabular-nums">
+        <span ref={ref} className="font-display text-heading leading-none text-ink-900 tabular-nums">
           <span className="sr-only">{`${prefix}${value.toFixed(decimals)}${suffix}`}</span>
           <span aria-hidden>
             {prefix}
@@ -147,8 +147,8 @@ export const StatTrend = ({
         </span>
         <span
           className={cn(
-            'inline-flex items-center gap-0.5 rounded-sm px-1.5 py-0.5 font-mono text-caption font-bold tabular-nums',
-            up ? 'bg-success-100 text-success-700' : 'bg-apricot-100 text-apricot-800',
+            'inline-flex items-center gap-1 rounded-md px-2 py-1 font-sans text-label font-bold tabular-nums',
+            up ? 'bg-success-100 text-success-700' : 'bg-apricot-50 text-apricot-700',
           )}
         >
           <Arrow className="h-3 w-3" aria-hidden />
@@ -157,7 +157,7 @@ export const StatTrend = ({
           {Math.abs(delta).toFixed(deltaDecimals)}%
         </span>
       </div>
-      {label && <span className="font-mono text-body-sm text-ink-600">{label}</span>}
+      {label && <span className="font-sans text-body text-ink-600">{label}</span>}
     </div>
   );
 };
@@ -177,10 +177,10 @@ export interface SeatsRemainingProps {
   className?: string;
 }
 const SEAT_FILL: Record<NonNullable<SeatsRemainingProps['accent']>, string> = {
-  rose: 'bg-brand-400',
+  rose: 'bg-rose-400',
   apricot: 'bg-apricot-400',
   lavender: 'bg-lavender-400',
-  gold: 'bg-gold-400',
+  gold: 'bg-apricot-400',
 };
 export const SeatsRemaining = ({
   taken,
@@ -203,11 +203,11 @@ export const SeatsRemaining = ({
   return (
     <div className={cn('flex flex-col gap-2', className)}>
       <div className="flex items-baseline justify-between gap-3">
-        <span className="font-display text-h3 leading-none text-ink-900 tabular-nums">
+        <span className="font-display text-subheading leading-none text-ink-900 tabular-nums">
           <span ref={numRef}>{Math.round(value)}</span>
-          <span className="text-ink-400"> / {total}</span>
+          <span className="text-ink-500"> / {total}</span>
         </span>
-        <span className="font-mono text-caption uppercase tracking-label text-ink-500">{noun}</span>
+        <span className="font-sans text-label uppercase tracking-label text-ink-500">{noun}</span>
       </div>
       <div ref={barRef} className="h-2 w-full overflow-hidden rounded-md bg-ink-100">
         <motion.div
@@ -245,12 +245,12 @@ const BigCount = ({
   return (
     <div
       className={cn(
-        'flex flex-col gap-1.5',
+        'flex flex-col gap-2',
         align === 'center' && 'items-center text-center',
         className,
       )}
     >
-      <span ref={ref} className="font-display text-display-lg leading-none text-ink-900 tabular-nums">
+      <span ref={ref} className="font-display text-heading leading-none text-ink-900 tabular-nums">
         {/* screen readers get the static final figure, never the intermediates */}
         <span className="sr-only">{`${prefix}${value.toFixed(decimals)}${suffix}`}</span>
         <span aria-hidden>
@@ -259,7 +259,7 @@ const BigCount = ({
           {suffix}
         </span>
       </span>
-      <span className="font-mono text-body-sm text-ink-600">{label}</span>
+      <span className="font-sans text-body text-ink-600">{label}</span>
     </div>
   );
 };
@@ -370,7 +370,7 @@ export const Countdown = ({
     return (
       <span
         className={cn(
-          'inline-flex items-baseline rounded-sm bg-ink-100 px-2.5 py-1 font-mono text-caption uppercase tracking-label text-ink-500',
+          'inline-flex items-baseline rounded-md bg-ink-100 px-3 py-1 font-sans text-label uppercase tracking-label text-ink-500',
           align === 'center' && 'justify-center',
           className,
         )}
@@ -385,13 +385,13 @@ export const Countdown = ({
     return (
       <span
         className={cn(
-          'inline-flex items-baseline gap-1.5 rounded-sm bg-ink-100 px-2.5 py-1',
+          'inline-flex items-baseline gap-2 rounded-md bg-ink-100 px-3 py-1',
           align === 'center' && 'justify-center',
           className,
         )}
       >
-        <span className="font-display text-h3 leading-none text-ink-900 tabular-nums">{left.days}</span>
-        <span className="font-mono text-caption uppercase tracking-label text-ink-500">
+        <span className="font-display text-subheading leading-none text-ink-900 tabular-nums">{left.days}</span>
+        <span className="font-sans text-label uppercase tracking-label text-ink-500">
           {left.days === 1 ? 'day' : 'days'} left
         </span>
       </span>
@@ -413,18 +413,18 @@ export const Countdown = ({
     >
       {units.map((u, i) => (
         <React.Fragment key={u.label}>
-          <div className="flex min-w-14 flex-col items-center gap-1 rounded-md border border-line bg-surface px-3 py-2.5 shadow-sm">
-            <span className="font-display text-h2 leading-none text-ink-900 tabular-nums">
+          <div className="flex min-w-14 flex-col items-center gap-1 rounded-md border border-line bg-surface px-3 py-3 shadow-sm">
+            <span className="font-display text-heading leading-none text-ink-900 tabular-nums">
               {u.label === 'days' ? u.value : pad(u.value)}
             </span>
             {!hideLabels && (
-              <span className="font-mono text-overline uppercase tracking-label text-ink-500">
+              <span className="font-sans text-label uppercase tracking-label text-ink-500">
                 {u.label}
               </span>
             )}
           </div>
           {i < units.length - 1 && (
-            <span className="self-center font-display text-h3 text-ink-300" aria-hidden>
+            <span className="self-center font-display text-subheading text-ink-200" aria-hidden>
               :
             </span>
           )}

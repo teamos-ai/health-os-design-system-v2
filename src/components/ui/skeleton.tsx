@@ -11,7 +11,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** shape — a rounded rect (default) or a circle */
+  /** shape — a rounded-md rect (default) or a circle */
   circle?: boolean;
 }
 
@@ -33,7 +33,7 @@ export interface SkeletonTextProps {
 }
 
 export const SkeletonText = ({ lines = 3, className }: SkeletonTextProps) => (
-  <div className={cn('flex flex-col gap-2.5', className)}>
+  <div className={cn('flex flex-col gap-3', className)}>
     {Array.from({ length: lines }).map((_, i) => (
       <Skeleton key={i} className={cn('h-3.5', i === lines - 1 ? 'w-3/5' : 'w-full')} />
     ))}

@@ -1,65 +1,59 @@
 /**
- * Badge — small soft tonal squircle (8px radius, never a pill). Tonal background +
- * same-hue text (700 on the 100 tint to clear AA at the small label size). Optional
- * leading emoji or dot. Use for status, category, wellness tags and numbered details.
+ * Badge: a small tonal tag for status, category and topic. Tint background with deep
+ * same-hue text, label type, 8px corners. Optional leading emoji or dot.
+ *
+ * Colours: neutral and outline for quiet tags; rose, apricot and lavender for brand
+ * categories; success, warning and error only when the tag reports a real state.
  */
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const badge = cva(
-  'inline-flex items-center gap-1.5 font-mono font-bold uppercase tracking-label whitespace-nowrap',
-  {
-    variants: {
-      variant: {
-        // Pastel by design — soft tonal washes so tags stay quiet on a page.
-        // Accents sit on the -50 tints; semantics on a lightened -100 (/70).
-        neutral: 'bg-ink-100/70 text-ink-700',
-        brand: 'bg-rose-50 text-brand-700',
-        apricot: 'bg-apricot-50 text-apricot-700',
-        lavender: 'bg-lavender-50 text-lavender-700',
-        gold: 'bg-gold-100/70 text-gold-800',
-        success: 'bg-success-100/70 text-success-700',
-        warn: 'bg-warn-100/70 text-warn-700',
-        danger: 'bg-danger-100/70 text-danger-700',
-        info: 'bg-info-100/70 text-info-700',
-        outline: 'bg-surface border border-line text-ink-500',
-      },
-      size: {
-        sm: 'text-[10px] leading-none px-2 py-1 rounded-md',
-        md: 'text-label px-2.5 py-1 rounded-md',
-      },
+const badge = cva('inline-flex items-center gap-2 whitespace-nowrap rounded-md font-sans text-label uppercase', {
+  variants: {
+    variant: {
+      neutral: 'bg-ink-100 text-ink-900',
+      outline: 'border border-line bg-surface text-ink-500',
+      rose: 'bg-rose-50 text-rose-700',
+      apricot: 'bg-apricot-50 text-apricot-700',
+      lavender: 'bg-lavender-50 text-lavender-700',
+      success: 'bg-success-100 text-success-700',
+      warning: 'bg-warning-100 text-warning-700',
+      error: 'bg-error-100 text-error-700',
     },
-    defaultVariants: { variant: 'neutral', size: 'md' },
-  }
-);
+    size: {
+      sm: 'px-2 py-1',
+      md: 'px-3 py-1',
+    },
+  },
+  defaultVariants: { variant: 'neutral', size: 'md' },
+});
 
-export interface BadgeProps
-  extends React.HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof badge> {
+export type BadgeVariant = NonNullable<VariantProps<typeof badge>['variant']>;
+
+export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badge> {
+  /** leading dot, for a live or categorised state */
   dot?: boolean;
-  /** leading emoji that represents the label */
+  /** leading emoji that represents the label (decorative; the text carries the meaning) */
   emoji?: string;
 }
 
-const DOT_COLOR: Record<string, string> = {
+const DOT: Record<BadgeVariant, string> = {
   neutral: 'bg-ink-400',
-  brand: 'bg-brand-400',
+  outline: 'bg-ink-400',
+  rose: 'bg-rose-400',
   apricot: 'bg-apricot-400',
   lavender: 'bg-lavender-400',
-  gold: 'bg-gold-400',
   success: 'bg-success-600',
-  warn: 'bg-warn-600',
-  danger: 'bg-danger-600',
-  info: 'bg-info-600',
-  outline: 'bg-ink-400',
+  warning: 'bg-warning-600',
+  error: 'bg-error-600',
 };
 
 export const Badge = ({ className, variant, size, dot, emoji, children, ...props }: BadgeProps) => (
   <span className={cn(badge({ variant, size }), className)} {...props}>
-    {dot && <span className={cn('h-1.5 w-1.5 rounded-sm', DOT_COLOR[variant ?? 'neutral'])} />}
+    {dot && <span aria-hidden className={cn('h-2 w-2 rounded-full', DOT[variant ?? 'neutral'])} />}
     {emoji && (
-      <span aria-hidden className="text-[0.95em] leading-none">
+      <span aria-hidden className="leading-none">
         {emoji}
       </span>
     )}

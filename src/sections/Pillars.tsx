@@ -1,34 +1,27 @@
 /**
- * Pillars — the four-pillar feature grid (Consolidate · Clarity · Control · Consistency).
- * FeatureCards with numbered overlines ("01 02 03" rhythm), cascading into view.
+ * Pillars: the feature grid. The heading holds the left column while four FeatureCards sit
+ * in a two-by-two grid on the right, so the block reads as one idea with four parts rather
+ * than a row of identical boxes. Stacks to one column below lg.
  */
-import { FeatureCard } from '@/components/ui/feature-card';
+import { FeatureCard } from '@/components/cards';
 import { FadeIn, Stagger, StaggerItem } from '@/components/ui/animated';
-import { MonoLabel } from '@/components/ui/mono-label';
 import { PILLARS } from '@/data/system';
 
 export const Pillars = ({ id = 'why' }: { id?: string }) => (
-  <section id={id} className="border-y border-line bg-surface py-16 md:py-24">
-    <div className="mx-auto max-w-container px-6">
-      <div className="mb-12 mx-auto flex max-w-2xl flex-col items-center text-center">
-        <FadeIn>
-          <MonoLabel>Why it works</MonoLabel>
-        </FadeIn>
-        <FadeIn delay={0.05} className="mt-4">
-          <h2 className="font-display text-h1 text-ink-900">Four ideas, one calm system</h2>
-        </FadeIn>
-      </div>
-
-      <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {PILLARS.map((pillar) => (
-          <StaggerItem key={pillar.title} className="h-full">
-            <FeatureCard
-              icon={pillar.icon}
-              title={pillar.title}
-              description={pillar.description}
-              accent={pillar.accent}
-              number={pillar.number}
-            />
+  <section id={id} className="py-16 md:py-24">
+    <div className="mx-auto grid max-w-container gap-10 px-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+      <FadeIn>
+        <div className="lg:sticky lg:top-24">
+          <h2 className="font-display text-heading text-ink-900">Four ideas, one calm system</h2>
+          <p className="mt-4 max-w-md font-sans text-body text-ink-600">
+            Every part of Health OS comes back to the same four ideas.
+          </p>
+        </div>
+      </FadeIn>
+      <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {PILLARS.map((p) => (
+          <StaggerItem key={p.title} className="h-full">
+            <FeatureCard icon={p.icon} title={p.title} description={p.description} accent={p.accent} />
           </StaggerItem>
         ))}
       </Stagger>

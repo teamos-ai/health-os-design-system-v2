@@ -1,0 +1,36 @@
+/* Widget ambience: a soft white bloom on saturated tiles and a slow sheen on the plan card.
+   Both are decorative, sit behind content and stop under reduced motion. */
+.widget-bloom {
+  position: absolute;
+  inset: -30% 40% 40% -30%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at 30% 30%, rgb(255 255 255 / 0.5), transparent 60%);
+  animation: widget-bloom 6.5s ease-in-out infinite;
+}
+@keyframes widget-bloom {
+  0%, 100% { opacity: 0.72; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+.widget-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+  animation: widget-sheen 7s ease-in-out infinite;
+}
+@keyframes widget-sheen {
+  0% { transform: translateX(-160%) skewX(-16deg); }
+  100% { transform: translateX(280%) skewX(-16deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .widget-bloom,
+  .widget-sheen {
+    animation: none;
+  }
+}

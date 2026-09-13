@@ -1,13 +1,10 @@
 /**
- * CommandHero — the command-palette search hero.
- * Soft pastel radial glow on warm ivory, a big Spline Sans headline with one gradient
- * word, the command bar, a row of `/command` chips, then the dashboard payoff.
- * Built on the <Hero> primitive (foundations/hero.md) — spacious by rule, never
- * hand-rolled padding. In-view cascade, reduced-motion safe.
+ * CommandHero: the command-palette hero. A headline with one highlighted word, a short
+ * line, the command bar and quick-action chips, then an illustrative product preview.
+ * Built on <Hero> so the spacing rules hold.
  */
 import { CommandBar } from '@/components/ui/command-bar';
 import { CommandChip } from '@/components/ui/command-chip';
-import { MonoLabel } from '@/components/ui/mono-label';
 import { DashboardPreview } from '@/components/ui/dashboard-preview';
 import { Hero, HeroContainer } from '@/components/ui/hero';
 import { FadeIn, HeroGlow, Stagger, StaggerItem } from '@/components/ui/animated';
@@ -15,58 +12,38 @@ import { COMMANDS } from '@/data/system';
 
 export interface CommandHeroProps {
   id?: string;
-  /** 'h1' on a real page; 'h2' when the hero renders inside a framed demo
-   *  (Signature / Live page) so the document keeps a single h1. */
+  /** 'h1' on a real page; 'h2' when shown inside the reference so the page keeps one h1 */
   headingLevel?: 'h1' | 'h2';
 }
 
 export const CommandHero = ({ id = 'top', headingLevel = 'h1' }: CommandHeroProps) => {
   const Heading = headingLevel;
   return (
-    <Hero id={id} className="overflow-hidden">
+    <Hero id={id} className="border-b-0">
       <HeroGlow />
-
-      <HeroContainer className="flex flex-col items-center text-center">
+      <HeroContainer>
         <FadeIn>
-          <MonoLabel dot>The operating system for your practice</MonoLabel>
-        </FadeIn>
-
-        <FadeIn delay={0.05} className="mt-hero-gap-sm">
-          <Heading className="font-display text-display-lg text-ink-900 md:text-display-xl">
-            Your practice, <span className="text-gradient-sweep">one system</span>.
+          <Heading className="font-display text-heading text-ink-900">
+            You built it. Now make it <span className="text-highlight">run without you</span>.
           </Heading>
         </FadeIn>
-
-        <FadeIn delay={0.1} className="mt-hero-gap-sm">
-          <p className="max-w-hero-subcopy font-sans text-body-lg leading-relaxed text-ink-600">
-            Health OS replaces the six to eight tools you juggle with one calm place to run
-            booking, clients, courses, content and sales.
+        <FadeIn delay={0.08} className="mt-hero-gap-sm">
+          <p className="max-w-hero-subcopy font-sans text-body text-ink-600">
+            Health OS brings booking, clients, courses, content and sales into one system that runs in the background.
           </p>
         </FadeIn>
-
-        <FadeIn delay={0.15} className="mt-hero-gap w-full max-w-xl">
+        <FadeIn delay={0.14} className="mt-hero-gap w-full max-w-xl">
           <CommandBar aria-label="Search the platform" />
         </FadeIn>
-
-        <Stagger
-          className="mt-hero-gap-sm flex flex-wrap items-center justify-center gap-2.5"
-          amount={0.4}
-        >
+        <Stagger className="mt-hero-gap-sm flex flex-wrap items-center justify-center gap-2" amount={0.4}>
           {COMMANDS.map((command) => (
             <StaggerItem key={command}>
               <CommandChip command={command} />
             </StaggerItem>
           ))}
         </Stagger>
-
-        <FadeIn delay={0.1} className="mt-hero-gap-sm">
-          <p className="font-mono text-caption text-ink-600">
-            Done-with-you setup — live in 30 days.
-          </p>
-        </FadeIn>
       </HeroContainer>
-
-      <FadeIn delay={0.1} y={16} className="mx-auto mt-16 max-w-4xl px-6">
+      <FadeIn delay={0.1} y={16} className="mx-auto mt-16 max-w-4xl">
         <DashboardPreview />
       </FadeIn>
     </Hero>

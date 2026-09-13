@@ -1,14 +1,13 @@
 /**
- * Motion primitives — Health OS v2's quiet Framer Motion vocabulary.
+ * Motion primitives: the Health OS motion library (Framer Motion).
  *
- * Every primitive honours `prefers-reduced-motion`. Vocabulary = fade + small
- * translate + gentle marquee + soft hover lift + count-up. No bounce / wobble /
- * elastic / autoplay. Durations stay subtle (≤ 480ms). Use at most ONE reveal
- * per viewport band so the page reads calm.
+ * Health OS motion is its own: calm and flowing, and on by default. The library is
+ * open-ended: add new moments when a real need appears. Every primitive respects
+ * `prefers-reduced-motion` and settles to its finished state.
  *
- * Exports: FadeIn · Stagger · StaggerItem · CountUp · HoverLift · HeroGlow · Marquee ·
- * Reveal · TextReveal · Parallax (deprecated) · GradientShimmer · BorderGlow (deprecated) ·
- * BreathingDot · PointerSpotlight (deprecated) · HoverUnderline · RollingNumber · Appear
+ * Stable:        FadeIn, Stagger, StaggerItem, Reveal, TextReveal, CountUp, RollingNumber,
+ *                HoverLift, HoverUnderline, Marquee, Appear, BreathingDot, HeroGlow
+ * Experimental:  Parallax, BorderGlow, PointerSpotlight, GradientShimmer (label them where shown)
  */
 import * as React from 'react';
 import {
@@ -177,18 +176,18 @@ export const HoverLift = ({
   );
 };
 
-/* ── HeroGlow — soft pastel radial wash on warm ivory ──
-   Pure CSS radial gradients (apricot / rose / lavender @ low alpha), blurred.
-   aria-hidden, pointer-events none, zero glass. */
+/* ── HeroGlow: the soft wash gradient, faded out from the top of a hero ──
+   Uses bg-brand-gradient-soft under a radial mask, so a hero gets atmosphere without
+   a photo. aria-hidden and pointer-events none. */
 export const HeroGlow = ({ className }: { className?: string }) => (
-  <div
-    aria-hidden
-    className={cn(
-      'pointer-events-none absolute inset-0 -z-10 overflow-hidden',
-      className
-    )}
-  >
-    <div className="absolute left-1/2 top-[-12%] h-[640px] w-[min(1100px,120%)] -translate-x-1/2 bg-glow-hero blur-2xl opacity-90" />
+  <div aria-hidden className={cn('pointer-events-none absolute inset-0 -z-10 overflow-hidden', className)}>
+    <div
+      className="absolute inset-x-0 top-0 h-3/4 bg-brand-gradient-soft"
+      style={{
+        maskImage: 'radial-gradient(70% 90% at 50% 0%, #000 0%, transparent 100%)',
+        WebkitMaskImage: 'radial-gradient(70% 90% at 50% 0%, #000 0%, transparent 100%)',
+      }}
+    />
   </div>
 );
 
@@ -300,7 +299,7 @@ export const Marquee = ({
 export interface RevealProps {
   delay?: number;
   y?: number;
-  /** @deprecated ignored — the blur-to-sharp filter was removed (foundations/motion.md bans blur-filter animation). */
+  /** @deprecated ignored: kept so older call sites still compile. */
   blur?: number;
   className?: string;
   children: React.ReactNode;
@@ -365,12 +364,7 @@ export const TextReveal = ({
 };
 
 /* ── Parallax — gentle scroll-linked drift (≤ small px) ── */
-/**
- * @deprecated off-brand — kept for back-compat; do not use in new work
- * (foundations/motion.md bans parallax). The wrapper renders its own `relative`
- * positioning context so Framer's scroll tracking never warns about a
- * non-static position container.
- */
+/** Experimental. A gentle scroll-linked drift for decorative media only, never for text. */
 export const Parallax = ({
   children,
   amount = 12,
@@ -391,11 +385,16 @@ export const Parallax = ({
   );
 };
 
-/* ── GradientShimmer — the SKELETON-LOADING sheen, and nothing else ──
-   Sanctioned ambient loop (foundations/motion.md §Sanctioned exceptions: skeleton
-   shimmer). Use it only on loading placeholders — never on readable text or live
-   content. The gradient is tonal (theme-aware ink-100 → ink-200 neutrals), so the
-   moving sheen never sweeps a near-white stop through copy. */
+/* ── GradientShimmer: experimental loading sheen for placeholder text shapes ──
+   Loading placeholders only, never readable content. The text stays one solid tonal
+   neutral; a soft mask band travels across it, so there is no gradient-filled text. */
+const SHEEN_MASK: React.CSSProperties = {
+  WebkitMaskImage: 'linear-gradient(110deg, #000 35%, rgba(0, 0, 0, 0.35) 50%, #000 65%)',
+  maskImage: 'linear-gradient(110deg, #000 35%, rgba(0, 0, 0, 0.35) 50%, #000 65%)',
+  WebkitMaskSize: '250% 100%',
+  maskSize: '250% 100%',
+};
+
 export const GradientShimmer = ({
   children,
   className,
@@ -403,24 +402,13 @@ export const GradientShimmer = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <span
-    className={cn('animate-shimmer bg-clip-text text-transparent', className)}
-    style={{
-      backgroundImage:
-        'linear-gradient(110deg, rgb(var(--ink-100)) 0%, rgb(var(--ink-200)) 45%, rgb(var(--ink-100)) 65%, rgb(var(--ink-200)) 100%)',
-      backgroundSize: '200% 100%',
-    }}
-  >
+  <span className={cn('animate-sheen text-ink-200', className)} style={SHEEN_MASK}>
     {children}
   </span>
 );
 
 /* ── BorderGlow — soft gradient hairline drifting around the edge ── */
-/**
- * @deprecated expressive/off-brand — rotating gradient loop; opt-in only, never
- * default UI (foundations/motion.md). The rotation now runs only while hovered or
- * focused-within, so it is no longer an always-on ambient loop.
- */
+/** Experimental. The signature gradient drifts around a card edge while it is hovered or focused. */
 export const BorderGlow = ({
   children,
   className,
@@ -448,14 +436,12 @@ export const BorderGlow = ({
         animate={reduced || !active ? undefined : { rotate: 360 }}
         transition={{ duration: 9, ease: 'linear', repeat: Infinity }}
       />
-      <div className="relative rounded-[7px] bg-surface">{children}</div>
+      <div className="relative rounded-md bg-surface">{children}</div>
     </div>
   );
 };
 
-/* ── BreathingDot — calm pulsing status indicator ──
-   Sanctioned ambient loop (foundations/motion.md): live-status indicators only,
-   max one per view. */
+/* ── BreathingDot: a calm pulse for a genuinely live status (one per view) ── */
 export const BreathingDot = ({ className, color = 'bg-success-600' }: { className?: string; color?: string }) => {
   const reduced = useReducedMotion();
   return (
@@ -477,10 +463,7 @@ export const BreathingDot = ({ className, color = 'bg-success-600' }: { classNam
 /* ── PointerSpotlight — soft glow that follows the cursor inside a card ── */
 const SPOTLIGHT_DEFAULT = hexToRgba(ROSE[400], 0.14); // rose-400 @ .14
 
-/**
- * @deprecated expressive/off-brand — coloured pointer glow; opt-in only
- * (foundations/motion.md). Kept for back-compat; do not use in new work.
- */
+/** Experimental. A soft rose light follows the pointer inside a card. */
 export const PointerSpotlight = ({
   children,
   className,
@@ -523,14 +506,14 @@ export const HoverUnderline = ({
   <a
     href={href}
     className={cn(
-      'group relative inline-block rounded-sm font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600',
+      'group relative inline-block rounded-md font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-700',
       className
     )}
   >
     {children}
     <span
       aria-hidden
-      className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-md ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
+      className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-rose-700 transition-transform duration-md ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
     />
   </a>
 );

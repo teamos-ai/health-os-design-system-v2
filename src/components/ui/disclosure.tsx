@@ -51,7 +51,7 @@ export const Disclosure = ({
         onClick={toggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className="flex w-full items-center justify-between gap-3 rounded-md px-4 py-3.5 text-left font-display text-h4 text-ink-900 transition-colors duration-sm hover:bg-ink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40"
+        className="flex w-full items-center justify-between gap-3 rounded-md px-4 py-4 text-left font-display text-subheading text-ink-900 transition-colors duration-sm hover:bg-ink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
       >
         <span>{title}</span>
         <ChevronDown
@@ -72,7 +72,7 @@ export const Disclosure = ({
             transition={{ duration: 0.3, ease: EASE_OUT }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-4 font-sans text-body-md leading-relaxed text-ink-600">{children}</div>
+            <div className="px-4 pb-4 font-sans text-body text-ink-600">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,9 +1,6 @@
 /**
- * Faq — Health OS v2 marketing block.
- *
- * A list of questions built on the accessible `Disclosure` primitive (each with wired
- * `aria-controls` / labelled panel). Single-column by default; pass `columns={2}` for a
- * side-by-side layout on wider screens. Sentence-case questions, calm mono answers.
+ * Faq: questions and answers on the accessible Disclosure primitive.
+ * One column by default; `columns={2}` on wide pages with six or more questions.
  */
 import * as React from 'react';
 import { Disclosure } from '@/components/ui/disclosure';
@@ -24,7 +21,7 @@ export const Faq = ({ items, columns = 1, className }: FaqProps) => (
   <div className={cn(columns === 2 ? 'grid gap-x-8 gap-y-2 md:grid-cols-2' : 'flex flex-col', className)}>
     {items.map((item) => (
       <Disclosure key={item.question} title={item.question}>
-        <p className="font-mono text-body-sm leading-relaxed text-ink-600">{item.answer}</p>
+        <p className="font-sans text-body text-ink-600">{item.answer}</p>
       </Disclosure>
     ))}
   </div>

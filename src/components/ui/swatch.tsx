@@ -1,12 +1,8 @@
 /**
- * Swatch — a click-to-copy colour chip. Shows the colour, a label, its HEX and its RGB,
- * and copies the hex (or any `copyValue`) to the clipboard on click with a brief
- * "Copied" confirmation. Flat hairline card, 8px squircle, neutral hover. Reduced-motion
- * safe (no JS motion). The colours shown are the brand's fixed hexes, so they read the
- * same in every theme; the surrounding card flips with the theme.
+ * Swatch and GradientSwatch: click-to-copy colour and gradient chips for the token reference.
  */
 import * as React from 'react';
-import { Check, Copy, Star } from 'lucide-react';
+import { Check, Copy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 /** "#E85BA8" → "rgb(232, 91, 168)" (supports 3- or 6-digit hex). */
@@ -55,64 +51,47 @@ function useCopied(timeout = 1300) {
 
 export interface SwatchProps {
   hex: string;
-  /** step or name shown above the codes, e.g. "400" or "paper" */
+  /** token name, e.g. "rose-700" */
   label: string;
-  /** value copied on click — defaults to the upper-cased hex */
+  /** what the shade is for, e.g. "Deep: text and filled buttons" */
+  role?: string;
+  /** value copied on click (defaults to the hex) */
   copyValue?: string;
-  /** marks this as the main brand shade — adds a ring + a "★ Main" tag */
-  primary?: boolean;
   className?: string;
 }
 
-export const Swatch = ({ hex, label, copyValue, primary, className }: SwatchProps) => {
+export const Swatch = ({ hex, label, role, copyValue, className }: SwatchProps) => {
   const { copied, fire } = useCopied();
   const HEX = hex.toUpperCase();
-  const rgb = hexToRgb(hex);
   const value = copyValue ?? HEX;
-
   return (
     <button
       type="button"
       onClick={() => fire(value)}
-      title={primary ? `Main brand colour — copy ${value}` : `Copy ${value}`}
-      aria-label={`${label}${primary ? ' (main brand colour)' : ''} — ${HEX}, ${rgb}. Click to copy ${value}.`}
+      title={`Copy ${value}`}
+      aria-label={`${label}, ${HEX}. Click to copy ${value}.`}
       className={cn(
-        'group flex flex-col overflow-hidden rounded-md border bg-surface text-left',
-        'transition-all duration-sm ease-out hover:shadow-sm',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
-        primary
-          ? 'border-ink-900 shadow-sm ring-2 ring-ink-900 ring-offset-2 ring-offset-paper'
-          : 'border-line hover:border-ink-300',
+        'group flex flex-col overflow-hidden rounded-lg border border-line bg-surface text-left transition-[box-shadow,border-color] duration-sm ease-out hover:border-ink-400 hover:shadow-sm',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
         className
       )}
     >
-      <span
-        className="relative block h-14 w-full ring-1 ring-inset ring-carbon/5"
-        style={{ background: hex }}
-      >
-        {primary && (
-          <span className="absolute left-1.5 top-1.5 inline-flex items-center gap-1 rounded-sm bg-surface/90 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-label text-ink-900 shadow-sm">
-            <Star className="h-2.5 w-2.5 fill-current" strokeWidth={0} aria-hidden />
-            Main
-          </span>
-        )}
+      <span className="relative block h-16 w-full ring-1 ring-inset ring-carbon/5" style={{ background: hex }}>
         <span
           className={cn(
-            'absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-sm bg-surface/90 shadow-sm',
-            'opacity-0 transition-opacity duration-sm group-hover:opacity-100',
-            copied ? 'text-success-600 opacity-100' : 'text-ink-700'
+            'absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-md bg-surface shadow-sm transition-opacity duration-sm',
+            copied ? 'text-success-600 opacity-100' : 'text-ink-900 opacity-0 group-hover:opacity-100'
           )}
         >
-          {copied ? <Check className="h-3.5 w-3.5" strokeWidth={2} /> : <Copy className="h-3.5 w-3.5" strokeWidth={1.5} />}
+          {copied ? <Check className="h-4 w-4" strokeWidth={2} /> : <Copy className="h-4 w-4" strokeWidth={1.5} />}
         </span>
       </span>
-      <span className="flex flex-col gap-0.5 px-2.5 py-2">
-        <span className={cn('font-mono text-[11px] uppercase tracking-label', primary ? 'text-ink-900' : 'text-ink-500')}>
-          {label}
-          {primary && ' · main'}
+      <span className="flex flex-col gap-1 px-3 py-3">
+        <span className="font-sans text-label uppercase text-ink-900">{label}</span>
+        <span aria-live="polite" className="font-sans text-label text-ink-600">
+          {copied ? 'Copied' : HEX}
         </span>
-        <span aria-live="polite" className="font-mono text-caption text-ink-900">{copied ? 'Copied ✓' : HEX}</span>
-        <span className="font-mono text-[10px] leading-tight text-ink-500">{rgb}</span>
+        {role && <span className="font-sans text-label text-ink-500">{role}</span>}
       </span>
     </button>
   );
@@ -120,12 +99,14 @@ export const Swatch = ({ hex, label, copyValue, primary, className }: SwatchProp
 
 export interface GradientSwatchProps {
   label: string;
-  /** the CSS value to display + copy, e.g. "linear-gradient(...)" */
+  /** Tailwind class, e.g. bg-brand-gradient */
+  token: string;
+  /** the CSS value to display and copy */
   css: string;
   className?: string;
 }
 
-export const GradientSwatch = ({ label, css, className }: GradientSwatchProps) => {
+export const GradientSwatch = ({ label, token, css, className }: GradientSwatchProps) => {
   const { copied, fire } = useCopied();
   return (
     <button
@@ -133,26 +114,25 @@ export const GradientSwatch = ({ label, css, className }: GradientSwatchProps) =
       onClick={() => fire(css)}
       title={`Copy ${css}`}
       aria-label={`${label}. Click to copy the CSS gradient.`}
-      className={cn(
-        'group block w-full text-left focus-visible:outline-none',
-        className
-      )}
+      className={cn('group block w-full text-left focus-visible:outline-none', className)}
     >
       <span
-        className="relative block h-24 w-full overflow-hidden rounded-md border border-line ring-1 ring-inset ring-carbon/5 transition-shadow duration-sm group-hover:shadow-sm group-focus-visible:ring-2 group-focus-visible:ring-brand-600/40"
+        className="relative block h-32 w-full overflow-hidden rounded-lg border border-line transition-shadow duration-sm group-hover:shadow-sm group-focus-visible:ring-2 group-focus-visible:ring-rose-700/40"
         style={{ background: css }}
       >
         <span
           className={cn(
-            'absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-sm bg-surface/90 shadow-sm',
-            'opacity-0 transition-opacity duration-sm group-hover:opacity-100',
-            copied ? 'text-success-600 opacity-100' : 'text-ink-700'
+            'absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-md bg-surface shadow-sm transition-opacity duration-sm',
+            copied ? 'text-success-600 opacity-100' : 'text-ink-900 opacity-0 group-hover:opacity-100'
           )}
         >
-          {copied ? <Check className="h-3.5 w-3.5" strokeWidth={2} /> : <Copy className="h-3.5 w-3.5" strokeWidth={1.5} />}
+          {copied ? <Check className="h-4 w-4" strokeWidth={2} /> : <Copy className="h-4 w-4" strokeWidth={1.5} />}
         </span>
       </span>
-      <span aria-live="polite" className="mt-2 block font-mono text-caption text-ink-600">{copied ? 'Copied ✓' : label}</span>
+      <span className="mt-3 block font-display text-body text-ink-900">{label}</span>
+      <span aria-live="polite" className="block font-sans text-label text-ink-500">
+        {copied ? 'Copied the CSS' : token}
+      </span>
     </button>
   );
 };

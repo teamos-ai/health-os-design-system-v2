@@ -30,7 +30,7 @@ export interface VideoPlayerProps {
 export const VideoPlayer = ({
   src,
   poster,
-  hint = 'Your video goes here — drop overview.mp4 in /public/media',
+  hint = 'Your video goes here. Drop overview.mp4 in /public/media',
   captionsSrc,
   captionsLang = 'en',
   captionsLabel = 'English',
@@ -72,7 +72,7 @@ export const VideoPlayer = ({
     >
       {/* placeholder shown in the inline frame while the video is docked away */}
       {floating && (
-        <div className="absolute inset-0 flex items-center justify-center gap-2 bg-paper font-mono text-caption text-ink-500">
+        <div className="absolute inset-0 flex items-center justify-center gap-2 bg-paper font-sans text-label text-ink-500">
           <Minimize2 className="h-3.5 w-3.5" strokeWidth={1.5} />
           Playing in mini-player
         </div>
@@ -81,7 +81,7 @@ export const VideoPlayer = ({
       <div
         className={cn(
           floating
-            ? 'fixed bottom-6 right-6 z-50 aspect-video w-[min(360px,82vw)] overflow-hidden rounded-md border border-line bg-carbon shadow-xl'
+            ? 'fixed bottom-6 right-6 z-50 aspect-video w-[min(360px,82vw)] overflow-hidden rounded-md border border-line bg-carbon shadow-lg'
             : 'absolute inset-0'
         )}
       >
@@ -110,7 +110,7 @@ export const VideoPlayer = ({
         {/* error state — a calm variant of the placeholder */}
         {failed && (
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 bg-brand-gradient-soft text-center">
-            <p className="max-w-xs rounded-md border border-line bg-surface/85 px-4 py-3 font-mono text-caption text-ink-600 shadow-sm">
+            <p className="max-w-xs rounded-md border border-line bg-surface/85 px-4 py-3 font-sans text-label text-ink-600 shadow-sm">
               The video could not be loaded.
             </p>
           </div>
@@ -119,10 +119,10 @@ export const VideoPlayer = ({
         {/* empty-state placeholder (until a video can play) */}
         {!ready && !failed && (
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 bg-brand-gradient-soft text-center">
-            <span className="flex h-16 w-16 items-center justify-center rounded-md bg-surface/85 text-brand-600 shadow-sm">
+            <span className="flex h-16 w-16 items-center justify-center rounded-md bg-surface/85 text-rose-700 shadow-sm">
               <Play className="h-6 w-6" strokeWidth={1.5} />
             </span>
-            <p className="max-w-xs px-6 font-mono text-caption text-ink-600">{hint}</p>
+            <p className="max-w-xs px-6 font-sans text-label text-ink-600">{hint}</p>
           </div>
         )}
 
@@ -132,7 +132,7 @@ export const VideoPlayer = ({
             type="button"
             aria-label="Close mini player"
             onClick={() => videoRef.current?.pause()}
-            className="absolute right-1.5 top-1.5 z-10 flex h-7 w-7 items-center justify-center rounded-md bg-carbon/80 text-white transition-colors hover:bg-carbon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-md bg-carbon/80 text-white transition-colors hover:bg-carbon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
           >
             <X className="h-4 w-4" strokeWidth={1.5} />
           </button>

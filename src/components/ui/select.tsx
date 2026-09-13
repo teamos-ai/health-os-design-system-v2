@@ -34,7 +34,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="flex flex-col gap-2">
         {label && (
-          <label htmlFor={fieldId} className="font-mono text-caption text-ink-700">
+          <label htmlFor={fieldId} className="font-sans text-label text-ink-900">
             {label}
           </label>
         )}
@@ -47,11 +47,11 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             defaultValue={defaultValue ?? (placeholder ? '' : undefined)}
             value={value}
             className={cn(
-              'w-full appearance-none rounded-md border bg-surface py-2.5 pl-4 pr-10 font-mono text-body-md text-ink-900',
+              'w-full appearance-none rounded-md border bg-surface py-3 pl-4 pr-10 font-sans text-body text-ink-900',
               'transition-colors duration-sm ease-out',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/35 focus-visible:ring-offset-1 focus-visible:ring-offset-paper',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/35 focus-visible:ring-offset-1 focus-visible:ring-offset-paper',
               'disabled:cursor-not-allowed disabled:opacity-50',
-              error ? 'border-danger-600 focus-visible:border-danger-600' : 'border-line focus-visible:border-brand-400',
+              error ? 'border-error-600 focus-visible:border-error-600' : 'border-line focus-visible:border-rose-400',
               className
             )}
             {...props}
@@ -74,12 +74,12 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           />
         </div>
         {error && (
-          <p id={errorId} aria-live="polite" className="font-mono text-caption text-danger-700">
+          <p id={errorId} aria-live="polite" className="font-sans text-label text-error-700">
             {error}
           </p>
         )}
         {hint && (
-          <p id={hintId} className="font-mono text-caption text-ink-500">
+          <p id={hintId} className="font-sans text-label text-ink-500">
             {hint}
           </p>
         )}

@@ -72,7 +72,7 @@ export function SegmentedControl<T extends string = string>({
     }
   };
 
-  const pad = size === 'sm' ? 'px-3 py-1.5 text-body-sm' : 'px-4 py-2 text-body-sm';
+  const pad = size === 'sm' ? 'px-3 py-2 text-body' : 'px-4 py-2 text-body';
 
   // Nothing to select — render nothing (after the hooks, so hook order stays stable).
   if (options.length === 0) return null;
@@ -101,11 +101,11 @@ export function SegmentedControl<T extends string = string>({
             tabIndex={isActive ? 0 : -1}
             onClick={() => select(opt.value)}
             className={cn(
-              'rounded-sm font-display font-medium transition-all duration-sm ease-out',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40',
+              'rounded-md font-display transition-[background-color,color,box-shadow] duration-sm ease-out',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40',
               pad,
               isActive
-                ? 'bg-carbon text-white shadow-sm dark:bg-ink-900 dark:text-paper'
+                ? 'bg-carbon text-white shadow-sm'
                 : 'text-ink-500 hover:text-ink-900'
             )}
           >

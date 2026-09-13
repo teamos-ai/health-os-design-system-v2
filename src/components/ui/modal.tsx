@@ -4,7 +4,7 @@
  * A centred dialog with a soft scrim, focus trap, Escape-to-close, scroll lock and
  * focus return to the trigger. Opens with fade + scale 0.98→1 (dur-md, reduced-motion
  * safe). `role="dialog"` + `aria-modal` + labelled title. Flat surface, hairline,
- * `rounded-xl`, neutral shadow — zero glass. For simple confirmations and short forms;
+ * `rounded-lg`, neutral shadow-sm — zero glass. For simple confirmations and short forms;
  * prefer inline editing or a slide-over for larger flows.
  */
 import * as React from 'react';
@@ -93,21 +93,21 @@ export const Modal = ({ open, onClose, title, description, children, footer, cla
         aria-describedby={description ? descId : undefined}
         tabIndex={-1}
         className={cn(
-          'relative z-10 w-full max-w-lg rounded-xl border border-line bg-surface p-6 shadow-xl focus:outline-none',
+          'relative z-10 w-full max-w-lg rounded-lg border border-line bg-surface p-6 shadow-lg focus:outline-none',
           !reduced && 'motion-safe:animate-enter-rise',
           className
         )}
       >
         <div className="flex items-start justify-between gap-4">
-          <h2 id={titleId} className="font-display text-h3 text-ink-900">
+          <h2 id={titleId} className="font-display text-subheading text-ink-900">
             {title}
           </h2>
-          <IconButton variant="ghost" size="sm" aria-label="Close" onClick={onClose}>
+          <IconButton variant="text" size="small" aria-label="Close" onClick={onClose}>
             <X className="h-5 w-5" strokeWidth={1.5} />
           </IconButton>
         </div>
         {description && (
-          <p id={descId} className="mt-2 font-mono text-body-sm leading-relaxed text-ink-600">
+          <p id={descId} className="mt-2 font-sans text-body text-ink-600">
             {description}
           </p>
         )}

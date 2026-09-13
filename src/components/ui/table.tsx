@@ -44,7 +44,7 @@ export function Table<Row>({ columns, rows, rowKey, caption, className }: TableP
                 key={c.key}
                 scope="col"
                 className={cn(
-                  'whitespace-nowrap px-4 py-3 font-mono text-overline font-bold uppercase tracking-label text-ink-500',
+                  'whitespace-nowrap px-4 py-3 font-sans text-label font-bold uppercase tracking-label text-ink-500',
                   alignClass(c)
                 )}
               >
@@ -64,7 +64,7 @@ export function Table<Row>({ columns, rows, rowKey, caption, className }: TableP
                     key={c.key}
                     scope={ci === 0 ? 'row' : undefined}
                     className={cn(
-                      'px-4 py-3 font-mono text-body-sm font-normal text-ink-700',
+                      'px-4 py-3 font-sans text-body font-normal text-ink-900',
                       c.numeric && 'tabular-nums',
                       alignClass(c)
                     )}

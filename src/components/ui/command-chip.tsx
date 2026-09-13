@@ -1,8 +1,7 @@
 /**
- * CommandChip — the `/command` pill. A pill (rounded-full) BY DESIGN — quick-action
- * chips are one of the sanctioned pill shapes. Light surface, hairline border,
- * Anonymous Pro, the leading "/" picked out in rose. Sits beneath the command bar as
- * a quick-action suggestion. Renders a button; pass `onClick` to wire it.
+ * CommandChip: a quick-action suggestion under a command bar, written as a `/command`.
+ * Surface fill, hairline, Anonymous Pro, the leading slash in rose. Renders a button;
+ * pass `onClick` to run the command.
  */
 import * as React from 'react';
 import { cn } from '@/lib/utils';
@@ -18,16 +17,16 @@ export const CommandChip = React.forwardRef<HTMLButtonElement, CommandChipProps>
       ref={ref}
       type="button"
       className={cn(
-        'group inline-flex items-center gap-1.5 rounded-full border border-line bg-surface',
-        'px-3.5 py-2 font-mono text-body-sm text-ink-600',
-        'transition-all duration-sm ease-out hover:border-ink-300 hover:text-ink-900 hover:shadow-sm',
+        'group inline-flex items-center gap-2 rounded-md border border-line bg-surface',
+        'px-4 py-2 font-sans text-body text-ink-600',
+        'transition-[border-color,color,box-shadow,transform] duration-sm ease-out hover:border-ink-400 hover:text-ink-900 hover:shadow-sm',
         'active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/35',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/35',
         className
       )}
       {...props}
     >
-      <span className="font-bold text-accent">/</span>
+      <span className="font-bold text-rose-700">/</span>
       <span>{command}</span>
     </button>
   )

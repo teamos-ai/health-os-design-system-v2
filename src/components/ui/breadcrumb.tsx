@@ -20,15 +20,15 @@ export interface BreadcrumbProps {
 
 export const Breadcrumb = ({ items, className }: BreadcrumbProps) => (
   <nav aria-label="Breadcrumb" className={className}>
-    <ol className="flex flex-wrap items-center gap-1.5 font-mono text-body-sm">
+    <ol className="flex flex-wrap items-center gap-2 font-sans text-body">
       {items.map((item, i) => {
         const last = i === items.length - 1;
         return (
-          <li key={`${item.label}-${i}`} className="flex items-center gap-1.5">
+          <li key={`${item.label}-${i}`} className="flex items-center gap-2">
             {item.href && !last ? (
               <a
                 href={item.href}
-                className="rounded-sm text-ink-500 transition-colors duration-sm hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                className="rounded-md text-ink-500 transition-colors duration-sm hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
               >
                 {item.label}
               </a>

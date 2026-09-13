@@ -1,44 +1,36 @@
 /**
- * Ticker — the thin scrolling banner. Mono uppercase facts with a small
- * accent glyph, looping gently and pausing on hover. CSS-driven (reduced-motion safe
- * via the global guard); items are duplicated once for a seamless wrap. A small
- * keyboard-reachable pause/play control sits at the right edge (WCAG 2.2.2).
+ * Ticker: a thin banner of short statements that scrolls slowly and pauses on hover.
+ * A keyboard-reachable pause control sits at the right edge (WCAG 2.2.2).
  *
- * Variants: `tone` (subtle / tint / carbon), `reverse` (scroll direction), `speed`
- * (seconds per loop), and any `items` set.
+ * Tones: `subtle` (quiet fill), `tint` (soft wash), `carbon` (the dark bar).
+ * Options: `reverse` direction and `speed` in seconds per loop (32 to 60).
  */
 import * as React from 'react';
 import { Pause, Play } from 'lucide-react';
 import { TICKER_ITEMS, type TickerItem } from '@/data/system';
 import { cn } from '@/lib/utils';
 
-/* Tones. `subtle` flips with the ink ramp (pale on light, dark fill on dark).
-   `tint` is the soft pastel wash with fixed dark text — it reads identically in every
-   theme (a gentle pastel bar, even on the carbon page), so its label colour can't use
-   the flipping ink ramp. `carbon` is the bold black bar on light themes; since a black
-   bar would vanish on the carbon page, it inverts to a gentle deep tint on dark.
-   `fade` backs the pause control with a gradient matching the strip's right edge;
-   `ring` is the focus ring — white on the carbon ground, brand elsewhere. */
+/* `fade` backs the pause control with the strip's own colour; `ring` is the focus ring. */
 const TONES = {
   subtle: {
     wrap: 'bg-ink-100 border-line',
     text: 'text-ink-600',
-    icon: 'text-accent',
+    icon: 'text-rose-700',
     fade: 'from-ink-100',
-    ring: 'focus-visible:ring-brand-600/40',
+    ring: 'focus-visible:ring-rose-700/40',
   },
   tint: {
     wrap: 'bg-brand-gradient-soft border-line',
-    text: 'text-carbon/80',
-    icon: 'text-brand-600',
+    text: 'text-ink-900',
+    icon: 'text-rose-700',
     fade: 'from-lavender-50',
-    ring: 'focus-visible:ring-brand-600/40',
+    ring: 'focus-visible:ring-rose-700/40',
   },
   carbon: {
-    wrap: 'bg-carbon border-carbon-700 dark:bg-brand-gradient-soft-dark dark:border-line-soft',
-    text: 'text-white/75 dark:text-ink-700',
-    icon: 'text-brand-400 dark:text-brand-300',
-    fade: 'from-carbon dark:from-lavender-800',
+    wrap: 'bg-carbon border-carbon',
+    text: 'text-white/80',
+    icon: 'text-rose-400',
+    fade: 'from-carbon',
     ring: 'focus-visible:ring-white/70',
   },
 } as const;
@@ -64,8 +56,7 @@ export const Ticker = ({
 }: TickerProps) => {
   const t = TONES[tone];
   const [paused, setPaused] = React.useState(false);
-  /* Clamp to the sanctioned always-on loop band — motion.md: ticker 32–45s reference
-     (theme variants may run up to 45s), marquee ceiling 60s. */
+  /* Clamp to a calm range: a ticker should drift, never race. */
   const duration = Math.min(60, Math.max(32, speed));
   const doubled = [...items, ...items];
   return (
@@ -73,7 +64,7 @@ export const Ticker = ({
       role="group"
       aria-label={ariaLabel ?? 'Announcements'}
       className={cn(
-        'pause-on-hover relative w-full overflow-hidden border-y py-2.5',
+        'pause-on-hover relative w-full overflow-hidden border-y py-3',
         t.wrap,
         className
       )}
@@ -91,7 +82,7 @@ export const Ticker = ({
         {doubled.map(({ icon: Icon, text }, i) => (
           <div
             key={i}
-            className={cn('flex items-center gap-2 font-mono text-overline uppercase', t.text)}
+            className={cn('flex items-center gap-2 font-sans text-label uppercase', t.text)}
             aria-hidden={i >= items.length ? true : undefined}
           >
             <Icon className={cn('h-3 w-3', t.icon)} strokeWidth={1.5} />
@@ -99,8 +90,7 @@ export const Ticker = ({
           </div>
         ))}
       </div>
-      {/* Pause/play — keyboard-reachable stop control (WCAG 2.2.2). Inset ring so the
-          strip's overflow-hidden edge never clips the focus indicator. */}
+      {/* Pause and play: keyboard-reachable (WCAG 2.2.2); inset ring so the edge never clips focus */}
       <button
         type="button"
         aria-pressed={paused}

@@ -1,23 +1,20 @@
 /**
- * Toast — Health OS v2.
- *
- * A transient, non-blocking notification stack. Wrap the app (or a subtree) in
- * `<ToastProvider>` and call `useToast().toast({ ... })` to push one. Toasts stack
- * bottom-right, enter with fade + rise (dur-md), auto-dismiss after `duration` (default
- * 5s), and are pausable/dismissable. The live region is `aria-live="polite"` (assertive
- * for danger). Flat surface + hairline + neutral shadow — calm, never a klaxon.
+ * Toast: a short confirmation that appears bottom-right and dismisses itself.
+ * Wrap the app in <ToastProvider> and call useToast().toast({ title, tone }).
+ * Tones: neutral (default), success, warning, error. Auto-dismiss after 5s (duration: 0 keeps it).
+ * For a message that must stay until the situation changes, use an Alert instead.
  */
 import * as React from 'react';
 import { createPortal } from 'react-dom';
-import { Info, CheckCircle2, AlertTriangle, XCircle, X, type LucideIcon } from 'lucide-react';
+import { Bell, CheckCircle2, AlertTriangle, XCircle, X, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-type Tone = 'info' | 'success' | 'warn' | 'danger';
+export type ToastTone = 'neutral' | 'success' | 'warning' | 'error';
 
 export interface ToastOptions {
   title: string;
   description?: string;
-  tone?: Tone;
+  tone?: ToastTone;
   /** ms before auto-dismiss; 0 keeps it until dismissed. Default 5000. */
   duration?: number;
 }
@@ -33,11 +30,11 @@ interface ToastContextValue {
 
 const ToastContext = React.createContext<ToastContextValue | null>(null);
 
-const ICONS: Record<Tone, { icon: LucideIcon; className: string }> = {
-  info: { icon: Info, className: 'text-info-600' },
+const ICONS: Record<ToastTone, { icon: LucideIcon; className: string }> = {
+  neutral: { icon: Bell, className: 'text-ink-600' },
   success: { icon: CheckCircle2, className: 'text-success-600' },
-  warn: { icon: AlertTriangle, className: 'text-warn-600' },
-  danger: { icon: XCircle, className: 'text-danger-600' },
+  warning: { icon: AlertTriangle, className: 'text-warning-600' },
+  error: { icon: XCircle, className: 'text-error-600' },
 };
 
 export const useToast = () => {
@@ -89,26 +86,26 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
       {createPortal(
         <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex flex-col items-end gap-3 p-4 sm:p-6">
           {toasts.map((t) => {
-            const { icon: Icon, className } = ICONS[t.tone ?? 'info'];
+            const { icon: Icon, className } = ICONS[t.tone ?? 'neutral'];
             return (
               <div
                 key={t.id}
-                role={t.tone === 'danger' || t.tone === 'warn' ? 'alert' : 'status'}
-                aria-live={t.tone === 'danger' ? 'assertive' : 'polite'}
-                className="pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-lg border border-line bg-surface px-4 py-3 shadow-lg motion-safe:animate-enter-rise"
+                role={t.tone === 'error' || t.tone === 'warning' ? 'alert' : 'status'}
+                aria-live={t.tone === 'error' ? 'assertive' : 'polite'}
+                className="pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-lg border border-line bg-surface px-4 py-3 shadow-md motion-safe:animate-enter-rise"
               >
-                <Icon className={cn('mt-0.5 h-5 w-5 shrink-0', className)} strokeWidth={1.5} aria-hidden />
+                <Icon className={cn('mt-1 h-5 w-5 shrink-0', className)} strokeWidth={1.5} aria-hidden />
                 <div className="min-w-0 flex-1">
-                  <p className="font-display text-body-md font-medium text-ink-900">{t.title}</p>
+                  <p className="font-display text-body text-ink-900">{t.title}</p>
                   {t.description && (
-                    <p className="mt-0.5 font-mono text-body-sm leading-relaxed text-ink-600">{t.description}</p>
+                    <p className="mt-1 font-sans text-body text-ink-600">{t.description}</p>
                   )}
                 </div>
                 <button
                   type="button"
                   aria-label="Dismiss notification"
                   onClick={() => dismiss(t.id)}
-                  className="-mr-1 -mt-1 shrink-0 rounded-md p-1 text-ink-500 transition-colors duration-sm hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40"
+                  className="-mr-1 -mt-1 shrink-0 rounded-md p-1 text-ink-500 transition-colors duration-sm hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
                 >
                   <X className="h-4 w-4" strokeWidth={1.5} />
                 </button>

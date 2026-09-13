@@ -46,7 +46,7 @@ export const RadioGroup = ({
 
   return (
     <fieldset className={cn('flex flex-col gap-3', className)}>
-      <legend className="mb-1 font-mono text-caption text-ink-700">{legend}</legend>
+      <legend className="mb-1 font-sans text-label text-ink-900">{legend}</legend>
       {options.map((o) => {
         const id = `${name}-${o.value}`;
         return (
@@ -54,11 +54,11 @@ export const RadioGroup = ({
             key={o.value}
             htmlFor={id}
             className={cn(
-              'group inline-flex cursor-pointer items-start gap-2.5 font-mono text-body-sm text-ink-900',
+              'group inline-flex cursor-pointer items-start gap-3 font-sans text-body text-ink-900',
               o.disabled && 'cursor-not-allowed opacity-50'
             )}
           >
-            <span className="relative mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center">
+            <span className="relative mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center">
               <input
                 id={id}
                 type="radio"
@@ -67,13 +67,13 @@ export const RadioGroup = ({
                 checked={current === o.value}
                 disabled={o.disabled}
                 onChange={() => select(o.value)}
-                className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full border border-line bg-surface transition-colors duration-sm ease-out checked:border-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
+                className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full border border-line bg-surface transition-colors duration-sm ease-out checked:border-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
               />
-              <span className="pointer-events-none relative h-2 w-2 scale-0 rounded-full bg-brand-600 transition-transform duration-sm ease-out peer-checked:scale-100" />
+              <span className="pointer-events-none relative h-2 w-2 scale-0 rounded-full bg-rose-700 transition-transform duration-sm ease-out peer-checked:scale-100" />
             </span>
             <span className="flex flex-col">
               <span>{o.label}</span>
-              {o.hint && <span className="text-caption text-ink-500">{o.hint}</span>}
+              {o.hint && <span className="text-label text-ink-500">{o.hint}</span>}
             </span>
           </label>
         );

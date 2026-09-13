@@ -44,7 +44,7 @@ export const Tooltip = ({ label, side = 'top', children, className }: TooltipPro
         role="tooltip"
         id={id}
         className={cn(
-          'pointer-events-none absolute z-40 w-max max-w-xs rounded-md bg-carbon px-2.5 py-1.5 font-mono text-caption text-white shadow-md',
+          'pointer-events-none absolute z-40 w-max max-w-xs rounded-md bg-carbon px-3 py-2 font-sans text-label text-white shadow-md',
           'transition-[opacity,transform] duration-md ease-out',
           SIDE[side],
           open ? 'opacity-100' : 'opacity-0',

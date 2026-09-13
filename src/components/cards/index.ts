@@ -1,33 +1,16 @@
 /**
- * Card system ported from the Figma "Refine card components" export (2026-07).
- * Self-contained (React + the DS token object, re-tokenised to Health OS brand).
- * See BentoCard.tsx for the DS tokens; BentoMore.tsx for the extended variants;
- * HeroBento.tsx for the editorial hero grid.
+ * The six Health OS card types. Each is styled independently for its job:
  *
- * NOTE: the shared atoms (`DS`, `FADE_UP`/`FADE_DOWN_SCRIM`/`FADE_RIGHT`,
- * `Badge`, `BlockBadge`, `IconBadge`, `Bullet`, `ProseText`, `CardHeading`)
- * are deliberately NOT re-exported here — they collide with the design
- * system's own primitives. Import them directly from
- * '@/components/cards/BentoCard' where genuinely needed.
+ *   ContentCard   text and images         articles, updates, stories
+ *   FeatureCard   benefits                what a customer gets
+ *   ServiceCard   offerings               something to buy or book
+ *   PricingCard   plans                   price, inclusions, one action
+ *   ResourceCard  ebooks and guides       something to take away
+ *   ActionCard    booking and diagnostic  the one next step
  */
-export {
-  HeroCard,
-  PhotoBandCard,
-  FeatureCard,
-  StatCard,
-  PanoramaCard,
-  GuidelineCard,
-  TintCard,
-  FloatPanelCard,
-  CornerImageCard,
-  SplitCard,
-  DuotoneCard,
-  QuoteCard,
-  ProgressRingCard,
-  BillboardCard,
-  StackedStatCard,
-  OverlapCard,
-  MoodCard,
-} from './BentoCard';
-export * from './BentoMore';
-export * from './HeroBento';
+export { ContentCard, type ContentCardProps, type ImageRatio } from './ContentCard';
+export { FeatureCard, type FeatureCardProps } from './FeatureCard';
+export { ServiceCard, type ServiceCardProps } from './ServiceCard';
+export { PricingCard, type PricingCardProps } from './PricingCard';
+export { ResourceCard, type ResourceCardProps } from './ResourceCard';
+export { ActionCard, type ActionCardProps } from './ActionCard';
