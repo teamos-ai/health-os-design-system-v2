@@ -1,79 +1,74 @@
-# Health OS Design System v2
+# Health OS design system
 
-A fully tokenised, living **React + Vite + TypeScript + Tailwind v3 + Framer Motion** design system and showcase for **Health OS** — the calm operating system for practitioners.
+The design and brand reference for Health OS. One token file, two themes, three brand colours, six card types, a full widget library and a tagged image library, documented so AI agents can build from it first and people can browse it second.
 
-> **A warm, flat, premium, calm command-centre system.** Warm ivory + carbon + rose, never pure white/black, never pink-red. Zero glassmorphism, soft neutral shadows, WCAG AA, sentence case, calm Sage voice.
+- Reference site: https://ds-healthos.vercel.app
+- For AI agents: start at [`llms.txt`](llms.txt), then [`design-system/CLAUDE.md`](design-system/CLAUDE.md)
 
-v2 is the second design-system experiment for Health OS. It keeps v1's locked colour architecture and adds command-centre craft (command-palette hero with `/command` chips, soft pastel radial glows, a horizontal tool-card carousel, mono labels, dark carbon pill CTAs, rounded hairline cards, a directory/comparison rhythm) and quiet supporting details (subtle grain, a thin top ticker, a bento grid, a rounded dark-carbon footer).
+## How it fits together
 
-## Brand — locked
+```
+design-system/tokens/tokens.json        the only file with token values
+  └─ scripts/tokens.mjs                 generates
+       ├─ design-system/tokens/tokens.css         CSS variables, both themes
+       ├─ design-system/tokens/tailwind.preset.js the Tailwind preset (off-system classes produce no CSS)
+       └─ src/lib/palette.ts                      fixed values for SVG and inline styles
 
-| Token | Value |
-|---|---|
-| Background | Warm Ivory `#F9F6F2` (`paper`) |
-| Surface | `#FFFFFF` (`surface`) |
-| Text | Carbon `#1F1F1F` (`ink-900`) |
-| Hairline | `#E7E0D8` (`line`) |
-| Accent (primary) | Rose `#E85BA8` (`brand-400`) |
-| Primary action (white text, AA) | Rose `#BE2E7B` (`brand-600`) |
-| Accents | Apricot `#F5A060`, Lavender `#A666D9`, Gold `#BE9522` |
-| Gradient | `linear-gradient(135deg,#F5A060,#E85BA8 50%,#A666D9)` — used with restraint |
-| Headings | **Spline Sans** (600/700) — `font-display` |
-| Body + labels | **Anonymous Pro** (400/700, monospace) — `font-sans` / `font-mono`, line-height 1.6 |
-| Radius | 8px UI · 12px cards · full pills for marketing CTAs |
-| Elevation | flat + 1px hairline; soft neutral shadow on hover only — **zero glass** |
-| Motion | subtle 150–250ms, reveals 300–400ms, ≤500ms, reduced-motion safe |
-| Icons | Lucide, line, 1.5px stroke |
+design-system/reference/catalog.json    purpose, use, avoid, API and source for every entry,
+                                        plus the checklist and the open decisions
+  ├─ src/showcase/**                    the reference site renders it next to each example
+  └─ scripts/docs.mjs                   generates
+       ├─ design-system/REFERENCE.md
+       ├─ design-system/CHECKLIST.md
+       └─ llms.txt
 
-Full reference lives in [`design-system/`](design-system/) — tokens, foundations docs, `CLAUDE.md` (agent skinning guide), `BRAND-SUMMARY.md`, and the logo kit.
+scripts/lint-tokens.mjs                 fails on any colour, size, radius, shadow or font
+                                        class the tokens do not define
+```
 
-## For AI agents
+The site and the written reference read the same files, so they cannot drift apart.
 
-Start at [`llms.txt`](llms.txt) — it lists every canonical file in load order. The short version: read [`design-system/CLAUDE.md`](design-system/CLAUDE.md) first, take values only from [`design-system/tokens/`](design-system/tokens/), and pick your build recipe from [`design-system/ASSET-RECIPES.md`](design-system/ASSET-RECIPES.md).
-
-## Stack
-
-React 18 · Vite 6 · TypeScript 5 · Tailwind v3 (preset format) · Framer Motion 11 · Lucide · CVA + clsx + tailwind-merge.
-
-## Run
+## Commands
 
 ```bash
 npm install
-npm run dev        # http://localhost:5183
-npm run build      # tsc --noEmit && vite build  →  dist/
-npm run preview
+npm run dev       # http://localhost:5183
+npm run tokens    # after editing tokens.json
+npm run docs      # after editing catalog.json
+npm run check     # tokens in sync, docs in sync, no off-system classes
+npm run build     # check, then typecheck, then build dist/
 ```
 
-## Structure
+Vercel runs `npm run build`, so a deploy fails if tokens or docs are stale or a class is off-system.
+
+## Repository
 
 ```
 design-system/
-  tokens/          tokens.json · tokens.css · tailwind.preset.js  (single source of truth)
-  foundations/     colour · typography · spacing · radius · shadow · motion · iconography · imagery · voice · vocabulary
-  logo/            mark · wordmark · lockups · favicon · usage
-  CLAUDE.md · BRAND-SUMMARY.md · README.md
+  CLAUDE.md          read first: authority, load order, rules, how to change the system
+  REFERENCE.md       generated: every token and entry
+  CHECKLIST.md       generated: the pre-asset checklist
+  BRAND-SUMMARY.md   what Health OS is and how it should feel
+  VOICE.md           copy mechanics, and where the database takes over
+  ASSET-RECIPES.md   what to use for each kind of asset
+  tokens/            tokens.json and its generated outputs
+  reference/         catalog.json
+  logo/              the mark and its usage
+  _audit/            audit and critique reports
 src/
-  lib/             cn() (tailwind-merge taught about our font-size tokens) · accents
-  data/            demo content (calm Sage voice) · imagery buckets + washes
-  components/
-    brand/         Logo (gradient OS mark + wordmark)
-    ui/            button · card · badge · input · command-bar · command-chip · tool-card ·
-                   feature-card · stat · mono-label · image-wash · dashboard-preview · animated (motion primitives)
-    layout/        Nav (sticky centered + search) · Footer (dark-carbon) · Ticker
-    bento/         BentoGrid · BentoCard
-  sections/        CommandHero · ToolCarousel · Pillars · OutcomeBand · BentoSection · DirectoryCompare
-  showcase/        Shell (left-nav) · Section · sections/* (Overview, Tokens, Logo, Components, Signature, Motion, Image library, Live page)
+  components/        ui, cards, widgets, blocks, bento, layout, brand
+  sections/          CommandHero, Pillars, BentoSection, DirectoryCompare
+  showcase/          the reference site: Shell, Section, one file per section
+  data/              demo copy, the offer from the database, image library tags
+  lib/               cn, theme, motion constants, generated palette
+public/
+  imagery/ backgrounds/ media/   the image library and the overview video
 ```
 
-## The token pipeline
+## Stack
 
-`design-system/tokens/tailwind.preset.js` is the single source of truth. It feeds Tailwind via `tailwind.config.js` (`presets: [healthos]`), so every component uses tokenised classes (`bg-brand-600`, `text-ink-900`, `font-display`, `rounded-lg`, `shadow-md`, `bg-glow-hero`, `animate-marquee`) — no hard-coded colours or sizes downstream. `tokens.css` mirrors the values as CSS variables for non-Tailwind consumers; `tokens.json` is the W3C-style export.
+React 18 · Vite 6 · TypeScript 5 · Tailwind CSS 3.4 · Framer Motion 11 · Lucide · class-variance-authority · tailwind-merge.
 
-## Deploy
+## Authority
 
-GitHub: [`teamos-ai/health-os-design-system-v2`](https://github.com/teamos-ai/health-os-design-system-v2) (private, SSH).
-Vercel (Team OS): auto-detect Vite · build `npm run build` · output `dist`.
-
----
-
-Built for practitioners. Calm, grounded, outcome-first.
+Design and brand decisions: this repository, approved by Tumai. Claims, prices, offers and voice: the Health OS database, `teamos-ai/db-health-os`, which this system never overrides.

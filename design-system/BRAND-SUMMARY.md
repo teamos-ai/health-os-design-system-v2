@@ -1,39 +1,39 @@
-# Health OS v2 — brand summary
+# Brand summary
 
-The one-page snapshot of the locked brand. For the full visual rules see `foundations/*`; for the values see `tokens/`.
+One page on what Health OS is and how it should feel. Values live in [REFERENCE.md](REFERENCE.md); claims, offers and voice live in the Health OS database (`teamos-ai/db-health-os`).
 
-**What it is.** A wellness *business operating system* — one calm surface that unifies scheduling, automation and client activation for independent wellness practitioners.
+## What Health OS is
 
-**Why it exists.** Practitioners are great at their craft and buried in admin spread across a dozen disconnected tools. Health OS makes the back office disappear.
+A done-for-you business operating system for wellness businesses: one platform in place of a patchwork of separate tools, set up for the client rather than handed over. Health OS is a vertical of OS A.I. The database's `01-company/what-health-os-is.md` is the approved description; quote it rather than rewriting it.
 
-**What's new in v2.** Same locked brand, evolved craft: the "operating system" made literal. A command-palette search hero, monospace body (Anonymous Pro) for terminal texture, Spline Sans headings, soft pastel glows on warm ivory, dark-carbon pill CTAs, a gentle tool-card marquee, a rounded carbon footer. A self-owned command-centre structure on the pure Health OS palette.
+## How it should feel
 
-**Positioning.**
-- Loud ↔ **Quiet** (quiet)
-- Futuristic ↔ **Grounded** (grounded)
-- Generic ↔ **Specific** (specific)
-- Cold ↔ **Warm** (warm)
-- Playful ↔ **Calm** (calm)
+In Tumai's words: calm, minimal, open, free, relaxing, boho, technology first.
 
-**Personality (5).** Grounded · confident · intelligent · calm · quietly powerful.
+In practice that means a lot of air, warm neutrals, soft colour used with intent, and motion that flows rather than performs. The system should read as well made and quiet, never busy or salesy.
 
-**Archetype.** Sage 70% / Creator 30%. **Anti-archetype:** Hero hustle, Jester gimmicks, Magician that hides the mechanism.
+## Visual foundations
 
-**One-sentence promise.** Health OS gives your practice structure, automation and activation in one place — so the business runs itself while you do the work only you can do.
+| Area | The system |
+|---|---|
+| Themes | Light (white ground) and paper (warm ivory ground). No dark theme |
+| Colour | Rose, apricot and lavender, each in 50, 400 and 700. Warm ink neutrals and carbon. Success, warning and error kept apart from the brand colours |
+| Gradients | Signature (apricot to rose to lavender), soft wash and warm sunrise. One gradient moment per view |
+| Type | Spline Sans headings and subheadings. Anonymous Pro body and labels: the monospaced body is the Health OS texture |
+| Spacing | 8px rhythm with 4px compact steps; spacious heroes by rule |
+| Shape | 8px controls, 12px containers, round only for round things. Flat surfaces with hairlines, soft neutral shadows when something lifts or floats |
+| Motion | On by default, calm and flowing, from the motion library and tokens |
+| Imagery | The full tagged library of lifestyle photos and nature backgrounds, each with a suggested use |
+| Logo | The gradient OS mark, used on its own |
 
-**Tagline.** "The operating system for your practice."
-*Alts:* "Your practice, running itself." · "Structure, automation, activation — in one place."
+## Signature moves
 
-## Visual foundations (locked)
-- **Colour:** warm multi-hue — apricot `#F5A060` (`apricot-400`), rose `#E85BA8` (`brand-400`, the DNA), lavender `#A666D9` (`lavender-400`); **primary action `#BE2E7B` (`brand-600`, AA with white text)**. Ivory paper `#F9F6F2` (`paper`), carbon ink `#1F1F1F` (`ink-900`/`carbon`), warm hairline `#E7E0D8` (`line`), gold `#BE9522` (`gold-600`). Signature apricot→rose→lavender gradient (`bg-brand-gradient`) + soft radial glows (`bg-glow-hero`), used with restraint.
-- **Type:** **Spline Sans** display/headings (`font-display`, 600/700) + **Anonymous Pro** body & labels (`font-sans`/`font-mono`, monospace, 400/700, line-height 1.6). Monospace body is deliberate — the OS texture. Sentence case. Mono measure ≤ ~70 characters.
-- **Radius:** soft — 8px UI (`rounded-md`) · 12px cards (`rounded-lg`) · pills for marketing CTAs (`rounded-full`).
-- **Spacing:** 8px base.
-- **Elevation:** flat + 1px hairline (`border-line`); soft neutral carbon-based shadow on hover only (`shadow-sm`/`shadow-md`).
-- **Icons:** Lucide, 1.5px stroke, outline, rounded terminals.
-- **Motion:** Framer Motion, fade + small translate, 150–250ms interactions / 300–400ms reveals / never >500ms; gentle marquee + thin ticker; reduced-motion aware.
-- **No glass. No 3D. No neumorphism. No coloured / inner shadows. Never pure white or pure black. Flat, calm, warm, premium.**
+- A highlight behind one headline word (`.text-highlight`), sweeping in once.
+- The command hero: headline, search bar, a row of command chips and a product preview.
+- Bento sections that mix content, feature and action cards.
+- A thin ticker at the top of a page, and a rounded carbon footer.
+- Textured grounds on alternating sections, and a reading-paper grain in the paper theme.
 
-**Voice in one paragraph.** Health OS speaks like a calm Sage operator who has already untangled the mess. Australian English, short clear sentences, outcome first. It explains what's happening behind the scenes instead of selling. It says **practitioners** and **clients** (never "coaches"). Confident, grounded, never hyped — it earns trust by being specific.
+## Still open
 
-**Feel in 5 seconds.** *"This already understands my mess — and it's calm about it."* Relief, not adrenaline.
+The audience noun, the archetype and several visual details are open decisions. They are listed with their current handling at the top of [REFERENCE.md](REFERENCE.md#open-decisions). Do not settle them in an asset.

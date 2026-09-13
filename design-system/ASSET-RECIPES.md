@@ -1,90 +1,91 @@
-# Asset recipes — build anything on-brand
+# Asset recipes
 
-How to produce each asset type from this system. Every recipe = **ground + type + colour discipline + components + voice register**. Values come from `tokens/` (never hard-code); component APIs from `components/README.md`; voice from `foundations/voice.md`. When an asset type isn't listed, compose from the nearest recipe and the defaults in `CLAUDE.md` §4.
+What to reach for when building each kind of asset. Each recipe names the ground, type, colour moments, components and checks. Values and props are in [REFERENCE.md](REFERENCE.md); copy and claims follow [VOICE.md](VOICE.md) and the Health OS database. Finish every asset with [CHECKLIST.md](CHECKLIST.md).
 
-**Universal rules (every asset):** paper ground (`#F9F6F2` / `bg-paper`) · Spline Sans headings + Anonymous Pro mono body at 1.6 · sentence case · one gradient moment maximum · flat + hairline (`border-line`), shadow only on hover/floating · AA contrast (white text only on `brand-600`+/`carbon`) · Australian English, calm Sage voice, "practitioners"/"clients" · no glass, no 3D, no confetti, no hype.
+**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 400 and 700 · one gradient moment · flat surfaces with hairlines · images from the tagged library · sentence case, no em dashes, no invented numbers.
 
----
+## 1. Marketing page
 
-## 1. Landing page / homepage
+The live page in the reference site is this recipe, assembled.
 
-- **Structure (the v2 rhythm):** thin `Ticker` → `Nav` (paper, hairline bottom) → command-palette hero (`<Hero>` + `HeroGlow` + `CommandBar` + `CommandChip` row) → `ToolCard` marquee ("replaces" framing) → bento feature grid (`BentoGrid` + `FeatureCard`, one highlight cell max) → `Stat` count-up band → comparison/directory section → rounded carbon `Footer` (`bg-carbon rounded-3xl`).
-- **Hero:** built ONLY with the `<Hero>` primitive (`hero-py`/`hero-py-lg` padding, `hero-gap`/`hero-gap-sm` stack rhythm). H1 `text-display-lg/-xl`, ONE gradient word (`text-transparent bg-clip-text bg-brand-gradient`), subcopy `body-lg` at `max-w-hero-subcopy`, primary CTA = dark pill (`bg-carbon text-white rounded-full`) or `bg-brand-600` pill.
-- **Section rhythm:** `py-16 md:py-24`; every section opens `MonoLabel` overline (`text-overline text-brand-600`) → `h2` → `body-md`.
-- **Colour:** rose-600 drives every action; apricot/lavender only as `-100` feature-chip fills; gradient = logo + one hero word + (optionally) one CTA.
-- **Voice:** homepage-hero register — one true specific thing, e.g. "Bookings, reminders and follow-up — running while you're with clients."
+| Order | Build with | Notes |
+|---|---|---|
+| Ticker | `Ticker` | Optional. Tone `subtle` on light, `carbon` on paper, `tint` for a softer moment. One per page |
+| Navigation | `Nav` | One neutral primary button in the bar |
+| Hero | `CommandHero`, or `Hero` + `HeroContainer` + `HeroGlow` | Spacing comes from the hero tokens. One `.text-highlight` word in the headline |
+| Why it works | `Pillars` (feature grid) | Up to four `FeatureCard`s |
+| What runs | `BentoSection`, or `BentoGrid` with `ContentCard`, `FeatureCard` and one `ActionCard` | Mix card types; one action card |
+| Plans | `PricingTable` with plans from `src/data/offer.ts` | Prices and fees exactly as the database states them |
+| Comparison | `DirectoryCompare` | Open decision; never names a competitor |
+| Questions | `Faq`, two columns for six or more | Answers from the database FAQ |
+| Footer | `Footer` | Carbon panel, `rounded-lg` |
 
-## 2. Email — marketing
+Sections sit at `py-16 md:py-24` inside `max-w-container px-6`. Every third section can take the textured ground. The primary action on the page is the same everywhere it appears.
 
-- **Layout:** single 600px column · `bg-paper` outer, `bg-surface` card with 1px `line` border, `rounded-lg` (12px) · logo lockup top-left at ≥120px · generous 32–48px padding.
-- **Type (email-safe):** load Spline Sans + Anonymous Pro via Google Fonts `<link>` with fallbacks `ui-sans-serif/system-ui` and `ui-monospace/Menlo` — the mono fallback keeps the OS texture. H1 = `h2` size (34px) — display sizes are too large for mail. Body 16/26.
-- **Colour:** one CTA button, `bg-brand-600` white text, `rounded-full`, bulletproof-button markup. No gradient fills in email (rendering risk) — a 4px gradient top border strip is the sanctioned signature moment.
-- **Voice:** "a one-to-one note from someone who gets it." Sentence-case subject, no exclamation marks, outcome in the first line.
-- **Transactional variant:** drop the glow/gradient entirely; plain, factual, fast; `body-sm` metadata in `ink-500`.
+## 2. Blog post or guide
 
-## 3. Slide deck
+- `max-w-reading` column on the page ground.
+- Category `Badge` · `h1` in `font-display text-heading` · byline in `font-sans text-label text-ink-500` ("13 September 2026 · 6 min read") · lead paragraph in `text-body text-ink-600`.
+- Section titles in `text-subheading`. Figures in `rounded-lg` frames with a `text-label` caption.
+- Comparisons are real tables (`Table`), with a text alternative for any check or cross.
+- A pull quote sits on `bg-brand-gradient-soft` with `rounded-lg`, not a side stripe.
+- Related reading uses `ContentCard`. A download uses `ResourceCard`. One `ActionCard` closes the post.
 
-- **Canvas:** 16:9, `paper` ground. Title slides may carry `bg-glow-hero` (soft, top-weighted); content slides stay clean.
-- **Type scale:** slide title = `display-lg` (58px), section title = `h1` (42), body = 21–24px mono (scale `body-lg` up ~1.3× for projection; keep ≤ ~60ch), labels = `overline` in `brand-600`.
-- **Layout:** one idea per slide; overline → title → ≤3 supporting points; 96px outer margins; hairline dividers, not boxes. Stats use `display-xl` numbers + mono labels (the `Stat` pattern).
-- **Colour:** carbon text on paper; ONE accent moment per slide (a gradient word on the title slide, a `-100` chip, a key number in `brand-600`). Dark closing slide: `carbon` ground, white text, gradient logo mark.
-- **Don't:** full-bleed photos behind text, more than 3 type sizes, bullets deeper than one level.
+## 3. Lead magnet: guide, checklist or calculator
 
-## 4. Document (report / proposal / one-pager)
+- The listing is a `ResourceCard` with a portrait cover from the background library (tone light or mid, text space at top).
+- The cover title sits on a paper strip, never directly on the photo.
+- Calculators follow the stack cost calculator: `Input`s, one primary `Button`, a result panel that explains the sum. Only the visitor's own numbers; no pre-filled savings.
 
-- **Page:** A4, `paper` ground (print: keep the ivory or fall back to white + `line` rules) · 88px top/bottom, 72px side margins.
-- **Type:** title `h1`, sections open overline (`label`, `brand-600`, uppercase mono) → `h2`/`h3` → body `body-md` at ≤70ch. Captions/footnotes `caption` in `ink-500`.
-- **Furniture:** hairline `line` rules between sections; tables = mono `body-sm`, hairline row dividers, no zebra fills; pull-quotes get a 2px `brand-400` left border; page footer = mono `label` with page number.
-- **Colour:** near-monochrome; brand-600 for links/key figures only. Logo lockup on the title page, mark-only in running footers.
-- **Voice:** feature-page register — show the mechanism, short sentences, Oxford comma, numerals ("12 hrs", "98%").
+## 4. Email
+
+- 600px single column. Page ground outside, `surface` card inside with a `line` hairline and 12px corners.
+- Logo mark at 40px, top left. Headline in Spline Sans 700 at the subheading size or the heading's 36px floor; body 16px on 26px in Anonymous Pro, with `ui-monospace, Menlo, monospace` as the fallback.
+- One button: rose-700 or carbon fill, white text, 8px corners, written as a bulletproof link.
+- Gradients are unreliable in email clients: use a solid `rose-50` or `apricot-50` panel for the one colour moment.
+- Transactional email drops the colour moment entirely.
 
 ## 5. Social post
 
-- **Formats:** feed 1080×1080 · story/reel 1080×1920 · OG/link 1200×630 (see `imagery.md` §OG).
-- **Anatomy:** paper ground · ONE short headline (`display-lg` weight, sentence case, ≤2 lines) · optional mono overline · logo mark small in a corner · one signature accent: a gradient bar, a soft `bg-glow-*` wash, or a single gradient word — never more than one.
-- **Photography variant:** real warm photo (see `imagery.md`), `rounded-lg`, subtle ivory grade; text on plain ground beside/below it, never over the subject.
-- **Voice:** "useful first; one idea per post." No hashtag walls (≤3), no urgency theatre.
-- **Safe areas (story/reel):** keep type inside the centre 1080×1420; nothing in the top 250px / bottom 250px.
+The reference site's social templates are the starting point.
 
-## 6. Dashboard / product UI
+| Format | Size | Safe area |
+|---|---|---|
+| Feed post | 1080 × 1080 | Keep type clear of the edges |
+| Story | 1080 × 1920 | Keep type inside the centre 1080 × 1420 |
+| Link preview | 1200 × 630 | Keep type clear of the edges; the image takes one half |
 
-- **Shell:** `bg-paper` page, `bg-surface` cards with `border-line rounded-lg` (12px), inset wells `bg-surface-2` · optional fixed `carbon` rail (white/70 labels, active item `bg-white/10`).
-- **Controls:** product-UI buttons are `rounded-md` (NOT pills) · inputs per `Input` (hairline, focus ring `brand-400` border + soft ring) · segmented controls, `IconButton`, `Pagination` from the library.
-- **Type:** mono everywhere except card/panel titles (`h4` Spline Sans); ALL numbers `font-mono tabular-nums`; metadata `caption`/`label` in `ink-500`.
-- **Status:** the `-100` tint + `-700` text pair (`bg-success-100 text-success-700`), hairline border, sentence-case label. Charts use the 400-level accents (apricot/lavender/rose-300) as data hues on white.
-- **States (mandatory):** every view designs empty (encouraging, next-action), loading (skeleton `animate-shimmer`, not spinners), and error (own it, fix it, move on) states.
-- **Density:** 8px grid, `p-5`/`p-6` cards, `gap-4`–`gap-6`; three themes supported via tokens — never hard-code neutrals.
+- Paper or light ground, one short headline in Spline Sans, the logo mark small in a corner.
+- One colour moment: a highlight word, a soft wash panel or one image with its suggested use.
+- Text never sits over the subject of a photo; put it on the ground beside or below.
+- No competitor logos, testimonials or countdowns.
 
-## 7. Blog / long-form article
+## 6. Slide deck
 
-- Category `Badge` → `h1` → mono byline (`caption`, `ink-500`, "Dr Elise Warner · 11 June 2026 · 6 min read") → lead `body-lg` → sections `h2` at ≤`max-w-reading` · pull-quote = `h3` italic with 2px `brand-400` left border · figures `rounded-lg` with mono captions · comparison tables = real `<table>`, hairlines, Lucide check/x at 1.5px with text alternatives.
+- 16:9 on the paper ground. Title slides may use `HeroGlow`'s soft wash at the top; content slides stay clean.
+- Slide titles use the heading role at its largest size. Slides are the one place body text runs larger than 16px: size it for the room and keep it Anonymous Pro 400. Labels stay uppercase Anonymous Pro 700.
+- One idea per slide, at most three supporting points, 96px outer margins, hairline dividers.
+- Charts use the widget styles: 400 shades as data colours, labels in ink-500.
 
-## 8. Ad / banner (display)
+## 7. Document: proposal, report or one-pager
 
-- One outcome-first line (sentence case, ≤8 words) + one pill CTA (`bg-brand-600` or carbon) + logo mark · paper ground with a single soft glow wash · mono `label` for the disclaimer line. No countdown timers, no red urgency, no more than one accent.
+- A4, paper ground (or white with `line` rules for print). 72px side margins.
+- Title in Spline Sans 700, section titles in Spline Sans 600, body in Anonymous Pro 400 at a size that keeps about 70 characters a line.
+- Tables with hairline rows and `text-label` headers. Links and key figures in rose-700.
+- The logo mark on the title page only.
 
----
+## 8. Product screen or dashboard
 
-## Voice register cheat-sheet (from voice.md)
+- `bg-paper` page, `surface` cards with `border-line rounded-lg`, `surface-2` wells and table headers.
+- Build from widgets first: pick by their "Use it for" line and wire their documented inputs to real data.
+- Controls from Elements: `Input`, `Select`, `Checkbox`, `Switch`, `Segmented`, `Tabs`, `Table`, `Pagination`.
+- Status uses the 100 tint with 700 text. Numbers use tabular figures.
+- Design the empty, loading (`Skeleton`) and error (`Alert`) states for every view.
+- Experimental widgets can be used. Check their notes in REFERENCE.md first.
 
-| Asset | Register |
-|---|---|
-| Landing hero | Confident, plain, specific — the one true thing |
-| Email (marketing) | One-to-one note from someone who gets it |
-| Email (transactional) | Plain, factual, fast |
-| Slides | Quiet proof; let numbers and practitioners talk |
-| Document | Show the mechanism; calm and concrete |
-| Social | Useful first; one idea per post |
-| Product UI / empty states | Encouraging, points to the next small action |
-| Errors | Own it, fix it, move on — never cute |
+## 9. Screenshot of the product
 
-## Pre-delivery checklist (every asset)
-
-1. Tokens/class names only — zero raw hexes, sizes, radii, shadows, durations that exist as tokens.
-2. Sentence case; Australian English; "practitioners"/"clients"; no hype words; no exclamation marks.
-3. Gradient + glows restrained to signature moments; zero glass; flat + hairline.
-4. Spline Sans headings / Anonymous Pro mono body at 1.6; measure ≤ ~70ch.
-5. AA everywhere; white text only on brand-600+/carbon.
-6. Paper ground, carbon ink — never pure white page / pure black text (theme grounds excepted).
-7. Motion (if any): 150–250ms interactions, 300–400ms reveals, ≤480ms, reduced-motion safe.
-8. Would Hayley feel relief in 5 seconds — not sold to?
+- Crop to the part that makes the point. Remove browser chrome unless the frame helps.
+- Frame it on a `surface` panel with `rounded-lg` and `shadow-lg`.
+- Replace or blur every name, email, phone number, price agreement and client detail.
+- Never present a coded mock as a real screenshot.
