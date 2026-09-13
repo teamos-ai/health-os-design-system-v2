@@ -4,13 +4,13 @@
  * Themed grounds (paper, surface, line) are NOT here: use Tailwind classes or rgb(var(--paper)).
  */
 
-export const ROSE = { 50: '#FADEEE', 400: '#E85BA8', 700: '#97215F' } as const;
-export const APRICOT = { 50: '#FDECDF', 400: '#F5A060', 700: '#9E5723' } as const;
-export const LAVENDER = { 50: '#EDE1F7', 400: '#A666D9', 700: '#602C88' } as const;
+export const ROSE = { 50: '#FADEEE', 200: '#F3A0CC', 400: '#E85BA8' } as const;
+export const APRICOT = { 50: '#FDECDF', 200: '#F8C39C', 400: '#F5A060' } as const;
+export const LAVENDER = { 50: '#EDE1F7', 200: '#C9A3E6', 400: '#A668D9' } as const;
 export const INK = { 100: '#F2EFEB', 200: '#E3DDD6', 400: '#A39B91', 500: '#7C746B', 600: '#5A534B', 900: '#1F1F1F' } as const;
-export const SUCCESS = { 100: '#E2F5EC', 600: '#1F9D6B', 700: '#15724E' } as const;
-export const WARNING = { 100: '#FBF2DC', 600: '#C08415', 700: '#8A5E0F' } as const;
-export const ERROR = { 100: '#FAE4E2', 600: '#C8382F', 700: '#9F2A23' } as const;
+export const SUCCESS = { 100: '#E2F5EC', 300: '#9AD3BC', 600: '#1F9D6B' } as const;
+export const WARNING = { 100: '#FBF2DC', 300: '#E3C896', 600: '#C08415' } as const;
+export const ERROR = { 100: '#FAE4E2', 300: '#E6A5A1', 600: '#C8382F' } as const;
 export const CARBON = '#1F1F1F';
 export const WHITE = '#FFFFFF';
 export const PAPER_IVORY = '#F9F6F2';
@@ -19,6 +19,6 @@ export const PAPER_IVORY = '#F9F6F2';
 export const GRADIENT_STOPS = [APRICOT[400], ROSE[400], LAVENDER[400]] as const;
 
 /** The three gradients as CSS values, for inline-style consumers. */
-export const BRAND_GRADIENT = 'linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%)';
+export const BRAND_GRADIENT = 'linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A668D9 100%)';
 export const BRAND_GRADIENT_SOFT = 'linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)';
-export const BRAND_GRADIENT_WARM = 'linear-gradient(135deg, #FDECDF 0%, #F5A060 45%, #E85BA8 100%)';
+export const BRAND_GRADIENT_DAWN = 'linear-gradient(160deg, #FFFFFF 0%, #FDECDF 55%, #FADEEE 100%)';

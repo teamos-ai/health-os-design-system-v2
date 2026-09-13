@@ -35,9 +35,8 @@ export const Footer = ({ className }: { className?: string }) => {
               </p>
             </div>
             <Button
-              variant="secondary"
               href="#book"
-              className="border-white bg-white text-carbon hover:border-white hover:bg-white/90 focus-visible:ring-white/70 focus-visible:ring-offset-carbon"
+              className="focus-visible:ring-offset-carbon"
               trailingIcon={<ArrowRight className="h-4 w-4" strokeWidth={1.5} aria-hidden />}
             >
               Book the walkthrough

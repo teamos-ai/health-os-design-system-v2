@@ -18,9 +18,9 @@ export interface AlertProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
 }
 
 const TONES: Record<AlertTone, { wrap: string; icon: LucideIcon; iconClass: string; role: 'status' | 'alert' }> = {
-  success: { wrap: 'border-success-600/25 bg-success-100 text-success-700', icon: CheckCircle2, iconClass: 'text-success-600', role: 'status' },
-  warning: { wrap: 'border-warning-600/25 bg-warning-100 text-warning-700', icon: AlertTriangle, iconClass: 'text-warning-600', role: 'alert' },
-  error: { wrap: 'border-error-600/25 bg-error-100 text-error-700', icon: XCircle, iconClass: 'text-error-600', role: 'alert' },
+  success: { wrap: 'border-success-300 bg-success-100 text-ink-900', icon: CheckCircle2, iconClass: 'text-success-600', role: 'status' },
+  warning: { wrap: 'border-warning-300 bg-warning-100 text-ink-900', icon: AlertTriangle, iconClass: 'text-warning-600', role: 'alert' },
+  error: { wrap: 'border-error-300 bg-error-100 text-ink-900', icon: XCircle, iconClass: 'text-error-600', role: 'alert' },
 };
 
 export const Alert = ({ tone = 'success', title, children, onDismiss, className, ...props }: AlertProps) => {

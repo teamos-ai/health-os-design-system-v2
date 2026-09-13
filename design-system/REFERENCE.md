@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-13 · 105 entries · 32 components · 31 widgets · 11 patterns · 12 open decisions
+Updated 2026-09-13 · 106 entries · 32 components · 31 widgets · 12 patterns · 12 open decisions
 
 ## How to use this file
 
@@ -29,7 +29,7 @@ Decisions still waiting on Tumai, and what the system does until each one is mad
 | Topic | Ref | Question | For now |
 | --- | --- | --- | --- |
 | Radius | R4.1 · C10 | Keep md 8px, lg 12px and full, or return to the earlier 8px cap? | Provisional: md 8px for controls, lg 12px for containers, full for round things only. No pill buttons. |
-| Primary button colour | R2.6 · C12 | Approve rose-700 as the brand primary fill, with carbon as the neutral primary? | rose-700 #97215F with white text. The old rose-600 #BE2E7B step was removed by the three-shade rule. |
+| Primary button colour | R2.6 · C12 | Keep Expressive Rose (rose-400) with white text as the one primary button colour? | rose-400 #E85BA8 with white text on every ground; carbon buttons are gone. White on this rose measures about 3.2:1, under the 4.5:1 usually asked of body text. There is no contrast gate, so this is Tumai's call. |
 | Audience noun | R1.2 · C02 | Which word does copy use for the customer: operator, practitioner or something else? | The database says operator. Demo copy in this system says you and clients, and names neither. |
 | Archetype | R1.3 · C03 | Sage 70 / Creator 30, or Creator 70 / Explorer 30? | Not used anywhere in this system until decided. |
 | Icon library | R4.7 | Which filled icon set, in which two sizes? | The Icons section is intentionally empty. Components still use Lucide line icons until the set is chosen. |
@@ -62,44 +62,46 @@ Light is the default. Paper is `.theme-paper` on `<html>`. Grounds are RGB chann
 
 ### Colour
 
+Every colour stops at its full strength and has two lighter shades. There are no darker shades: text stays in the ink neutrals, and colour comes from fills, marks, icons and borders.
+
 | Token | Hex | CSS variable | Role |
 | --- | --- | --- | --- |
-| `rose-50` | #FADEEE | `--hos-rose-50` | Soft. Tinted backgrounds: badges, selected rows, soft fills. |
-| `rose-400` | #E85BA8 | `--hos-rose-400` | Base. Brand DNA: gradient stop, decorative marks, chart fills. Dark text only on top. |
-| `rose-700` | #97215F | `--hos-rose-700` | Deep. Primary buttons (white text), links and coloured text on light grounds and on rose-50. |
-| `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Warm tinted backgrounds. |
-| `apricot-400` | #F5A060 | `--hos-apricot-400` | Base. Gradient stop, warm marks and chart fills. Dark text only on top. |
-| `apricot-700` | #9E5723 | `--hos-apricot-700` | Deep. Apricot text on light grounds and on apricot-50. |
-| `lavender-50` | #EDE1F7 | `--hos-lavender-50` | Soft. Cool tinted backgrounds. |
-| `lavender-400` | #A666D9 | `--hos-lavender-400` | Base. Gradient stop, cool marks and chart fills. Never behind text. |
-| `lavender-700` | #602C88 | `--hos-lavender-700` | Deep. Lavender text on light grounds and on lavender-50. |
+| `rose-50` | #FADEEE | `--hos-rose-50` | Soft. Tinted fills: badges, selected rows, quiet panels. |
+| `rose-200` | #F3A0CC | `--hos-rose-200` | Light. Borders on tinted fills, selected outlines, chart tracks, text selection. |
+| `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Primary buttons, checked controls, focus rings, gradient stops, icons and chart fills. Not for text. |
+| `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Warm tinted fills. |
+| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. Borders on warm fills, chart tracks, secondary data. |
+| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. Gradient stop, warm icons, marks and chart fills. Not for text. |
+| `lavender-50` | #EDE1F7 | `--hos-lavender-50` | Soft. Cool tinted fills. |
+| `lavender-200` | #C9A3E6 | `--hos-lavender-200` | Light. Borders on cool fills, chart tracks, secondary data. |
+| `lavender-400` | #A668D9 | `--hos-lavender-400` | Full strength. Gradient stop, cool icons, marks and chart fills. Not for text. |
 | `ink-100` | #F2EFEB | `--hos-ink-100` | Quiet fills and hover backgrounds. |
 | `ink-200` | #E3DDD6 | `--hos-ink-200` | Stronger dividers and pressed fills. |
 | `ink-400` | #A39B91 | `--hos-ink-400` | Placeholder text, disabled text, hover borders, muted icons. |
 | `ink-500` | #7C746B | `--hos-ink-500` | Secondary text and metadata. The lightest neutral for readable text. |
 | `ink-600` | #5A534B | `--hos-ink-600` | Body text. |
 | `ink-900` | #1F1F1F | `--hos-ink-900` | Headings and primary text. |
-| `success-100` | #E2F5EC | `--hos-success-100` | Tint behind success content. |
-| `success-600` | #1F9D6B | `--hos-success-600` | Icons, dots and solid marks. |
-| `success-700` | #15724E | `--hos-success-700` | Success text. |
-| `warning-100` | #FBF2DC | `--hos-warning-100` | Tint behind warning content. |
-| `warning-600` | #C08415 | `--hos-warning-600` | Icons, dots and solid marks. |
-| `warning-700` | #8A5E0F | `--hos-warning-700` | Warning text. |
-| `error-100` | #FAE4E2 | `--hos-error-100` | Tint behind error content. |
-| `error-600` | #C8382F | `--hos-error-600` | Icons, dots and solid marks. |
-| `error-700` | #9F2A23 | `--hos-error-700` | Error text. |
-| `carbon` | #1F1F1F | `--hos-carbon` | The one dark surface: neutral primary buttons, the footer panel, dark tiles. White text on top. |
-| `white` | #FFFFFF | `--hos-white` | Text and marks on carbon and on deep fills only. Never a hand-coded page ground. |
+| `success-100` | #E2F5EC | `--hos-success-100` | Soft. Tint behind success content. |
+| `success-300` | #9AD3BC | `--hos-success-300` | Light. Borders on success tints and chart tracks. |
+| `success-600` | #1F9D6B | `--hos-success-600` | Full strength. Icons, dots, solid marks. |
+| `warning-100` | #FBF2DC | `--hos-warning-100` | Soft. Tint behind warning content. |
+| `warning-300` | #E3C896 | `--hos-warning-300` | Light. Borders on warning tints and chart tracks. |
+| `warning-600` | #C08415 | `--hos-warning-600` | Full strength. Icons, dots, solid marks. |
+| `error-100` | #FAE4E2 | `--hos-error-100` | Soft. Tint behind error content. |
+| `error-300` | #E6A5A1 | `--hos-error-300` | Light. Borders on error tints and chart tracks. |
+| `error-600` | #C8382F | `--hos-error-600` | Full strength. Icons, dots, solid marks, and error messages. |
+| `carbon` | #1F1F1F | `--hos-carbon` | The one dark surface: the footer panel and dark tiles. White text on top. |
+| `white` | #FFFFFF | `--hos-white` | Text and marks on carbon and on the rose primary button. Never a hand-coded page ground. |
 
-Classes follow the token name: `bg-rose-50`, `text-rose-700`, `border-apricot-400`, `bg-carbon`.
+Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg-carbon`. Text stays in the ink neutrals.
 
 ### Gradients
 
 | Class | CSS variable | Value | Role |
 | --- | --- | --- | --- |
-| `bg-brand-gradient` | `--hos-brand-gradient` | `linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%)` | Signature. Apricot to rose to lavender, never reversed. The logo, one gradient button or panel per view, a highlight behind one headline word. |
+| `bg-brand-gradient` | `--hos-brand-gradient` | `linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A668D9 100%)` | Signature. Apricot to rose to lavender, never reversed. The logo, a highlight behind one headline word, thin accents such as a progress fill. Never a large fill for a card, panel or banner. |
 | `bg-brand-gradient-soft` | `--hos-brand-gradient-soft` | `linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)` | Soft wash. Large quiet fills: section panels, media placeholders, highlight bars. Dark text on top. |
-| `bg-brand-gradient-warm` | `--hos-brand-gradient-warm` | `linear-gradient(135deg, #FDECDF 0%, #F5A060 45%, #E85BA8 100%)` | Warm sunrise. Inviting moments: an action card, a warm button, a promotional band. Dark text on top. |
+| `bg-brand-gradient-dawn` | `--hos-brand-gradient-dawn` | `linear-gradient(160deg, #FFFFFF 0%, #FDECDF 55%, #FADEEE 100%)` | Soft dawn. A gentle warm light from white into apricot and rose tints. Action cards and invitations, with dark text and the rose primary button on top. |
 
 ### Type
 
@@ -183,21 +185,21 @@ Health OS motion is its own: calm, flowing and on by default. Durations and easi
 
 `colour-brand` · token · Stable
 
-Rose, apricot and lavender: the Health OS identity. Each has three shades: 50 soft, 400 base, 700 deep.
+Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at its full strength (400) and has two lighter shades (200, 50), so colour always reads as a variation of calm.
 
 **Use it for**
 
-- 50 for tinted backgrounds: badges, selected rows, soft fills
-- 400 for the brand DNA: gradient stops, decorative marks, chart fills
-- 700 for coloured text, links, icons and filled buttons with white text
+- 400 for primary buttons, checked controls, focus rings, icons, gradient stops and chart fills
+- 200 for borders on tinted fills, selected outlines and chart tracks
+- 50 for tinted fills: badges, selected rows and quiet panels
 
 **Not for**
 
-- Text in a 400 shade, or white text on a 400 fill
-- Shades outside 50, 400 and 700
-- Using all three colours with equal weight in one small component
+- Coloured text: text stays in the ink neutrals, colour comes from fills, marks and borders
+- Any shade darker than 400, or shades outside 50, 200 and 400
+- All three colours at equal weight in one small component
 
-**API** `Tailwind: bg-rose-50, text-rose-700, border-apricot-400, from-lavender-400 … CSS: var(--hos-rose-700)`
+**API** `Tailwind: bg-rose-400 · bg-rose-50 · ring-rose-200 · text-apricot-400 (icons) · from-lavender-400 … CSS: var(--hos-rose-400)`
 
 **Source** `design-system/tokens/tokens.json → color.rose, color.apricot, color.lavender`
 
@@ -209,9 +211,9 @@ Warm greys for text, lines and quiet fills, plus carbon for the one dark surface
 
 **Use it for**
 
-- ink-900 headings and primary text, ink-600 body, ink-500 secondary text
+- ink-900 headings, primary text and text on tinted fills, ink-600 body, ink-500 secondary text
 - ink-100 and ink-200 for quiet fills, dividers and pressed states
-- carbon for neutral primary buttons, the footer panel and dark tiles, with white text
+- carbon for the footer panel, tooltips and dark tiles, with white text
 
 **Not for**
 
@@ -226,20 +228,21 @@ Warm greys for text, lines and quiet fills, plus carbon for the one dark surface
 
 `colour-status` · token · Stable
 
-Success, warning and error, kept apart from the brand colours.
+Success, warning and error, kept apart from the brand colours. Each stops at 600 and has two lighter shades.
 
 **Use it for**
 
-- 100 tint behind status content
-- 700 for status text
-- 600 for icons and dots
+- 100 tint behind status content, with ink text
+- 300 for borders and edges on status tints
+- 600 for icons, dots and error messages
 
 **Not for**
 
 - Decorating with status colours when nothing is succeeding, pending or failing
+- Status-coloured text other than error messages
 - Using error red as a brand accent
 
-**API** `bg-success-100 text-success-700 · bg-warning-100 text-warning-700 · bg-error-100 text-error-700`
+**API** `bg-success-100 ring-success-300 text-ink-900 · text-success-600 (icon) · text-error-600 (error message)`
 
 **Source** `tokens.json → color.success, color.warning, color.error`
 
@@ -269,17 +272,17 @@ Two themes that share every colour, component and behaviour. Only the grounds ch
 
 `brand-gradient` · token · Stable
 
-Apricot to rose to lavender. The strongest brand moment.
+Apricot to rose to lavender. The strongest brand moment, used small.
 
 **Use it for**
 
 - The logo
-- One gradient panel, bar or button per view
-- Progress fills and selected states in widgets
+- A highlight behind one headline word (.text-highlight)
+- Thin accents: a progress fill, a short bar
 
 **Not for**
 
-- Large text-heavy areas
+- Large fills: cards, panels, banners or buttons
 - More than one gradient moment in a view
 - Reversing or recolouring the stops
 
@@ -296,36 +299,36 @@ The three 50 tints in a gentle wash. The quiet gradient.
 **Use it for**
 
 - Large calm fills: section panels, media placeholders, the featured pricing header
-- The highlight behind one headline word (.text-highlight)
+- The soft tone of an action card
 
 **Not for**
 
 - Behind small light text
 - Every card on a page
 
-**API** `bg-brand-gradient-soft · .text-highlight · BRAND_GRADIENT_SOFT`
+**API** `bg-brand-gradient-soft · var(--hos-brand-gradient-soft) · BRAND_GRADIENT_SOFT`
 
 **Source** `tokens.json → gradient.brand-gradient-soft`
 
-### Warm sunrise
+### Soft dawn
 
-`brand-gradient-warm` · token · Stable
+`brand-gradient-dawn` · token · Stable
 
-Apricot into rose. The inviting gradient.
+White into apricot and rose tints. A gentle, warm invitation.
 
 **Use it for**
 
-- Action cards and promotional bands
-- A warm highlight (.text-highlight-warm) when the soft wash is too quiet
+- Action cards and invitations, with the rose primary button on top
+- A calm band that asks for one next step
 
 **Not for**
 
 - Status or error meaning
-- Pairing with the signature gradient in the same view
+- Swapping in a saturated gradient: strong gradients are never card, panel or banner fills
 
-**API** `bg-brand-gradient-warm · .text-highlight .text-highlight-warm · BRAND_GRADIENT_WARM`
+**API** `bg-brand-gradient-dawn · var(--hos-brand-gradient-dawn) · BRAND_GRADIENT_DAWN`
 
-**Source** `tokens.json → gradient.brand-gradient-warm`
+**Source** `tokens.json → gradient.brand-gradient-dawn`
 
 ### Heading
 
@@ -753,22 +756,22 @@ Library · Three styles, two sizes, and loading and disabled states for each. Ic
 
 `button` · component · Stable
 
-The standard action in three styles.
+The standard action in three styles, in one colour everywhere.
 
 **Use it for**
 
-- primary for the one main action in a view (tone neutral when rose would clash)
+- primary for the one main action in a view: Expressive Rose with white text, the same on every ground
 - secondary beside a primary for the alternative
-- text for low-emphasis actions inside copy, cards and rows
+- text for low-emphasis actions inside copy, cards and rows: ink text on a rose underline
 - size small only in dense areas: tables, toolbars, cards
 
 **Not for**
 
 - Two primary buttons in one view
-- Custom colours, gradients or pill shapes
+- Carbon, gradient or custom-coloured buttons, or pill shapes
 - A button for navigation inside running text: use a link
 
-**API** `variant: primary | secondary | text · tone: brand | neutral · size: default | small · loading · disabled · href · leadingIcon · trailingIcon`
+**API** `variant: primary | secondary | text · size: default | small · loading · disabled · href · leadingIcon · trailingIcon`
 
 **Source** `src/components/ui/button.tsx`
 
@@ -787,7 +790,7 @@ An icon-only action that mirrors the three button styles.
 
 - Actions people won't recognise from the icon alone: use a Button with a label
 
-**API** `variant: primary | secondary | text · tone · size: default | small · aria-label (required)`
+**API** `variant: primary | secondary | text · size: default | small · aria-label (required)`
 
 **Source** `src/components/ui/icon-button.tsx`
 
@@ -799,7 +802,7 @@ Library · Soft tags for status, topics and categories across the business, plus
 
 `badge` · component · Stable
 
-A soft tag for status, category and topic.
+A soft tag for status, category and topic: a tint, a light same-hue edge and ink text.
 
 **Use it for**
 
@@ -831,7 +834,7 @@ The small uppercase label that gives context: an eyebrow, a numbered step, a liv
 
 - An eyebrow above every section: at most one per three sections
 
-**API** `tone: ink | rose | apricot | lavender | success | inverse · number · dot · trailing`
+**API** `tone: ink | rose | apricot | lavender | success | inverse (colours the number and dot; the text stays ink) · number · dot · trailing`
 
 **Source** `src/components/ui/mono-label.tsx`
 
@@ -1220,7 +1223,7 @@ Library · Six card types, each styled for its job, and the bento grid for compo
 
 `content-card` · component · Stable
 
-Text with an image: articles, updates and stories.
+Text with an image: articles, updates and stories. The image dissolves into the card with the shared image fade.
 
 **Use it for**
 
@@ -1259,7 +1262,7 @@ One benefit, told plainly.
 
 `service-card` · component · Stable
 
-An offering someone can buy or book.
+An offering someone can buy or book. The image dissolves toward the offer with the shared image fade.
 
 **Use it for**
 
@@ -1297,7 +1300,7 @@ One plan with its price and inclusions.
 
 `resource-card` · component · Stable
 
-A guide, ebook, checklist or template to take away.
+A guide, ebook, checklist or template to take away. The cover photo dissolves into its title strip.
 
 **Use it for**
 
@@ -1316,21 +1319,43 @@ A guide, ebook, checklist or template to take away.
 
 `action-card` · component · Stable
 
-The one next step: book a call, start a diagnostic.
+The one next step: book a call, start a diagnostic. Calm: a soft gradient, a hairline edge and the rose primary button.
 
 **Use it for**
 
 - The end of a page or a bento
-- tone warm by default, soft beside other warm moments
+- tone dawn by default, soft beside other tinted panels
 
 **Not for**
 
 - More than one action
 - More than one action card per view
+- A saturated gradient fill
 
-**API** `title · description · action: { label, href } · note · tone: warm | soft · image`
+**API** `title · description · action: { label, href } · note · tone: dawn | soft · image`
 
 **Source** `src/components/cards/ActionCard.tsx`
+
+### Image fade
+
+`image-fade` · pattern · Stable
+
+The soft white dissolve every image card shares: the photo stays whole for its first 35%, then falls away along a long, eased curve into the card.
+
+**Use it for**
+
+- Any card or template where text sits below or beside a photo
+- Point it at the text: image-fade-b below, image-fade-r or image-fade-l beside, image-fade-t above
+
+**Not for**
+
+- Hard image edges or short fades inside a card
+- A hand-made gradient overlay instead of the shared fade
+- Image library previews, where the whole image needs to be seen
+
+**API** `.image-fade-b · .image-fade-r · .image-fade-l · .image-fade-t, on the element that holds the image`
+
+**Source** `src/index.css`
 
 ### Bento grid
 

@@ -1,6 +1,7 @@
 /**
- * ServiceCard: an offering a customer can buy or book. Image on one side with a crisp
- * edge (no fade), the offer on the other: name, what it is, the key details, one action.
+ * ServiceCard: an offering a customer can buy or book. Image on one side, dissolving
+ * toward the offer with the shared image fade; the offer on the other: name, what it is,
+ * the key details, one action.
  *
  * Image ratio is flexible and can sit left or right. Stacks image-first on small screens.
  * Hover eases the image forward; the action is the only link.
@@ -38,7 +39,12 @@ export const ServiceCard = ({
       className
     )}
   >
-    <div className={cn('relative min-h-56 overflow-hidden', imagePosition === 'right' && 'md:order-2')}>
+    <div
+      className={cn(
+        'relative min-h-56 overflow-hidden image-fade-b',
+        imagePosition === 'right' ? 'md:order-2 md:image-fade-l' : 'md:image-fade-r'
+      )}
+    >
       <img
         src={image.src}
         alt={image.alt}

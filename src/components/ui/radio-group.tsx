@@ -67,9 +67,9 @@ export const RadioGroup = ({
                 checked={current === o.value}
                 disabled={o.disabled}
                 onChange={() => select(o.value)}
-                className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full border border-line bg-surface transition-colors duration-sm ease-out checked:border-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
+                className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full border border-line bg-surface transition-colors duration-sm ease-out checked:border-rose-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
               />
-              <span className="pointer-events-none relative h-2 w-2 scale-0 rounded-full bg-rose-700 transition-transform duration-sm ease-out peer-checked:scale-100" />
+              <span className="pointer-events-none relative h-2 w-2 scale-0 rounded-full bg-rose-400 transition-transform duration-sm ease-out peer-checked:scale-100" />
             </span>
             <span className="flex flex-col">
               <span>{o.label}</span>

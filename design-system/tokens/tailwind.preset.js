@@ -15,18 +15,18 @@ export default {
       "carbon": "#1F1F1F",
       "rose": {
         "50": "#FADEEE",
-        "400": "#E85BA8",
-        "700": "#97215F"
+        "200": "#F3A0CC",
+        "400": "#E85BA8"
       },
       "apricot": {
         "50": "#FDECDF",
-        "400": "#F5A060",
-        "700": "#9E5723"
+        "200": "#F8C39C",
+        "400": "#F5A060"
       },
       "lavender": {
         "50": "#EDE1F7",
-        "400": "#A666D9",
-        "700": "#602C88"
+        "200": "#C9A3E6",
+        "400": "#A668D9"
       },
       "ink": {
         "100": "#F2EFEB",
@@ -38,18 +38,18 @@ export default {
       },
       "success": {
         "100": "#E2F5EC",
-        "600": "#1F9D6B",
-        "700": "#15724E"
+        "300": "#9AD3BC",
+        "600": "#1F9D6B"
       },
       "warning": {
         "100": "#FBF2DC",
-        "600": "#C08415",
-        "700": "#8A5E0F"
+        "300": "#E3C896",
+        "600": "#C08415"
       },
       "error": {
         "100": "#FAE4E2",
-        "600": "#C8382F",
-        "700": "#9F2A23"
+        "300": "#E6A5A1",
+        "600": "#C8382F"
       },
       "paper": "rgb(var(--paper) / <alpha-value>)",
       "surface": "rgb(var(--surface) / <alpha-value>)",
@@ -146,9 +146,9 @@ export default {
         "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
       },
       "backgroundImage": {
-        "brand-gradient": "linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%)",
+        "brand-gradient": "linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A668D9 100%)",
         "brand-gradient-soft": "linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)",
-        "brand-gradient-warm": "linear-gradient(135deg, #FDECDF 0%, #F5A060 45%, #E85BA8 100%)"
+        "brand-gradient-dawn": "linear-gradient(160deg, #FFFFFF 0%, #FDECDF 55%, #FADEEE 100%)"
       },
       "letterSpacing": {
         "label": "0.06em"

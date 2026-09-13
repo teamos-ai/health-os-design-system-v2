@@ -12,11 +12,11 @@ import { Figure, Grow, SweepRing, useSeen } from './motion';
 
 export type WidgetAccent = 'apricot' | 'rose' | 'lavender';
 
-/** Deeper stops for saturated tiles, so the knockout figure stays legible. */
+/** Tiles run from full strength into the light shade, with dark ink figures on top. */
 const TILE: Record<WidgetAccent, string> = {
-  apricot: `linear-gradient(150deg, ${APRICOT[400]} 0%, ${APRICOT[700]} 100%)`,
-  rose: `linear-gradient(150deg, ${ROSE[400]} 0%, ${ROSE[700]} 100%)`,
-  lavender: `linear-gradient(150deg, ${LAVENDER[400]} 0%, ${LAVENDER[700]} 100%)`,
+  apricot: `linear-gradient(150deg, ${APRICOT[400]} 0%, ${APRICOT[200]} 100%)`,
+  rose: `linear-gradient(150deg, ${ROSE[400]} 0%, ${ROSE[200]} 100%)`,
+  lavender: `linear-gradient(150deg, ${LAVENDER[400]} 0%, ${LAVENDER[200]} 100%)`,
 };
 
 /* ── 01 · Aura stat tiles ─────────────────────────────────────────────── */
@@ -32,7 +32,7 @@ export const AuraStatTiles = ({ items }: { items: StatTileItem[] }) => (
     {items.map(({ label, value, icon: Icon, accent, suffix }, i) => (
       <motion.div
         key={label}
-        className="relative isolate overflow-hidden rounded-lg p-5 text-white shadow-md"
+        className="relative isolate overflow-hidden rounded-lg p-5 text-ink-900 shadow-sm"
         style={{ backgroundImage: TILE[accent] }}
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -40,11 +40,11 @@ export const AuraStatTiles = ({ items }: { items: StatTileItem[] }) => (
         transition={{ duration: 0.48, delay: i * 0.08, ease: EASE_OUT }}
       >
         <span aria-hidden className="widget-bloom" />
-        <span className="mb-6 flex h-10 w-10 items-center justify-center rounded-md bg-white/20">
+        <span className="mb-6 flex h-10 w-10 items-center justify-center rounded-md bg-white/40">
           <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />
         </span>
         <Figure value={value} suffix={suffix} className="block font-display text-heading" />
-        <span className="mt-2 block font-sans text-label uppercase text-white/85">{label}</span>
+        <span className="mt-2 block font-sans text-label uppercase text-ink-900">{label}</span>
       </motion.div>
     ))}
   </div>
@@ -75,7 +75,7 @@ export const CapacityMeter = ({ used, total, unit, note }: { used: number; total
       <Grow pct={(used / total) * 100} className="rounded-md bg-brand-gradient" />
     </div>
     <div className="flex items-baseline justify-between font-sans text-label uppercase">
-      <span className="text-rose-700">{total - used} open</span>
+      <span className="text-ink-900">{total - used} open</span>
       {note && <span className="text-ink-500">{note}</span>}
     </div>
   </div>
@@ -94,7 +94,7 @@ export const TrendCard = ({ label, value, suffix = '', delta, points }: { label:
     <div className="flex w-full flex-col gap-3">
       <div className="flex items-center justify-between">
         <span className="font-sans text-label uppercase text-ink-500">{label}</span>
-        <span className={cn('inline-flex items-center gap-1 rounded-md px-2 py-1 font-sans text-label', up ? 'bg-success-100 text-success-700' : 'bg-apricot-50 text-apricot-700')}>
+        <span className={cn('inline-flex items-center gap-1 rounded-md px-2 py-1 font-sans text-label', up ? 'bg-success-100 text-ink-900' : 'bg-apricot-50 text-ink-900')}>
           {up ? <TrendingUp className="h-3 w-3" aria-hidden /> : <TrendingDown className="h-3 w-3" aria-hidden />}
           {up ? '+' : ''}
           {delta}%
@@ -167,7 +167,7 @@ export const LiveTimer = ({ label, startSeconds = 0 }: { label: string; startSec
   return (
     <div ref={ref} className="relative w-full max-w-sm overflow-hidden rounded-lg border border-line bg-surface p-5 shadow-md">
       <div className="flex items-center justify-between">
-        <span className={cn('inline-flex items-center gap-2 font-sans text-label uppercase', state === 'running' ? 'text-success-700' : 'text-ink-500')}>
+        <span className={cn('inline-flex items-center gap-2 font-sans text-label uppercase', state === 'running' ? 'text-ink-900' : 'text-ink-500')}>
           <span className="relative flex h-2 w-2">
             {state === 'running' && <span className="absolute inset-0 animate-ping rounded-full bg-success-600 opacity-60" />}
             <span className={cn('relative h-2 w-2 rounded-full', state === 'running' ? 'bg-success-600' : 'bg-ink-400')} />
@@ -186,8 +186,7 @@ export const LiveTimer = ({ label, startSeconds = 0 }: { label: string; startSec
             type="button"
             aria-label={state === 'running' ? 'Pause' : 'Resume'}
             onClick={() => setState((v) => (v === 'running' ? 'paused' : 'running'))}
-            className="flex h-9 w-9 items-center justify-center rounded-md text-white transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
-            style={{ backgroundImage: TILE.lavender }}
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-rose-400 text-white transition-[background-color,transform] hover:bg-rose-400/90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2"
           >
             {state === 'running' ? <Pause className="h-4 w-4 fill-current" strokeWidth={0} /> : <Play className="h-4 w-4 fill-current" strokeWidth={0} />}
           </button>
@@ -198,8 +197,7 @@ export const LiveTimer = ({ label, startSeconds = 0 }: { label: string; startSec
               setState('stopped');
               setElapsed(0);
             }}
-            className="flex h-9 w-9 items-center justify-center rounded-md text-white transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
-            style={{ backgroundImage: TILE.rose }}
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-line bg-surface text-ink-900 transition-[border-color,transform] hover:border-ink-400 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2"
           >
             <Square className="h-3 w-3 fill-current" strokeWidth={0} />
           </button>
@@ -214,7 +212,7 @@ export const TrackingCluster = ({ items }: { items: { label: string; value: numb
   const pairs: Record<WidgetAccent, string[]> = {
     apricot: [APRICOT[400], ROSE[400]],
     rose: [ROSE[400], LAVENDER[400]],
-    lavender: [LAVENDER[400], LAVENDER[700]],
+    lavender: [LAVENDER[200], LAVENDER[400]],
   };
   return (
     <div className="flex w-full flex-wrap justify-around gap-4">
@@ -256,7 +254,7 @@ export const BarCluster = ({
       <div className="flex h-32 items-end gap-2">
         {series.map((s, i) => (
           <div key={s.label} className="flex h-full flex-1 items-end gap-1" title={`${s.label}: ${s.current} vs ${s.previous}`}>
-            <Grow axis="y" pct={(s.current / max) * 100} delay={i * 0.05} className="rounded-t-md" style={{ background: `linear-gradient(180deg, ${ROSE[400]}, ${ROSE[700]})` }} />
+            <Grow axis="y" pct={(s.current / max) * 100} delay={i * 0.05} className="rounded-t-md" style={{ background: `linear-gradient(180deg, ${ROSE[400]}, ${ROSE[200]})` }} />
             <Grow axis="y" pct={(s.previous / max) * 100} delay={i * 0.05 + 0.04} className="rounded-t-md" style={{ background: `linear-gradient(180deg, ${APRICOT[50]}, ${APRICOT[400]})` }} />
           </div>
         ))}
@@ -297,7 +295,7 @@ export const AuraCountdown = ({ target }: { target: Date }) => {
             </span>
           )}
           <motion.div
-            className="relative isolate min-w-16 overflow-hidden rounded-lg px-3 py-4 text-center text-white shadow-md"
+            className="relative isolate min-w-16 overflow-hidden rounded-lg px-3 py-4 text-center text-ink-900 shadow-sm"
             style={{ backgroundImage: TILE[x.accent] }}
             initial={{ opacity: 0, scale: 0.94 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -306,7 +304,7 @@ export const AuraCountdown = ({ target }: { target: Date }) => {
           >
             <span aria-hidden className="widget-bloom" />
             <span className="block font-display text-subheading tabular-nums">{String(x.v).padStart(2, '0')}</span>
-            <span className="mt-1 block font-sans text-label uppercase text-white/85">{x.u}</span>
+            <span className="mt-1 block font-sans text-label uppercase text-ink-900">{x.u}</span>
           </motion.div>
         </React.Fragment>
       ))}

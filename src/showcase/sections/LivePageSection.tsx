@@ -29,7 +29,7 @@ export const LivePageSection = () => (
         role="group"
         aria-label="Assembled page preview, scrollable"
         tabIndex={0}
-        className="max-h-[80vh] overflow-y-auto bg-paper [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-rose-700/40"
+        className="max-h-[80vh] overflow-y-auto bg-paper [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-rose-400"
       >
         <Ticker />
         <Nav sticky={false} />

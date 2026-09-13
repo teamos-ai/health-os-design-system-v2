@@ -256,7 +256,7 @@ export const ElementsSection = () => {
         description="Priya Ramaswamy, initial consult, Monday at 9:00. A reminder will send 24 hours before."
         footer={
           <>
-            <Button variant="text" tone="neutral" onClick={() => setModalOpen(false)}>
+            <Button variant="text" onClick={() => setModalOpen(false)}>
               Cancel
             </Button>
             <Button

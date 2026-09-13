@@ -7,11 +7,11 @@ A quick check for every page, post, email or asset built from this system. If an
 1. Every colour, size, radius, shadow and duration comes from a token. No hex codes or pixel values typed by hand.
 2. The page uses one theme: light or paper.
 3. Headings use the heading or subheading role, running text uses body, small text uses label.
-4. Rose, apricot and lavender appear only in their 50, 400 and 700 shades. Status colours report real states only.
-5. At most one gradient moment per view, using one of the three gradients.
+4. Rose, apricot and lavender appear only in their 50, 200 and 400 shades, and text stays in the ink neutrals. Status colours report real states only.
+5. At most one gradient moment per view, using one of the three gradients, and never a saturated gradient as a large fill.
 6. There is one primary button per view. Other actions are secondary or text.
 7. Cards are the right type for their job: content, feature, service, pricing, resource or action.
-8. Images come from the tagged library, match their suggested use, and text never sits on a raw photo.
+8. Images come from the tagged library, match their suggested use, dissolve into their card with the shared image fade, and text never sits on a raw photo.
 9. Screenshots are cropped to the point, framed on a surface, and show no private or client information.
 10. Copy is plain Australian English in sentence case, with no em dashes and no invented numbers.
 11. Prices, offers and claims match the Health OS database. No testimonials, countdown pressure or before-and-after images.

@@ -55,9 +55,9 @@ export const Switch = ({
         onClick={toggle}
         className={cn(
           'relative inline-flex h-6 w-10 shrink-0 items-center rounded-full border transition-colors duration-md ease-out',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
           disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-          on ? 'border-rose-700 bg-rose-700' : 'border-line bg-ink-100'
+          on ? 'border-rose-400 bg-rose-400' : 'border-line bg-ink-100'
         )}
       >
         <span

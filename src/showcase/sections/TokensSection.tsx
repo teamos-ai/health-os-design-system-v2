@@ -85,7 +85,7 @@ export const TokensSection = () => {
                   onClick={() => setTheme(t)}
                   aria-pressed={theme === t}
                   className={cn(
-                    'rounded-lg border p-5 text-left transition-[border-color,box-shadow] duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40',
+                    'rounded-lg border p-5 text-left transition-[border-color,box-shadow] duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400',
                     theme === t ? 'border-ink-900 shadow-sm' : 'border-line hover:border-ink-400'
                   )}
                   style={{ background: g.paper.$value }}
@@ -158,7 +158,7 @@ export const TokensSection = () => {
             [
               ['brand-gradient', 'Signature'],
               ['brand-gradient-soft', 'Soft wash'],
-              ['brand-gradient-warm', 'Warm sunrise'],
+              ['brand-gradient-dawn', 'Soft dawn'],
             ] as const
           ).map(([key, label]) => (
             <div key={key} className="grid border-b border-line last:border-b-0 lg:grid-cols-[2fr_3fr]">

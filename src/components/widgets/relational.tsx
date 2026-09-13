@@ -9,10 +9,10 @@ import { Figure, Grow, useSeen } from './motion';
 import type { WidgetAccent } from './figures';
 
 const AVATAR: Record<WidgetAccent | 'ink', string> = {
-  apricot: `linear-gradient(140deg, ${APRICOT[400]}, ${APRICOT[700]})`,
-  rose: `linear-gradient(140deg, ${ROSE[400]}, ${ROSE[700]})`,
-  lavender: `linear-gradient(140deg, ${LAVENDER[400]}, ${LAVENDER[700]})`,
-  ink: `linear-gradient(140deg, ${INK[400]}, ${INK[600]})`,
+  apricot: `linear-gradient(140deg, ${APRICOT[400]}, ${APRICOT[200]})`,
+  rose: `linear-gradient(140deg, ${ROSE[400]}, ${ROSE[200]})`,
+  lavender: `linear-gradient(140deg, ${LAVENDER[400]}, ${LAVENDER[200]})`,
+  ink: `linear-gradient(140deg, ${INK[200]}, ${INK[100]})`,
 };
 const BAR: Record<WidgetAccent, string> = {
   apricot: `linear-gradient(90deg, ${APRICOT[50]}, ${APRICOT[400]})`,
@@ -23,7 +23,7 @@ const SOLID: Record<WidgetAccent, string> = { apricot: APRICOT[400], rose: ROSE[
 
 export const Avatar = ({ initials, accent = 'rose', className }: { initials: string; accent?: WidgetAccent | 'ink'; className?: string }) => (
   <span
-    className={cn('flex h-8 w-8 shrink-0 items-center justify-center rounded-md font-sans text-label text-white', className)}
+    className={cn('flex h-8 w-8 shrink-0 items-center justify-center rounded-md font-sans text-label text-ink-900', className)}
     style={{ backgroundImage: AVATAR[accent] }}
     aria-hidden
   >
@@ -70,9 +70,9 @@ export const Leaderboard = ({ rows }: { rows: { name: string; initials: string; 
 /* ── 10 · Agenda ──────────────────────────────────────────────────────── */
 export type AgendaStatus = 'confirmed' | 'pending' | 'new';
 const STATUS: Record<AgendaStatus, string> = {
-  confirmed: 'bg-success-100 text-success-700',
-  pending: 'bg-apricot-50 text-apricot-700',
-  new: 'bg-lavender-50 text-lavender-700',
+  confirmed: 'bg-success-100 text-ink-900 ring-1 ring-inset ring-success-300',
+  pending: 'bg-apricot-50 text-ink-900 ring-1 ring-inset ring-apricot-200',
+  new: 'bg-lavender-50 text-ink-900 ring-1 ring-inset ring-lavender-200',
 };
 export const Agenda = ({ rows }: { rows: { time: string; title: string; detail: string; status: AgendaStatus; accent: WidgetAccent }[] }) => (
   <ul className="flex flex-col divide-y divide-line-soft">
@@ -257,7 +257,7 @@ export const AvatarCluster = ({
       <button
         type="button"
         aria-label="Add a person"
-        className="-ml-2 flex h-9 w-9 items-center justify-center rounded-md border border-dashed border-ink-400 bg-surface font-sans text-body text-ink-500 transition-colors hover:border-ink-900 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
+        className="-ml-2 flex h-9 w-9 items-center justify-center rounded-md border border-dashed border-ink-400 bg-surface font-sans text-body text-ink-500 transition-colors hover:border-ink-900 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
       >
         +
       </button>
@@ -286,7 +286,7 @@ export const ConversionFunnel = ({ stages }: { stages: { label: string; value: n
   );
 };
 
-const DEEP: Record<WidgetAccent, string> = { apricot: APRICOT[700], rose: ROSE[700], lavender: LAVENDER[700] };
+const LIGHT: Record<WidgetAccent, string> = { apricot: APRICOT[200], rose: ROSE[200], lavender: LAVENDER[200] };
 
 const FunnelBar = ({ pct, accent, delay, children }: { pct: number; accent: WidgetAccent; delay: number; children: React.ReactNode }) => {
   const { ref, seen, reduced } = useSeen<HTMLDivElement>(0.4);
@@ -294,13 +294,13 @@ const FunnelBar = ({ pct, accent, delay, children }: { pct: number; accent: Widg
     <div ref={ref} className="relative flex h-12 min-w-28 items-center justify-center" style={{ width: `${pct}%` }}>
       <motion.span
         aria-hidden
-        className="absolute inset-0 rounded-md shadow-md"
-        style={{ backgroundImage: `linear-gradient(150deg, ${SOLID[accent]}, ${DEEP[accent]})` }}
+        className="absolute inset-0 rounded-md shadow-sm"
+        style={{ backgroundImage: `linear-gradient(150deg, ${SOLID[accent]}, ${LIGHT[accent]})` }}
         initial={reduced ? false : { scaleX: 0.15, opacity: 0 }}
         animate={seen ? { scaleX: 1, opacity: 1 } : undefined}
         transition={{ duration: 0.8, delay, ease: EASE_OUT }}
       />
-      <span className="relative text-white">{children}</span>
+      <span className="relative text-ink-900">{children}</span>
     </div>
   );
 };

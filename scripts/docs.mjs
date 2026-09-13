@@ -83,7 +83,7 @@ function tokenTables() {
   rows.push([code('carbon'), val(c.carbon), code('--hos-carbon'), desc(c.carbon)]);
   rows.push([code('white'), val(c.white), code('--hos-white'), desc(c.white)]);
   out.push(table(['Token', 'Hex', 'CSS variable', 'Role'], rows), '');
-  out.push('Classes follow the token name: `bg-rose-50`, `text-rose-700`, `border-apricot-400`, `bg-carbon`.', '');
+  out.push('Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg-carbon`. Text stays in the ink neutrals.', '');
 
   out.push('### Gradients', '', desc(tokens.gradient), '');
   out.push(

@@ -119,7 +119,7 @@ export const VideoPlayer = ({
         {/* empty-state placeholder (until a video can play) */}
         {!ready && !failed && (
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 bg-brand-gradient-soft text-center">
-            <span className="flex h-16 w-16 items-center justify-center rounded-md bg-surface/85 text-rose-700 shadow-sm">
+            <span className="flex h-16 w-16 items-center justify-center rounded-md bg-surface/85 text-rose-400 shadow-sm">
               <Play className="h-6 w-6" strokeWidth={1.5} />
             </span>
             <p className="max-w-xs px-6 font-sans text-label text-ink-600">{hint}</p>

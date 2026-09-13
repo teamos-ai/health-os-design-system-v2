@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 const bar = cva(
   'group flex items-center gap-3 rounded-lg border border-line bg-surface ' +
     'transition-[border-color,box-shadow,opacity] duration-md ease-out shadow-sm has-[:disabled]:opacity-60 ' +
-    'focus-within:border-rose-400 focus-within:shadow-md focus-within:ring-2 focus-within:ring-rose-700/35',
+    'focus-within:border-rose-400 focus-within:shadow-md focus-within:ring-2 focus-within:ring-rose-200',
   {
     variants: {
       size: {

@@ -59,7 +59,7 @@ export const ThemeToggle = ({ className }: { className?: string }) => {
             onClick={() => setTheme(m.id)}
             className={cn(
               'relative z-10 flex h-7 w-8 items-center justify-center rounded-full transition-colors duration-sm',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400',
               active ? 'text-ink-900' : 'text-ink-500 hover:text-ink-900'
             )}
           >

@@ -31,7 +31,7 @@ export const FeatureCard = ({ icon: Icon, title, description, accent = 'rose', t
       )}
     >
       <div className="flex min-h-6 items-center justify-between gap-3">
-        <Icon className={cn('h-6 w-6 transition-transform duration-md ease-out group-hover:-translate-y-px', a.text)} strokeWidth={1.5} aria-hidden />
+        <Icon className={cn('h-6 w-6 transition-transform duration-md ease-out group-hover:-translate-y-px', a.icon)} strokeWidth={1.5} aria-hidden />
         {tag && (
           <Badge variant={a.badge} size="sm">
             {tag}

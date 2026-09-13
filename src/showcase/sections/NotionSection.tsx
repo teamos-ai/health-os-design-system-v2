@@ -29,7 +29,7 @@ export const NotionSection = () => (
         <div className="flex min-h-96">
           <nav aria-label="Docs" className="hidden w-56 shrink-0 flex-col gap-1 border-r border-line bg-paper p-4 md:flex">
             {PAGES.map(({ Icon, name, active }) => (
-              <span key={name} className={cn('flex items-center gap-3 rounded-md px-3 py-2 font-sans text-body', active ? 'bg-rose-50 text-rose-700' : 'text-ink-600')}>
+              <span key={name} className={cn('flex items-center gap-3 rounded-md px-3 py-2 font-sans text-body', active ? 'bg-rose-50 text-ink-900' : 'text-ink-600')}>
                 <Icon className="h-4 w-4 shrink-0" strokeWidth={1.5} aria-hidden />
                 {name}
               </span>
@@ -42,7 +42,7 @@ export const NotionSection = () => (
               What happens after the walkthrough, in order: setup, migration, your first bookings, then handover.
             </p>
             <div className="mt-6 rounded-lg bg-lavender-50 p-4">
-              <p className="font-sans text-body text-lavender-700">Your setup team handles the migration. You only need your login details for the tools you use today.</p>
+              <p className="font-sans text-body text-ink-900">Your setup team handles the migration. You only need your login details for the tools you use today.</p>
             </div>
             <div className="mt-6 max-w-reading">
               <Disclosure title="What do I need before setup?">

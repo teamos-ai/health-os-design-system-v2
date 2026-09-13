@@ -1,7 +1,8 @@
 /**
  * ContentCard: text with an optional image. Articles, updates, stories, anything read.
  *
- * The image sits on top and feathers into the card surface. Image ratio is flexible
+ * The image sits on top and dissolves into the card with the shared `image-fade-b` curve,
+ * and the text rises slightly into the faded area so there is no edge. Image ratio is flexible
  * (16/9, 4/3, 3/2, 1/1). A category badge can sit on the image. The whole card is one
  * link when `href` is set; hover lifts the card and eases the image forward.
  */
@@ -45,24 +46,24 @@ export const ContentCard = ({
   <article
     className={cn(
       'group relative flex flex-col overflow-hidden rounded-lg border border-line bg-surface transition-[box-shadow,transform,border-color] duration-md ease-out',
-      href && 'hover:-translate-y-1 hover:border-ink-200 hover:shadow-sm focus-within:ring-2 focus-within:ring-rose-700/40 focus-within:ring-offset-2 focus-within:ring-offset-paper',
+      href && 'hover:-translate-y-1 hover:border-ink-200 hover:shadow-sm focus-within:ring-2 focus-within:ring-rose-400 focus-within:ring-offset-2 focus-within:ring-offset-paper',
       className
     )}
   >
-    <div className={cn('relative overflow-hidden', RATIO[ratio])}>
-      {image ? (
-        <img
-          src={image.src}
-          alt={image.alt}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-xl ease-out group-hover:scale-[1.03]"
-        />
-      ) : (
-        <div aria-hidden className="absolute inset-0 bg-brand-gradient-soft" />
-      )}
-      {/* feathered edge into the surface below */}
-      <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-surface to-transparent" />
+    <div className={cn('relative', RATIO[ratio])}>
+      <div className="image-fade-b absolute inset-0 overflow-hidden">
+        {image ? (
+          <img
+            src={image.src}
+            alt={image.alt}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-xl ease-out group-hover:scale-[1.03]"
+          />
+        ) : (
+          <div aria-hidden className="h-full w-full bg-brand-gradient-soft" />
+        )}
+      </div>
       {category && (
         <Badge variant={categoryVariant} className="absolute left-4 top-4">
           {category}
@@ -70,7 +71,7 @@ export const ContentCard = ({
       )}
     </div>
 
-    <div className="flex flex-1 flex-col gap-3 p-6 pt-3">
+    <div className="relative -mt-4 flex flex-1 flex-col gap-3 p-6 pt-0">
       <h3 className="font-display text-subheading text-ink-900">
         {href ? (
           <a href={href} className="outline-none after:absolute after:inset-0 focus-visible:outline-none">

@@ -60,7 +60,7 @@ export const CalculatorsSection = () => {
                     placeholder="Booking app"
                     value={row.name}
                     onChange={(e) => update(row.id, 'name', e.target.value)}
-                    className="h-11 min-w-0 rounded-md border border-line bg-surface px-3 font-sans text-body text-ink-900 placeholder:text-ink-400 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-700/30"
+                    className="h-11 min-w-0 rounded-md border border-line bg-surface px-3 font-sans text-body text-ink-900 placeholder:text-ink-400 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-200"
                   />
                   <input
                     aria-label={`Tool ${i + 1} monthly cost in AUD`}
@@ -70,7 +70,7 @@ export const CalculatorsSection = () => {
                     placeholder="0"
                     value={row.cost}
                     onChange={(e) => update(row.id, 'cost', e.target.value)}
-                    className="h-11 min-w-0 rounded-md border border-line bg-surface px-3 font-sans text-body tabular-nums text-ink-900 placeholder:text-ink-400 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-700/30"
+                    className="h-11 min-w-0 rounded-md border border-line bg-surface px-3 font-sans text-body tabular-nums text-ink-900 placeholder:text-ink-400 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-200"
                   />
                   <IconButton
                     variant="text"

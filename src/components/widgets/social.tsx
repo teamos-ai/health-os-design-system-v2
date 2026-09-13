@@ -91,12 +91,12 @@ export const AssistantMessage = ({ name, message }: { name: string; message: str
       <span
         aria-hidden
         className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md"
-        style={{ backgroundImage: `linear-gradient(140deg, ${LAVENDER[400]}, ${LAVENDER[700]})` }}
+        style={{ backgroundImage: `linear-gradient(140deg, ${LAVENDER[400]}, ${LAVENDER[200]})` }}
       >
         <span className="widget-bloom" />
       </span>
       <div className="max-w-sm rounded-lg rounded-bl-md bg-lavender-50 px-4 py-3">
-        <p className="mb-1 font-sans text-label uppercase text-lavender-700">{name} · AI assistant</p>
+        <p className="mb-1 font-sans text-label uppercase text-ink-500">{name} · AI assistant</p>
         <AnimatePresence mode="wait" initial={false}>
           {typing ? (
             <motion.span key="typing" className="flex gap-1 py-2" exit={{ opacity: 0 }} aria-label="Typing">
@@ -156,7 +156,7 @@ export const CheckIn = ({
                 setSelected(o);
                 onSelect?.(o);
               }}
-              className="flex w-14 flex-col items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
+              className="flex w-14 flex-col items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

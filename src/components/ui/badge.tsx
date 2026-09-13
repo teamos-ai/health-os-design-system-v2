@@ -1,6 +1,6 @@
 /**
- * Badge: a small tonal tag for status, category and topic. Tint background with deep
- * same-hue text, label type, 8px corners. Optional leading emoji or dot.
+ * Badge: a small tonal tag for status, category and topic. A soft tint with a light
+ * same-hue edge and dark ink text, label type, 8px corners. Optional leading emoji or dot.
  *
  * Colours: neutral and outline for quiet tags; rose, apricot and lavender for brand
  * categories; success, warning and error only when the tag reports a real state.
@@ -14,12 +14,12 @@ const badge = cva('inline-flex items-center gap-2 whitespace-nowrap rounded-md f
     variant: {
       neutral: 'bg-ink-100 text-ink-900',
       outline: 'border border-line bg-surface text-ink-500',
-      rose: 'bg-rose-50 text-rose-700',
-      apricot: 'bg-apricot-50 text-apricot-700',
-      lavender: 'bg-lavender-50 text-lavender-700',
-      success: 'bg-success-100 text-success-700',
-      warning: 'bg-warning-100 text-warning-700',
-      error: 'bg-error-100 text-error-700',
+      rose: 'bg-rose-50 text-ink-900 ring-1 ring-inset ring-rose-200',
+      apricot: 'bg-apricot-50 text-ink-900 ring-1 ring-inset ring-apricot-200',
+      lavender: 'bg-lavender-50 text-ink-900 ring-1 ring-inset ring-lavender-200',
+      success: 'bg-success-100 text-ink-900 ring-1 ring-inset ring-success-300',
+      warning: 'bg-warning-100 text-ink-900 ring-1 ring-inset ring-warning-300',
+      error: 'bg-error-100 text-ink-900 ring-1 ring-inset ring-error-300',
     },
     size: {
       sm: 'px-2 py-1',

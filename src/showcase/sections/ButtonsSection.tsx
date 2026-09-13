@@ -28,11 +28,8 @@ export const ButtonsSection = () => {
         <Example id="button" label="Button">
           <Row label="Primary">
             <Button leadingIcon={<CalendarCheck className="h-4 w-4" strokeWidth={1.5} />}>Book the walkthrough</Button>
-            <Button tone="neutral">Start the check</Button>
+            <Button trailingIcon={<ArrowRight className="h-4 w-4" strokeWidth={1.5} />}>Start the check</Button>
             <Button size="small">Save</Button>
-            <Button tone="neutral" size="small">
-              Send
-            </Button>
           </Row>
           <Row label="Secondary">
             <Button variant="secondary">See pricing</Button>
@@ -44,9 +41,7 @@ export const ButtonsSection = () => {
             <Button variant="text" trailingIcon={<ArrowRight className="h-4 w-4" strokeWidth={1.5} />}>
               Read the guide
             </Button>
-            <Button variant="text" tone="neutral">
-              Cancel
-            </Button>
+            <Button variant="text">Cancel</Button>
             <Button variant="text" size="small">
               Edit
             </Button>
@@ -78,9 +73,6 @@ export const ButtonsSection = () => {
             <IconButton variant="primary" aria-label="Play the video">
               <Play className="h-4 w-4 fill-current" strokeWidth={0} />
             </IconButton>
-            <IconButton variant="primary" tone="neutral" aria-label="Play the video">
-              <Play className="h-4 w-4 fill-current" strokeWidth={0} />
-            </IconButton>
             <IconButton variant="secondary" aria-label="Copy link">
               <Copy className="h-4 w-4" strokeWidth={1.5} />
             </IconButton>
@@ -89,6 +81,9 @@ export const ButtonsSection = () => {
             </IconButton>
           </Row>
           <Row label="Small">
+            <IconButton variant="primary" size="small" aria-label="Send">
+              <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+            </IconButton>
             <IconButton variant="secondary" size="small" aria-label="Copy link">
               <Copy className="h-4 w-4" strokeWidth={1.5} />
             </IconButton>

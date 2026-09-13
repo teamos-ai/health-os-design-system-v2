@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, TrendingDown, TrendingUp } from 'lucide-react';
 import { APRICOT, ROSE, LAVENDER, INK } from '@/lib/palette';
 import { EASE_OUT } from '@/lib/motion';
-import { cn } from '@/lib/utils';
 import { Figure, Grow, SweepRing, useSeen } from './motion';
 import type { WidgetAccent } from './figures';
 
@@ -19,8 +18,8 @@ const BAR: Record<WidgetAccent, string> = {
 const Delta = ({ value, unit = '%', period }: { value: number; unit?: string; period?: string }) => {
   const up = value >= 0;
   return (
-    <span className={cn('inline-flex items-center gap-1 font-sans text-label', up ? 'text-success-700' : 'text-apricot-700')}>
-      {up ? <TrendingUp className="h-3 w-3" aria-hidden /> : <TrendingDown className="h-3 w-3" aria-hidden />}
+    <span className="inline-flex items-center gap-1 font-sans text-label text-ink-900">
+      {up ? <TrendingUp className="h-3 w-3 text-success-600" aria-hidden /> : <TrendingDown className="h-3 w-3 text-apricot-400" aria-hidden />}
       {up ? '+' : ''}
       {value}
       {unit}
@@ -185,8 +184,8 @@ export const GoalProgress = ({
     <div className="flex items-center justify-between">
       <span className="font-sans text-label uppercase text-ink-500">{label}</span>
       {onTrack && (
-        <span className="inline-flex items-center gap-1 rounded-md bg-success-100 px-2 py-1 font-sans text-label uppercase text-success-700">
-          <CheckCircle2 className="h-3 w-3" aria-hidden /> On track
+        <span className="inline-flex items-center gap-1 rounded-md bg-success-100 px-2 py-1 font-sans text-label uppercase text-ink-900">
+          <CheckCircle2 className="h-3 w-3 text-success-600" aria-hidden /> On track
         </span>
       )}
     </div>
@@ -237,7 +236,7 @@ export const Comparison = ({
         </div>
       </div>
       <motion.p
-        className={cn('mt-4 text-center font-sans text-label', diff >= 0 ? 'text-success-700' : 'text-apricot-700')}
+        className="mt-4 text-center font-sans text-label text-ink-900"
         initial={{ opacity: 0, y: 6 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}

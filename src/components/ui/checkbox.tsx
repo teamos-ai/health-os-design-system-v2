@@ -42,7 +42,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             type="checkbox"
             checked={checked}
             disabled={disabled}
-            className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-md border border-line bg-surface transition-colors duration-sm ease-out checked:border-rose-700 checked:bg-rose-700 indeterminate:border-rose-700 indeterminate:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
+            className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-md border border-line bg-surface transition-colors duration-sm ease-out checked:border-rose-400 checked:bg-rose-400 indeterminate:border-rose-400 indeterminate:bg-rose-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
             {...props}
           />
           {indeterminate ? (

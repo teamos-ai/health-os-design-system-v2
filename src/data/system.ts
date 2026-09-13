@@ -198,7 +198,7 @@ export const OVERVIEW_CARDS: OverviewCard[] = [
   { emoji: '✨', badge: 'Essence', accent: 'rose', title: 'The design and brand reference', lines: ['Calm, minimal, open', 'Built for AI agents first, people second'] },
   { emoji: '📄', badge: 'Themes', accent: 'lavender', title: 'Light and paper', lines: ['Light: a clean white ground', 'Paper: warm ivory, like reading paper', 'Same colours and components in both'] },
   { emoji: '🎨', badge: 'Colour', accent: 'apricot', title: 'Three colours, three shades', lines: ['Rose, apricot and lavender', '50 soft, 400 base, 700 deep', 'Neutrals and status colours kept apart'] },
-  { emoji: '🌅', badge: 'Gradients', accent: 'rose', title: 'Three gradients', lines: ['Signature, soft wash, warm sunrise', 'Behind type or in one button', 'Never on every surface'] },
+  { emoji: '🌅', badge: 'Gradients', accent: 'rose', title: 'Three gradients', lines: ['Signature, soft wash, soft dawn', 'Behind type or in one button', 'Never on every surface'] },
   { emoji: '🔤', badge: 'Type', accent: 'lavender', title: 'Three roles and a label', lines: ['Heading and subheading: Spline Sans', 'Body and label: Anonymous Pro', 'One weight per role'] },
   { emoji: '🔘', badge: 'Buttons', accent: 'apricot', title: 'Three button styles', lines: ['Primary, secondary, text', 'Default and small sizes', 'Loading and disabled for each'] },
   { emoji: '🗂️', badge: 'Cards', accent: 'rose', title: 'Six card types', lines: ['Content, feature, service', 'Pricing, resource, action'] },

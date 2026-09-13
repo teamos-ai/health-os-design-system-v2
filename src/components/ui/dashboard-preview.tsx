@@ -60,7 +60,7 @@ export const DashboardPreview = ({ className }: { className?: string }) => (
               key={label}
               className={cn(
                 'flex items-center gap-3 rounded-md px-3 py-2 font-sans text-body',
-                active ? 'bg-rose-50 text-rose-700' : 'text-ink-500'
+                active ? 'bg-rose-50 text-ink-900' : 'text-ink-500'
               )}
             >
               <Icon className="h-4 w-4" strokeWidth={1.5} />
@@ -83,7 +83,7 @@ export const DashboardPreview = ({ className }: { className?: string }) => (
             <h3 className="font-display text-subheading text-ink-900">Good morning</h3>
             <p className="font-sans text-label text-ink-500">Tuesday, three appointments today</p>
           </div>
-          <span className="rounded-md bg-success-100 px-3 py-1 font-sans text-label uppercase text-success-700">
+          <span className="rounded-md bg-success-100 px-3 py-1 font-sans text-label uppercase text-ink-900">
             On track
           </span>
         </div>

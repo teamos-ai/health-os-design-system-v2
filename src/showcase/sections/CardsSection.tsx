@@ -43,6 +43,23 @@ export const CardsSection = () => (
         </div>
       </Example>
 
+      <Example id="image-fade" label="Image fade">
+        <div className="grid gap-6 md:grid-cols-2">
+          <figure className="overflow-hidden rounded-lg border border-line bg-surface">
+            <div className="image-fade-b relative aspect-video">
+              <img src={thumb(IMG.studio)} alt="Three women talking in a wellness studio with drinks in hand" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+            </div>
+            <figcaption className="relative -mt-8 px-6 pb-6 font-sans text-label text-ink-500">image-fade-b · text below</figcaption>
+          </figure>
+          <figure className="grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-surface">
+            <figcaption className="flex items-end p-6 font-sans text-label text-ink-500">image-fade-l · text beside</figcaption>
+            <div className="image-fade-l relative min-h-48">
+              <img src={thumb(IMG.coffee)} alt="Two women talking over coffee at an outdoor table" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+            </div>
+          </figure>
+        </div>
+      </Example>
+
       <Example id="feature-card" label="Feature card">
         <div className="grid gap-4 md:grid-cols-2">
           <FeatureCard icon={CalendarCheck} tag="Booking" title="Bookings that confirm themselves" description="Clients book, pay and get reminders without you in the loop." />

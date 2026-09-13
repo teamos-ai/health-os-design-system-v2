@@ -46,7 +46,7 @@ export const Pagination = ({
   const cell =
     'inline-flex h-10 min-w-10 items-center justify-center rounded-md px-2 ' +
     'font-display text-body transition-[background-color,border-color,color,transform] duration-sm ease-out ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 ' +
     'focus-visible:ring-offset-2 focus-visible:ring-offset-paper active:scale-[0.98]';
 
   return (
@@ -75,7 +75,7 @@ export const Pagination = ({
             className={cn(
               cell,
               it === page
-                ? 'bg-carbon text-white'
+                ? 'bg-rose-50 text-ink-900 ring-1 ring-inset ring-rose-200'
                 : 'text-ink-500 hover:bg-ink-100 hover:text-ink-900'
             )}
           >

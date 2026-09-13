@@ -32,13 +32,13 @@
   }
 
   ::selection {
-    @apply bg-rose-50 text-rose-700;
+    @apply bg-rose-200 text-ink-900;
   }
 
   /* Links and non-component interactives get the rose focus ring. Components set their own. */
   a:focus-visible,
   [tabindex]:focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-rose-700;
+    @apply outline outline-2 outline-offset-2 outline-rose-400;
   }
 
   /* Reduced motion: loops stop, transitions snap. Components also read useReducedMotion(). */
@@ -74,9 +74,43 @@
     -webkit-box-decoration-break: clone;
     animation: hos-highlight 480ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
   }
-  .text-highlight-warm {
-    background-image: linear-gradient(var(--veil), var(--veil)), var(--hos-brand-gradient-warm);
+  /* Image fade: the soft white dissolve every image card uses. The photo fades into the
+     card behind it along a long, eased curve (opaque for the first 35%, then a cosine
+     fall-off), so there is no visible edge where the image ends. Put the class on the
+     element that holds the image, not the image, so a hover zoom leaves the fade still.
+     Point it at the text: b (text below), r or l (text beside), t (text above). */
+  .image-fade-b,
+  .image-fade-t,
+  .image-fade-r,
+  .image-fade-l {
+    --fade: linear-gradient(
+      var(--fade-to, to bottom),
+      #000 35%,
+      rgb(0 0 0 / 0.96) 43%,
+      rgb(0 0 0 / 0.85) 51%,
+      rgb(0 0 0 / 0.69) 59%,
+      rgb(0 0 0 / 0.5) 67.5%,
+      rgb(0 0 0 / 0.31) 75.5%,
+      rgb(0 0 0 / 0.15) 83.5%,
+      rgb(0 0 0 / 0.04) 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: var(--fade);
+    mask-image: var(--fade);
   }
+  .image-fade-b {
+    --fade-to: to bottom;
+  }
+  .image-fade-t {
+    --fade-to: to top;
+  }
+  .image-fade-r {
+    --fade-to: to right;
+  }
+  .image-fade-l {
+    --fade-to: to left;
+  }
+
   @keyframes hos-highlight {
     from {
       background-size: 0% 0.36em, 0% 0.36em;

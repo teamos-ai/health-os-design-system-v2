@@ -65,7 +65,7 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
     <div className="min-h-screen bg-paper">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:border focus:border-line focus:bg-surface focus:px-4 focus:py-2 focus:font-sans focus:text-body focus:text-ink-900 focus:shadow-md focus:outline-none focus:ring-2 focus:ring-rose-700/40"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:border focus:border-line focus:bg-surface focus:px-4 focus:py-2 focus:font-sans focus:text-body focus:text-ink-900 focus:shadow-md focus:outline-none focus:ring-2 focus:ring-rose-400"
       >
         Skip to content
       </a>
@@ -81,7 +81,7 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
             id="jump"
             value={active}
             onChange={(e) => document.getElementById(e.target.value)?.scrollIntoView()}
-            className="min-w-0 max-w-48 rounded-md border border-line bg-surface px-3 py-2 font-sans text-body text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
+            className="min-w-0 max-w-48 rounded-md border border-line bg-surface px-3 py-2 font-sans text-body text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
           >
             {GROUPS.map((g) => (
               <optgroup key={g} label={g}>
@@ -113,7 +113,7 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
             onClick={toggle}
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            className="flex h-8 w-8 items-center justify-center rounded-md text-ink-500 transition-colors duration-sm hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-ink-500 transition-colors duration-sm hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
           >
             {collapsed ? <PanelLeftOpen className="h-4 w-4" strokeWidth={1.5} /> : <PanelLeftClose className="h-4 w-4" strokeWidth={1.5} />}
           </button>
@@ -137,9 +137,9 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
                         title={item.label}
                         aria-current={isActive ? 'location' : undefined}
                         className={cn(
-                          'flex items-center rounded-md font-sans text-body transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40',
+                          'flex items-center rounded-md font-sans text-body transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400',
                           collapsed ? 'h-10 w-10 justify-center' : 'gap-3 px-3 py-2',
-                          isActive ? 'bg-rose-50 text-rose-700' : 'text-ink-600 hover:bg-ink-100 hover:text-ink-900'
+                          isActive ? 'bg-rose-50 text-ink-900' : 'text-ink-600 hover:bg-ink-100 hover:text-ink-900'
                         )}
                       >
                         <item.Icon className="h-4 w-4 shrink-0" strokeWidth={1.5} aria-hidden />
@@ -159,7 +159,7 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
             href={REPO}
             aria-label="View on GitHub"
             title="View on GitHub"
-            className="flex h-8 w-8 items-center justify-center rounded-md text-ink-500 transition-colors hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-ink-500 transition-colors hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
           >
             <Github className="h-4 w-4" strokeWidth={1.5} />
           </a>

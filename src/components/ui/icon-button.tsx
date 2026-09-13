@@ -1,7 +1,7 @@
 /**
  * IconButton: a square, icon-only button that mirrors the three Button styles.
  *
- *   primary    a main action shown as an icon (play, send). Rose, or carbon with tone="neutral".
+ *   primary    a main action shown as an icon (play, send). Expressive Rose with a white icon.
  *   secondary  a supporting icon action on a surface (copy, filter, more).
  *   text       a quiet icon action inside rows, toolbars and headers (close, menu).
  *
@@ -13,23 +13,18 @@ import { cn } from '@/lib/utils';
 
 const iconButton = cva(
   'inline-flex shrink-0 items-center justify-center rounded-md transition-[background-color,border-color,color,transform] duration-sm ease-out ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
     'active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'text-white',
+        primary: 'bg-rose-400 text-white hover:bg-rose-400/90',
         secondary: 'border border-line bg-surface text-ink-900 hover:border-ink-400',
         text: 'text-ink-600 hover:bg-ink-100 hover:text-ink-900',
       },
-      tone: { brand: '', neutral: '' },
       size: { default: 'h-11 w-11', small: 'h-9 w-9' },
     },
-    compoundVariants: [
-      { variant: 'primary', tone: 'brand', className: 'bg-rose-700 hover:bg-rose-700/90' },
-      { variant: 'primary', tone: 'neutral', className: 'bg-carbon hover:bg-carbon/85' },
-    ],
-    defaultVariants: { variant: 'secondary', tone: 'brand', size: 'default' },
+    defaultVariants: { variant: 'secondary', size: 'default' },
   }
 );
 
@@ -41,8 +36,8 @@ export interface IconButtonProps
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ className, variant, tone, size, type, ...props }, ref) => (
-    <button ref={ref} type={type ?? 'button'} className={cn(iconButton({ variant, tone, size }), className)} {...props} />
+  ({ className, variant, size, type, ...props }, ref) => (
+    <button ref={ref} type={type ?? 'button'} className={cn(iconButton({ variant, size }), className)} {...props} />
   )
 );
 IconButton.displayName = 'IconButton';

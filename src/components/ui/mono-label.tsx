@@ -14,18 +14,18 @@ export interface MonoLabelProps extends React.HTMLAttributes<HTMLSpanElement> {
   number?: string;
   /** leading dot marker, for a live or categorised state */
   dot?: boolean;
-  /** text colour */
+  /** colour of the number and dot; the text stays in ink so it reads clearly */
   tone?: MonoLabelTone;
   /** trailing slot: an icon, arrow or status dot */
   trailing?: React.ReactNode;
 }
 
 const TONE: Record<MonoLabelTone, { text: string; mark: string; dot: string }> = {
-  ink: { text: 'text-ink-500', mark: 'text-rose-700', dot: 'bg-rose-400' },
-  rose: { text: 'text-rose-700', mark: 'text-rose-700', dot: 'bg-rose-400' },
-  apricot: { text: 'text-apricot-700', mark: 'text-apricot-700', dot: 'bg-apricot-400' },
-  lavender: { text: 'text-lavender-700', mark: 'text-lavender-700', dot: 'bg-lavender-400' },
-  success: { text: 'text-success-700', mark: 'text-success-700', dot: 'bg-success-600' },
+  ink: { text: 'text-ink-500', mark: 'text-rose-400', dot: 'bg-rose-400' },
+  rose: { text: 'text-ink-900', mark: 'text-rose-400', dot: 'bg-rose-400' },
+  apricot: { text: 'text-ink-900', mark: 'text-apricot-400', dot: 'bg-apricot-400' },
+  lavender: { text: 'text-ink-900', mark: 'text-lavender-400', dot: 'bg-lavender-400' },
+  success: { text: 'text-ink-900', mark: 'text-success-600', dot: 'bg-success-600' },
   inverse: { text: 'text-white/70', mark: 'text-white', dot: 'bg-white/70' },
 };
 

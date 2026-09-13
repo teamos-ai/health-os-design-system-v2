@@ -15,16 +15,16 @@ const TONES = {
   subtle: {
     wrap: 'bg-ink-100 border-line',
     text: 'text-ink-600',
-    icon: 'text-rose-700',
+    icon: 'text-rose-400',
     fade: 'from-ink-100',
-    ring: 'focus-visible:ring-rose-700/40',
+    ring: 'focus-visible:ring-rose-400',
   },
   tint: {
     wrap: 'bg-brand-gradient-soft border-line',
     text: 'text-ink-900',
-    icon: 'text-rose-700',
+    icon: 'text-rose-400',
     fade: 'from-lavender-50',
-    ring: 'focus-visible:ring-rose-700/40',
+    ring: 'focus-visible:ring-rose-400',
   },
   carbon: {
     wrap: 'bg-carbon border-carbon',

@@ -178,7 +178,7 @@ function buildPalette() {
     '/** The three gradients as CSS values, for inline-style consumers. */',
     `export const BRAND_GRADIENT = '${val(t.gradient['brand-gradient'])}';`,
     `export const BRAND_GRADIENT_SOFT = '${val(t.gradient['brand-gradient-soft'])}';`,
-    `export const BRAND_GRADIENT_WARM = '${val(t.gradient['brand-gradient-warm'])}';`,
+    `export const BRAND_GRADIENT_DAWN = '${val(t.gradient['brand-gradient-dawn'])}';`,
     '',
   ].join('\n');
 }

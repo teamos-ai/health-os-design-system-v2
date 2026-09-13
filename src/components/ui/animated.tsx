@@ -506,14 +506,14 @@ export const HoverUnderline = ({
   <a
     href={href}
     className={cn(
-      'group relative inline-block rounded-md font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-700',
+      'group relative inline-block rounded-md font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-400',
       className
     )}
   >
     {children}
     <span
       aria-hidden
-      className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-rose-700 transition-transform duration-md ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
+      className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-rose-400 transition-transform duration-md ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
     />
   </a>
 );

@@ -21,7 +21,7 @@ export const DirectoryCompare = ({ id = 'compare' }: { id?: string }) => (
               <tr className="border-b border-line bg-surface-2">
                 <th scope="col" className="px-6 py-4 text-left font-sans text-label uppercase text-ink-500">Job</th>
                 <th scope="col" className="px-4 py-4 text-left font-sans text-label uppercase text-ink-500">Typical stack</th>
-                <th scope="col" className="bg-rose-50 px-4 py-4 text-left font-sans text-label uppercase text-rose-700">Health OS</th>
+                <th scope="col" className="bg-rose-50 px-4 py-4 text-left font-sans text-label uppercase text-ink-900">Health OS</th>
               </tr>
             </thead>
             <tbody>
@@ -35,8 +35,8 @@ export const DirectoryCompare = ({ id = 'compare' }: { id?: string }) => (
                     </span>
                   </td>
                   <td className="bg-rose-50/50 px-4 py-4">
-                    <span className="flex items-center gap-2 font-sans text-body text-rose-700">
-                      <Check className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
+                    <span className="flex items-center gap-2 font-sans text-body text-ink-900">
+                      <Check className="h-4 w-4 shrink-0 text-rose-400" strokeWidth={2} aria-hidden />
                       {row.healthos}
                     </span>
                   </td>

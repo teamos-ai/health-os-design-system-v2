@@ -7,9 +7,8 @@
  * (Framer's `useInView`, mirroring the existing CountUp). The live Countdown
  * ticks on a single setInterval that is cleared on unmount.
  *
- * Tokens only: font-display figures, font-sans labels, success-700 (up) /
- * apricot-800 (warm, down) deltas — both AA on the page ground. Flat, 8px-max
- * squircle bars, neutral shadows, no glass.
+ * Tokens only: font-display figures, font-sans labels, ink delta text with a
+ * success-600 (up) or apricot-400 (down) arrow. Flat bars, neutral shadows, no glass.
  *
  * Exports: Counter · StatTrend · SeatsRemaining · TicketsSold · MembersCount · Countdown
  */
@@ -97,7 +96,7 @@ export const Counter = ({
 };
 
 /* ── StatTrend — a figure with a percentage delta + directional arrow ──
-   Green (success-700) for up, warm (apricot-700) for down — both AA. */
+   Green (success-600) arrow for up, apricot arrow for down; the figure stays ink. */
 export interface StatTrendProps {
   /** the headline figure */
   value: number;
@@ -148,10 +147,10 @@ export const StatTrend = ({
         <span
           className={cn(
             'inline-flex items-center gap-1 rounded-md px-2 py-1 font-sans text-label font-bold tabular-nums',
-            up ? 'bg-success-100 text-success-700' : 'bg-apricot-50 text-apricot-700',
+            up ? 'bg-success-100 text-ink-900' : 'bg-apricot-50 text-ink-900',
           )}
         >
-          <Arrow className="h-3 w-3" aria-hidden />
+          <Arrow className={cn('h-3 w-3', up ? 'text-success-600' : 'text-apricot-400')} aria-hidden />
           {/* direction is never colour-only — announce it for screen readers */}
           <span className="sr-only">{up ? 'up ' : 'down '}</span>
           {Math.abs(delta).toFixed(deltaDecimals)}%

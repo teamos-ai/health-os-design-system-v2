@@ -29,14 +29,14 @@
 /* Fixed values, identical in both themes. */
 :root {
   --hos-rose-50: #FADEEE;
+  --hos-rose-200: #F3A0CC;
   --hos-rose-400: #E85BA8;
-  --hos-rose-700: #97215F;
   --hos-apricot-50: #FDECDF;
+  --hos-apricot-200: #F8C39C;
   --hos-apricot-400: #F5A060;
-  --hos-apricot-700: #9E5723;
   --hos-lavender-50: #EDE1F7;
-  --hos-lavender-400: #A666D9;
-  --hos-lavender-700: #602C88;
+  --hos-lavender-200: #C9A3E6;
+  --hos-lavender-400: #A668D9;
   --hos-ink-100: #F2EFEB;
   --hos-ink-200: #E3DDD6;
   --hos-ink-400: #A39B91;
@@ -44,19 +44,19 @@
   --hos-ink-600: #5A534B;
   --hos-ink-900: #1F1F1F;
   --hos-success-100: #E2F5EC;
+  --hos-success-300: #9AD3BC;
   --hos-success-600: #1F9D6B;
-  --hos-success-700: #15724E;
   --hos-warning-100: #FBF2DC;
+  --hos-warning-300: #E3C896;
   --hos-warning-600: #C08415;
-  --hos-warning-700: #8A5E0F;
   --hos-error-100: #FAE4E2;
+  --hos-error-300: #E6A5A1;
   --hos-error-600: #C8382F;
-  --hos-error-700: #9F2A23;
   --hos-carbon: #1F1F1F;
   --hos-white: #FFFFFF;
-  --hos-brand-gradient: linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A666D9 100%);
+  --hos-brand-gradient: linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A668D9 100%);
   --hos-brand-gradient-soft: linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%);
-  --hos-brand-gradient-warm: linear-gradient(135deg, #FDECDF 0%, #F5A060 45%, #E85BA8 100%);
+  --hos-brand-gradient-dawn: linear-gradient(160deg, #FFFFFF 0%, #FDECDF 55%, #FADEEE 100%);
   --hos-font-display: "Spline Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --hos-font-sans: "Anonymous Pro", ui-monospace, SFMono-Regular, Menlo, monospace;
   --hos-space-1: 0.25rem;

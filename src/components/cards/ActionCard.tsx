@@ -1,9 +1,10 @@
 /**
  * ActionCard: the one thing to do next. Booking a call, starting a diagnostic.
  *
- * Warm sunrise gradient by default (`tone="warm"`), or the soft wash (`tone="soft"`).
- * Add an image to split the card on wide screens. One action only: the primary button
- * in the neutral tone, which reads clearly on both gradients.
+ * Calm by design: the soft dawn gradient (`tone="dawn"`, default) or the soft wash
+ * (`tone="soft"`), a hairline edge, dark text and the rose primary button. Saturated
+ * gradients are never used as a card fill. Add an image to split the card on wide screens;
+ * it dissolves toward the text with the shared image fade. One action only.
  */
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,35 +16,34 @@ export interface ActionCardProps {
   action: { label: string; href?: string };
   /** a short line under the button, e.g. what happens next */
   note?: string;
-  tone?: 'warm' | 'soft';
+  tone?: 'dawn' | 'soft';
   image?: { src: string; alt: string };
   className?: string;
 }
 
-export const ActionCard = ({ title, description, action, note, tone = 'warm', image, className }: ActionCardProps) => (
+export const ActionCard = ({ title, description, action, note, tone = 'dawn', image, className }: ActionCardProps) => (
   <article
     className={cn(
-      'group grid overflow-hidden rounded-lg',
-      tone === 'warm' ? 'bg-brand-gradient-warm' : 'bg-brand-gradient-soft',
+      'group grid overflow-hidden rounded-lg border border-line',
+      tone === 'dawn' ? 'bg-brand-gradient-dawn' : 'bg-brand-gradient-soft',
       image && 'md:grid-cols-2',
       className
     )}
   >
     <div className="flex flex-col items-start gap-4 p-8 md:p-10">
       <h3 className="max-w-md font-display text-subheading text-ink-900">{title}</h3>
-      <p className="max-w-md font-sans text-body text-ink-900">{description}</p>
+      <p className="max-w-md font-sans text-body text-ink-600">{description}</p>
       <Button
-        tone="neutral"
         href={action.href ?? '#'}
         className="mt-2"
         trailingIcon={<ArrowRight className="h-4 w-4 transition-transform duration-sm group-hover:translate-x-1" strokeWidth={1.5} aria-hidden />}
       >
         {action.label}
       </Button>
-      {note && <p className="font-sans text-label text-ink-900">{note}</p>}
+      {note && <p className="font-sans text-label text-ink-500">{note}</p>}
     </div>
     {image && (
-      <div className="relative hidden min-h-64 md:block">
+      <div className="image-fade-l relative hidden min-h-64 md:block">
         <img src={image.src} alt={image.alt} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
       </div>
     )}

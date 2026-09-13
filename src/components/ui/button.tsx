@@ -1,10 +1,10 @@
 /**
- * Button: the three Health OS button styles.
+ * Button: the three Health OS button styles, one colour everywhere.
  *
- *   primary    the one main action in a view. `tone="brand"` (rose, default) or
- *              `tone="neutral"` (carbon) when rose would clash with nearby colour.
+ *   primary    the one main action in a view. Expressive Rose (rose-400) with white text,
+ *              on every ground: light, paper, tinted panels and carbon.
  *   secondary  a supporting action beside a primary. Surface fill with a hairline.
- *   text       a low-emphasis action inside copy, cards and rows.
+ *   text       a low-emphasis action inside copy, cards and rows. Ink text on a rose underline.
  *
  * Sizes: `default` everywhere, `small` only in dense areas (tables, toolbars, cards).
  * Every style supports `disabled` and `loading`. Same shape and behaviour in both themes.
@@ -17,30 +17,25 @@ import { cn } from '@/lib/utils';
 const button = cva(
   'inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-md font-display text-body ' +
     'transition-[background-color,border-color,color,box-shadow,transform] duration-sm ease-out ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
     'active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'text-white',
+        primary: 'bg-rose-400 text-white hover:bg-rose-400/90',
         secondary: 'border border-line bg-surface text-ink-900 hover:border-ink-400',
-        text: 'rounded-none underline-offset-4 decoration-1 hover:underline active:scale-100',
+        text: 'rounded-none text-ink-900 underline decoration-rose-400 decoration-2 underline-offset-4 hover:decoration-ink-900 active:scale-100',
       },
-      tone: { brand: '', neutral: '' },
       size: {
         default: 'h-11 px-6',
         small: 'h-9 px-4',
       },
     },
     compoundVariants: [
-      { variant: 'primary', tone: 'brand', className: 'bg-rose-700 hover:bg-rose-700/90' },
-      { variant: 'primary', tone: 'neutral', className: 'bg-carbon hover:bg-carbon/85' },
-      { variant: 'text', tone: 'brand', className: 'text-rose-700' },
-      { variant: 'text', tone: 'neutral', className: 'text-ink-900' },
       { variant: 'text', size: 'default', className: 'h-auto px-0 py-2' },
       { variant: 'text', size: 'small', className: 'h-auto px-0 py-1' },
     ],
-    defaultVariants: { variant: 'primary', tone: 'brand', size: 'default' },
+    defaultVariants: { variant: 'primary', size: 'default' },
   }
 );
 
@@ -68,10 +63,10 @@ const Spinner = () => (
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { className, variant, tone, size, href, leadingIcon, trailingIcon, loading = false, disabled, children, type, ...props },
+    { className, variant, size, href, leadingIcon, trailingIcon, loading = false, disabled, children, type, ...props },
     ref
   ) => {
-    const classes = cn(button({ variant, tone, size }), className);
+    const classes = cn(button({ variant, size }), className);
     const content = (
       <>
         {loading ? <Spinner /> : leadingIcon}

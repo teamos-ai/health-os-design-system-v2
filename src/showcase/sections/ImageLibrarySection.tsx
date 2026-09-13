@@ -43,7 +43,7 @@ export const ImageLibrarySection = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by activity, place, mood or use"
-                className="h-12 w-full rounded-md border border-line bg-surface pl-12 pr-4 font-sans text-body text-ink-900 placeholder:text-ink-400 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-700/30"
+                className="h-12 w-full rounded-md border border-line bg-surface pl-12 pr-4 font-sans text-body text-ink-900 placeholder:text-ink-400 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-200"
               />
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -55,7 +55,7 @@ export const ImageLibrarySection = () => {
                     aria-pressed={theme === t}
                     onClick={() => setTheme(t)}
                     className={cn(
-                      'rounded-md border px-3 py-1 font-sans text-label transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700/40',
+                      'rounded-md border px-3 py-1 font-sans text-label transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400',
                       theme === t ? 'border-ink-900 bg-ink-900 text-white' : 'border-line bg-surface text-ink-600 hover:border-ink-400 hover:text-ink-900'
                     )}
                   >
