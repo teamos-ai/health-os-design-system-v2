@@ -1,7 +1,7 @@
 /**
  * Pagination — Health OS v2.
  *
- * Filled carbon current page, muted ink siblings, outline prev/next IconButtons with
+ * Soft apricot current page, muted ink siblings, outline prev/next IconButtons with
  * lucide chevrons (for consistency with the rest of the system). Collapses to an
  * ellipsis when there are many pages. 8px squircles only — no circles.
  */
@@ -46,7 +46,7 @@ export const Pagination = ({
   const cell =
     'inline-flex h-10 min-w-10 items-center justify-center rounded-md px-2 ' +
     'font-display text-body transition-[background-color,border-color,color,transform] duration-sm ease-out ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 ' +
     'focus-visible:ring-offset-2 focus-visible:ring-offset-paper active:scale-[0.98]';
 
   return (
@@ -75,7 +75,7 @@ export const Pagination = ({
             className={cn(
               cell,
               it === page
-                ? 'bg-rose-50 text-ink-900 ring-1 ring-inset ring-rose-200'
+                ? 'bg-apricot-50 text-ink-900 ring-1 ring-inset ring-apricot-200'
                 : 'text-ink-500 hover:bg-ink-100 hover:text-ink-900'
             )}
           >

@@ -28,7 +28,7 @@ export const Breadcrumb = ({ items, className }: BreadcrumbProps) => (
             {item.href && !last ? (
               <a
                 href={item.href}
-                className="rounded-md text-ink-500 transition-colors duration-sm hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                className="rounded-md text-ink-500 transition-colors duration-sm hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
               >
                 {item.label}
               </a>

@@ -4,7 +4,7 @@
  * ARIA-correct tabs with panels (`role="tablist"` / `tab` / `tabpanel`) — the right
  * pattern when a selection swaps content (SegmentedControl is for a value with no panel).
  * Roving tabindex, Arrow/Home/End keys, focus-follows-selection. The active tab carries a
- * `brand-600` underline that slides in; panels fade + rise on change (dur-md, reduced-motion
+ * apricot-200 underline that slides in; panels fade + rise on change (dur-md, reduced-motion
  * safe via the global guard).
  */
 import * as React from 'react';
@@ -73,7 +73,7 @@ export const Tabs = ({ items, value, defaultValue, onValueChange, 'aria-label': 
               onKeyDown={(e) => onKeyDown(e, i)}
               className={cn(
                 'relative -mb-px px-4 py-3 font-sans text-body transition-colors duration-sm ease-out',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
                 'disabled:cursor-not-allowed disabled:opacity-40',
                 isActive ? 'text-ink-900' : 'text-ink-500 hover:text-ink-900'
               )}
@@ -82,7 +82,7 @@ export const Tabs = ({ items, value, defaultValue, onValueChange, 'aria-label': 
               <span
                 aria-hidden
                 className={cn(
-                  'absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-rose-400 transition-opacity duration-md ease-out',
+                  'absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-apricot-200 transition-opacity duration-md ease-out',
                   isActive ? 'opacity-100' : 'opacity-0'
                 )}
               />
@@ -98,7 +98,7 @@ export const Tabs = ({ items, value, defaultValue, onValueChange, 'aria-label': 
           aria-labelledby={`${baseId}-tab-${tab.value}`}
           hidden={tab.value !== active}
           tabIndex={0}
-          className="pt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+          className="pt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
         >
           {tab.value === active && (
             <div className="motion-safe:animate-enter-rise">{tab.content}</div>

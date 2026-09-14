@@ -42,14 +42,14 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             type="checkbox"
             checked={checked}
             disabled={disabled}
-            className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-md border border-line bg-surface transition-colors duration-sm ease-out checked:border-rose-400 checked:bg-rose-400 indeterminate:border-rose-400 indeterminate:bg-rose-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
+            className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-md border border-line bg-surface transition-colors duration-sm ease-out checked:border-apricot-200 checked:bg-apricot-200 indeterminate:border-apricot-200 indeterminate:bg-apricot-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper disabled:cursor-not-allowed"
             {...props}
           />
           {indeterminate ? (
-            <Minus className="pointer-events-none relative h-3.5 w-3.5 text-white opacity-100" strokeWidth={2.5} aria-hidden />
+            <Minus className="pointer-events-none relative h-3.5 w-3.5 text-ink-900 opacity-100" strokeWidth={2.5} aria-hidden />
           ) : (
             <Check
-              className="pointer-events-none relative h-3.5 w-3.5 text-white opacity-0 transition-opacity duration-sm ease-out peer-checked:opacity-100"
+              className="pointer-events-none relative h-3.5 w-3.5 text-ink-900 opacity-0 transition-opacity duration-sm ease-out peer-checked:opacity-100"
               strokeWidth={2.5}
               aria-hidden
             />

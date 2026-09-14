@@ -42,7 +42,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className={cn(
               'w-full rounded-md border bg-surface font-sans text-body text-ink-900',
               'placeholder:text-ink-500 transition-colors duration-sm ease-out',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-200 focus-visible:border-rose-400',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-200 focus-visible:border-apricot-400',
               'disabled:opacity-50 disabled:cursor-not-allowed',
               Icon ? 'pl-11 pr-4' : 'px-4',
               'py-3',

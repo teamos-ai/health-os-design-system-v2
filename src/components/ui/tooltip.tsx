@@ -1,9 +1,9 @@
 /**
  * Tooltip — Health OS v2.
  *
- * A small carbon label that appears on hover AND focus (keyboard-reachable), positioned
+ * A small light label that appears on hover AND focus (keyboard-reachable), positioned
  * top/bottom/left/right. Fade + 4px rise, dur-md. Uses `role="tooltip"` + `aria-describedby`
- * so screen readers announce it with the trigger. Carbon ground → white text (AA-safe),
+ * so screen readers announce it with the trigger. Light surface, hairline and ink text,
  * `rounded-md`, `shadow-md`. Not for interactive content (use a popover/dialog for that).
  */
 import * as React from 'react';
@@ -44,7 +44,7 @@ export const Tooltip = ({ label, side = 'top', children, className }: TooltipPro
         role="tooltip"
         id={id}
         className={cn(
-          'pointer-events-none absolute z-40 w-max max-w-xs rounded-md bg-carbon px-3 py-2 font-sans text-label text-white shadow-md',
+          'pointer-events-none absolute z-40 w-max max-w-xs rounded-md border border-line bg-surface px-3 py-2 font-sans text-label text-ink-900 shadow-md',
           'transition-[opacity,transform] duration-md ease-out',
           SIDE[side],
           open ? 'opacity-100' : 'opacity-0',

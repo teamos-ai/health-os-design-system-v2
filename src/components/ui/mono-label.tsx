@@ -7,7 +7,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-export type MonoLabelTone = 'ink' | 'rose' | 'apricot' | 'lavender' | 'success' | 'inverse';
+export type MonoLabelTone = 'ink' | 'rose' | 'apricot' | 'lavender' | 'success';
 
 export interface MonoLabelProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** leading number, for a numbered sequence */
@@ -21,12 +21,11 @@ export interface MonoLabelProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const TONE: Record<MonoLabelTone, { text: string; mark: string; dot: string }> = {
-  ink: { text: 'text-ink-500', mark: 'text-rose-400', dot: 'bg-rose-400' },
+  ink: { text: 'text-ink-500', mark: 'text-apricot-400', dot: 'bg-apricot-400' },
   rose: { text: 'text-ink-900', mark: 'text-rose-400', dot: 'bg-rose-400' },
   apricot: { text: 'text-ink-900', mark: 'text-apricot-400', dot: 'bg-apricot-400' },
   lavender: { text: 'text-ink-900', mark: 'text-lavender-400', dot: 'bg-lavender-400' },
   success: { text: 'text-ink-900', mark: 'text-success-600', dot: 'bg-success-600' },
-  inverse: { text: 'text-white/70', mark: 'text-white', dot: 'bg-white/70' },
 };
 
 export const MonoLabel = ({ number, dot, tone = 'ink', trailing, className, children, ...props }: MonoLabelProps) => {

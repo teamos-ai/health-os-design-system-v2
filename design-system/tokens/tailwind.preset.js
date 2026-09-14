@@ -186,16 +186,6 @@ export default {
             "backgroundPosition": "-200% 0"
           }
         },
-        "sheen": {
-          "0%": {
-            "WebkitMaskPosition": "100% 0",
-            "maskPosition": "100% 0"
-          },
-          "100%": {
-            "WebkitMaskPosition": "0% 0",
-            "maskPosition": "0% 0"
-          }
-        },
         "enter-rise": {
           "from": {
             "opacity": "0",
@@ -213,7 +203,6 @@ export default {
         "marquee-reverse": "marquee-reverse 40s linear infinite",
         "ticker": "ticker 32s linear infinite",
         "shimmer": "shimmer 6s linear infinite",
-        "sheen": "sheen 2.4s linear infinite",
         "enter-rise": "enter-rise 240ms cubic-bezier(0.22, 1, 0.36, 1) both"
       }
     }

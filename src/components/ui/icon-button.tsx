@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 
 const iconButton = cva(
   'inline-flex shrink-0 items-center justify-center rounded-md transition-[background-color,border-color,color,transform] duration-sm ease-out ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
     'active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {

@@ -34,7 +34,7 @@ export const Alert = ({ tone = 'success', title, children, onDismiss, className,
         {children && <div className="mt-1 font-sans text-body">{children}</div>}
       </div>
       {onDismiss && (
-        <IconButton variant="text" size="small" aria-label="Dismiss" onClick={onDismiss} className="-mr-2 -mt-1 text-current hover:bg-carbon/5 hover:text-current">
+        <IconButton variant="text" size="small" aria-label="Dismiss" onClick={onDismiss} className="-mr-2 -mt-1 text-current hover:bg-ink-900/5 hover:text-current">
           <X className="h-4 w-4" strokeWidth={1.5} />
         </IconButton>
       )}

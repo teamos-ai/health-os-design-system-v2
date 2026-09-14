@@ -1,7 +1,6 @@
 /**
  * MotionSection: the motion library, demonstrated. Press Move to replay a demo; the
- * interactive ones respond to hover and click. Experimental pieces are labelled, and each
- * group closes with its usage guidance.
+ * interactive ones respond to hover and click. Each group closes with its usage guidance.
  */
 import * as React from 'react';
 import { Play } from 'lucide-react';
@@ -16,10 +15,7 @@ import {
   Reveal,
   TextReveal,
   RollingNumber,
-  GradientShimmer,
-  BorderGlow,
   BreathingDot,
-  PointerSpotlight,
   HoverUnderline,
   Appear,
 } from '@/components/ui/animated';
@@ -36,35 +32,22 @@ const MoveButton = ({ onClick }: { onClick: () => void }) => (
   </Button>
 );
 
-const Experimental = () => (
-  <Badge variant="apricot" size="sm">
-    Experimental
-  </Badge>
-);
-
 /** Wraps a demo with a Move button that replays its motion by remounting the content. */
 const MotionDemo = ({
   label,
   children,
   padded = true,
-  experimental = false,
 }: {
   label: string;
   children: React.ReactNode;
   padded?: boolean;
-  experimental?: boolean;
 }) => {
   const [replay, setReplay] = React.useState(0);
   return (
     <Demo
       label={label}
       padded={padded}
-      action={
-        <span className="flex items-center gap-2">
-          {experimental && <Experimental />}
-          <MoveButton onClick={() => setReplay((n) => n + 1)} />
-        </span>
-      }
+      action={<MoveButton onClick={() => setReplay((n) => n + 1)} />}
     >
       <div key={replay}>{children}</div>
     </Demo>
@@ -162,23 +145,13 @@ export const MotionSection = () => (
       <UsageRow ids={['fade-in', 'stagger', 'text-reveal', 'numbers']} />
 
       {/* ── Ambient ── */}
-      <MotionDemo label="GradientShimmer" experimental>
-        <GradientShimmer className="font-display text-heading">Loading</GradientShimmer>
-      </MotionDemo>
-
-      <MotionDemo label="BorderGlow (hover or focus)" experimental>
-        <BorderGlow className="w-fit">
-          <div className="px-6 py-5 font-sans text-body text-ink-900" tabIndex={0}>Hover or focus this edge</div>
-        </BorderGlow>
-      </MotionDemo>
-
       <MotionDemo label="BreathingDot">
         <div className="flex items-center gap-8 font-sans text-body text-ink-900">
           <span className="inline-flex items-center gap-2">
             <BreathingDot color="bg-success-600" /> Bookings open
           </span>
           <span className="inline-flex items-center gap-2">
-            <BreathingDot color="bg-rose-400" /> Live session
+            <BreathingDot color="bg-apricot-400" /> Live session
           </span>
         </div>
       </MotionDemo>
@@ -209,14 +182,6 @@ export const MotionSection = () => (
       <UsageRow ids={['marquee', 'breathing-dot', 'hero-glow', 'experimental-motion']} />
 
       {/* ── Interaction and presence ── */}
-      <Demo label="PointerSpotlight" action={<Experimental />}>
-        <PointerSpotlight className="border border-line bg-surface">
-          <div className="px-6 py-10 text-center font-sans text-body text-ink-600">
-            Move your cursor across this card
-          </div>
-        </PointerSpotlight>
-      </Demo>
-
       <Demo label="HoverUnderline">
         <div className="flex h-full items-center gap-8 font-sans text-body">
           <HoverUnderline href="#tokens">Read the tokens</HoverUnderline>

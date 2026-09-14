@@ -2,7 +2,7 @@
 
 What to reach for when building each kind of asset. Each recipe names the ground, type, colour moments, components and checks. Values and props are in [REFERENCE.md](REFERENCE.md); copy and claims follow [VOICE.md](VOICE.md) and the Health OS database. Finish every asset with [CHECKLIST.md](CHECKLIST.md).
 
-**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · video only in `VideoPlayer` · sentence case, no em dashes, no invented numbers.
+**Every asset:** one theme (light or paper), never a dark background · Spline Sans headings, Anonymous Pro body · every H1 a two-tone headline with two or three picture tiles · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · apricot for every interactive accent · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · video only in `VideoPlayer` · sentence case, no em dashes, no invented numbers.
 
 ## 1. Marketing page
 
@@ -10,26 +10,28 @@ The live page in the reference site is this recipe, assembled.
 
 | Order | Build with | Notes |
 |---|---|---|
-| Ticker | `Ticker` | Optional. Tone `subtle` on light, `carbon` on paper, `tint` for a softer moment. One per page |
+| Ticker | `Ticker` | Optional. Tone `subtle` on light, `tint` on paper or for a softer moment. One per page |
 | Navigation | `Nav` | One primary button in the bar |
-| Hero | `CommandHero`, or `Hero` + `HeroContainer` + `HeroGlow` | Spacing comes from the hero tokens. One `.text-highlight` word in the headline |
+| Hero | `CommandHero`, or `Hero` + `HeroContainer` + `HeroGlow` | Spacing comes from the hero tokens. The H1 is a `Headline` with two or three picture tiles |
 | Why it works | `Pillars` (feature grid) | Up to four `FeatureCard`s |
-| What runs | `BentoSection`, or `BentoGrid` with `ContentCard`, `FeatureCard` and one `ActionCard` | Mix card types; one action card |
+| What runs | `BentoSection` (`FeatureBento`), or `BentoGrid` with mixed cards | Pick one bento style: photo, tint or quiet. Figures from the database only |
 | Plans | `PricingTable` with plans from `src/data/offer.ts` | Prices and fees exactly as the database states them |
 | Comparison | `DirectoryCompare` | Open decision; never names a competitor |
 | Questions | `Faq`, two columns for six or more | Answers from the database FAQ |
-| Footer | `Footer` | Carbon panel, `rounded-lg` |
+| Footer | `Footer` | Light surface-2 panel with a hairline, `rounded-lg`. `LogoLong` fits here when there is room |
 
 Sections sit at `py-16 md:py-24` inside `max-w-container px-6`. Every third section can take the textured ground. The primary action on the page is the same everywhere it appears.
 
 ## 2. Blog post or guide
 
-- `max-w-reading` column on the page ground.
-- Category `Badge` · `h1` in `font-display text-heading` · byline in `font-sans text-label text-ink-500` ("13 September 2026 · 6 min read") · lead paragraph in `text-body text-ink-600`.
-- Section titles in `text-subheading`. Figures in `rounded-lg` frames with a `text-label` caption.
+The reference site's Blog section is this recipe, assembled. Parts are in `src/components/blog/Blog.tsx`.
+
+- **Article page:** `Breadcrumb` · category `Badge` · the H1 as a `Headline` with two or three tiles · a standfirst in `text-body text-ink-600` · `ArticleMeta` (author, date, reading time, copy link) · a hero figure with a `text-label` caption.
+- The body sits on `max-w-reading` beside a `TableOfContents` (sticky from lg) when there are three or more subheadings. Section titles in `text-subheading`.
+- A pull quote is `PullQuote`: larger subheading type on a 2px apricot-200 rule. Never a filled or gradient block behind reading text.
 - Comparisons are real tables (`Table`), with a text alternative for any check or cross.
-- A pull quote sits on `bg-brand-gradient-soft` with `rounded-lg`, not a side stripe.
-- Related reading uses `ContentCard`. A download uses `ResourceCard`. One `ActionCard` closes the post.
+- The end: tags as outline badges, `AuthorNote`, related posts as `ContentCard`s, and one next step (`ResourceCard` or `ActionCard`).
+- **Blog index:** a `Headline` · one `FeaturedPost` · `CategoryFilter` · a grid of `ContentCard`s · `Pagination`.
 
 ## 3. Lead magnet: guide, checklist or calculator
 
@@ -71,7 +73,7 @@ The reference site's social templates are the starting point.
 
 - A4, paper ground (or white with `line` rules for print). 72px side margins.
 - Title in Spline Sans 700, section titles in Spline Sans 600, body in Anonymous Pro 400 at a size that keeps about 70 characters a line.
-- Tables with hairline rows and `text-label` headers. Links in ink with a rose-400 underline; key figures in ink-900.
+- Tables with hairline rows and `text-label` headers. Links in ink with an apricot-200 underline; key figures in ink-900.
 - The logo mark on the title page only.
 
 ## 8. Product screen or dashboard
@@ -83,7 +85,17 @@ The reference site's social templates are the starting point.
 - Design the empty, loading (`Skeleton`) and error (`Alert`) states for every view.
 - Experimental widgets can be used. Check their notes in REFERENCE.md first.
 
-## 9. Screenshot of the product
+## 9. Headline tile
+
+Every H1 needs two or three tiles. Reuse one from `HEADLINE_TILES` when its picture literally matches the word; otherwise make a new one.
+
+- **Subject:** one literal, recognisable object for the word beside it. Software is a vintage all-in-one computer, calm is balanced river stones, built is wooden blocks. No people, icons, emoji, abstract shapes or brand logos (a classic product shape is fine; its logo is not).
+- **Prompt:** "Photorealistic studio product photograph of [object], [materials and colours], three-quarter view. Isolated on a fully transparent background, centred and filling about 80% of a square frame, soft diffused daylight from the upper left, gentle natural shading, crisp high detail, calm minimal aesthetic. No text, no letters, no logos, no brand marks, no watermark."
+- **Settings:** GPT Image 2 text to image, 1K, 1:1, transparent background, through the KIE connection. Quote the cost and get Tumai's approval before generating.
+- **Check:** sharp at 3× the tile size, no text or logos, reads at 32px. Redo anything that doesn't.
+- **Save:** trim to the object, pad it to 80% of a square, and save a 1024px PNG and a 320px WebP to `public/heading-tiles/`. Add an entry to `src/data/headline-tiles.ts` with its `id`, `alt`, `means` and a `tone` (apricot, rose or lavender) that differs from the tile beside it.
+
+## 10. Screenshot of the product
 
 - Crop to the part that makes the point. Remove browser chrome unless the frame helps.
 - Frame it on a `surface` panel with `rounded-lg` and `shadow-lg`.

@@ -1,11 +1,14 @@
 /**
- * CardsSection: the six card types with their usage, then a bento composed from them.
- * Images come from the tagged library; prices follow the Health OS offer.
+ * CardsSection: the nine card types with their usage, then the bento grid and the feature
+ * bento in its three styles. Images come from the tagged library; prices follow the offer.
  */
-import { CalendarCheck, MailCheck } from 'lucide-react';
+import * as React from 'react';
+import { CalendarCheck, ClipboardCheck, MailCheck } from 'lucide-react';
 import { Section, Example } from '@/showcase/Section';
-import { ContentCard, FeatureCard, ServiceCard, PricingCard, ResourceCard, ActionCard } from '@/components/cards';
+import { ContentCard, FeatureCard, ServiceCard, PricingCard, ResourceCard, ActionCard, SessionCard, ProfileCard, StepsCard } from '@/components/cards';
 import { BentoGrid, BentoCell } from '@/components/bento/Bento';
+import { FeatureBento, type BentoStyle } from '@/components/bento/FeatureBento';
+import { SegmentedControl } from '@/components/ui/segmented';
 import { thumb } from '@/lib/images';
 import { PLANS, PRICING_NOTE } from '@/data/offer';
 
@@ -16,6 +19,45 @@ const IMG = {
   coffee: '/imagery/social-and-wellness/two-women-having-coffee-at-outdoor-bistro-table-16-9.png',
   meadow: '/backgrounds/nature-pink-purple-crescent-moon-grass-portrait.png',
   dusk: '/backgrounds/nature-purple-pink-snowy-peaks-contrail-portrait.png',
+  yoga: '/imagery/active-and-fitness/group-yoga-side-plank-in-bright-studio-16-9.png',
+  portrait: '/imagery/social-and-wellness/woman-in-pink-sweatshirt-and-cap-with-phone-and-earphones-portrait-9-16.png',
+  smoothie: '/imagery/social-and-wellness/woman-in-peach-activewear-with-green-smoothie-at-cafe-full-length-9-16.png',
+  founder: '/imagery/work-and-content-creation/woman-filming-content-on-laptop-by-city-window-vertical-9-16.png',
+};
+
+const BENTO_STYLES: { value: BentoStyle; label: string }[] = [
+  { value: 'photo', label: 'Photo-led' },
+  { value: 'tint', label: 'Tinted' },
+  { value: 'quiet', label: 'Quiet' },
+];
+
+const FeatureBentoExample = () => {
+  const [variant, setVariant] = React.useState<BentoStyle>('photo');
+  return (
+    <Example
+      id="feature-bento"
+      label="Feature bento"
+      action={<SegmentedControl size="sm" aria-label="Bento style" options={BENTO_STYLES} value={variant} onValueChange={(v) => setVariant(v as BentoStyle)} />}
+    >
+      <FeatureBento
+        key={variant}
+        variant={variant}
+        hero={{
+          eyebrow: 'Health OS',
+          title: 'Set it up once, then let it run',
+          description: 'Built with you, then running in the background while you are with your clients.',
+          image: { src: thumb(IMG.coworking), alt: 'Three women working together on a sofa with laptops and coffee' },
+        }}
+        highlight={{ icon: ClipboardCheck, value: 10, label: 'questions in the check, under two minutes' }}
+        feature={{ icon: CalendarCheck, title: 'Bookings that confirm themselves', description: 'Clients book, pay and get reminders without you in the loop.' }}
+        action={{ eyebrow: 'The check', title: 'See what still routes through you' }}
+        facts={[
+          { value: 297, prefix: '$', label: 'AUD a month for Health OS' },
+          { value: 'One', label: 'place for booking, clients and sales' },
+        ]}
+      />
+    </Example>
+  );
 };
 
 export const CardsSection = () => (
@@ -128,6 +170,85 @@ export const CardsSection = () => (
         </div>
       </Example>
 
+      <Example id="session-card" label="Session card">
+        <div className="grid gap-6 md:grid-cols-2">
+          <SessionCard
+            title="Morning mobility"
+            date={{ weekday: 'Thu', day: '18', month: 'Sep' }}
+            time="6:30 to 7:15 am"
+            repeats="Every Thursday"
+            place="Bondi studio"
+            mode="In studio"
+            image={{ src: thumb(IMG.yoga), alt: 'A group holding side plank on mats in a bright yoga studio' }}
+            action={{ label: 'Reserve a place' }}
+            calendarHref="#card-bento"
+          />
+          <SessionCard
+            title="Setting up online booking"
+            date={{ weekday: 'Tue', day: '23', month: 'Sep' }}
+            time="12:00 to 12:45 pm AEST"
+            place="Online"
+            mode="Online"
+            description="A live walkthrough of booking pages, reminders and payments, with time for questions."
+            action={{ label: 'Save a spot' }}
+            calendarHref="#card-bento"
+          />
+        </div>
+      </Example>
+
+      <Example id="profile-card" label="Profile card">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ProfileCard
+            name="Priya Kapoor"
+            role="Movement coach"
+            portrait={{ src: thumb(IMG.portrait), alt: 'A woman in a pink sweatshirt and cap holding her phone' }}
+            focus={['Mobility', 'Strength', 'Pilates']}
+            approach="Small groups, slow progressions and a plan you can keep up at home."
+            action={{ label: 'Book with Priya' }}
+          />
+          <ProfileCard
+            name="Jordan Lee"
+            role="Nutrition coach"
+            portrait={{ src: thumb(IMG.smoothie), alt: 'A woman in peach activewear holding a green smoothie at a cafe' }}
+            focus={['Meal planning', 'Habits']}
+            approach="Practical changes that fit a busy week, reviewed every fortnight."
+            action={{ label: 'Book with Jordan' }}
+          />
+          <ProfileCard
+            name="Mia Hart"
+            role="Founder"
+            portrait={{ src: thumb(IMG.founder), alt: 'A woman in a pink armchair recording a video on her laptop by a window' }}
+            focus={['Studio operations', 'Onboarding']}
+            approach="Keeps the studio running smoothly, so coaches can stay with their clients."
+            action={{ label: 'Book a walkthrough' }}
+          />
+        </div>
+      </Example>
+
+      <Example id="steps-card" label="Steps card">
+        <div className="grid gap-6 md:grid-cols-2">
+          <StepsCard
+            title="How setup works"
+            intro="What happens between saying yes and a system that runs."
+            steps={[
+              { title: 'Walkthrough', detail: 'We look at your current tools and what still routes through you.' },
+              { title: 'Build', detail: 'We move your clients, bookings and workflows into Health OS.' },
+              { title: 'Handover', detail: 'You get a system that already runs, and training on the parts you use.' },
+            ]}
+          />
+          <StepsCard
+            title="Your onboarding"
+            steps={[
+              { title: 'Import your clients', detail: 'Upload your list or connect your old booking tool.' },
+              { title: 'Set your hours', detail: 'Choose when people can book and how far ahead.' },
+              { title: 'Turn on reminders', detail: 'Pick which messages go out before and after a session.' },
+              { title: 'Share your booking page', detail: 'Add the link to your site and socials.' },
+            ]}
+            current={2}
+          />
+        </div>
+      </Example>
+
       <Example id="bento-grid" label="Bento grid">
         <BentoGrid>
           <BentoCell span={2}>
@@ -151,6 +272,8 @@ export const CardsSection = () => (
           </BentoCell>
         </BentoGrid>
       </Example>
+
+      <FeatureBentoExample />
     </div>
   </Section>
 );

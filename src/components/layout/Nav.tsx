@@ -15,7 +15,7 @@ import { NAV_LINKS } from '@/data/system';
 import { cn } from '@/lib/utils';
 
 const LINK_FOCUS =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2';
 
 export interface NavProps {
   className?: string;
@@ -80,7 +80,7 @@ export const Nav = ({ className, sticky = true, activeHref }: NavProps) => {
               className={cn(
                 'rounded-md px-3 py-2 font-sans text-body transition-colors duration-sm hover:bg-ink-100 hover:text-ink-900',
                 LINK_FOCUS,
-                isActive(link.href) ? 'bg-rose-50 text-ink-900' : 'text-ink-600'
+                isActive(link.href) ? 'bg-apricot-50 text-ink-900' : 'text-ink-600'
               )}
             >
               {link.label}
@@ -145,7 +145,7 @@ export const Nav = ({ className, sticky = true, activeHref }: NavProps) => {
                     'rounded-md px-3 py-3 font-sans text-body transition-colors duration-sm',
                     'hover:bg-ink-100 hover:text-ink-900 active:bg-ink-200',
                     LINK_FOCUS,
-                    isActive(link.href) ? 'bg-rose-50 text-ink-900' : 'text-ink-600'
+                    isActive(link.href) ? 'bg-apricot-50 text-ink-900' : 'text-ink-600'
                   )}
                 >
                   {link.label}

@@ -51,7 +51,7 @@ export const Disclosure = ({
         onClick={toggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className="flex w-full items-center justify-between gap-3 rounded-md px-4 py-4 text-left font-display text-subheading text-ink-900 transition-colors duration-sm hover:bg-ink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
+        className="flex w-full items-center justify-between gap-3 rounded-md px-4 py-4 text-left font-display text-subheading text-ink-900 transition-colors duration-sm hover:bg-ink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400"
       >
         <span>{title}</span>
         <ChevronDown

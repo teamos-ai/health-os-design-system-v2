@@ -44,10 +44,10 @@ export const TICKER_ITEMS: TickerItem[] = [
   { icon: Users, text: 'Built for established wellness businesses' },
 ];
 
-/** How the system is built. Carbon banner, the paper-theme default. */
+/** How the system is built. Tint banner, the paper-theme default. */
 export const TICKER_PRINCIPLES: TickerItem[] = [
   { icon: Type, text: 'Spline Sans and Anonymous Pro' },
-  { icon: Palette, text: 'Rose, apricot and lavender' },
+  { icon: Palette, text: 'Apricot for every action' },
   { icon: SunMedium, text: 'Light and paper themes' },
   { icon: Shapes, text: 'Tokens first, always' },
   { icon: Blend, text: 'Three gradients, used sparingly' },
@@ -57,7 +57,7 @@ export const TICKER_PRINCIPLES: TickerItem[] = [
 export const TICKER_CRAFT: TickerItem[] = [
   { icon: Waves, text: 'Calm, minimal, open' },
   { icon: Sparkles, text: 'Motion on by default' },
-  { icon: LayoutGrid, text: 'Six card types' },
+  { icon: LayoutGrid, text: 'Nine card types' },
   { icon: Library, text: 'Every image tagged' },
   { icon: ShieldCheck, text: 'One source of truth' },
 ];
@@ -187,26 +187,33 @@ export const BADGES_COMMERCE: BadgeSpec[] = [
 
 /* ── Overview snapshots ────────────────────────────────────────────────── */
 export interface OverviewCard {
-  emoji: string;
-  badge: string;
+  /** the reference group, shown as the badge on the photos */
+  group: string;
   title: string;
-  lines: string[];
-  accent: Accent;
+  /** where it lives: "Foundations · Tokens" */
+  meta: string;
+  description: string;
+  figure: { value: string; label: string };
+  /** section id the Open action scrolls to */
+  section: string;
+  /** background library files (landscape), shown as the carousel */
+  images: string[];
 }
 
+const bg = (name: string) => `/backgrounds/nature-${name}-landscape.png`;
+
 export const OVERVIEW_CARDS: OverviewCard[] = [
-  { emoji: '✨', badge: 'Essence', accent: 'rose', title: 'The design and brand reference', lines: ['Calm, minimal, open', 'Built for AI agents first, people second'] },
-  { emoji: '📄', badge: 'Themes', accent: 'lavender', title: 'Light and paper', lines: ['Light: a clean white ground', 'Paper: warm ivory, like reading paper', 'Same colours and components in both'] },
-  { emoji: '🎨', badge: 'Colour', accent: 'apricot', title: 'Three colours, three shades', lines: ['Rose, apricot and lavender', '50 soft, 400 base, 700 deep', 'Neutrals and status colours kept apart'] },
-  { emoji: '🌅', badge: 'Gradients', accent: 'rose', title: 'Three gradients', lines: ['Signature, soft wash, soft dawn', 'Behind type or in one button', 'Never on every surface'] },
-  { emoji: '🔤', badge: 'Type', accent: 'lavender', title: 'Three roles and a label', lines: ['Heading and subheading: Spline Sans', 'Body and label: Anonymous Pro', 'One weight per role'] },
-  { emoji: '🔘', badge: 'Buttons', accent: 'apricot', title: 'Three button styles', lines: ['Primary, secondary, text', 'Default and small sizes', 'Loading and disabled for each'] },
-  { emoji: '🗂️', badge: 'Cards', accent: 'rose', title: 'Six card types', lines: ['Content, feature, service', 'Pricing, resource, action'] },
-  { emoji: '📊', badge: 'Widgets', accent: 'lavender', title: 'A full widget library', lines: ['Every widget does a real job', 'Experimental ones are labelled', 'Animated as they come into view'] },
-  { emoji: '🌊', badge: 'Motion', accent: 'apricot', title: 'Motion on by default', lines: ['Calm and flowing', 'Open to new moments', 'Reduced-motion safe'] },
-  { emoji: '🖼️', badge: 'Imagery', accent: 'rose', title: 'Every image tagged', lines: ['Context tags on each file', 'One suggested use for each', 'Nothing guessed about origin'] },
-  { emoji: '📐', badge: 'Spacing', accent: 'lavender', title: 'An 8px rhythm', lines: ['4px steps for tight spots', 'The same spacing in both themes'] },
-  { emoji: '✅', badge: 'Approval', accent: 'apricot', title: 'One final say', lines: ['Tumai approves every exception', 'Exceptions need a defined need'] },
+  { group: 'Start', title: 'The design and brand reference', meta: 'Start · Checklist', description: 'Calm, minimal and open. Built for AI agents first and people second.', figure: { value: '16', label: 'pre-asset checks' }, section: 'checklist', images: [bg('peach-lavender-misty-mountains-sunrise'), bg('lavender-peach-seascape-birds-flock'), bg('pink-grey-misty-rocky-peaks')] },
+  { group: 'Foundations', title: 'Two tones and picture tiles', meta: 'Foundations · Headlines', description: 'Every H1 leads in dark ink, finishes in warm grey and shows its point in pictures.', figure: { value: '2 to 3', label: 'tiles per H1' }, section: 'headlines', images: [bg('cream-peach-pampas-soft-seedheads'), bg('purple-pink-pampas-mountains-twilight'), bg('peach-pink-ocean-sunset-waves')] },
+  { group: 'Foundations', title: 'Three colours, three shades', meta: 'Foundations · Tokens', description: 'Rose, apricot and lavender at 400, 200 and 50. Apricot is the one interactive accent.', figure: { value: '9', label: 'brand shades' }, section: 'tokens', images: [bg('lavender-purple-hydrangea-pastel-haze'), bg('purple-lavender-field-wooden-post'), bg('blue-purple-dreamy-dandelion-haze')] },
+  { group: 'Foundations', title: 'Light and paper', meta: 'Foundations · Tokens', description: 'The same colours and components on clean white or warm ivory. There is no dark theme.', figure: { value: '2', label: 'themes' }, section: 'tokens', images: [bg('purple-pink-billowing-cumulus-clouds'), bg('purple-pink-gradient-sky-bokeh'), bg('pink-purple-crescent-moon-grass')] },
+  { group: 'Foundations', title: 'The mark and the long logo', meta: 'Foundations · Logo', description: 'The OS mark on its own, and the long logo on a white or a filled background.', figure: { value: '3', label: 'logo files' }, section: 'logo', images: [bg('purple-pink-snowy-peaks-contrail'), bg('peach-lavender-misty-mountains-sunrise'), bg('lavender-peach-seascape-birds-flock')] },
+  { group: 'Foundations', title: 'Motion on by default', meta: 'Foundations · Motion', description: 'Calm and flowing, with a token for every duration and easing.', figure: { value: '5', label: 'durations' }, section: 'motion', images: [bg('peach-pink-ocean-sunset-waves'), bg('purple-pink-billowing-cumulus-clouds'), bg('cream-peach-pampas-soft-seedheads')] },
+  { group: 'Library', title: 'One button colour', meta: 'Library · Buttons', description: 'Primary, secondary and text, all resting on soft apricot with ink text.', figure: { value: '3', label: 'button styles' }, section: 'buttons', images: [bg('pink-peach-dusk-tree-streetlights'), bg('gold-amber-backlit-wildflowers-haze'), bg('peach-pink-ocean-sunset-waves')] },
+  { group: 'Library', title: 'Cards for every job', meta: 'Library · Cards', description: 'Content, feature, service, pricing, resource, action, session, profile and steps.', figure: { value: '9', label: 'card types' }, section: 'card-bento', images: [bg('pink-purple-crescent-moon-grass'), bg('purple-lavender-field-wooden-post'), bg('purple-pink-gradient-sky-bokeh')] },
+  { group: 'Library', title: 'A bento in three styles', meta: 'Library · Cards', description: 'One feature grid you can set as photo-led, tinted or quiet.', figure: { value: '3', label: 'bento styles' }, section: 'card-bento', images: [bg('pink-grey-misty-rocky-peaks'), bg('purple-pink-snowy-peaks-contrail'), bg('purple-pink-pampas-mountains-twilight')] },
+  { group: 'Library', title: 'A working widget library', meta: 'Library · Widgets', description: 'Every widget takes real data and animates as it comes into view.', figure: { value: '31', label: 'widgets' }, section: 'widgets', images: [bg('blue-purple-dreamy-dandelion-haze'), bg('lavender-purple-hydrangea-pastel-haze'), bg('purple-pink-billowing-cumulus-clouds')] },
+  { group: 'Applied', title: 'Every image tagged', meta: 'Applied · Image library', description: 'Context tags and one suggested use on every file, with nothing guessed about origin.', figure: { value: '169', label: 'images' }, section: 'imagery', images: [bg('gold-amber-backlit-wildflowers-haze'), bg('cream-peach-pampas-soft-seedheads'), bg('lavender-peach-seascape-birds-flock')] },
 ];
 
 /* ── Marketing example content (signature sections, live page) ────────── */

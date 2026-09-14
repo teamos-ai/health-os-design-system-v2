@@ -46,7 +46,7 @@ export const ContentCard = ({
   <article
     className={cn(
       'group relative flex flex-col overflow-hidden rounded-lg border border-line bg-surface transition-[box-shadow,transform,border-color] duration-md ease-out',
-      href && 'hover:-translate-y-1 hover:border-ink-200 hover:shadow-sm focus-within:ring-2 focus-within:ring-rose-400 focus-within:ring-offset-2 focus-within:ring-offset-paper',
+      href && 'hover:-translate-y-1 hover:border-ink-200 hover:shadow-sm focus-within:ring-2 focus-within:ring-apricot-400 focus-within:ring-offset-2 focus-within:ring-offset-paper',
       className
     )}
   >

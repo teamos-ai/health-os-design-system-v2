@@ -5,19 +5,21 @@
 A quick check for every page, post, email or asset built from this system. If an answer is no, fix it or ask for an exception.
 
 1. Every colour, size, radius, shadow and duration comes from a token. No hex codes or pixel values typed by hand.
-2. The page uses one theme: light or paper.
-3. Headings use the heading or subheading role, running text uses body, small text uses label.
-4. Rose, apricot and lavender appear only in their 50, 200 and 400 shades, and text stays in the ink neutrals. Status colours report real states only.
-5. At most one gradient moment per view, using one of the three gradients, and never a saturated gradient as a large fill.
-6. Widgets and cards use the light (200) and soft (50) shades only, and every button fill is apricot-200 #F8C39C with ink text. Full strength is for checked controls and focus rings.
-7. There is one primary button per view. Other actions are secondary or text.
-8. Cards are the right type for their job: content, feature, service, pricing, resource or action.
-9. Images come from the tagged library, match their suggested use, dissolve into their card with the shared image fade, and text never sits on a raw photo.
-10. Screenshots are cropped to the point, framed on a surface, and show no private or client information.
-11. Copy is plain Australian English in sentence case, with no em dashes and no invented numbers.
-12. Prices, offers and claims match the Health OS database. No testimonials, countdown pressure or before-and-after images.
-13. Motion is calm, and nothing people need is hidden until an animation finishes.
-14. Anything outside the system has a defined need, is documented, and has Tumai's approval.
+2. The page uses one theme: light or paper. Nothing sits on a dark or carbon background.
+3. Every H1 is a two-tone headline: the point in ink-900, the rest in ink-400, with two or three picture tiles that literally show what it says.
+4. Other headings use the heading or subheading role in ink-900, running text uses body, small text uses label.
+5. Rose, apricot and lavender appear only in their 50, 200 and 400 shades, and text stays in the ink neutrals. Status colours report real states only.
+6. Apricot is the only interactive accent: buttons, links, ticks, toggles, selected states and focus rings are apricot, never rose or lavender.
+7. At most one gradient moment per view, using one of the three gradients, and never a saturated gradient as a large fill.
+8. Widgets and cards use the light (200) and soft (50) shades only, and every button fill is apricot-200 #F8C39C with ink text.
+9. There is one primary button per view. Other actions are secondary or text.
+10. Cards are the right type for their job: content, feature, service, pricing, resource, action, session, profile or steps.
+11. Images come from the tagged library, match their suggested use, dissolve into their card with the shared image fade, and text never sits on a raw photo.
+12. Screenshots are cropped to the point, framed on a surface, and show no private or client information.
+13. Copy is plain Australian English in sentence case, with no em dashes and no invented numbers.
+14. Prices, offers and claims match the Health OS database. No testimonials, countdown pressure or before-and-after images.
+15. Motion is calm, and nothing people need is hidden until an animation finishes.
+16. Anything outside the system has a defined need, is documented, and has Tumai's approval.
 
 Exceptions follow the last item: a defined need the system cannot meet, written down, and approved by Tumai.
 

@@ -1,7 +1,7 @@
 /**
  * SegmentedControl — Health OS v2.
  *
- * Daily | Weekly | Monthly. The active segment is the filled carbon one; the rest are
+ * Daily | Weekly | Monthly. The active segment is soft apricot with an apricot edge; the rest are
  * muted ink on a soft inset with a hairline frame. Controlled or uncontrolled.
  *
  * A11y: role="radiogroup" (ARIA-correct for a value selector) with roving tabindex and
@@ -102,10 +102,10 @@ export function SegmentedControl<T extends string = string>({
             onClick={() => select(opt.value)}
             className={cn(
               'rounded-md font-display transition-[background-color,color,box-shadow] duration-sm ease-out',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400',
               pad,
               isActive
-                ? 'bg-rose-50 text-ink-900 shadow-sm ring-1 ring-inset ring-rose-200'
+                ? 'bg-apricot-50 text-ink-900 shadow-sm ring-1 ring-inset ring-apricot-200'
                 : 'text-ink-500 hover:text-ink-900'
             )}
           >

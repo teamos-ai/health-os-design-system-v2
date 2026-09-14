@@ -60,7 +60,7 @@ export const DashboardPreview = ({ className }: { className?: string }) => (
               key={label}
               className={cn(
                 'flex items-center gap-3 rounded-md px-3 py-2 font-sans text-body',
-                active ? 'bg-rose-50 text-ink-900' : 'text-ink-500'
+                active ? 'bg-apricot-50 text-ink-900' : 'text-ink-500'
               )}
             >
               <Icon className="h-4 w-4" strokeWidth={1.5} />

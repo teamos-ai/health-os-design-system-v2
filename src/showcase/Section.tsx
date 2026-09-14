@@ -63,7 +63,7 @@ export const Demo = ({
   className?: string;
   padded?: boolean;
 }) => (
-  <div className={cn('overflow-hidden rounded-lg border border-line bg-surface', className)}>
+  <div className={cn('overflow-clip rounded-lg border border-line bg-surface', className)}>
     {(label || action) && (
       <div className="flex min-h-12 items-center justify-between gap-3 border-b border-line bg-surface-2 px-4 py-2">
         {label ? <span className="font-sans text-label uppercase text-ink-500">{label}</span> : <span />}
@@ -145,7 +145,7 @@ export const Example = ({
   action?: ReactNode;
   layout?: 'stack' | 'split';
 }) => (
-  <div className={cn('overflow-hidden rounded-lg border border-line bg-surface', className)}>
+  <div className={cn('overflow-clip rounded-lg border border-line bg-surface', className)}>
     {(label || action) && (
       <div className="flex min-h-12 items-center justify-between gap-3 border-b border-line bg-surface-2 px-4 py-2">
         {label ? <span className="font-sans text-label uppercase text-ink-500">{label}</span> : <span />}

@@ -156,14 +156,14 @@ export const CheckIn = ({
                 setSelected(o);
                 onSelect?.(o);
               }}
-              className="flex w-14 flex-col items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
+              className="flex w-14 flex-col items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400"
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.36, delay: i * 0.08, ease: EASE_OUT }}
               whileTap={{ scale: 0.96 }}
             >
-              <svg viewBox="0 0 48 48" className={cn('h-11 w-11 rounded-md transition-shadow duration-sm', on && 'ring-2 ring-lavender-200 ring-offset-2 ring-offset-surface')} aria-hidden>
+              <svg viewBox="0 0 48 48" className={cn('h-11 w-11 rounded-md transition-shadow duration-sm', on && 'ring-2 ring-apricot-200 ring-offset-2 ring-offset-surface')} aria-hidden>
                 <rect width="48" height="48" rx="10" fill={FACE_FILL[i % FACE_FILL.length]} />
                 <circle cx="18" cy="21" r="2" fill="#1F1F1F" />
                 <circle cx="30" cy="21" r="2" fill="#1F1F1F" />

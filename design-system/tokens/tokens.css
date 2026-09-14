@@ -88,4 +88,9 @@
   --hos-duration-xl: 480ms;
   --hos-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --hos-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --hos-headline-lead: #1F1F1F;
+  --hos-headline-rest: #A39B91;
+  --hos-headline-tile-size: 0.9em;
+  --hos-headline-tile-radius: 0.24em;
+  --hos-headline-tile-offset: -0.12em;
 }

@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-13 · 107 entries · 33 components · 31 widgets · 12 patterns · 11 open decisions
+Updated 2026-09-14 · 116 entries · 39 components · 31 widgets · 12 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -17,10 +17,10 @@ Updated 2026-09-13 · 107 entries · 33 components · 31 widgets · 12 patterns 
 ## Contents
 
 - [Open decisions](#open-decisions)
-- Start: [System overview video](#system-overview-video)
-- Foundations: [Tokens](#tokens) · [Logo](#logo) · [Icons](#icons) · [Motion](#motion)
+- Start: [System overview video](#system-overview-video) · [Overview](#overview)
+- Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Logo](#logo) · [Icons](#icons) · [Motion](#motion)
 - Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Blocks](#blocks) · [Widgets](#widgets)
-- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Calculators](#calculators) · [Social media](#social-media) · [Backgrounds](#backgrounds) · [Image library](#image-library) · [Docs template](#docs-template)
+- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Calculators](#calculators) · [Social media](#social-media) · [Backgrounds](#backgrounds) · [Image library](#image-library)
 - Proof: [The live page](#the-live-page)
 
 ## Open decisions
@@ -34,7 +34,7 @@ Decisions still waiting on Tumai, and what the system does until each one is mad
 | Archetype | R1.3 · C03 | Sage 70 / Creator 30, or Creator 70 / Explorer 30? | Not used anywhere in this system until decided. |
 | Icon library | R4.7 | Which filled icon set, in which two sizes? | The Icons section is intentionally empty. Components still use Lucide line icons until the set is chosen. |
 | Reduced motion | R4.6 · O06 | What should motion do when someone has reduced motion switched on? | Unchanged from before the cleanup: loops stop and entrances settle instantly. Not an approved policy. |
-| Logo files | R6 · C13 | Commission a true vector mark, and decide whether a wordmark lockup exists? | The 500px PNG mark is the only usable file. The SVG embeds PNG rasters and is not a vector. |
+| Logo files | R6 · C13 | Commission true vector files for the mark and the long logo? | The 500px PNG mark and the two 1120 × 400 long logo PNGs (white and filled background) are the usable files. The SVG embeds PNG rasters and is not a vector. |
 | Experimental widgets | X05 | Polish, keep or delete the five experimental widgets? | 05 Live session timer, 08 Countdown, 29 Rating summary, 30 Assistant message and 31 Check-in are on and labelled. |
 | Stack comparison | C16 | Keep the stack comparison pattern alongside the database rule on comparisons? | Kept without competitor names or prices. It compares a typical stack of separate tools with one system. |
 | Image library notes | R5.4 · C14 | Act on the tagging notes, or keep everything exactly as it is? | All 169 images kept. Notes flag 17 byte-identical pairs, visible third-party lettering, two photos showing a Health OS cap and some off-palette backgrounds. |
@@ -68,6 +68,32 @@ The only video player in the design system. The video sits with clean rounded ed
 
 **Source** `src/components/ui/video-player.tsx`
 
+## Overview
+
+Start · The system in carousel cards that drift left to right. Hover to pause, drag to move faster, and open a card to jump to its section.
+
+### Carousel card
+
+`carousel-card` · component · Stable
+
+A few photos with one idea and its figure, adapted from the 21st.dev place card. The photos slide with arrows and dots and dissolve into the card; below sit a category, title, meta line, one sentence, a figure and an Open action.
+
+**Use it for**
+
+- The overview marquee, one card per part of the system
+- Photo-led rows on a website: studios, retreats, programs
+- Two to four photos from the tagged library
+
+**Not for**
+
+- Ratings, prices per night or scarcity labels
+- A primary button on every card: the action is a text button
+- More than one figure per card
+
+**API** `images: { src, alt }[] · category · title · meta · description · figure: { value, label } · action: { label, href, onClick }`
+
+**Source** `src/components/cards/CarouselCard.tsx`
+
 ## Tokens
 
 Foundations · Every value comes from one file, tokens.json: colour, gradients, type, spacing, radius, shadow and motion. Click a swatch to copy it.
@@ -89,22 +115,22 @@ Light is the default. Paper is `.theme-paper` on `<html>`. Grounds are RGB chann
 
 ### Colour
 
-Every colour stops at its full strength and has two lighter shades. There are no darker shades. Widgets and cards use only the two lighter shades, buttons use apricot-200, full strength is kept for checked controls and focus rings, and text stays in the ink neutrals.
+Every colour stops at its full strength and has two lighter shades. There are no darker shades. Apricot is the one interactive accent: apricot-200 fills every button, check, selected state and link underline, and apricot-400 draws focus rings and thin marks that must stay visible. Rose and lavender carry categories, charts and the gradients. Widgets and cards use only the two lighter shades, and text stays in the ink neutrals.
 
 | Token | Hex | CSS variable | Role |
 | --- | --- | --- | --- |
-| `rose-50` | #FADEEE | `--hos-rose-50` | Soft. Tinted fills: badges, selected rows, quiet panels. |
-| `rose-200` | #F3A0CC | `--hos-rose-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons, selected states and borders on tinted fills. |
-| `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Checked form controls, focus rings and gradient stops. Not for text, buttons, widgets or card colour. |
-| `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Warm tinted fills. |
-| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The button colour: primary buttons and icon buttons, with ink text. Also widgets and cards: bars, rings, tiles, chart data, icons and borders on warm fills. |
-| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. Gradient stop only. Not for text, widgets or card colour. |
+| `rose-50` | #FADEEE | `--hos-rose-50` | Soft. Tinted fills for rose categories: badges, tile ends and quiet panels. |
+| `rose-200` | #F3A0CC | `--hos-rose-200` | Light. Rose categories in widgets and cards: bars, rings, tiles, chart data, icons and borders on rose tints. |
+| `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Gradient stops and category dots only. Not for text, buttons, focus rings, checked or selected states, widgets or card colour. |
+| `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Selected rows and chips (with an apricot-200 edge), the active navigation item and warm tinted fills. |
+| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The accent: every button and icon button fill with ink text, checked checkboxes, radios and switches, selected states, tab and link underlines and the text selection. Also warm widget and card colour. |
+| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. Focus rings and focused field borders, the / in command chips and other thin marks that must stay visible on white. Also a gradient stop. Not for fills, text, widgets or card colour. |
 | `lavender-50` | #EDE1F7 | `--hos-lavender-50` | Soft. Cool tinted fills. |
 | `lavender-200` | #C9A3E6 | `--hos-lavender-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons and borders on cool fills. |
-| `lavender-400` | #A668D9 | `--hos-lavender-400` | Full strength. Gradient stop only. Not for text, widgets or card colour. |
+| `lavender-400` | #A668D9 | `--hos-lavender-400` | Full strength. Gradient stops and category dots only. Not for text, widgets or card colour. |
 | `ink-100` | #F2EFEB | `--hos-ink-100` | Quiet fills and hover backgrounds. |
 | `ink-200` | #E3DDD6 | `--hos-ink-200` | Stronger dividers and pressed fills. |
-| `ink-400` | #A39B91 | `--hos-ink-400` | Placeholder text, disabled text, hover borders, muted icons. |
+| `ink-400` | #A39B91 | `--hos-ink-400` | Placeholder text, disabled text, hover borders, muted icons, and the muted rest of a two-tone headline (heading size only). |
 | `ink-500` | #7C746B | `--hos-ink-500` | Secondary text and metadata. The lightest neutral for readable text. |
 | `ink-600` | #5A534B | `--hos-ink-600` | Body text. |
 | `ink-900` | #1F1F1F | `--hos-ink-900` | Headings and primary text. |
@@ -117,8 +143,8 @@ Every colour stops at its full strength and has two lighter shades. There are no
 | `error-100` | #FAE4E2 | `--hos-error-100` | Soft. Tint behind error content. |
 | `error-300` | #E6A5A1 | `--hos-error-300` | Light. Borders on error tints and chart tracks. |
 | `error-600` | #C8382F | `--hos-error-600` | Full strength. Icons, dots, solid marks, and error messages. |
-| `carbon` | #1F1F1F | `--hos-carbon` | The one dark surface: the footer panel and dark tiles. White text on top. |
-| `white` | #FFFFFF | `--hos-white` | Text and marks on carbon. Never a hand-coded page ground. |
+| `carbon` | #1F1F1F | `--hos-carbon` | Never a background. Only a translucent veil: the video control bar (carbon/60, carbon/80) and the modal backdrop (carbon/40). |
+| `white` | #FFFFFF | `--hos-white` | Icons and text on the video control bar. Never a hand-coded page ground. |
 
 Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg-carbon`. Text stays in the ink neutrals.
 
@@ -145,6 +171,22 @@ Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg
 | label | `text-label` | `font-sans` | `0.75rem` | 1.34 | 0.06em | 700 | 12px / 16px bold. Only where needed: badges, eyebrows (uppercase), metadata, table headers, chart axes. |
 
 Pair each role with its family: `font-display text-heading`, `font-display text-subheading`, `font-sans text-body`, `font-sans text-label`.
+
+### Headline
+
+Every H1 is a two-tone headline. The opening phrase that makes the point is ink-900 and the rest is ink-400, with two or three square picture tiles between the words that show what the headline says. Tile values are in em so tiles scale with the heading.
+
+| Token | CSS variable | Value | Use |
+| --- | --- | --- | --- |
+| `lead` | `--hos-headline-lead` | #1F1F1F | ink-900 (text-ink-900). The opening phrase that makes the point. |
+| `rest` | `--hos-headline-rest` | #A39B91 | ink-400 (text-ink-400). Everything after the opening phrase. |
+| `tile-size` | `--hos-headline-tile-size` | 0.9em | Width and height of a picture tile, just under the heading size so it sits inside the line. |
+| `tile-radius` | `--hos-headline-tile-radius` | 0.24em | The squircle corner of a tile, in proportion to its size. |
+| `tile-offset` | `--hos-headline-tile-offset` | -0.12em | Vertical alignment that centres a tile on the letters. |
+| `tiles-min` | Rule | 2 | The fewest tiles in a headline. |
+| `tiles-max` | Rule | 3 | The most tiles in a headline. |
+
+Build headlines with `<Headline lead rest />` from `src/components/ui/headline.tsx`: it applies these values and checks the tile count.
 
 ### Spacing
 
@@ -212,22 +254,24 @@ Health OS motion is its own: calm, flowing and on by default. Durations and easi
 
 `colour-brand` · token · Stable
 
-Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strength (400) with two lighter shades (200, 50). Widgets and cards use only the lighter two, so colour always reads soft and calm.
+Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strength (400) with two lighter shades (200, 50). Apricot is the one interactive accent; rose and lavender carry categories and charts. Widgets and cards use only the lighter two, so colour always reads soft and calm.
 
 **Use it for**
 
-- 200 for widgets and cards: bars, rings, tiles, chart data, icons, selected states and borders on tints
-- apricot-200 #F8C39C for every button fill, with ink text
-- 50 for tinted fills: badges, selected rows, tile ends and quiet panels
-- 400 only for checked form controls, focus rings and gradient stops
+- apricot-200 #F8C39C for every button fill, checked checkbox, radio and switch, selected state, tab underline and link underline, with ink text
+- apricot-50 with an apricot-200 edge for selected rows, chips, filters and the active navigation item
+- apricot-400 for focus rings, focused field borders and thin marks such as the / in a command chip
+- Rose and lavender 200 and 50 for categories, badges, chart data, icons and tiles in widgets and cards
+- 400 of rose and lavender only for gradient stops and category dots
 
 **Not for**
 
+- Rose or lavender for anything interactive: buttons, links, ticks, toggles, selected states or focus
 - Full-strength colour inside a widget, card or button
 - Coloured text: text stays in the ink neutrals
 - Any shade darker than 400, or shades outside 50, 200 and 400
 
-**API** `Tailwind: bg-apricot-200 (buttons) · bg-rose-200 · bg-rose-50 · ring-rose-200 · text-lavender-200 (icons) … Widgets: LIGHT, SOFT, TILE, BAR, SWEEP (src/components/widgets/tones.ts)`
+**API** `Tailwind: bg-apricot-200 (buttons, checks) · bg-apricot-50 ring-apricot-200 (selected) · ring-apricot-400 (focus) · bg-rose-50 ring-rose-200 (rose category) · text-lavender-200 (icons) … Widgets: LIGHT, SOFT, TILE, BAR, SWEEP (src/components/widgets/tones.ts)`
 
 **Source** `design-system/tokens/tokens.json → color.rose, color.apricot, color.lavender`
 
@@ -235,20 +279,22 @@ Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strengt
 
 `colour-neutral` · token · Stable
 
-Warm greys for text, lines and quiet fills, plus carbon for the one dark surface.
+Warm greys for text, lines and quiet fills. Carbon is never a background, only a translucent veil over media.
 
 **Use it for**
 
-- ink-900 headings, primary text and text on tinted fills, ink-600 body, ink-500 secondary text
+- ink-900 headings, primary text and the lead of a two-tone headline; ink-600 body; ink-500 secondary text
+- ink-400 for the rest of a two-tone headline, at heading size only
 - ink-100 and ink-200 for quiet fills, dividers and pressed states
-- carbon for the footer panel, tooltips and dark tiles, with white text
+- carbon/60 and carbon/80 for the video control bar, carbon/40 for the modal backdrop
 
 **Not for**
 
-- ink-400 for text people need to read
+- ink-400 for body text or anything smaller than a heading
+- Carbon, black or any dark colour as a background: panels, footers, banners, tooltips, tiles or logo grounds
 - Pure black or hand-coded white as a page ground
 
-**API** `text-ink-900 · text-ink-600 · text-ink-500 · bg-ink-100 · border-line · bg-carbon · text-white`
+**API** `text-ink-900 · text-ink-600 · text-ink-500 · text-ink-400 (headline rest) · bg-ink-100 · border-line · bg-carbon/60 (video bar only)`
 
 **Source** `tokens.json → color.ink, color.carbon, color.white`
 
@@ -290,7 +336,7 @@ Two themes that share every colour, component and behaviour. Only the grounds ch
 
 - Mixing themes within one page
 - Hard-coding a ground colour: it breaks the other theme
-- A dark theme: there isn't one
+- A dark theme, or dark sections standing in for one: there isn't one
 
 **API** `useTheme() → { theme, setTheme } · <ThemeToggle />`
 
@@ -305,12 +351,13 @@ Apricot to rose to lavender. The strongest brand moment, used small.
 **Use it for**
 
 - The logo
-- A highlight behind one headline word (.text-highlight)
+- A highlight behind one word in a social post or subheading (.text-highlight)
 - Thin accents: a progress fill, a short bar
 
 **Not for**
 
 - Large fills: cards, panels, banners or buttons
+- Inside an H1: headlines use two tones and picture tiles instead
 - More than one gradient moment in a view
 - Reversing or recolouring the stops
 
@@ -362,17 +409,19 @@ White into apricot and rose tints. A gentle, warm invitation.
 
 `type-heading` · token · Stable
 
-One heading size, Spline Sans 700, fluid from 36px to 58px.
+One heading size, Spline Sans 700, fluid from 36px to 58px. An H1 at this size is always the two-tone headline.
 
 **Use it for**
 
-- Page titles, section titles and hero headlines
+- H1s through the Headline component: two tones and two or three picture tiles
+- Section titles (h2) in ink-900, one tone
 - A single large figure
 
 **Not for**
 
 - Card titles: use subheading
 - More than one heading size on a page
+- A one-tone H1, or an H1 without its picture tiles
 
 **API** `font-display text-heading`
 
@@ -523,30 +572,131 @@ Durations and easings that keep custom motion consistent.
 
 **Source** `tokens.json → motion`
 
-## Logo
+## Headlines
 
-Foundations · The gradient OS mark, used on its own. It works on light, paper and carbon grounds exactly as supplied.
+Foundations · Every H1 is two-tone: the point in dark ink, the rest in a light warm grey, with two or three picture tiles between the words that show what the headline says.
 
-### Logo
+### Two-tone headline
 
-`logo` · asset · Stable
+`headline` · component · Stable
 
-The gradient OS mark, shipped as a PNG.
+The H1 style for every page. The opening phrase that makes the point is ink-900, the rest is ink-400, and two or three square picture tiles sit beside the words they picture, so the headline shows what it says.
 
 **Use it for**
 
-- On its own, on light, paper or carbon
+- Every H1: page heroes, article titles, landing pages and campaign pages
+- lead for the phrase that carries the point, rest for everything after it: one switch of tone
+- Two or three tiles, each beside the word it pictures, written into the copy as {id}
+- A literal picture of the word: software is a vintage computer, calm is balanced stones
+- as h2 or h3 only where a page already has its h1, such as examples in this reference
+
+**Not for**
+
+- One tile, or more than three
+- A tile as the very first or last thing in the headline
+- Abstract shapes, icons, emoji or photos of people as tiles
+- Section headings (h2): they stay one tone in ink-900
+- The gradient highlight (.text-highlight) inside an H1
+- Colouring either tone: both stay in the ink neutrals
+
+**API** `<Headline lead rest as: h1 | h2 | h3 tiles id className /> · {id} marks a tile from HEADLINE_TILES`
+
+**Source** `src/components/ui/headline.tsx · tokens.json → headline`
+
+### Headline tile library
+
+`headline-tiles` · asset · Stable
+
+The pictures for headline tiles. Each object is a high-quality studio shot cut out on a transparent ground; its tone sets the soft squircle behind it.
+
+**Use it for**
+
+- Pick the tile whose picture literally matches the word beside it
+- Reuse a tile when its means list fits the headline
+- Add a tile when no picture fits: follow the recipe, then add it to HEADLINE_TILES
+
+**Not for**
+
+- Stretching a tile's meaning to fit: make a new one
+- Pictures with text, logos or brand marks, including on product objects
+- Two tiles of the same tone side by side when another tone fits
+
+**API** `HEADLINE_TILES (src/data/headline-tiles.ts): { id, src, original, alt, means, tone: apricot | rose | lavender }`
+
+**Source** `src/data/headline-tiles.ts · public/heading-tiles/`
+
+### Making a new tile
+
+`headline-tile-recipe` · rule · Stable
+
+How to generate a tile so every picture in the library looks like it belongs to the same set.
+
+**Use it for**
+
+- The prompt template shown, with one literal object and its materials
+- GPT Image 2 at 1K, 1:1, transparent background, through the connected image tools, with the cost approved first
+- Check the result is sharp and free of text and logos, then trim, pad the object to 80% of the square, and save a 1024px PNG and a 320px WebP
+
+**Not for**
+
+- Paid generation without Tumai's approval
+- Illustration, clay or cartoon styles that break the set
+- Recognisable brand logos: a classic product shape is fine, its logo is not
+
+**API** `Rule · see ASSET-RECIPES.md, Headline tile`
+
+**Source** `design-system/ASSET-RECIPES.md`
+
+## Logo
+
+Foundations · The gradient OS mark on its own, and the long logo on a white or filled background. Both work on light and paper grounds exactly as supplied.
+
+### Logo mark
+
+`logo` · asset · Stable
+
+The gradient OS mark on its own, shipped as a PNG.
+
+**Use it for**
+
+- Favicons, navigation, avatars and square or tight spaces
+- On light or paper grounds exactly as supplied
 - Clear space of at least a quarter of its width on every side
 - 16px minimum, for favicons
 
 **Not for**
 
 - Recolouring, outlining, stretching or adding effects
+- Dark or carbon grounds: the system has none
 - Placing it on a busy photo without a surface behind it
 
 **API** `<LogoMark size={36} />`
 
 **Source** `src/components/brand/Logo.tsx · public/health-os-logo.png`
+
+### Long logo
+
+`logo-long` · asset · Stable
+
+HEALTH beside the OS tile in a rounded frame, 2.8 : 1. Two versions: white background (a white fill inside a gradient edge) and filled background (the gradient with white letters).
+
+**Use it for**
+
+- Headers, footers, email signatures, documents and slides with room for a wide logo
+- white on busy or tinted layouts where the logo should stay quiet; filled where it is the main brand moment
+- On light or paper grounds exactly as supplied
+- 32px tall or more, with clear space of at least half its height on every side
+
+**Not for**
+
+- Both versions side by side in one layout
+- Recolouring, re-spacing the letters or separating HEALTH from the tile
+- Dark or carbon grounds
+- A second gradient moment next to the filled version
+
+**API** `<LogoLong variant: white | filled height={40} /> · LOGO_LONG_RATIO`
+
+**Source** `src/components/brand/Logo.tsx · public/logo/health-os-long-white.png · public/logo/health-os-long-filled.png`
 
 ## Icons
 
@@ -573,7 +723,7 @@ One filled icon set in two sizes: small and large. Being rebuilt.
 
 ## Motion
 
-Foundations · Calm, flowing and on by default: Health OS's own motion. Press Move to replay a demo. Experimental pieces are labelled.
+Foundations · Calm, flowing and on by default: Health OS's own motion. Press Move to replay a demo.
 
 ### FadeIn and Reveal
 
@@ -669,7 +819,7 @@ Count up or down, trends, seats, tickets, members and a live countdown.
 
 `hover` · motion · Stable
 
-Quiet responses to the pointer.
+Quiet responses to the pointer. HoverUnderline draws an apricot line under a link.
 
 **Use it for**
 
@@ -757,11 +907,11 @@ The soft wash fading from the top of a hero.
 
 **Source** `src/components/ui/animated.tsx`
 
-### Experimental motion
+### Parallax
 
 `experimental-motion` · motion · Experimental
 
-Parallax, BorderGlow, PointerSpotlight and GradientShimmer.
+A slow scroll offset for one image or panel. Experimental.
 
 **Use it for**
 
@@ -772,7 +922,7 @@ Parallax, BorderGlow, PointerSpotlight and GradientShimmer.
 - Text
 - Standard product screens until approved
 
-**API** `<Parallax amount /> · <BorderGlow /> · <PointerSpotlight color /> · <GradientShimmer />`
+**API** `<Parallax amount />`
 
 **Source** `src/components/ui/animated.tsx`
 
@@ -863,7 +1013,7 @@ The small uppercase label that gives context: an eyebrow, a numbered step, a liv
 
 - An eyebrow above every section: at most one per three sections
 
-**API** `tone: ink | rose | apricot | lavender | success | inverse (colours the number and dot; the text stays ink) · number · dot · trailing`
+**API** `tone: ink | rose | apricot | lavender | success (colours the number and dot; the text stays ink) · number · dot · trailing`
 
 **Source** `src/components/ui/mono-label.tsx`
 
@@ -930,7 +1080,7 @@ Choose one option from a list.
 
 `checkbox` · component · Stable
 
-Turn an independent option on or off, or agree to something.
+Turn an independent option on or off, or agree to something. Checked, it fills with apricot-200 and an ink tick.
 
 **Use it for**
 
@@ -949,7 +1099,7 @@ Turn an independent option on or off, or agree to something.
 
 `radio-group` · component · Stable
 
-Choose exactly one option, with room for a hint on each.
+Choose exactly one option, with room for a hint on each. The chosen option fills with apricot-200 and an ink dot.
 
 **Use it for**
 
@@ -967,7 +1117,7 @@ Choose exactly one option, with room for a hint on each.
 
 `switch` · component · Stable
 
-A setting that takes effect the moment it changes.
+A setting that takes effect the moment it changes. On, the track is apricot-200.
 
 **Use it for**
 
@@ -1042,7 +1192,7 @@ Show and hide a section of detail.
 
 `tooltip` · component · Stable
 
-A short hint on hover or focus.
+A short hint on hover or focus, on a light surface with a hairline and ink text.
 
 **Use it for**
 
@@ -1212,7 +1362,7 @@ The command-palette search field.
 
 `command-chip` · component · Stable
 
-A quick-action suggestion written as a /command.
+A quick-action suggestion written as a /command, with the slash in apricot.
 
 **Use it for**
 
@@ -1246,7 +1396,7 @@ A larger search and ask input with a small toolbar.
 
 ## Cards
 
-Library · Six card types, each styled for its job, and the bento grid for composing them.
+Library · Nine card types, each styled for its job, the bento grid for composing them, and the feature bento in three styles.
 
 ### Content card
 
@@ -1282,6 +1432,7 @@ One benefit, told plainly.
 
 - A row of three identical cards as a page's only layout
 - Numbering the cards, or long descriptions: keep to one or two sentences
+- A feature grid on a website that needs photos and figures: use the feature bento
 
 **API** `icon · title · description · accent: rose | apricot | lavender | ink · tag`
 
@@ -1365,6 +1516,72 @@ The one next step: book a call, start a diagnostic. Calm: a soft gradient, a hai
 
 **Source** `src/components/cards/ActionCard.tsx`
 
+### Session card
+
+`session-card` · component · Stable
+
+One dated session someone can join: a class, workshop, retreat day or webinar. Remodelled from the 21st.dev event cards: a paper date tile beside the title, time, place and how often it repeats, then one way to reserve.
+
+**Use it for**
+
+- Timetables, workshop listings and webinar sign-ups
+- mode In studio or Online, and repeats in plain words
+- An image only when the session has a matching library photo
+
+**Not for**
+
+- Evergreen offers without a date: use a service card
+- Seats left, attendee counts or countdowns
+- More than one action beside add to calendar
+
+**API** `title · date: { weekday, day, month } · time · place · mode: In studio | Online · repeats · description · image · action: { label, href } · calendarHref`
+
+**Source** `src/components/cards/SessionCard.tsx`
+
+### Profile card
+
+`profile-card` · component · Stable
+
+Who someone will work with: a team member, coach or facilitator. Remodelled from the 21st.dev team member card, with nothing hidden behind hover: portrait, name, role, up to three areas of practice, one line on how they work and a link to book.
+
+**Use it for**
+
+- Team pages, service pages and booking flows
+- The person's own portrait, cropped from the top
+- Two to four profiles in a grid
+
+**Not for**
+
+- Library photos presented as a real team member: they are placeholders only
+- Ratings, reviews, credentials as claims, or client counts
+- More than three focus badges
+
+**API** `name · role · portrait: { src, alt } · focus: string[] (up to 3) · approach · action: { label, href }`
+
+**Source** `src/components/cards/ProfileCard.tsx`
+
+### Steps card
+
+`steps-card` · component · Stable
+
+What happens, in order. Remodelled from the 21st.dev how-it-works timelines: three to five numbered apricot nodes on a dashed hairline, each with a title and one sentence. current marks progress inside the product.
+
+**Use it for**
+
+- How setup works, a program's shape, a booking flow explained
+- current in product onboarding: earlier steps show a tick
+- Beside an action card that starts step one
+
+**Not for**
+
+- More than five steps
+- Percentages or promised timeframes
+- Steps that are really separate features: use feature cards
+
+**API** `title · intro · steps: { title, detail }[] · current (zero-based, product only)`
+
+**Source** `src/components/cards/StepsCard.tsx`
+
 ### Image fade
 
 `image-fade` · pattern · Stable
@@ -1390,7 +1607,7 @@ The soft white dissolve every image card shares: the photo stays whole for its f
 
 `bento-grid` · component · Stable
 
-Compose cards at different sizes in one grid.
+Compose cards at different sizes in one grid. For a website feature section with a photo, figures and an action, use the feature bento.
 
 **Use it for**
 
@@ -1405,6 +1622,29 @@ Compose cards at different sizes in one grid.
 **API** `<BentoGrid> · <BentoCell span={1 | 2 | 3}>`
 
 **Source** `src/components/bento/Bento.tsx`
+
+### Feature bento
+
+`feature-bento` · component · Stable
+
+The website feature grid, remodelled from the 21st.dev feature bento. A two-by-two hero with a photo, a highlight figure, one feature, an action and two facts, in three styles: photo-led, tinted and quiet. Cells lift on hover, the photo eases forward, figures count up and the action's arrow turns.
+
+**Use it for**
+
+- A product or service section after the hero, once per page
+- photo when there is a strong library photo; tint on quiet pages that need warmth; quiet beside other tinted sections
+- Figures from the offer or the database only: prices, the ten-question check
+
+**Not for**
+
+- Invented statistics, ratings or satisfaction percentages
+- Dark or saturated cells: every fill is a 50 tint, a surface or one soft gradient
+- Changing the cell order: the layout is the pattern
+- More than one feature bento on a page
+
+**API** `<FeatureBento variant: photo | tint | quiet hero: { eyebrow, live, title, description, image } highlight: { icon, value, prefix, suffix, label } feature: { icon, title, description } action: { eyebrow, title, href } facts: [figure, figure] />`
+
+**Source** `src/components/bento/FeatureBento.tsx`
 
 ## Blocks
 
@@ -2081,7 +2321,7 @@ Applied · Three full-width sections that make a page feel like Health OS.
 
 `command-hero` · pattern · Stable
 
-The opening of a Health OS page: headline, command bar, quick actions and a product preview.
+The opening of a Health OS page: the two-tone headline with its picture tiles, command bar, quick actions and a product preview.
 
 **Use it for**
 
@@ -2100,7 +2340,7 @@ The opening of a Health OS page: headline, command bar, quick actions and a prod
 
 `bento-section` · pattern · Stable
 
-What the product runs, as a varied bento that ends in an action.
+What the product runs, as the feature bento in its photo-led style, ending in the check.
 
 **Use it for**
 
@@ -2110,7 +2350,7 @@ What the product runs, as a varied bento that ends in an action.
 
 - Four identical cards
 
-**API** `<BentoSection id />`
+**API** `<BentoSection id variant: photo | tint | quiet />`
 
 **Source** `src/sections/BentoSection.tsx`
 
@@ -2134,48 +2374,76 @@ A typical stack of separate tools against one system, as a real table.
 
 ## Banners
 
-Applied · A thin scrolling banner in three tones. It pauses on hover and has its own pause control.
+Applied · A thin scrolling banner in two tones. It pauses on hover and has its own pause control.
 
 ### Ticker
 
 `ticker` · component · Stable
 
-A thin scrolling banner of short statements.
+A thin scrolling banner of short statements, in two light tones.
 
 **Use it for**
 
-- subtle on light pages, carbon on paper pages, tint for a softer moment
+- subtle on light pages, tint on paper pages or for a softer moment
 
 **Not for**
 
 - Critical information
 - More than one ticker on a page
+- A dark bar: there is no carbon tone
 
-**API** `items: { icon, text }[] · tone: subtle | tint | carbon · reverse · speed (32 to 60)`
+**API** `items: { icon, text }[] · tone: subtle | tint · reverse · speed (32 to 60)`
 
 **Source** `src/components/layout/Ticker.tsx`
 
 ## Blog
 
-Applied · The long-form article layout: headline, lead, body, a figure and a comparison table.
+Applied · The blog system: an article page with its table of contents, author and next step, and a blog index with a featured post, filters and pagination.
 
-### Article layout
+### Article page
 
 `article` · pattern · Stable
 
-Long-form reading on the reading column.
+Long-form reading: breadcrumb, category, the two-tone headline, standfirst, author and date with copy link, a hero figure, then the reading column beside a table of contents, with pull quotes on an apricot rule, tables, tags, an author note, related posts and one next step.
 
 **Use it for**
 
 - Blog posts and guides on the site
+- PullQuote for one line worth repeating: an apricot rule, never a filled block
+- TableOfContents when the article has three or more subheadings
+- One resource or action card at the end
 
 **Not for**
 
+- Filled or gradient blocks behind reading text
 - Lines wider than max-w-reading
+- More than one next step at the end
 
-**API** `Compose: Badge · h1 heading · label byline · body · figure · Table`
+**API** `Compose: Breadcrumb · Badge · Headline · ArticleMeta · figure · TableOfContents · PullQuote · Table · AuthorNote · ContentCard · ResourceCard (src/components/blog/Blog.tsx)`
 
-**Source** `src/showcase/sections/BlogSection.tsx`
+**Source** `src/components/blog/Blog.tsx · src/showcase/sections/BlogSection.tsx`
+
+### Blog index
+
+`blog-index` · pattern · Stable
+
+The list of articles: the two-tone headline, one featured post with its photo dissolving toward the text, a category filter, a grid of content cards and pagination.
+
+**Use it for**
+
+- The blog home and category pages
+- One featured post, the newest or most useful
+- Categories that match the articles' badges
+
+**Not for**
+
+- More than one featured post
+- Infinite scroll without page links search engines can follow
+- Filters for categories with no posts
+
+**API** `Compose: Headline · FeaturedPost · CategoryFilter · ContentCard · Pagination (src/components/blog/Blog.tsx)`
+
+**Source** `src/components/blog/Blog.tsx · src/showcase/sections/BlogSection.tsx`
 
 ## Calculators
 
@@ -2292,28 +2560,6 @@ How product screenshots are prepared before they appear anywhere.
 **API** `Rule`
 
 **Source** `design-system/REFERENCE.md`
-
-## Docs template
-
-Applied · A Notion-style page for guides and help content: a callout, toggles and resource rows.
-
-### Docs template
-
-`docs-template` · pattern · Stable
-
-A Notion-style page for guides and help content.
-
-**Use it for**
-
-- Help centres, onboarding guides and resource pages
-
-**Not for**
-
-- Marketing pages
-
-**API** `Compose: sidebar · subheading · body · callout · Disclosure · resource rows`
-
-**Source** `src/showcase/sections/NotionSection.tsx`
 
 ## The live page
 

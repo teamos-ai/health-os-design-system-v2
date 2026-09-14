@@ -1,17 +1,17 @@
 /**
- * BentoSection: what the product runs, as a bento of varied cells. Two feature cells, an
- * image cell and a warm action cell, so the grid has rhythm instead of four white boxes.
+ * BentoSection: what the product runs, as the feature bento in its photo-led style. A photo
+ * hero, a real figure, one feature, the check as the next step and two facts from the offer.
  */
-import { BentoGrid, BentoCell } from '@/components/bento/Bento';
-import { FeatureCard, ContentCard, ActionCard } from '@/components/cards';
+import { ClipboardCheck } from 'lucide-react';
+import { FeatureBento, type BentoStyle } from '@/components/bento/FeatureBento';
 import { FadeIn } from '@/components/ui/animated';
 import { BENTO_ITEMS } from '@/data/system';
 import { thumb } from '@/lib/images';
 
 const coworking = '/imagery/work-and-content-creation/three-women-coworking-on-boucle-sofa-with-laptop-and-coffee-studio-lounge-16-9.png';
 
-export const BentoSection = ({ id = 'runs' }: { id?: string }) => {
-  const [setup, enquiries, onboarding] = BENTO_ITEMS;
+export const BentoSection = ({ id = 'runs', variant = 'photo' }: { id?: string; variant?: BentoStyle }) => {
+  const [setup, enquiries] = BENTO_ITEMS;
   return (
     <section id={id} className="py-16 md:py-24">
       <div className="mx-auto max-w-container px-6">
@@ -22,32 +22,22 @@ export const BentoSection = ({ id = 'runs' }: { id?: string }) => {
           </p>
         </FadeIn>
         <FadeIn delay={0.05} y={16}>
-          <BentoGrid>
-            <BentoCell span={2}>
-              <ContentCard
-                title={setup.title}
-                excerpt={setup.description}
-                image={{ src: thumb(coworking), alt: 'Three women working together on a sofa with laptops and coffee' }}
-                ratio="3/2"
-                category="Setup"
-                className="h-full"
-              />
-            </BentoCell>
-            <BentoCell>
-              <FeatureCard icon={enquiries.icon} title={enquiries.title} description={enquiries.description} accent={enquiries.accent} />
-            </BentoCell>
-            <BentoCell>
-              <FeatureCard icon={onboarding.icon} title={onboarding.title} description={onboarding.description} accent={onboarding.accent} />
-            </BentoCell>
-            <BentoCell span={2}>
-              <ActionCard
-                title="See what still routes through you"
-                description="Ten questions, under two minutes. The result is yours whether we ever speak or not."
-                action={{ label: 'Start the check' }}
-                className="h-full"
-              />
-            </BentoCell>
-          </BentoGrid>
+          <FeatureBento
+            variant={variant}
+            hero={{
+              eyebrow: 'Setup',
+              title: setup.title,
+              description: setup.description,
+              image: { src: thumb(coworking), alt: 'Three women working together on a sofa with laptops and coffee' },
+            }}
+            highlight={{ icon: ClipboardCheck, value: 10, label: 'questions in the check, under two minutes' }}
+            feature={{ icon: enquiries.icon, title: enquiries.title, description: enquiries.description }}
+            action={{ eyebrow: 'The check', title: 'See what still routes through you' }}
+            facts={[
+              { value: 297, prefix: '$', label: 'AUD a month for Health OS' },
+              { value: 'One', label: 'place for booking, clients and sales' },
+            ]}
+          />
         </FadeIn>
       </div>
     </section>

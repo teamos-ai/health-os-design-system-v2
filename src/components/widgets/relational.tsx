@@ -252,7 +252,7 @@ export const AvatarCluster = ({
       <button
         type="button"
         aria-label="Add a person"
-        className="-ml-2 flex h-9 w-9 items-center justify-center rounded-md border border-dashed border-ink-400 bg-surface font-sans text-body text-ink-500 transition-colors hover:border-ink-900 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
+        className="-ml-2 flex h-9 w-9 items-center justify-center rounded-md border border-dashed border-ink-400 bg-surface font-sans text-body text-ink-500 transition-colors hover:border-ink-900 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400"
       >
         +
       </button>

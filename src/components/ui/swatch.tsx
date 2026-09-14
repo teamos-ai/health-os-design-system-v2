@@ -72,11 +72,11 @@ export const Swatch = ({ hex, label, role, copyValue, className }: SwatchProps) 
       aria-label={`${label}, ${HEX}. Click to copy ${value}.`}
       className={cn(
         'group flex flex-col overflow-hidden rounded-lg border border-line bg-surface text-left transition-[box-shadow,border-color] duration-sm ease-out hover:border-ink-400 hover:shadow-sm',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
         className
       )}
     >
-      <span className="relative block h-16 w-full ring-1 ring-inset ring-carbon/5" style={{ background: hex }}>
+      <span className="relative block h-16 w-full ring-1 ring-inset ring-ink-900/5" style={{ background: hex }}>
         <span
           className={cn(
             'absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-md bg-surface shadow-sm transition-opacity duration-sm',
@@ -117,7 +117,7 @@ export const GradientSwatch = ({ label, token, css, className }: GradientSwatchP
       className={cn('group block w-full text-left focus-visible:outline-none', className)}
     >
       <span
-        className="relative block h-32 w-full overflow-hidden rounded-lg border border-line transition-shadow duration-sm group-hover:shadow-sm group-focus-visible:ring-2 group-focus-visible:ring-rose-400"
+        className="relative block h-32 w-full overflow-hidden rounded-lg border border-line transition-shadow duration-sm group-hover:shadow-sm group-focus-visible:ring-2 group-focus-visible:ring-apricot-400"
         style={{ background: css }}
       >
         <span

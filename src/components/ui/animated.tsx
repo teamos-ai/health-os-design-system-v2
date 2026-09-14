@@ -7,7 +7,7 @@
  *
  * Stable:        FadeIn, Stagger, StaggerItem, Reveal, TextReveal, CountUp, RollingNumber,
  *                HoverLift, HoverUnderline, Marquee, Appear, BreathingDot, HeroGlow
- * Experimental:  Parallax, BorderGlow, PointerSpotlight, GradientShimmer (label them where shown)
+ * Experimental:  Parallax (label it where shown)
  */
 import * as React from 'react';
 import {
@@ -23,14 +23,7 @@ import {
   type Variants,
 } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { APRICOT, ROSE, LAVENDER } from '@/lib/palette';
 import { EASE_OUT } from '@/lib/motion';
-
-/** "#E85BA8" + 0.14 → "rgba(232, 91, 168, 0.14)" — for palette hexes needing an alpha. */
-const hexToRgba = (hex: string, alpha: number): string => {
-  const n = parseInt(hex.replace('#', ''), 16);
-  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
-};
 
 /* ── FadeIn — viewport fade + small translate-up (in-view cascade) ── */
 export interface FadeInProps {
@@ -69,14 +62,18 @@ export const Stagger = ({
   className,
   children,
   amount = 0.15,
+  as = 'div',
 }: {
   className?: string;
   children: React.ReactNode;
   amount?: number;
+  /** the list element, when the items are list items */
+  as?: 'div' | 'ol' | 'ul';
 }) => {
   const reduced = useReducedMotion();
+  const MotionTag = motion[as] as React.ElementType;
   return (
-    <motion.div
+    <MotionTag
       className={className}
       variants={containerVariants}
       initial={reduced ? false : 'hidden'}
@@ -84,20 +81,26 @@ export const Stagger = ({
       viewport={{ once: true, amount }}
     >
       {children}
-    </motion.div>
+    </MotionTag>
   );
 };
 export const StaggerItem = ({
   className,
   children,
+  as = 'div',
+  ...rest
 }: {
   className?: string;
   children: React.ReactNode;
-}) => (
-  <motion.div className={className} variants={itemVariants}>
-    {children}
-  </motion.div>
-);
+  as?: 'div' | 'li';
+} & Pick<React.HTMLAttributes<HTMLElement>, 'aria-current'>) => {
+  const MotionTag = motion[as] as React.ElementType;
+  return (
+    <MotionTag className={className} variants={itemVariants} {...rest}>
+      {children}
+    </MotionTag>
+  );
+};
 
 /* ── CountUp — animated number, IntersectionObserver-driven ── */
 export interface CountUpProps {
@@ -243,6 +246,9 @@ export const Marquee = ({
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!draggable) return;
+    /* Leave controls inside the row (carousel arrows, links) clickable: pointer capture
+       would retarget their click to the row. */
+    if ((e.target as HTMLElement).closest('button, a, input, select, textarea')) return;
     dragRef.current = { active: true, startX: e.clientX, startVal: x.get() };
     e.currentTarget.setPointerCapture?.(e.pointerId);
   };
@@ -385,62 +391,6 @@ export const Parallax = ({
   );
 };
 
-/* ── GradientShimmer: experimental loading sheen for placeholder text shapes ──
-   Loading placeholders only, never readable content. The text stays one solid tonal
-   neutral; a soft mask band travels across it, so there is no gradient-filled text. */
-const SHEEN_MASK: React.CSSProperties = {
-  WebkitMaskImage: 'linear-gradient(110deg, #000 35%, rgba(0, 0, 0, 0.35) 50%, #000 65%)',
-  maskImage: 'linear-gradient(110deg, #000 35%, rgba(0, 0, 0, 0.35) 50%, #000 65%)',
-  WebkitMaskSize: '250% 100%',
-  maskSize: '250% 100%',
-};
-
-export const GradientShimmer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => (
-  <span className={cn('animate-sheen text-ink-200', className)} style={SHEEN_MASK}>
-    {children}
-  </span>
-);
-
-/* ── BorderGlow — soft gradient hairline drifting around the edge ── */
-/** Experimental. The signature gradient drifts around a card edge while it is hovered or focused. */
-export const BorderGlow = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  const reduced = useReducedMotion();
-  const [active, setActive] = React.useState(false);
-  return (
-    <div
-      className={cn('relative overflow-hidden rounded-md p-px', className)}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
-      onFocus={() => setActive(true)}
-      onBlur={() => setActive(false)}
-    >
-      <motion.span
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[220%] w-[220%] -translate-x-1/2 -translate-y-1/2"
-        style={{
-          background:
-            `conic-gradient(from 0deg, transparent 0deg, ${APRICOT[400]} 40deg, ${ROSE[400]} 80deg, ${LAVENDER[400]} 120deg, transparent 170deg)`,
-        }}
-        animate={reduced || !active ? undefined : { rotate: 360 }}
-        transition={{ duration: 9, ease: 'linear', repeat: Infinity }}
-      />
-      <div className="relative rounded-md bg-surface">{children}</div>
-    </div>
-  );
-};
-
 /* ── BreathingDot: a calm pulse for a genuinely live status (one per view) ── */
 export const BreathingDot = ({ className, color = 'bg-success-600' }: { className?: string; color?: string }) => {
   const reduced = useReducedMotion();
@@ -460,39 +410,6 @@ export const BreathingDot = ({ className, color = 'bg-success-600' }: { classNam
   );
 };
 
-/* ── PointerSpotlight — soft glow that follows the cursor inside a card ── */
-const SPOTLIGHT_DEFAULT = hexToRgba(ROSE[400], 0.14); // rose-400 @ .14
-
-/** Experimental. A soft rose light follows the pointer inside a card. */
-export const PointerSpotlight = ({
-  children,
-  className,
-  color = SPOTLIGHT_DEFAULT,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  color?: string;
-}) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty('--mx', `${e.clientX - r.left}px`);
-    el.style.setProperty('--my', `${e.clientY - r.top}px`);
-  };
-  return (
-    <div ref={ref} onMouseMove={onMove} className={cn('group relative overflow-hidden rounded-md', className)}>
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-md ease-out group-hover:opacity-100"
-        style={{ background: `radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), ${color}, transparent 70%)` }}
-      />
-      <div className="relative">{children}</div>
-    </div>
-  );
-};
-
 /* ── HoverUnderline — link affordance, underline draws in from the left ── */
 export const HoverUnderline = ({
   children,
@@ -506,14 +423,14 @@ export const HoverUnderline = ({
   <a
     href={href}
     className={cn(
-      'group relative inline-block rounded-md font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-400',
+      'group relative inline-block rounded-md font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-apricot-400',
       className
     )}
   >
     {children}
     <span
       aria-hidden
-      className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-rose-400 transition-transform duration-md ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
+      className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-apricot-200 transition-transform duration-md ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
     />
   </a>
 );

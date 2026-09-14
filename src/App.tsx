@@ -8,6 +8,7 @@ import { VideoSection } from '@/showcase/sections/VideoSection';
 import { OverviewSection } from '@/showcase/sections/OverviewSection';
 import { ChecklistSection } from '@/showcase/sections/ChecklistSection';
 import { TokensSection } from '@/showcase/sections/TokensSection';
+import { HeadlinesSection } from '@/showcase/sections/HeadlinesSection';
 import { LogoSection } from '@/showcase/sections/LogoSection';
 import { IconsSection } from '@/showcase/sections/IconsSection';
 import { MotionSection } from '@/showcase/sections/MotionSection';
@@ -24,7 +25,6 @@ import { CalculatorsSection } from '@/showcase/sections/CalculatorsSection';
 import { SocialMediaSection } from '@/showcase/sections/SocialMediaSection';
 import { BackgroundsSection } from '@/showcase/sections/BackgroundsSection';
 import { ImageLibrarySection } from '@/showcase/sections/ImageLibrarySection';
-import { NotionSection } from '@/showcase/sections/NotionSection';
 import { LivePageSection } from '@/showcase/sections/LivePageSection';
 
 /** Section id → component. Order and grouping come from the registry. */
@@ -34,6 +34,7 @@ const RENDER: Record<string, ComponentType> = {
   overview: OverviewSection,
   checklist: ChecklistSection,
   tokens: TokensSection,
+  headlines: HeadlinesSection,
   logo: LogoSection,
   icons: IconsSection,
   motion: MotionSection,
@@ -50,7 +51,6 @@ const RENDER: Record<string, ComponentType> = {
   social: SocialMediaSection,
   backgrounds: BackgroundsSection,
   imagery: ImageLibrarySection,
-  notion: NotionSection,
   live: LivePageSection,
 };
 

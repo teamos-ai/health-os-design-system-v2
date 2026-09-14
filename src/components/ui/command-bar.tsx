@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 const bar = cva(
   'group flex items-center gap-3 rounded-lg border border-line bg-surface ' +
     'transition-[border-color,box-shadow,opacity] duration-md ease-out shadow-sm has-[:disabled]:opacity-60 ' +
-    'focus-within:border-rose-400 focus-within:shadow-md focus-within:ring-2 focus-within:ring-rose-200',
+    'focus-within:border-apricot-400 focus-within:shadow-md focus-within:ring-2 focus-within:ring-apricot-200',
   {
     variants: {
       size: {
@@ -48,7 +48,7 @@ export const CommandBar = React.forwardRef<HTMLInputElement, CommandBarProps>(
     return (
       <div className={cn(bar({ size }), containerClassName)}>
         <Search
-          className="shrink-0 text-ink-400 transition-colors group-focus-within:text-rose-400"
+          className="shrink-0 text-ink-400 transition-colors group-focus-within:text-apricot-400"
           width={iconSize}
           height={iconSize}
           strokeWidth={1.5}

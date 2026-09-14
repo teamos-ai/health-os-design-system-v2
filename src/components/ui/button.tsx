@@ -2,7 +2,7 @@
  * Button: the three Health OS button styles, one colour everywhere.
  *
  *   primary    the one main action in a view. Apricot-200 (#F8C39C) with dark ink text,
- *              on every ground: light, paper, tinted panels and carbon.
+ *              on every ground: light, paper and tinted panels.
  *   secondary  a supporting action beside a primary. Surface fill with a hairline.
  *   text       a low-emphasis action inside copy, cards and rows. Ink text on an apricot underline.
  *
@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils';
 const button = cva(
   'inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-md font-display text-body ' +
     'transition-[background-color,border-color,color,box-shadow,transform] duration-sm ease-out ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
     'active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',
   {
     variants: {

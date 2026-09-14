@@ -116,6 +116,16 @@ function tokenTables() {
   );
   out.push('Pair each role with its family: `font-display text-heading`, `font-display text-subheading`, `font-sans text-body`, `font-sans text-label`.', '');
 
+  out.push('### Headline', '', desc(tokens.headline), '');
+  out.push(
+    table(
+      ['Token', 'CSS variable', 'Value', 'Use'],
+      entries(tokens.headline).map(([k, n]) => [code(k), typeof val(n) === 'string' ? code(`--hos-headline-${k}`) : 'Rule', val(n), desc(n)])
+    ),
+    ''
+  );
+  out.push('Build headlines with `<Headline lead rest />` from `src/components/ui/headline.tsx`: it applies these values and checks the tile count.', '');
+
   out.push('### Spacing', '', desc(tokens.space), '');
   out.push(
     table(

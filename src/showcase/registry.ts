@@ -25,7 +25,7 @@ import {
   Share2,
   Wallpaper,
   Images,
-  NotebookText,
+  Heading1,
   Globe,
   type LucideIcon,
 } from 'lucide-react';
@@ -37,6 +37,7 @@ const ICONS: Record<string, LucideIcon> = {
   overview: LayoutDashboard,
   checklist: ListChecks,
   tokens: Palette,
+  headlines: Heading1,
   logo: Hexagon,
   icons: Shapes,
   motion: Wand2,
@@ -53,7 +54,6 @@ const ICONS: Record<string, LucideIcon> = {
   social: Share2,
   backgrounds: Wallpaper,
   imagery: Images,
-  notion: NotebookText,
   live: Globe,
 };
 

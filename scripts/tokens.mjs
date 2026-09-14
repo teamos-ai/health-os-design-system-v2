@@ -67,6 +67,9 @@ function buildCss() {
   for (const [name, node] of entries(t.shadow)) lines.push(`  --hos-shadow-${name}: ${val(node)};`);
   for (const [name, node] of entries(t.motion.duration)) lines.push(`  --hos-duration-${name}: ${val(node)};`);
   for (const [name, node] of entries(t.motion.easing)) lines.push(`  --hos-ease-${name}: cubic-bezier(${val(node).join(', ')});`);
+  for (const [name, node] of entries(t.headline)) {
+    if (typeof val(node) === 'string') lines.push(`  --hos-headline-${name}: ${val(node)};`);
+  }
   lines.push('}', '');
   return lines.join('\n');
 }
@@ -121,7 +124,6 @@ function buildPreset() {
           'marquee-reverse': { '0%': { transform: 'translateX(-50%)' }, '100%': { transform: 'translateX(0)' } },
           ticker: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
           shimmer: { '0%': { backgroundPosition: '200% 0' }, '100%': { backgroundPosition: '-200% 0' } },
-          sheen: { '0%': { WebkitMaskPosition: '100% 0', maskPosition: '100% 0' }, '100%': { WebkitMaskPosition: '0% 0', maskPosition: '0% 0' } },
           'enter-rise': { from: { opacity: '0', transform: 'translateY(4px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
         },
         animation: {
@@ -130,7 +132,6 @@ function buildPreset() {
           'marquee-reverse': 'marquee-reverse 40s linear infinite',
           ticker: 'ticker 32s linear infinite',
           shimmer: 'shimmer 6s linear infinite',
-          sheen: 'sheen 2.4s linear infinite',
           'enter-rise': `enter-rise ${val(t.motion.duration.md)} cubic-bezier(${val(t.motion.easing.out).join(', ')}) both`,
         },
       },
@@ -171,6 +172,9 @@ function buildPalette() {
     `export const CARBON = '${val(c.carbon)}';`,
     `export const WHITE = '${val(c.white)}';`,
     `export const PAPER_IVORY = '${val(t.theme.paper.paper)}';`,
+    '',
+    '/** Two-tone headline limits: every H1 carries between tilesMin and tilesMax picture tiles. */',
+    `export const HEADLINE = { tilesMin: ${val(t.headline['tiles-min'])}, tilesMax: ${val(t.headline['tiles-max'])} } as const;`,
     '',
     '/** The signature gradient stops, apricot to rose to lavender. Never reversed. */',
     'export const GRADIENT_STOPS = [APRICOT[400], ROSE[400], LAVENDER[400]] as const;',

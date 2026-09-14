@@ -1,8 +1,9 @@
 /**
- * HeroSection: the reference site's opening. One heading with a highlighted word, a short
- * line, the command widget and quick links to the parts people look for most.
+ * HeroSection: the reference site's opening. The two-tone headline with its picture tiles, a
+ * short line, the command widget and quick links to the parts people look for most.
  */
 import { Hero, HeroContainer } from '@/components/ui/hero';
+import { Headline } from '@/components/ui/headline';
 import { CommandWidget } from '@/components/ui/command-widget';
 import { CommandChip } from '@/components/ui/command-chip';
 import { FadeIn, Stagger, StaggerItem } from '@/components/ui/animated';
@@ -23,9 +24,7 @@ export const HeroSection = () => {
     <Hero id="hero">
       <HeroContainer>
         <FadeIn delay={0.05}>
-          <h1 className="font-display text-heading text-ink-900">
-            The design system behind a <span className="text-highlight">calm practice</span>
-          </h1>
+          <Headline lead="The design system {swatches}" rest="behind a calm {stones} practice" />
         </FadeIn>
         <FadeIn delay={0.1} className="mt-hero-gap-sm">
           <p className="max-w-hero-subcopy font-sans text-body text-ink-600">{meta.lead}</p>

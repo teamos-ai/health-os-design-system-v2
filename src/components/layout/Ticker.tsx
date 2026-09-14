@@ -2,7 +2,7 @@
  * Ticker: a thin banner of short statements that scrolls slowly and pauses on hover.
  * A keyboard-reachable pause control sits at the right edge (WCAG 2.2.2).
  *
- * Tones: `subtle` (quiet fill), `tint` (soft wash), `carbon` (the dark bar).
+ * Tones: `subtle` (quiet fill) and `tint` (soft wash). There is no dark bar.
  * Options: `reverse` direction and `speed` in seconds per loop (32 to 60).
  */
 import * as React from 'react';
@@ -15,23 +15,16 @@ const TONES = {
   subtle: {
     wrap: 'bg-ink-100 border-line',
     text: 'text-ink-600',
-    icon: 'text-rose-400',
+    icon: 'text-apricot-400',
     fade: 'from-ink-100',
-    ring: 'focus-visible:ring-rose-400',
+    ring: 'focus-visible:ring-apricot-400',
   },
   tint: {
     wrap: 'bg-brand-gradient-soft border-line',
     text: 'text-ink-900',
-    icon: 'text-rose-400',
+    icon: 'text-apricot-400',
     fade: 'from-lavender-50',
-    ring: 'focus-visible:ring-rose-400',
-  },
-  carbon: {
-    wrap: 'bg-carbon border-carbon',
-    text: 'text-white/80',
-    icon: 'text-rose-400',
-    fade: 'from-carbon',
-    ring: 'focus-visible:ring-white/70',
+    ring: 'focus-visible:ring-apricot-400',
   },
 } as const;
 

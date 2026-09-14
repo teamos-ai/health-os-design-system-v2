@@ -1,12 +1,13 @@
 /**
- * CommandHero: the command-palette hero. A headline with one highlighted word, a short
- * line, the command bar and quick-action chips, then an illustrative product preview.
+ * CommandHero: the command-palette hero. The two-tone headline with its picture tiles, a
+ * short line, the command bar and quick-action chips, then an illustrative product preview.
  * Built on <Hero> so the spacing rules hold.
  */
 import { CommandBar } from '@/components/ui/command-bar';
 import { CommandChip } from '@/components/ui/command-chip';
 import { DashboardPreview } from '@/components/ui/dashboard-preview';
 import { Hero, HeroContainer } from '@/components/ui/hero';
+import { Headline } from '@/components/ui/headline';
 import { FadeIn, HeroGlow, Stagger, StaggerItem } from '@/components/ui/animated';
 import { COMMANDS } from '@/data/system';
 
@@ -17,15 +18,12 @@ export interface CommandHeroProps {
 }
 
 export const CommandHero = ({ id = 'top', headingLevel = 'h1' }: CommandHeroProps) => {
-  const Heading = headingLevel;
   return (
     <Hero id={id} className="border-b-0">
       <HeroGlow />
       <HeroContainer>
         <FadeIn>
-          <Heading className="font-display text-heading text-ink-900">
-            You built it. Now make it <span className="text-highlight">run without you</span>.
-          </Heading>
+          <Headline as={headingLevel} lead="You built {blocks} it." rest="Now make it run {computer} without you." />
         </FadeIn>
         <FadeIn delay={0.08} className="mt-hero-gap-sm">
           <p className="max-w-hero-subcopy font-sans text-body text-ink-600">

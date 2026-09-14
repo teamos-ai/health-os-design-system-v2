@@ -15,6 +15,9 @@ export const CARBON = '#1F1F1F';
 export const WHITE = '#FFFFFF';
 export const PAPER_IVORY = '#F9F6F2';
 
+/** Two-tone headline limits: every H1 carries between tilesMin and tilesMax picture tiles. */
+export const HEADLINE = { tilesMin: 2, tilesMax: 3 } as const;
+
 /** The signature gradient stops, apricot to rose to lavender. Never reversed. */
 export const GRADIENT_STOPS = [APRICOT[400], ROSE[400], LAVENDER[400]] as const;
 

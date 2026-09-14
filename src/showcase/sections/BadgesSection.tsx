@@ -72,13 +72,6 @@ export const BadgesSection = () => (
               View the system
             </MonoLabel>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex rounded-md bg-carbon px-3 py-2">
-              <MonoLabel tone="inverse" number="01">
-                On carbon
-              </MonoLabel>
-            </span>
-          </div>
         </div>
       </Example>
     </div>
