@@ -18,13 +18,13 @@ const EXAMPLES = [
 const ANATOMY = [
   { name: 'Lead', value: 'ink-900', note: 'The opening phrase that makes the point. One switch of tone, never two.' },
   { name: 'Rest', value: 'ink-400', note: 'Everything after the lead, in the same size and weight.' },
-  { name: 'Tiles', value: '2 or 3', note: 'A 0.9em squircle beside the word it pictures. Never first or last.' },
+  { name: 'Tiles', value: '2 or 3', note: 'A 0.9em squircle beside the word it pictures, kept on its line. Never first or last.' },
 ];
 
 const TONE_SWATCH = {
-  apricot: 'bg-apricot-50 ring-apricot-200',
   rose: 'bg-rose-50 ring-rose-200',
   lavender: 'bg-lavender-50 ring-lavender-200',
+  neutral: 'bg-ink-100 ring-ink-200',
 } as const;
 
 const RECIPE = `Photorealistic studio product photograph of [one literal object that pictures the word], [materials and colours], three-quarter view. Isolated on a fully transparent background, centred and filling about 80% of a square frame, soft diffused daylight from the upper left, gentle natural shading, crisp high detail, calm minimal aesthetic. No text, no letters, no logos, no brand marks, no watermark.`;

@@ -66,7 +66,7 @@ export const MiniCalendar = ({
               aria-pressed={isSel}
               aria-label={`${d} ${monthLabel}${booked.includes(d) ? ', has bookings' : ''}${isToday ? ', today' : ''}`}
               className={cn(
-                'relative flex aspect-square items-center justify-center rounded-md font-sans text-body transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400',
+                'relative flex aspect-square items-center justify-center rounded-md font-sans text-body transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
                 isToday ? 'bg-apricot-200 text-ink-900' : isSel ? 'bg-apricot-50 text-ink-900 ring-1 ring-inset ring-apricot-200' : 'text-ink-900 hover:bg-ink-100'
               )}
             >
@@ -111,7 +111,7 @@ export const SlotPicker = ({
                 onSelect?.(s.time);
               }}
               className={cn(
-                'rounded-md border px-3 py-2 font-sans text-body tabular-nums transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400',
+                'rounded-md border px-3 py-2 font-sans text-body tabular-nums transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
                 s.taken
                   ? 'cursor-not-allowed border-transparent bg-ink-100 text-ink-400 line-through'
                   : isSel
@@ -193,7 +193,7 @@ export const PlanCard = ({
       <li className="mt-1">
         <button
           type="button"
-          className="h-11 w-full rounded-md bg-apricot-200 font-display text-body text-ink-900 transition-colors hover:bg-apricot-200/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2"
+          className="h-11 w-full rounded-md bg-apricot-200 font-display text-body text-ink-900 transition-colors hover:bg-apricot-200/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2"
         >
           {action}
         </button>
@@ -231,7 +231,7 @@ export const ToggleSettings = ({
                 onChange?.(it.id, !on);
               }}
               className={cn(
-                'relative h-6 w-11 shrink-0 rounded-full transition-colors duration-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2',
+                'relative h-6 w-11 shrink-0 rounded-full transition-colors duration-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2',
                 on ? 'bg-apricot-200' : 'bg-ink-200'
               )}
             >

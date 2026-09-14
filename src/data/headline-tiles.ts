@@ -10,7 +10,7 @@
  * files to public/heading-tiles/, then add an entry here. Refer to it in a headline as {id}.
  */
 
-export type HeadlineTileTone = 'apricot' | 'rose' | 'lavender';
+export type HeadlineTileTone = 'rose' | 'lavender' | 'neutral';
 
 export interface HeadlineTile {
   /** the name used inside a headline string: {id} */
@@ -23,7 +23,7 @@ export interface HeadlineTile {
   alt: string;
   /** ideas this picture can stand for */
   means: string[];
-  /** the soft tint behind the object */
+  /** the soft tint behind the object: rose, lavender or a warm neutral (apricot is for actions) */
   tone: HeadlineTileTone;
 }
 
@@ -37,10 +37,10 @@ const tile = (id: string, file: string, alt: string, means: string[], tone: Head
 });
 
 export const HEADLINE_TILES: Record<string, HeadlineTile> = {
-  swatches: tile('swatches', 'colour-swatch-cards', 'A fan of paint swatch cards in apricot, rose and lavender', ['design', 'design system', 'brand', 'colour', 'choices'], 'apricot'),
+  swatches: tile('swatches', 'colour-swatch-cards', 'A fan of paint swatch cards in apricot, rose and lavender', ['design', 'design system', 'brand', 'colour', 'choices'], 'rose'),
   stones: tile('stones', 'balanced-river-stones', 'Three smooth river stones balanced in a cairn', ['calm', 'balance', 'steady'], 'lavender'),
-  blocks: tile('blocks', 'wooden-building-blocks', 'A small structure of natural wooden building blocks', ['built', 'building', 'foundations', 'setup'], 'apricot'),
+  blocks: tile('blocks', 'wooden-building-blocks', 'A small structure of natural wooden building blocks', ['built', 'building', 'foundations', 'setup'], 'neutral'),
   computer: tile('computer', 'vintage-all-in-one-computer', 'A vintage beige all-in-one computer with a softly glowing screen', ['software', 'system', 'runs itself', 'technology'], 'rose'),
   tools: tile('tools', 'screwdriver-and-wrench', 'A wooden-handled screwdriver crossed with an adjustable wrench', ['tools', 'tool stack', 'fixing', 'admin'], 'lavender'),
-  cables: tile('cables', 'cables-plugged-together', 'Two white braided cables plugged into each other', ['connected', 'integrated', 'wired together', 'one place'], 'apricot'),
+  cables: tile('cables', 'cables-plugged-together', 'Two white braided cables plugged into each other', ['connected', 'integrated', 'wired together', 'one place'], 'neutral'),
 };

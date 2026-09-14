@@ -56,7 +56,7 @@ export const ServiceCard = ({
 
     <div className="flex flex-col gap-4 p-6 md:p-8">
       {category && (
-        <Badge variant="apricot" className="self-start">
+        <Badge variant="rose" className="self-start">
           {category}
         </Badge>
       )}

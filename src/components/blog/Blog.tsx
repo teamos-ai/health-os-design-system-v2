@@ -2,15 +2,17 @@
  * Blog: the parts of a Health OS article page and blog index.
  *
  * Article page, top to bottom: Breadcrumb, a category badge, the two-tone Headline, a
- * standfirst, ArticleMeta (author, date, reading time, copy link), the hero figure, then the
- * body on the reading column beside a TableOfContents. Inside the body: subheadings, running
- * text, PullQuote, figures and tables. It ends with tags, AuthorNote, related posts and one
- * next step.
+ * standfirst, ArticleMeta (author, date, reading time, copy link), the hero figure, then
+ * ArticleLayout: the reading column beside a TableOfContents. Inside the body: subheadings,
+ * running text, PullQuote, figures and tables. It ends with tags, AuthorNote, related posts
+ * and one next step.
  *
- * Blog index: the two-tone Headline, CategoryFilter, one FeaturedPost, a grid of content
- * cards and Pagination.
+ * Blog index: the two-tone Headline, one FeaturedPost, CategoryFilter, a grid of content
+ * cards with a result count for screen readers, and Pagination.
  *
- * Nothing here uses a filled block behind reading text: pull quotes sit on an apricot rule.
+ * Nothing here uses a filled block behind reading text: pull quotes sit on a rose rule.
+ * Apricot marks only what you can act on or have chosen: the selected filter and the
+ * table of contents' current section.
  */
 import * as React from 'react';
 import { ArrowRight, Link2 } from 'lucide-react';
@@ -33,9 +35,13 @@ export interface Author {
 /** Author, date and reading time, with a copy-link action. */
 export const ArticleMeta = ({ author, date, readTime, className }: { author: Author; date: string; readTime: string; className?: string }) => {
   const { toast } = useToast();
-  const copy = () => {
-    void navigator.clipboard?.writeText(window.location.href);
-    toast({ title: 'Link copied' });
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toast({ title: 'Link copied' });
+    } catch {
+      toast({ title: 'Copy the link from the address bar', tone: 'warning' });
+    }
   };
   return (
     <div className={cn('flex flex-wrap items-center justify-between gap-4 border-y border-line py-4', className)}>
@@ -57,9 +63,9 @@ export const ArticleMeta = ({ author, date, readTime, className }: { author: Aut
   );
 };
 
-/** A quote from the article, set larger on an apricot rule. Never a filled block. */
+/** A quote from the article, set larger on a soft rose rule. Never a filled block. */
 export const PullQuote = ({ children, cite }: { children: React.ReactNode; cite?: string }) => (
-  <figure className="my-10 border-l-2 border-apricot-200 pl-6">
+  <figure className="my-10 border-l-2 border-rose-200 pl-6">
     <blockquote>
       <p className="font-display text-subheading text-ink-900">{children}</p>
     </blockquote>
@@ -108,6 +114,18 @@ export const TableOfContents = ({ items, className }: { items: { id: string; lab
   );
 };
 
+/**
+ * The article body beside its table of contents. One column on phones and tablets, the
+ * contents beside the reading column from lg. Both columns can shrink (min-w-0), so a wide
+ * table scrolls inside its own frame instead of pushing text off the screen.
+ */
+export const ArticleLayout = ({ toc, children, className }: { toc?: { id: string; label: string }[]; children: React.ReactNode; className?: string }) => (
+  <div className={cn('grid gap-10', toc && 'lg:grid-cols-[12rem_minmax(0,1fr)]', className)}>
+    {toc && <TableOfContents items={toc} className="min-w-0 self-start" />}
+    <div className="min-w-0 max-w-reading">{children}</div>
+  </div>
+);
+
 /** Who wrote it, after the article: the author, one line and a link to more of their writing. */
 export const AuthorNote = ({ author, bio, href = '#' }: { author: Author; bio: string; href?: string }) => (
   <aside className="flex gap-4 rounded-lg border border-line bg-surface p-6">
@@ -133,7 +151,7 @@ export const CategoryFilter = ({
   value: string;
   onChange: (category: string) => void;
 }) => (
-  <div role="group" aria-label="Filter by category" className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 py-1">
+  <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
     {['All', ...categories].map((c) => {
       const selected = c === value;
       return (
@@ -143,7 +161,7 @@ export const CategoryFilter = ({
           aria-pressed={selected}
           onClick={() => onChange(c)}
           className={cn(
-            'shrink-0 rounded-md border px-3 py-2 font-sans text-body transition-colors duration-sm ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400',
+            'rounded-md border px-3 py-2 font-sans text-body transition-colors duration-sm ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
             selected ? 'border-apricot-200 bg-apricot-50 text-ink-900' : 'border-line bg-surface text-ink-600 hover:border-ink-400 hover:text-ink-900'
           )}
         >
@@ -167,19 +185,19 @@ export interface PostSummary {
 
 /** The one featured post at the top of a blog index: the photo dissolves toward the text. */
 export const FeaturedPost = ({ post, className }: { post: PostSummary; className?: string }) => (
-  <article className={cn('group grid overflow-hidden rounded-lg border border-line bg-surface transition-shadow duration-md ease-out hover:shadow-sm md:grid-cols-2', className)}>
+  <article className={cn('group grid overflow-hidden rounded-lg border border-line bg-surface md:grid-cols-2', className)}>
     <div className="image-fade-b relative min-h-64 overflow-hidden md:image-fade-r">
       <img
         src={post.image.src}
         alt={post.image.alt}
         loading="lazy"
         decoding="async"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-xl ease-out group-hover:scale-[1.03]"
+        className="absolute inset-0 h-full w-full object-cover"
       />
     </div>
     <div className="flex flex-col items-start gap-4 p-6 md:p-10">
       <div className="flex items-center gap-3">
-        <Badge variant="apricot" size="sm">
+        <Badge variant="rose" size="sm">
           Featured
         </Badge>
         <span className="font-sans text-label uppercase text-ink-500">{post.category}</span>

@@ -252,7 +252,7 @@ export const AvatarCluster = ({
       <button
         type="button"
         aria-label="Add a person"
-        className="-ml-2 flex h-9 w-9 items-center justify-center rounded-md border border-dashed border-ink-400 bg-surface font-sans text-body text-ink-500 transition-colors hover:border-ink-900 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400"
+        className="-ml-2 flex h-9 w-9 items-center justify-center rounded-md border border-dashed border-ink-400 bg-surface font-sans text-body text-ink-500 transition-colors hover:border-ink-900 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
       >
         +
       </button>
@@ -267,14 +267,14 @@ export const ConversionFunnel = ({ stages }: { stages: { label: string; value: n
   return (
     <div className="flex w-full flex-col gap-3">
       {stages.map((s, i) => (
-        <div key={s.label} className="flex items-center gap-4">
-          <span className="w-32 shrink-0 text-right font-sans text-body text-ink-600">{s.label}</span>
+        <div key={s.label} className="flex items-center gap-3 sm:gap-4">
+          <span className="w-20 shrink-0 text-right font-sans text-body text-ink-600 sm:w-32">{s.label}</span>
           <span className="flex flex-1 justify-center">
             <FunnelBar pct={(s.value / max) * 100} accent={s.accent} delay={i * 0.15}>
               <Figure value={s.value} className="font-display text-subheading" />
             </FunnelBar>
           </span>
-          <span className="w-28 shrink-0 font-sans text-label text-ink-500">{s.note}</span>
+          <span className="w-20 shrink-0 font-sans text-label text-ink-500 sm:w-28">{s.note}</span>
         </div>
       ))}
     </div>

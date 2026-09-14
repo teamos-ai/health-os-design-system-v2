@@ -3,8 +3,8 @@
  *
  * Remodelled from the 21st.dev team member card. The portrait dissolves into the card,
  * then the name, role, up to three areas of practice and one line on how they work. Nothing
- * is hidden behind hover, so it reads the same on touch screens. One text action books with
- * them. Use the person's own photo: library photos are placeholders, never presented as
+ * is hidden behind hover, so it reads the same on touch screens, and the card is not a link,
+ * so it does not lift. One text action books with them. Use the person's own photo: library photos are placeholders, never presented as
  * a real team member.
  */
 import { ArrowRight } from 'lucide-react';
@@ -28,7 +28,7 @@ export interface ProfileCardProps {
 export const ProfileCard = ({ name, role, portrait, focus = [], approach, action, className }: ProfileCardProps) => (
   <article
     className={cn(
-      'group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface transition-[transform,box-shadow,border-color] duration-md ease-out hover:-translate-y-1 hover:border-ink-200 hover:shadow-sm',
+      'flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface',
       className
     )}
   >
@@ -38,7 +38,7 @@ export const ProfileCard = ({ name, role, portrait, focus = [], approach, action
         alt={portrait.alt}
         loading="lazy"
         decoding="async"
-        className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-xl ease-out group-hover:scale-[1.03]"
+        className="absolute inset-0 h-full w-full object-cover object-top"
       />
     </div>
 
@@ -63,7 +63,7 @@ export const ProfileCard = ({ name, role, portrait, focus = [], approach, action
         <Button
           variant="text"
           href={action.href ?? '#'}
-          className="mt-auto self-start"
+          className="group mt-auto self-start"
           trailingIcon={<ArrowRight className="h-4 w-4 transition-transform duration-sm ease-out group-hover:translate-x-1" strokeWidth={1.5} aria-hidden />}
         >
           {action.label}

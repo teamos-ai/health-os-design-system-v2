@@ -64,7 +64,7 @@ const Widget = ({ id, span = 'third', children, align = 'center' }: { id: string
             {e.number} · {e.name}
           </span>
           {e.status === 'experimental' && (
-            <Badge variant="apricot" size="sm">
+            <Badge variant="lavender" size="sm">
               Experimental
             </Badge>
           )}

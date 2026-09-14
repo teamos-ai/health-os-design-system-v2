@@ -2,9 +2,9 @@
  * StepsCard: what happens, in order. Onboarding, a program's shape, how a service runs.
  *
  * Remodelled from the 21st.dev how-it-works timelines. One card holds three to five steps
- * on a dashed hairline. Each step has a soft apricot node with its number, a title and one
+ * on a dashed hairline. Each step has a quiet neutral node with its number, a title and one
  * sentence. Inside the product, `current` marks where someone is: earlier steps show a tick
- * and the current node fills with apricot. Steps rise in once as the card comes into view.
+ * and the current node fills with apricot, because progress is a state. Steps rise in once as the card comes into view.
  * No percentages or promised timeframes.
  */
 import { Check } from 'lucide-react';
@@ -37,7 +37,7 @@ export const StepsCard = ({ title, intro, steps, current, className }: StepsCard
             <span
               className={cn(
                 'relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-sans text-label text-ink-900 ring-1 ring-inset',
-                isCurrent ? 'bg-apricot-200 ring-apricot-200' : 'bg-apricot-50 ring-apricot-200'
+                isCurrent ? 'bg-apricot-200 ring-apricot-200' : 'bg-ink-100 ring-ink-200'
               )}
             >
               {done ? <Check className="h-4 w-4" strokeWidth={2} aria-label="Done" /> : String(i + 1).padStart(2, '0')}

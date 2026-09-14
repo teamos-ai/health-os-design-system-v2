@@ -51,7 +51,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               'transition-colors duration-sm ease-out',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-200 focus-visible:ring-offset-1 focus-visible:ring-offset-paper',
               'disabled:cursor-not-allowed disabled:opacity-50',
-              error ? 'border-error-600 focus-visible:border-error-600' : 'border-line focus-visible:border-apricot-400',
+              error ? 'border-error-600 focus-visible:border-error-600' : 'border-line focus-visible:border-ink-900',
               className
             )}
             {...props}

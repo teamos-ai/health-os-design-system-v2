@@ -20,7 +20,7 @@ const Chip = ({ active, onClick, children }: { active: boolean; onClick: () => v
     aria-pressed={active}
     onClick={onClick}
     className={cn(
-      'rounded-md border px-3 py-1 font-sans text-label capitalize transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400',
+      'rounded-md border px-3 py-1 font-sans text-label capitalize transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
       active ? 'border-ink-900 bg-ink-900 text-white' : 'border-line bg-surface text-ink-600 hover:border-ink-400 hover:text-ink-900'
     )}
   >
@@ -50,7 +50,7 @@ export const ImageTile = ({
   note?: string;
 }) => (
   <figure className="group flex flex-col gap-3">
-    <a href={href} download title={`Download ${name}`} className="block overflow-hidden rounded-lg border border-line bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2">
+    <a href={href} download title={`Download ${name}`} className="block overflow-hidden rounded-lg border border-line bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2">
       <img src={src} alt={alt} loading="lazy" decoding="async" className={cn('w-full object-cover transition-transform duration-xl ease-out group-hover:scale-[1.02]', ratio)} />
     </a>
     <figcaption className="flex flex-col gap-2">
@@ -111,7 +111,7 @@ export const BackgroundsSection = () => {
             <span className="flex items-center gap-3 font-sans text-label text-ink-600" aria-live="polite">
               {filtered.length} of {BACKGROUNDS.length}
               {(ratio || tone || subject) && (
-                <button type="button" onClick={reset} className="rounded-md text-ink-900 underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400">
+                <button type="button" onClick={reset} className="rounded-md text-ink-900 underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900">
                   Clear
                 </button>
               )}

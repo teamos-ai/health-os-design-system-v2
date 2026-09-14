@@ -151,7 +151,7 @@ export const MotionSection = () => (
             <BreathingDot color="bg-success-600" /> Bookings open
           </span>
           <span className="inline-flex items-center gap-2">
-            <BreathingDot color="bg-apricot-400" /> Live session
+            <BreathingDot color="bg-lavender-400" /> Live session
           </span>
         </div>
       </MotionDemo>

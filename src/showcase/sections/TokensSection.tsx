@@ -85,7 +85,7 @@ export const TokensSection = () => {
                   onClick={() => setTheme(t)}
                   aria-pressed={theme === t}
                   className={cn(
-                    'rounded-lg border p-5 text-left transition-[border-color,box-shadow] duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400',
+                    'rounded-lg border p-5 text-left transition-[border-color,box-shadow] duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
                     theme === t ? 'border-ink-900 shadow-sm' : 'border-line hover:border-ink-400'
                   )}
                   style={{ background: g.paper.$value }}
@@ -196,7 +196,7 @@ export const TokensSection = () => {
             {SPACE.map((s) => (
               <div key={s.token} className="flex items-center gap-4">
                 <span className="w-12 font-sans text-label text-ink-900">{s.token}</span>
-                <span className={cn('h-4 rounded-md', s.px % 8 === 0 ? 'bg-apricot-200' : 'bg-apricot-50 ring-1 ring-inset ring-apricot-200')} style={{ width: s.rem }} />
+                <span className={cn('h-4 rounded-md', s.px % 8 === 0 ? 'bg-ink-200' : 'bg-ink-100 ring-1 ring-inset ring-ink-200')} style={{ width: s.rem }} />
                 <span className="font-sans text-label text-ink-500">
                   {s.px}px{s.px % 8 !== 0 ? ' · compact' : ''}
                 </span>
@@ -214,7 +214,7 @@ export const TokensSection = () => {
                 .map(([k, n]) => (
                   <div key={k} className="flex flex-col items-center gap-3">
                     <span
-                      className={cn('h-16 w-24 border border-apricot-200 bg-apricot-50', k === 'md' && 'rounded-md', k === 'lg' && 'rounded-lg', k === 'full' && 'w-16 rounded-full')}
+                      className={cn('h-16 w-24 border border-ink-200 bg-ink-100', k === 'md' && 'rounded-md', k === 'lg' && 'rounded-lg', k === 'full' && 'w-16 rounded-full')}
                     />
                     <span className="font-sans text-label text-ink-900">rounded-{k}</span>
                     <span className="font-sans text-label text-ink-500">{k === 'full' ? 'round' : n.$value}</span>

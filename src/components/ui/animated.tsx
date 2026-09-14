@@ -22,6 +22,7 @@ import {
   wrap,
   type Variants,
 } from 'framer-motion';
+import { Pause, Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { EASE_OUT } from '@/lib/motion';
 
@@ -205,8 +206,10 @@ export interface MarqueeProps {
   pauseOnHover?: boolean;
   /** allow grab-and-scrub: drag/swipe to move through faster, then auto-drift resumes */
   draggable?: boolean;
-  /** accessible name for the marquee region (the duplicate copy stays aria-hidden) */
+  /** accessible name for the marquee region (the duplicate copy stays aria-hidden and inert) */
   ariaLabel?: string;
+  /** show a pause and play button above the row (WCAG 2.2.2). Use it whenever the row holds controls */
+  pauseControl?: boolean;
   className?: string;
   gapClassName?: string;
 }
@@ -217,14 +220,45 @@ export const Marquee = ({
   pauseOnHover = true,
   draggable = false,
   ariaLabel = 'scrolling showcase',
+  pauseControl = false,
   className,
   gapClassName = 'gap-5',
 }: MarqueeProps) => {
   const reduced = useReducedMotion();
   const x = useMotionValue(0);
   const [copyWidth, setCopyWidth] = React.useState(0);
-  const [paused, setPaused] = React.useState(false);
+  const [hovered, setHovered] = React.useState(false);
+  const [focused, setFocused] = React.useState(false);
+  const [stopped, setStopped] = React.useState(false);
+  const paused = hovered || focused || stopped;
+  const rootRef = React.useRef<HTMLDivElement>(null);
   const firstCopyRef = React.useRef<HTMLDivElement>(null);
+  const duplicateRef = React.useRef<HTMLDivElement>(null);
+
+  /* The duplicate copy exists only for the seamless wrap: keep its controls out of reach. */
+  React.useEffect(() => {
+    duplicateRef.current?.setAttribute('inert', '');
+  }, []);
+
+  /* Keyboard focus pauses the row and brings the focused item fully into view. */
+  const onFocus = (e: React.FocusEvent<HTMLDivElement>) => {
+    setFocused(true);
+    const root = rootRef.current;
+    const copy = firstCopyRef.current;
+    if (!root || !copy || copyWidth === 0) return;
+    root.scrollLeft = 0; // browsers scroll clipped rows on focus; the motion value owns position
+    const item = [...copy.children].find((c) => c.contains(e.target as Node)) as HTMLElement | undefined;
+    if (!item) return;
+    const view = root.clientWidth;
+    const left = item.offsetLeft + x.get();
+    if (left < 24 || left + item.offsetWidth > view - 24) {
+      // centre the item; clamp at 0 rather than wrapping, which would show only its inert copy
+      x.set(Math.max(-copyWidth, Math.min(0, -(item.offsetLeft - Math.max(24, (view - item.offsetWidth) / 2)))));
+    }
+  };
+  const onBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) setFocused(false);
+  };
   const dragRef = React.useRef({ active: false, startX: 0, startVal: 0 });
 
   React.useEffect(() => {
@@ -273,17 +307,21 @@ export const Marquee = ({
     </div>
   );
 
-  return (
+  const row = (
     <div
+      ref={rootRef}
       role="group"
       aria-label={ariaLabel}
       className={cn(
-        'relative overflow-hidden marquee-mask',
+        'relative overflow-hidden',
+        !focused && 'marquee-mask',
         draggable && 'cursor-grab touch-pan-y select-none active:cursor-grabbing',
-        className
+        !pauseControl && className
       )}
-      onMouseEnter={() => pauseOnHover && setPaused(true)}
-      onMouseLeave={() => pauseOnHover && setPaused(false)}
+      onMouseEnter={() => pauseOnHover && setHovered(true)}
+      onMouseLeave={() => pauseOnHover && setHovered(false)}
+      onFocus={onFocus}
+      onBlur={onBlur}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
@@ -292,11 +330,31 @@ export const Marquee = ({
     >
       <motion.div className={cn('flex w-max items-stretch', gapClassName)} style={{ x }}>
         {content}
-        {/* duplicate copy for the seamless wrap */}
-        <div aria-hidden className={cn('flex shrink-0 items-stretch', gapClassName)}>
+        {/* duplicate copy for the seamless wrap: hidden from assistive tech and inert */}
+        <div ref={duplicateRef} aria-hidden className={cn('flex shrink-0 items-stretch', gapClassName)}>
           {children}
         </div>
       </motion.div>
+    </div>
+  );
+
+  if (!pauseControl || reduced) return row;
+
+  return (
+    <div className={cn('flex flex-col gap-3', className)}>
+      <div className="flex justify-end">
+        <button
+          type="button"
+          aria-pressed={stopped}
+          aria-label={`${stopped ? 'Play' : 'Pause'} ${ariaLabel.toLowerCase()}`}
+          onClick={() => setStopped((v) => !v)}
+          className="inline-flex items-center gap-2 rounded-md border border-line bg-surface px-3 py-2 font-sans text-label text-ink-600 transition-colors duration-sm hover:border-ink-400 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        >
+          {stopped ? <Play className="h-3 w-3" strokeWidth={1.75} aria-hidden /> : <Pause className="h-3 w-3" strokeWidth={1.75} aria-hidden />}
+          {stopped ? 'Play' : 'Pause'}
+        </button>
+      </div>
+      {row}
     </div>
   );
 };
@@ -423,7 +481,7 @@ export const HoverUnderline = ({
   <a
     href={href}
     className={cn(
-      'group relative inline-block rounded-md font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-apricot-400',
+      'group relative inline-block rounded-md font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink-900',
       className
     )}
   >

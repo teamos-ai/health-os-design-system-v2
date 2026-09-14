@@ -55,7 +55,7 @@ export const Switch = ({
         onClick={toggle}
         className={cn(
           'relative inline-flex h-6 w-10 shrink-0 items-center rounded-full border transition-colors duration-md ease-out',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
           disabled ? 'cursor-not-allowed' : 'cursor-pointer',
           on ? 'border-apricot-200 bg-apricot-200' : 'border-line bg-ink-100'
         )}

@@ -34,7 +34,7 @@ export const ChecklistSection = () => {
                 <span
                   aria-hidden
                   className={cn(
-                    'mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors duration-sm peer-focus-visible:ring-2 peer-focus-visible:ring-apricot-400',
+                    'mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors duration-sm peer-focus-visible:ring-2 peer-focus-visible:ring-ink-900',
                     done[i] ? 'border-apricot-200 bg-apricot-200 text-ink-900' : 'border-ink-400 bg-surface'
                   )}
                 >

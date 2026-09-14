@@ -3,12 +3,15 @@
  *
  * Remodelled from the 21st.dev event cards. An optional photo dissolves into the card, then
  * a paper date tile sits beside the title, time and place, with how often it repeats in
- * plain words. The footer offers one way to reserve and a quiet add-to-calendar link.
+ * plain words. The footer offers one way to reserve and a quiet add-to-calendar icon button.
+ * The card itself is not a link, so it does not lift on hover.
  * No attendee counts, seats left or countdowns: dates are facts, not pressure.
  */
 import { ArrowRight, CalendarPlus, Clock, MapPin } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { IconButton } from '@/components/ui/icon-button';
+import { Tooltip } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 export interface SessionCardProps {
@@ -34,7 +37,7 @@ export interface SessionCardProps {
 export const SessionCard = ({ title, date, time, place, mode, repeats, description, image, action, calendarHref, className }: SessionCardProps) => (
   <article
     className={cn(
-      'group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface transition-[transform,box-shadow,border-color] duration-md ease-out hover:-translate-y-1 hover:border-ink-200 hover:shadow-sm',
+      'flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface',
       className
     )}
   >
@@ -45,7 +48,7 @@ export const SessionCard = ({ title, date, time, place, mode, repeats, descripti
           alt={image.alt}
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-xl ease-out group-hover:scale-[1.03]"
+          className="absolute inset-0 h-full w-full object-cover"
         />
       </div>
     )}
@@ -59,7 +62,7 @@ export const SessionCard = ({ title, date, time, place, mode, repeats, descripti
         </div>
         <div className="flex min-w-0 flex-col gap-2">
           {mode && (
-            <Badge variant={mode === 'Online' ? 'lavender' : 'apricot'} size="sm" className="self-start">
+            <Badge variant={mode === 'Online' ? 'lavender' : 'rose'} size="sm" className="self-start">
               {mode}
             </Badge>
           )}
@@ -85,17 +88,20 @@ export const SessionCard = ({ title, date, time, place, mode, repeats, descripti
 
       <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line-soft pt-4">
         <Button
-          variant="secondary"
-          size="small"
+          variant="text"
           href={action.href ?? '#'}
+          aria-label={`${action.label}: ${title}, ${date.weekday} ${date.day} ${date.month}`}
+          className="group"
           trailingIcon={<ArrowRight className="h-4 w-4 transition-transform duration-sm ease-out group-hover:translate-x-1" strokeWidth={1.5} aria-hidden />}
         >
           {action.label}
         </Button>
         {calendarHref && (
-          <Button variant="text" size="small" href={calendarHref} leadingIcon={<CalendarPlus className="h-4 w-4" strokeWidth={1.5} aria-hidden />}>
-            Add to calendar
-          </Button>
+          <Tooltip label="Add to calendar">
+            <IconButton variant="secondary" size="small" aria-label={`Add ${title} to your calendar`} onClick={() => window.location.assign(calendarHref)}>
+              <CalendarPlus className="h-4 w-4" strokeWidth={1.5} />
+            </IconButton>
+          </Tooltip>
         )}
       </div>
     </div>

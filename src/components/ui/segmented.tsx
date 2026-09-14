@@ -101,8 +101,8 @@ export function SegmentedControl<T extends string = string>({
             tabIndex={isActive ? 0 : -1}
             onClick={() => select(opt.value)}
             className={cn(
-              'rounded-md font-display transition-[background-color,color,box-shadow] duration-sm ease-out',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400',
+              'whitespace-nowrap rounded-md font-display transition-[background-color,color,box-shadow] duration-sm ease-out',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
               pad,
               isActive
                 ? 'bg-apricot-50 text-ink-900 shadow-sm ring-1 ring-inset ring-apricot-200'

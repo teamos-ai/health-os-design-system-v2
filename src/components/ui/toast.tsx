@@ -105,7 +105,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
                   type="button"
                   aria-label="Dismiss notification"
                   onClick={() => dismiss(t.id)}
-                  className="-mr-1 -mt-1 shrink-0 rounded-md p-1 text-ink-500 transition-colors duration-sm hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400"
+                  className="-mr-1 -mt-1 shrink-0 rounded-md p-1 text-ink-500 transition-colors duration-sm hover:bg-ink-100 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
                 >
                   <X className="h-4 w-4" strokeWidth={1.5} />
                 </button>

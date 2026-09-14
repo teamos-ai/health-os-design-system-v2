@@ -72,7 +72,7 @@ export const Swatch = ({ hex, label, role, copyValue, className }: SwatchProps) 
       aria-label={`${label}, ${HEX}. Click to copy ${value}.`}
       className={cn(
         'group flex flex-col overflow-hidden rounded-lg border border-line bg-surface text-left transition-[box-shadow,border-color] duration-sm ease-out hover:border-ink-400 hover:shadow-sm',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
         className
       )}
     >
@@ -117,7 +117,7 @@ export const GradientSwatch = ({ label, token, css, className }: GradientSwatchP
       className={cn('group block w-full text-left focus-visible:outline-none', className)}
     >
       <span
-        className="relative block h-32 w-full overflow-hidden rounded-lg border border-line transition-shadow duration-sm group-hover:shadow-sm group-focus-visible:ring-2 group-focus-visible:ring-apricot-400"
+        className="relative block h-32 w-full overflow-hidden rounded-lg border border-line transition-shadow duration-sm group-hover:shadow-sm group-focus-visible:ring-2 group-focus-visible:ring-ink-900"
         style={{ background: css }}
       >
         <span

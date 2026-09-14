@@ -63,9 +63,9 @@ export const Demo = ({
   className?: string;
   padded?: boolean;
 }) => (
-  <div className={cn('overflow-clip rounded-lg border border-line bg-surface', className)}>
+  <div className={cn('min-w-0 overflow-clip rounded-lg border border-line bg-surface', className)}>
     {(label || action) && (
-      <div className="flex min-h-12 items-center justify-between gap-3 border-b border-line bg-surface-2 px-4 py-2">
+      <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-line bg-surface-2 px-4 py-2">
         {label ? <span className="font-sans text-label uppercase text-ink-500">{label}</span> : <span />}
         {action}
       </div>
@@ -74,9 +74,9 @@ export const Demo = ({
   </div>
 );
 
-const STATUS: Record<CatalogEntry['status'], { label: string; variant: 'apricot' | 'neutral' } | null> = {
+const STATUS: Record<CatalogEntry['status'], { label: string; variant: 'lavender' | 'neutral' } | null> = {
   stable: null,
-  experimental: { label: 'Experimental', variant: 'apricot' },
+  experimental: { label: 'Experimental', variant: 'lavender' },
   'in-progress': { label: 'In progress', variant: 'neutral' },
 };
 
@@ -145,9 +145,9 @@ export const Example = ({
   action?: ReactNode;
   layout?: 'stack' | 'split';
 }) => (
-  <div className={cn('overflow-clip rounded-lg border border-line bg-surface', className)}>
+  <div className={cn('min-w-0 overflow-clip rounded-lg border border-line bg-surface', className)}>
     {(label || action) && (
-      <div className="flex min-h-12 items-center justify-between gap-3 border-b border-line bg-surface-2 px-4 py-2">
+      <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-line bg-surface-2 px-4 py-2">
         {label ? <span className="font-sans text-label uppercase text-ink-500">{label}</span> : <span />}
         {action}
       </div>

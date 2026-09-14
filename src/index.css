@@ -35,10 +35,10 @@
     @apply bg-apricot-200 text-ink-900;
   }
 
-  /* Links and non-component interactives get the apricot focus ring. Components set their own. */
+  /* Links and non-component interactives get the ink focus ring. Components set their own. */
   a:focus-visible,
   [tabindex]:focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-apricot-400;
+    @apply outline outline-2 outline-offset-2 outline-ink-900;
   }
 
   /* Reduced motion: loops stop, transitions snap. Components also read useReducedMotion(). */

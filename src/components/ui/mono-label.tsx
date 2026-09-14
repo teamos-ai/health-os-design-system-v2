@@ -21,7 +21,7 @@ export interface MonoLabelProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const TONE: Record<MonoLabelTone, { text: string; mark: string; dot: string }> = {
-  ink: { text: 'text-ink-500', mark: 'text-apricot-400', dot: 'bg-apricot-400' },
+  ink: { text: 'text-ink-500', mark: 'text-ink-900', dot: 'bg-ink-400' },
   rose: { text: 'text-ink-900', mark: 'text-rose-400', dot: 'bg-rose-400' },
   apricot: { text: 'text-ink-900', mark: 'text-apricot-400', dot: 'bg-apricot-400' },
   lavender: { text: 'text-ink-900', mark: 'text-lavender-400', dot: 'bg-lavender-400' },

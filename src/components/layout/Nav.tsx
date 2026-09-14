@@ -15,7 +15,7 @@ import { NAV_LINKS } from '@/data/system';
 import { cn } from '@/lib/utils';
 
 const LINK_FOCUS =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2';
 
 export interface NavProps {
   className?: string;

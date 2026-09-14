@@ -21,7 +21,7 @@ export const CommandChip = React.forwardRef<HTMLButtonElement, CommandChipProps>
         'px-4 py-2 font-sans text-body text-ink-600',
         'transition-[border-color,color,box-shadow,transform] duration-sm ease-out hover:border-ink-400 hover:text-ink-900 hover:shadow-sm',
         'active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
         className
       )}
       {...props}

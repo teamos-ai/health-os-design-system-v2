@@ -156,7 +156,7 @@ export const CheckIn = ({
                 setSelected(o);
                 onSelect?.(o);
               }}
-              className="flex w-14 flex-col items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400"
+              className="flex w-14 flex-col items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

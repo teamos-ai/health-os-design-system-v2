@@ -8,8 +8,11 @@
  *   <Headline lead="You built {blocks} it." rest="Now make it run {computer} without you." />
  *
  * Tiles are decorative (the words carry the meaning), so they are hidden from screen
- * readers. Sizes are in em, so tiles scale with the heading role. In development, a
- * headline with too few or too many tiles, or a tile at the very start or end, warns.
+ * readers and do not react to the pointer. Each tile is kept on the same line as the words
+ * either side of it, so it never starts a line away from the word it pictures. Sizes are in
+ * em, so tiles scale with the heading role. Tile tints are rose, lavender or a warm neutral:
+ * apricot is kept for things you can act on. In development, a headline with too few or too
+ * many tiles, or a tile at the very start or end, warns.
  */
 import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -19,9 +22,9 @@ import { EASE_OUT, DURATION } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
 const TONE: Record<HeadlineTileTone, string> = {
-  apricot: 'bg-apricot-50 ring-apricot-200',
   rose: 'bg-rose-50 ring-rose-200',
   lavender: 'bg-lavender-50 ring-lavender-200',
+  neutral: 'bg-ink-100 ring-ink-200',
 };
 
 type Part = { kind: 'text'; text: string } | { kind: 'tile'; tile: HeadlineTile };
@@ -63,7 +66,6 @@ export const Tile = ({ tile, index = 0 }: { tile: HeadlineTile; index?: number }
       className={cn('headline-tile ring-1 ring-inset', TONE[tile.tone])}
       initial={reduced ? false : { opacity: 0, scale: 0.6, rotate: -8 }}
       whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-      whileHover={reduced ? undefined : { y: -3, rotate: -4 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: DURATION.xl, ease: EASE_OUT, delay: 0.15 + index * 0.08 }}
     >
@@ -88,10 +90,26 @@ export const Headline = ({ lead, rest, as: Tag = 'h1', tiles = HEADLINE_TILES, i
   }
 
   let tileIndex = 0;
-  const render = (parts: Part[]) =>
-    parts.map((p, i) =>
-      p.kind === 'text' ? <React.Fragment key={i}>{p.text}</React.Fragment> : <Tile key={i} tile={p.tile} index={tileIndex++} />
-    );
+  /* Glue each tile to the last word before it and the first word after it. */
+  const render = (parts: Part[]) => {
+    const out: React.ReactNode[] = [];
+    const texts = parts.map((p) => (p.kind === 'text' ? p.text : ''));
+    parts.forEach((p, i) => {
+      if (p.kind === 'text') return;
+      const before = i > 0 && parts[i - 1].kind === 'text' ? texts[i - 1].match(/^([\s\S]*?)(\S+\s*)$/) : null;
+      const after = i < parts.length - 1 && parts[i + 1].kind === 'text' ? texts[i + 1].match(/^(\s*\S+)([\s\S]*)$/) : null;
+      if (before) texts[i - 1] = before[1];
+      if (after) texts[i + 1] = after[2];
+      out[i] = (
+        <span key={i} className="whitespace-nowrap">
+          {before?.[2]}
+          <Tile tile={p.tile} index={tileIndex++} />
+          {after?.[1]}
+        </span>
+      );
+    });
+    return parts.map((p, i) => (p.kind === 'text' ? <React.Fragment key={i}>{texts[i]}</React.Fragment> : out[i]));
+  };
 
   return (
     <Tag id={id} className={cn('font-display text-heading', className)}>

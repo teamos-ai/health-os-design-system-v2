@@ -2,7 +2,7 @@
 
 What to reach for when building each kind of asset. Each recipe names the ground, type, colour moments, components and checks. Values and props are in [REFERENCE.md](REFERENCE.md); copy and claims follow [VOICE.md](VOICE.md) and the Health OS database. Finish every asset with [CHECKLIST.md](CHECKLIST.md).
 
-**Every asset:** one theme (light or paper), never a dark background · Spline Sans headings, Anonymous Pro body · every H1 a two-tone headline with two or three picture tiles · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · apricot for every interactive accent · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · video only in `VideoPlayer` · sentence case, no em dashes, no invented numbers.
+**Every asset:** one theme (light or paper), never a dark background · Spline Sans headings, Anonymous Pro body · every H1 a two-tone headline with two or three picture tiles · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · apricot for every interactive accent and never as decoration, focus rings in ink-900 · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · video only in `VideoPlayer` · sentence case, no em dashes, no invented numbers.
 
 ## 1. Marketing page
 
@@ -28,7 +28,8 @@ The reference site's Blog section is this recipe, assembled. Parts are in `src/c
 
 - **Article page:** `Breadcrumb` · category `Badge` · the H1 as a `Headline` with two or three tiles · a standfirst in `text-body text-ink-600` · `ArticleMeta` (author, date, reading time, copy link) · a hero figure with a `text-label` caption.
 - The body sits on `max-w-reading` beside a `TableOfContents` (sticky from lg) when there are three or more subheadings. Section titles in `text-subheading`.
-- A pull quote is `PullQuote`: larger subheading type on a 2px apricot-200 rule. Never a filled or gradient block behind reading text.
+- A pull quote is `PullQuote`: larger subheading type on a 2px rose-200 rule. Never a filled or gradient block behind reading text.
+- The body goes inside `ArticleLayout`, so the reading column can shrink on phones and wide tables scroll inside their own frame.
 - Comparisons are real tables (`Table`), with a text alternative for any check or cross.
 - The end: tags as outline badges, `AuthorNote`, related posts as `ContentCard`s, and one next step (`ResourceCard` or `ActionCard`).
 - **Blog index:** a `Headline` · one `FeaturedPost` · `CategoryFilter` · a grid of `ContentCard`s · `Pagination`.
@@ -93,7 +94,7 @@ Every H1 needs two or three tiles. Reuse one from `HEADLINE_TILES` when its pict
 - **Prompt:** "Photorealistic studio product photograph of [object], [materials and colours], three-quarter view. Isolated on a fully transparent background, centred and filling about 80% of a square frame, soft diffused daylight from the upper left, gentle natural shading, crisp high detail, calm minimal aesthetic. No text, no letters, no logos, no brand marks, no watermark."
 - **Settings:** GPT Image 2 text to image, 1K, 1:1, transparent background, through the KIE connection. Quote the cost and get Tumai's approval before generating.
 - **Check:** sharp at 3× the tile size, no text or logos, reads at 32px. Redo anything that doesn't.
-- **Save:** trim to the object, pad it to 80% of a square, and save a 1024px PNG and a 320px WebP to `public/heading-tiles/`. Add an entry to `src/data/headline-tiles.ts` with its `id`, `alt`, `means` and a `tone` (apricot, rose or lavender) that differs from the tile beside it.
+- **Save:** trim to the object, pad it to 80% of a square, and save a 1024px PNG and a 320px WebP to `public/heading-tiles/`. Add an entry to `src/data/headline-tiles.ts` with its `id`, `alt`, `means` and a `tone` (rose, lavender or neutral, never apricot) that differs from the tile beside it.
 
 ## 10. Screenshot of the product
 

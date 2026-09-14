@@ -70,7 +70,7 @@ The only video player in the design system. The video sits with clean rounded ed
 
 ## Overview
 
-Start · The system in carousel cards that drift left to right. Hover to pause, drag to move faster, and open a card to jump to its section.
+Start · The system in carousel cards that drift left to right. Pause them with the button, hover or focus a card, drag to move faster, and open a card to jump to its section.
 
 ### Carousel card
 
@@ -80,7 +80,7 @@ A few photos with one idea and its figure, adapted from the 21st.dev place card.
 
 **Use it for**
 
-- The overview marquee, one card per part of the system
+- The overview marquee, one card per part of the system, with photoControls="pointer" so each card is one keyboard stop
 - Photo-led rows on a website: studios, retreats, programs
 - Two to four photos from the tagged library
 
@@ -90,7 +90,7 @@ A few photos with one idea and its figure, adapted from the 21st.dev place card.
 - A primary button on every card: the action is a text button
 - More than one figure per card
 
-**API** `images: { src, alt }[] · category · title · meta · description · figure: { value, label } · action: { label, href, onClick }`
+**API** `images: { src, alt }[] · category · title · meta · description · figure: { value, label } · action: { label, href, onClick } (named "{label} {title}" for screen readers) · photoControls: keyboard | pointer`
 
 **Source** `src/components/cards/CarouselCard.tsx`
 
@@ -115,16 +115,16 @@ Light is the default. Paper is `.theme-paper` on `<html>`. Grounds are RGB chann
 
 ### Colour
 
-Every colour stops at its full strength and has two lighter shades. There are no darker shades. Apricot is the one interactive accent: apricot-200 fills every button, check, selected state and link underline, and apricot-400 draws focus rings and thin marks that must stay visible. Rose and lavender carry categories, charts and the gradients. Widgets and cards use only the two lighter shades, and text stays in the ink neutrals.
+Every colour stops at its full strength and has two lighter shades. There are no darker shades. Apricot is the one interactive accent: apricot-200 fills every button, check, selected state and link underline, and apricot-50 with an apricot-200 edge marks what is selected. Focus rings are ink-900, so where you are never looks like what you chose. Apricot is never decoration: rose, lavender and the ink neutrals carry categories, charts, tiles and the gradients. Widgets and cards use only the two lighter shades, and text stays in the ink neutrals.
 
 | Token | Hex | CSS variable | Role |
 | --- | --- | --- | --- |
 | `rose-50` | #FADEEE | `--hos-rose-50` | Soft. Tinted fills for rose categories: badges, tile ends and quiet panels. |
 | `rose-200` | #F3A0CC | `--hos-rose-200` | Light. Rose categories in widgets and cards: bars, rings, tiles, chart data, icons and borders on rose tints. |
 | `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Gradient stops and category dots only. Not for text, buttons, focus rings, checked or selected states, widgets or card colour. |
-| `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Selected rows and chips (with an apricot-200 edge), the active navigation item and warm tinted fills. |
-| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The accent: every button and icon button fill with ink text, checked checkboxes, radios and switches, selected states, tab and link underlines and the text selection. Also warm widget and card colour. |
-| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. Focus rings and focused field borders, the / in command chips and other thin marks that must stay visible on white. Also a gradient stop. Not for fills, text, widgets or card colour. |
+| `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Selected rows, chips and segments (with an apricot-200 edge) and the active navigation item. Not a decorative fill. |
+| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The accent: every button and icon button fill with ink text, checked checkboxes, radios and switches, selected states, the current step, tab and link underlines and the text selection. Also one of the three data colours inside widgets. Not for decorative cells, badges on static content or headline tiles. |
+| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. The / in command chips and category dots. Also a gradient stop. Not for focus rings (ink-900), fills, text, widgets or card colour. |
 | `lavender-50` | #EDE1F7 | `--hos-lavender-50` | Soft. Cool tinted fills. |
 | `lavender-200` | #C9A3E6 | `--hos-lavender-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons and borders on cool fills. |
 | `lavender-400` | #A668D9 | `--hos-lavender-400` | Full strength. Gradient stops and category dots only. Not for text, widgets or card colour. |
@@ -133,7 +133,7 @@ Every colour stops at its full strength and has two lighter shades. There are no
 | `ink-400` | #A39B91 | `--hos-ink-400` | Placeholder text, disabled text, hover borders, muted icons, and the muted rest of a two-tone headline (heading size only). |
 | `ink-500` | #7C746B | `--hos-ink-500` | Secondary text and metadata. The lightest neutral for readable text. |
 | `ink-600` | #5A534B | `--hos-ink-600` | Body text. |
-| `ink-900` | #1F1F1F | `--hos-ink-900` | Headings and primary text. |
+| `ink-900` | #1F1F1F | `--hos-ink-900` | Headings, primary text, the lead of a two-tone headline, and every focus ring and focused field border. |
 | `success-100` | #E2F5EC | `--hos-success-100` | Soft. Tint behind success content. |
 | `success-300` | #9AD3BC | `--hos-success-300` | Light. Borders on success tints and chart tracks. |
 | `success-600` | #1F9D6B | `--hos-success-600` | Full strength. Icons, dots, solid marks. |
@@ -174,7 +174,7 @@ Pair each role with its family: `font-display text-heading`, `font-display text-
 
 ### Headline
 
-Every H1 is a two-tone headline. The opening phrase that makes the point is ink-900 and the rest is ink-400, with two or three square picture tiles between the words that show what the headline says. Tile values are in em so tiles scale with the heading.
+Every H1 is a two-tone headline. The opening phrase that makes the point is ink-900 and the rest is ink-400, with two or three square picture tiles between the words that show what the headline says. Tiles sit on a rose, lavender or warm neutral tint, stay on the same line as the words beside them and do not react to the pointer. Tile values are in em so tiles scale with the heading.
 
 | Token | CSS variable | Value | Use |
 | --- | --- | --- | --- |
@@ -258,20 +258,21 @@ Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strengt
 
 **Use it for**
 
-- apricot-200 #F8C39C for every button fill, checked checkbox, radio and switch, selected state, tab underline and link underline, with ink text
-- apricot-50 with an apricot-200 edge for selected rows, chips, filters and the active navigation item
-- apricot-400 for focus rings, focused field borders and thin marks such as the / in a command chip
-- Rose and lavender 200 and 50 for categories, badges, chart data, icons and tiles in widgets and cards
-- 400 of rose and lavender only for gradient stops and category dots
+- apricot-200 #F8C39C for every button fill, checked checkbox, radio and switch, selected state, current step, tab underline and link underline, with ink text
+- apricot-50 with an apricot-200 edge for selected rows, chips, filters, segments and the active navigation item
+- Rose and lavender 200 and 50 for categories, badges, chart data, icons, headline tiles and tinted cells
+- 400 only for gradient stops, category dots and the / in command chips
 
 **Not for**
 
-- Rose or lavender for anything interactive: buttons, links, ticks, toggles, selected states or focus
+- Apricot as decoration: tinted cells, badges on static content, headline tiles, highlight columns or icons that do nothing
+- Apricot focus rings: focus is ink-900 so it never looks like a selection
+- Rose or lavender for anything interactive: buttons, links, ticks, toggles or selected states
 - Full-strength colour inside a widget, card or button
 - Coloured text: text stays in the ink neutrals
 - Any shade darker than 400, or shades outside 50, 200 and 400
 
-**API** `Tailwind: bg-apricot-200 (buttons, checks) · bg-apricot-50 ring-apricot-200 (selected) · ring-apricot-400 (focus) · bg-rose-50 ring-rose-200 (rose category) · text-lavender-200 (icons) … Widgets: LIGHT, SOFT, TILE, BAR, SWEEP (src/components/widgets/tones.ts)`
+**API** `Tailwind: bg-apricot-200 (buttons, checks) · bg-apricot-50 ring-apricot-200 (selected) · ring-ink-900 (focus) · bg-rose-50 ring-rose-200 (rose category) · text-lavender-200 (icons) … Widgets: LIGHT, SOFT, TILE, BAR, SWEEP (src/components/widgets/tones.ts)`
 
 **Source** `design-system/tokens/tokens.json → color.rose, color.apricot, color.lavender`
 
@@ -284,6 +285,7 @@ Warm greys for text, lines and quiet fills. Carbon is never a background, only a
 **Use it for**
 
 - ink-900 headings, primary text and the lead of a two-tone headline; ink-600 body; ink-500 secondary text
+- ink-900 for every focus ring (ring-2 ring-ink-900 ring-offset-2) and focused field border
 - ink-400 for the rest of a two-tone headline, at heading size only
 - ink-100 and ink-200 for quiet fills, dividers and pressed states
 - carbon/60 and carbon/80 for the video control bar, carbon/40 for the modal backdrop
@@ -598,6 +600,7 @@ The H1 style for every page. The opening phrase that makes the point is ink-900,
 - Section headings (h2): they stay one tone in ink-900
 - The gradient highlight (.text-highlight) inside an H1
 - Colouring either tone: both stay in the ink neutrals
+- Pointer effects on tiles: they are pictures, not controls
 
 **API** `<Headline lead rest as: h1 | h2 | h3 tiles id className /> · {id} marks a tile from HEADLINE_TILES`
 
@@ -619,9 +622,10 @@ The pictures for headline tiles. Each object is a high-quality studio shot cut o
 
 - Stretching a tile's meaning to fit: make a new one
 - Pictures with text, logos or brand marks, including on product objects
-- Two tiles of the same tone side by side when another tone fits
+- Apricot tints: apricot is for things you can act on
+- Two tiles of the same tone side by side
 
-**API** `HEADLINE_TILES (src/data/headline-tiles.ts): { id, src, original, alt, means, tone: apricot | rose | lavender }`
+**API** `HEADLINE_TILES (src/data/headline-tiles.ts): { id, src, original, alt, means, tone: rose | lavender | neutral }`
 
 **Source** `src/data/headline-tiles.ts · public/heading-tiles/`
 
@@ -689,7 +693,7 @@ HEALTH beside the OS tile in a rounded frame, 2.8 : 1. Two versions: white backg
 
 **Not for**
 
-- Both versions side by side in one layout
+- Both versions side by side in one design (the reference shows them apart only to compare)
 - Recolouring, re-spacing the letters or separating HEALTH from the tile
 - Dark or carbon grounds
 - A second gradient moment next to the filled version
@@ -837,18 +841,20 @@ Quiet responses to the pointer. HoverUnderline draws an apricot line under a lin
 
 `marquee` · motion · Stable
 
-A gentle, draggable, pausing row that loops.
+A gentle, draggable row that loops, pauses on hover and on keyboard focus, and can show a pause button. Its duplicate copy is hidden and inert.
 
 **Use it for**
 
 - Overview cards and logo or tool rows
+- pauseControl whenever the row holds links or buttons
 
 **Not for**
 
 - More than one on a page
 - Content people must read in full
+- Interactive rows without pauseControl
 
-**API** `<Marquee speed reverse pauseOnHover draggable />`
+**API** `<Marquee speed reverse pauseOnHover draggable pauseControl ariaLabel />`
 
 **Source** `src/components/ui/animated.tsx`
 
@@ -986,13 +992,15 @@ A soft tag for status, category and topic: a tint, a light same-hue edge and ink
 **Use it for**
 
 - neutral and outline for quiet tags
-- rose, apricot and lavender for brand categories
+- rose and lavender for categories and topics
+- apricot only where the badge marks a choice someone made, such as an applied filter
 - success, warning and error only for a real state
 
 **Not for**
 
 - Badges as buttons
 - More than three badges on one card
+- Apricot badges on static content: apricot reads as selected
 
 **API** `variant: neutral | outline | rose | apricot | lavender | success | warning | error · size: sm | md · emoji · dot`
 
@@ -1520,7 +1528,7 @@ The one next step: book a call, start a diagnostic. Calm: a soft gradient, a hai
 
 `session-card` · component · Stable
 
-One dated session someone can join: a class, workshop, retreat day or webinar. Remodelled from the 21st.dev event cards: a paper date tile beside the title, time, place and how often it repeats, then one way to reserve.
+One dated session someone can join: a class, workshop, retreat day or webinar. Remodelled from the 21st.dev event cards: a paper date tile beside the title, time, place and how often it repeats, then one text action to reserve and an add-to-calendar icon button.
 
 **Use it for**
 
@@ -1534,7 +1542,7 @@ One dated session someone can join: a class, workshop, retreat day or webinar. R
 - Seats left, attendee counts or countdowns
 - More than one action beside add to calendar
 
-**API** `title · date: { weekday, day, month } · time · place · mode: In studio | Online · repeats · description · image · action: { label, href } · calendarHref`
+**API** `title · date: { weekday, day, month } · time · place · mode: In studio (rose) | Online (lavender) · repeats · description · image · action: { label, href } · calendarHref`
 
 **Source** `src/components/cards/SessionCard.tsx`
 
@@ -1564,7 +1572,7 @@ Who someone will work with: a team member, coach or facilitator. Remodelled from
 
 `steps-card` · component · Stable
 
-What happens, in order. Remodelled from the 21st.dev how-it-works timelines: three to five numbered apricot nodes on a dashed hairline, each with a title and one sentence. current marks progress inside the product.
+What happens, in order. Remodelled from the 21st.dev how-it-works timelines: three to five numbered neutral nodes on a dashed hairline, each with a title and one sentence. current marks progress inside the product with an apricot node, because progress is a state.
 
 **Use it for**
 
@@ -1627,7 +1635,7 @@ Compose cards at different sizes in one grid. For a website feature section with
 
 `feature-bento` · component · Stable
 
-The website feature grid, remodelled from the 21st.dev feature bento. A two-by-two hero with a photo, a highlight figure, one feature, an action and two facts, in three styles: photo-led, tinted and quiet. Cells lift on hover, the photo eases forward, figures count up and the action's arrow turns.
+The website feature grid, remodelled from the 21st.dev feature bento. A hero with a photo, one large highlight figure, one feature, an action and two facts, in three styles: photo-led, tinted and quiet. One column on phones, two on tablets, three from lg. Only the action cell is a link, so only it lifts and turns its arrow; figures count up.
 
 **Use it for**
 
@@ -1638,7 +1646,8 @@ The website feature grid, remodelled from the 21st.dev feature bento. A two-by-t
 **Not for**
 
 - Invented statistics, ratings or satisfaction percentages
-- Dark or saturated cells: every fill is a 50 tint, a surface or one soft gradient
+- Apricot or saturated cells: fills are rose and lavender tints, surfaces or one soft gradient
+- More than one large figure: facts stay at the subheading size
 - Changing the cell order: the layout is the pattern
 - More than one feature bento on a page
 
@@ -2404,12 +2413,13 @@ Applied · The blog system: an article page with its table of contents, author a
 
 `article` · pattern · Stable
 
-Long-form reading: breadcrumb, category, the two-tone headline, standfirst, author and date with copy link, a hero figure, then the reading column beside a table of contents, with pull quotes on an apricot rule, tables, tags, an author note, related posts and one next step.
+Long-form reading: breadcrumb, category, the two-tone headline, standfirst, author and date with copy link, a hero figure, then ArticleLayout: the reading column beside a table of contents, with pull quotes on a rose rule, tables, tags, an author note, related posts and one next step.
 
 **Use it for**
 
 - Blog posts and guides on the site
-- PullQuote for one line worth repeating: an apricot rule, never a filled block
+- ArticleLayout for the body, so the reading column can shrink and wide tables scroll inside their frame
+- PullQuote for one line worth repeating: a rose rule, never a filled block
 - TableOfContents when the article has three or more subheadings
 - One resource or action card at the end
 
@@ -2419,7 +2429,7 @@ Long-form reading: breadcrumb, category, the two-tone headline, standfirst, auth
 - Lines wider than max-w-reading
 - More than one next step at the end
 
-**API** `Compose: Breadcrumb · Badge · Headline · ArticleMeta · figure · TableOfContents · PullQuote · Table · AuthorNote · ContentCard · ResourceCard (src/components/blog/Blog.tsx)`
+**API** `Compose: Breadcrumb · Badge · Headline · ArticleMeta · figure · ArticleLayout (TableOfContents) · PullQuote · Table · AuthorNote · ContentCard · ResourceCard (src/components/blog/Blog.tsx)`
 
 **Source** `src/components/blog/Blog.tsx · src/showcase/sections/BlogSection.tsx`
 
@@ -2427,7 +2437,7 @@ Long-form reading: breadcrumb, category, the two-tone headline, standfirst, auth
 
 `blog-index` · pattern · Stable
 
-The list of articles: the two-tone headline, one featured post with its photo dissolving toward the text, a category filter, a grid of content cards and pagination.
+The list of articles: the two-tone headline, one featured post with its photo dissolving toward the text, a category filter that wraps, a grid of content cards with a result count announced to screen readers, and pagination.
 
 **Use it for**
 

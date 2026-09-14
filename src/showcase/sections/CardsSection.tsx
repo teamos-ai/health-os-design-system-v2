@@ -22,7 +22,6 @@ const IMG = {
   yoga: '/imagery/active-and-fitness/group-yoga-side-plank-in-bright-studio-16-9.png',
   portrait: '/imagery/social-and-wellness/woman-in-pink-sweatshirt-and-cap-with-phone-and-earphones-portrait-9-16.png',
   smoothie: '/imagery/social-and-wellness/woman-in-peach-activewear-with-green-smoothie-at-cafe-full-length-9-16.png',
-  founder: '/imagery/work-and-content-creation/woman-filming-content-on-laptop-by-city-window-vertical-9-16.png',
 };
 
 const BENTO_STYLES: { value: BentoStyle; label: string }[] = [
@@ -197,7 +196,7 @@ export const CardsSection = () => (
       </Example>
 
       <Example id="profile-card" label="Profile card">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid max-w-3xl gap-6 sm:grid-cols-2">
           <ProfileCard
             name="Priya Kapoor"
             role="Movement coach"
@@ -207,20 +206,12 @@ export const CardsSection = () => (
             action={{ label: 'Book with Priya' }}
           />
           <ProfileCard
-            name="Jordan Lee"
+            name="Ana Silva"
             role="Nutrition coach"
             portrait={{ src: thumb(IMG.smoothie), alt: 'A woman in peach activewear holding a green smoothie at a cafe' }}
             focus={['Meal planning', 'Habits']}
             approach="Practical changes that fit a busy week, reviewed every fortnight."
-            action={{ label: 'Book with Jordan' }}
-          />
-          <ProfileCard
-            name="Mia Hart"
-            role="Founder"
-            portrait={{ src: thumb(IMG.founder), alt: 'A woman in a pink armchair recording a video on her laptop by a window' }}
-            focus={['Studio operations', 'Onboarding']}
-            approach="Keeps the studio running smoothly, so coaches can stay with their clients."
-            action={{ label: 'Book a walkthrough' }}
+            action={{ label: 'Book with Ana' }}
           />
         </div>
       </Example>

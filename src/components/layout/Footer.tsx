@@ -17,7 +17,7 @@ const SOCIALS = [
 ];
 
 const FOCUS =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-400 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-2';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-2';
 
 export const Footer = ({ className }: { className?: string }) => {
   const [subscribed, setSubscribed] = React.useState(false);
@@ -68,7 +68,7 @@ export const Footer = ({ className }: { className?: string }) => {
                 </p>
               ) : (
                 <form
-                  className="flex w-full items-center gap-2 rounded-md border border-line bg-surface p-1 transition-colors focus-within:border-apricot-400"
+                  className="flex w-full items-center gap-2 rounded-md border border-line bg-surface p-1 transition-colors focus-within:border-ink-900"
                   onSubmit={(e) => {
                     e.preventDefault();
                     setSubscribed(true);
@@ -86,7 +86,7 @@ export const Footer = ({ className }: { className?: string }) => {
                   />
                   <button
                     type="submit"
-                    className={cn('shrink-0 rounded-md bg-apricot-200 px-4 py-2 font-display text-body text-ink-900 transition-colors hover:bg-apricot-200/80', FOCUS)}
+                    className={cn('shrink-0 rounded-md border border-line bg-surface-2 px-4 py-2 font-display text-body text-ink-900 transition-colors hover:border-ink-400', FOCUS)}
                   >
                     Join
                   </button>
