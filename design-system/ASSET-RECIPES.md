@@ -2,7 +2,7 @@
 
 What to reach for when building each kind of asset. Each recipe names the ground, type, colour moments, components and checks. Values and props are in [REFERENCE.md](REFERENCE.md); copy and claims follow [VOICE.md](VOICE.md) and the Health OS database. Finish every asset with [CHECKLIST.md](CHECKLIST.md).
 
-**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · sentence case, no em dashes, no invented numbers.
+**Every asset:** one theme (light or paper) · Spline Sans headings, Anonymous Pro body · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · video only in `VideoPlayer` · sentence case, no em dashes, no invented numbers.
 
 ## 1. Marketing page
 

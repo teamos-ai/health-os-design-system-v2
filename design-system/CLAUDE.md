@@ -37,9 +37,10 @@ These come from the decisions recorded on 13 September 2026. Detail for each is 
 9. **Six card types.** Content, feature, service, pricing, resource and action. Each is styled for its job; do not force one into another's role.
 10. **Widgets are functional and soft.** Every widget takes real data through documented inputs and draws its colour from the light and soft shades. Experimental widgets are available and labelled. Figures in the reference site are sample data and never go into marketing.
 11. **Images come from the tagged library.** Match the image to its suggested use. Inside a card, the photo dissolves toward the text with the shared `image-fade-*` class. Never put text on a raw photo, never imply a person in a photo is a client.
-12. **Motion is on by default and calm.** Use the motion library and the duration and easing tokens. Nothing people need can wait on an animation.
-13. **Icons are being replaced.** The filled icon set is not chosen yet. Until it is, components keep their current Lucide icons; do not add a second icon library.
-14. **Docs change with the design.** A change to a token, component or rule updates `tokens.json` or `reference/catalog.json` in the same change.
+12. **One video player.** Every video uses `VideoPlayer` from `src/components/ui/video-player.tsx`: clean rounded edges with no border, frame, shadow or gradient, and its translucent carbon control bar. Never native browser controls or an embedded third-party player. Real content passes captions.
+13. **Motion is on by default and calm.** Use the motion library and the duration and easing tokens. Nothing people need can wait on an animation.
+14. **Icons are being replaced.** The filled icon set is not chosen yet. Until it is, components keep their current Lucide icons; do not add a second icon library.
+15. **Docs change with the design.** A change to a token, component or rule updates `tokens.json` or `reference/catalog.json` in the same change.
 
 ## 4. Changing the system
 

@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-13 · 106 entries · 32 components · 31 widgets · 12 patterns · 11 open decisions
+Updated 2026-09-13 · 107 entries · 33 components · 31 widgets · 12 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -17,6 +17,7 @@ Updated 2026-09-13 · 106 entries · 32 components · 31 widgets · 12 patterns 
 ## Contents
 
 - [Open decisions](#open-decisions)
+- Start: [System overview video](#system-overview-video)
 - Foundations: [Tokens](#tokens) · [Logo](#logo) · [Icons](#icons) · [Motion](#motion)
 - Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Blocks](#blocks) · [Widgets](#widgets)
 - Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Calculators](#calculators) · [Social media](#social-media) · [Backgrounds](#backgrounds) · [Image library](#image-library) · [Docs template](#docs-template)
@@ -39,6 +40,33 @@ Decisions still waiting on Tumai, and what the system does until each one is mad
 | Image library notes | R5.4 · C14 | Act on the tagging notes, or keep everything exactly as it is? | All 169 images kept. Notes flag 17 byte-identical pairs, visible third-party lettering, two photos showing a Health OS cap and some off-palette backgrounds. |
 | Claim-like badges | Database · banned language | Keep Certified, Therapeutic grade and Ethically sourced as badge examples? | Kept as requested. Use them only for a business's own verifiable facts, never as a claim about Health OS. |
 | Product preview | R5.7 | Replace the coded dashboard preview with a real, cropped product screenshot? | The command hero shows a coded mock of the dashboard with sample data. |
+
+## System overview video
+
+Start · The overview video, in the one video player the design system uses.
+
+### Video player
+
+`video-player` · component · Stable
+
+The only video player in the design system. The video sits with clean rounded edges and nothing around it; a translucent carbon control bar rises on hover, keyboard focus or pause, with time, seek, play, volume and speed.
+
+**Use it for**
+
+- Every video: pages, product screens, guides and the reference site
+- captionsSrc for any real content, so the video has captions
+- poster when the first frame is dark or empty
+- crop when a file has a frame or margins recorded into it
+
+**Not for**
+
+- Any other video style: native browser controls, embedded third-party players or a custom frame
+- Borders, frames, shadows or gradients around the video
+- Autoplay with sound
+
+**API** `src · crop: { top, right, bottom, left } (percent, for margins baked into a file) · poster · captionsSrc · captionsLang · captionsLabel · className (default and named export)`
+
+**Source** `src/components/ui/video-player.tsx`
 
 ## Tokens
 

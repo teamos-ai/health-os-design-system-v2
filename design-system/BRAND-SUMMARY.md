@@ -26,6 +26,7 @@ In practice that means a lot of air, warm neutrals, soft colour used with intent
 | Widgets and cards | Soft by rule: the light and soft shades only, with apricot buttons. Photos dissolve into the card along one long, eased fade |
 | Motion | On by default, calm and flowing, from the motion library and tokens |
 | Imagery | The full tagged library of lifestyle photos and nature backgrounds, each with a suggested use |
+| Video | One player only: clean rounded edges, no border, a translucent carbon control bar |
 | Logo | The gradient OS mark, used on its own |
 
 ## Signature moves

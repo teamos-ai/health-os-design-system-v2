@@ -41,6 +41,8 @@ const px = (rem) => `${parseFloat(rem) * 16}px`;
 
 const sectionsIn = (group) => catalog.sections.filter((s) => s.group === group);
 const entriesFor = (id) => catalog.entries.filter((e) => e.section === id);
+/** Sections that belong in the written reference: every section outside Start, and Start sections with entries. */
+const documented = (group) => sectionsIn(group).filter((s) => group !== 'Start' || entriesFor(s.id).length);
 const counts = {
   entries: catalog.entries.length,
   components: catalog.entries.filter((e) => e.kind === 'component').length,
@@ -172,8 +174,9 @@ function buildReference() {
 
   out.push('## Contents', '');
   out.push('- [Open decisions](#open-decisions)');
-  for (const group of catalog.groups.filter((g) => g !== 'Start')) {
-    out.push(`- ${group}: ${sectionsIn(group).map((s) => `[${s.title}](#${slug(s.title)})`).join(' · ')}`);
+  for (const group of catalog.groups) {
+    const listed = documented(group);
+    if (listed.length) out.push(`- ${group}: ${listed.map((s) => `[${s.title}](#${slug(s.title)})`).join(' · ')}`);
   }
   out.push('');
 
@@ -181,8 +184,8 @@ function buildReference() {
   out.push('Decisions still waiting on Tumai, and what the system does until each one is made.', '');
   out.push(table(['Topic', 'Ref', 'Question', 'For now'], catalog.open.map((o) => [o.topic, o.ref, o.question, o.current])), '');
 
-  for (const group of catalog.groups.filter((g) => g !== 'Start')) {
-    for (const s of sectionsIn(group)) {
+  for (const group of catalog.groups) {
+    for (const s of documented(group)) {
       out.push(`## ${s.title}`, '');
       out.push(`${group}${s.lead ? ` · ${s.lead}` : ''}`, '');
       if (s.id === 'tokens') out.push(tokenTables());
