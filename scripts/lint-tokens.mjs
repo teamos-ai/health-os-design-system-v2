@@ -44,6 +44,7 @@ const RULES = [
   { re: /(?<![\w-])(?:[a-z0-9-]+:)*font-(mono|heading|thin|light|medium|semibold|extrabold|black)\b/g, check: (m) => `${m[0]}: two families (display, sans) and one weight per role` },
   { re: /(?<![\w-])dark:[\w-]+/g, check: (m) => `${m[0]}: there is no dark theme` },
   { re: /(?<![\w-])bg-glow-[\w-]+/g, check: (m) => `${m[0]}: glows are not tokens; use the three gradients` },
+  { re: /(?<![\w-])(?:[a-z0-9-]+:)*bg-ink-900(?![\w/-])[^'"`\n]*text-white\b/g, check: (m) => `${m[0].split(' ')[0]} with white text: selected states are apricot-50 with an apricot-200 edge, not a dark fill` },
   { re: /(?<![\w-])(?:[a-z0-9-]+:)*bg-carbon(?![\w/-])/g, check: (m) => `${m[0]}: carbon is never a background, only a translucent veil (bg-carbon/40 to /80)` },
   { re: /(?<![\w-])(?:[a-z0-9-]+:)*(?:ring|outline)-(?:rose|lavender)-400\b|(?<![\w-])(?:[a-z-]*:)*(?:focus|focus-visible|focus-within|checked|indeterminate|peer-checked|aria-selected|aria-pressed|aria-current)(?::[a-z-]+)*:(?:bg|border|ring|text)-(?:rose|lavender)-\d{2,3}\b/g, check: (m) => `${m[0]}: apricot is the only interactive accent (focus, checked and selected states)` },
   { re: /(?<![\w-])(?:[a-z0-9-]+:)*(?:ring|outline)-apricot-400\b|(?<![\w-])(?:[a-z-]*:)*(?:focus|focus-visible|focus-within)(?::[a-z-]+)*:border-apricot-\d{2,3}\b/g, check: (m) => `${m[0]}: focus is drawn in ink-900 (ring-ink-900), apricot marks state` },

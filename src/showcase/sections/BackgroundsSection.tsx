@@ -21,7 +21,7 @@ const Chip = ({ active, onClick, children }: { active: boolean; onClick: () => v
     onClick={onClick}
     className={cn(
       'rounded-md border px-3 py-1 font-sans text-label capitalize transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
-      active ? 'border-ink-900 bg-ink-900 text-white' : 'border-line bg-surface text-ink-600 hover:border-ink-400 hover:text-ink-900'
+      active ? 'border-apricot-200 bg-apricot-50 text-ink-900' : 'border-line bg-surface text-ink-600 hover:border-ink-400 hover:text-ink-900'
     )}
   >
     {children}
