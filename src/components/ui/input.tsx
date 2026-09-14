@@ -1,5 +1,5 @@
 /**
- * Input — flat hairline field. 8px radius, 1px line, brand focus ring (no glow).
+ * Input: a flat hairline field. 8px radius, 1px line; focus draws an ink-900 edge (no glow).
  * Optional label, hint, error and a leading Lucide icon. Anonymous Pro throughout.
  */
 import * as React from 'react';
@@ -42,7 +42,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className={cn(
               'w-full rounded-md border bg-surface font-sans text-body text-ink-900',
               'placeholder:text-ink-500 transition-colors duration-sm ease-out',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-200 focus-visible:border-ink-900',
+              'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink-900 focus-visible:border-ink-900',
               'disabled:opacity-50 disabled:cursor-not-allowed',
               Icon ? 'pl-11 pr-4' : 'px-4',
               'py-3',

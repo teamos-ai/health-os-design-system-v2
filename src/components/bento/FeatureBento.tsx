@@ -184,7 +184,7 @@ export const FeatureBento = ({ variant = 'photo', hero, highlight, feature, acti
       {facts.map((fact, i) => (
         <div key={fact.label} className={cn(cell, 'justify-end gap-1 p-6 md:p-8 lg:min-h-48', i === 1 && 'sm:col-span-2 lg:col-span-1', f.facts[i])}>
           <p className="font-display text-subheading text-ink-900">{figureText(fact)}</p>
-          <p className="font-sans text-label uppercase text-ink-500">{fact.label}</p>
+          <p className="font-sans text-label uppercase text-ink-600">{fact.label}</p>
         </div>
       ))}
     </div>

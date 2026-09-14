@@ -46,7 +46,7 @@ export const LivePageSection = () => (
         <section id="live-faq" className="py-16 md:py-24">
           <div className="mx-auto max-w-container px-6">
             <h2 className="mb-8 max-w-2xl font-display text-heading text-ink-900">Questions</h2>
-            <Faq items={FAQ_ITEMS} columns={2} />
+            <Faq items={FAQ_ITEMS} />
           </div>
         </section>
         <Footer />

@@ -1,47 +1,125 @@
 /**
- * HeadlinesSection: the two-tone headline. Live examples with the copy that produces them,
- * the anatomy, the tile library and the recipe for making a new tile. Examples render as
- * h3 so the reference keeps one h1; on a real page each is the h1.
+ * HeadlinesSection: the Headline. Live examples with the markup that produces them, the
+ * anatomy, and the headline library: twenty ready headlines that open on the first four,
+ * with a pillar filter and a copy button for each line's markup. Headlines render as h3 so
+ * the reference keeps one h1; on a real page each is the h1. Tiles live in the squircle
+ * library section.
  */
-import { Section, Example, Demo } from '@/showcase/Section';
-import { Headline } from '@/components/ui/headline';
+import * as React from 'react';
+import { Copy } from 'lucide-react';
+import { Section, Example, Demo, ShowAll } from '@/showcase/Section';
+import { Headline, headlineParts } from '@/components/ui/headline';
 import { Badge } from '@/components/ui/badge';
-import { HEADLINE_TILES } from '@/data/headline-tiles';
-import { cn } from '@/lib/utils';
+import { SegmentedControl } from '@/components/ui/segmented';
+import { useToast } from '@/components/ui/toast';
+import { HEADLINE_LIBRARY, HEADLINE_PILLARS, type HeadlinePillar } from '@/data/headline-library';
 
 const EXAMPLES = [
-  { lead: 'You built {blocks} it.', rest: 'Now make it run {computer} without you.', where: 'Homepage hero' },
-  { lead: 'The design system {swatches}', rest: 'behind a calm {stones} practice', where: 'Reference site hero' },
-  { lead: 'Fewer {tools} tools,', rest: 'wired {cables} together', where: 'Article' },
+  { text: 'You [built] {blocks} it. Now make it run {computer} without you.', where: 'Homepage hero' },
+  { text: 'The design {swatches} system behind a [calm] {stones} practice', where: 'Reference site hero' },
+  { text: 'Fewer {tools} tools, [wired] {cables} together', where: 'Article' },
 ];
 
 const ANATOMY = [
-  { name: 'Lead', value: 'ink-900', note: 'The opening phrase that makes the point. One switch of tone, never two.' },
-  { name: 'Rest', value: 'ink-400', note: 'Everything after the lead, in the same size and weight.' },
-  { name: 'Tiles', value: '2 or 3', note: 'A 0.9em squircle beside the word it pictures, kept on its line. Never first or last.' },
+  { name: 'Words', value: 'ink-900', note: 'Every word of the headline is dark ink, in one size and weight.' },
+  { name: 'Accent', value: 'apricot-200', note: 'One descriptive word, marked [word]: calm, built, bookings. Never two.' },
+  { name: 'Tiles', value: '1 to 3', note: 'The tile that pictures the accent word sits right beside it. Up to two more may picture other words. Never first or last.' },
 ];
 
-const TONE_SWATCH = {
-  rose: 'bg-rose-50 ring-rose-200',
-  lavender: 'bg-lavender-50 ring-lavender-200',
-  neutral: 'bg-ink-100 ring-ink-200',
-} as const;
+const PEEK = 4;
 
-const RECIPE = `Photorealistic studio product photograph of [one literal object that pictures the word], [materials and colours], three-quarter view. Isolated on a fully transparent background, centred and filling about 80% of a square frame, soft diffused daylight from the upper left, gentle natural shading, crisp high detail, calm minimal aesthetic. No text, no letters, no logos, no brand marks, no watermark.`;
+/* Lines whose tiles are all made come first, so the library opens on headlines ready to use. */
+const ORDERED = [...HEADLINE_LIBRARY].sort((a, b) => Number(headlineParts(a.text).tiles.some((t) => t.status === 'planned')) - Number(headlineParts(b.text).tiles.some((t) => t.status === 'planned')));
+type PillarFilter = 'all' | HeadlinePillar;
+const PILLAR_OPTIONS: { value: PillarFilter; label: string }[] = [
+  { value: 'all', label: 'All' },
+  ...HEADLINE_PILLARS.map((p) => ({ value: p, label: p === 'Steady, not stop-start' ? 'Steady' : p })),
+];
+
+const CopyMarkup = ({ text, toMake }: { text: string; toMake: string[] }) => {
+  const { toast } = useToast();
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (toMake.length) toast({ title: 'Headline copied, with tiles to make', description: `Make ${toMake.map((id) => `{${id}}`).join(' and ')} before it goes live.`, tone: 'warning' });
+      else toast({ title: 'Headline copied', description: 'Paste it into the text of a Headline.' });
+    } catch {
+      toast({ title: 'Select the markup and copy it', tone: 'warning' });
+    }
+  };
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      aria-label={`Copy the markup for: ${headlineParts(text).plain}`}
+      className="inline-flex h-9 shrink-0 items-center gap-2 self-start rounded-md border border-line bg-surface px-3 font-sans text-label text-ink-900 transition-colors duration-sm ease-out hover:border-ink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
+    >
+      <Copy className="h-3 w-3 text-ink-500" strokeWidth={1.75} aria-hidden />
+      Copy markup
+    </button>
+  );
+};
+
+const Library = () => {
+  const [pillar, setPillar] = React.useState<PillarFilter>('all');
+  const [expanded, setExpanded] = React.useState(false);
+  const filtered = ORDERED.filter((h) => pillar === 'all' || h.pillar === pillar);
+  const shown = pillar !== 'all' || expanded ? filtered : filtered.slice(0, PEEK);
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <SegmentedControl size="sm" aria-label="Filter by messaging pillar" options={PILLAR_OPTIONS} value={pillar} onValueChange={(v) => setPillar(v as PillarFilter)} />
+        <span className="font-sans text-label text-ink-600" aria-live="polite">
+          {pillar === 'all' ? `${HEADLINE_LIBRARY.length} headlines` : `${filtered.length} of ${HEADLINE_LIBRARY.length} headlines`}
+        </span>
+      </div>
+      <ol id="headline-library-list" className="flex flex-col divide-y divide-line-soft">
+        {shown.map((h) => {
+          const { accent, tiles } = headlineParts(h.text);
+          const toMake = tiles.filter((t) => t.status === 'planned').map((t) => t.id);
+          return (
+            <li key={h.text} className="flex flex-col gap-4 py-8 first:pt-2">
+              <Headline as="h3" text={h.text} className="max-w-3xl" />
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex min-w-0 flex-col gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge size="sm">{h.use}</Badge>
+                    <Badge variant="outline" size="sm">
+                      {h.pillar}
+                    </Badge>
+                    {toMake.length > 0 && (
+                      <Badge variant="warning" size="sm" dot>
+                        {toMake.length === 1 ? '1 tile to make' : `${toMake.length} tiles to make`}
+                      </Badge>
+                    )}
+                  </div>
+                  <p className="font-sans text-label text-ink-600">
+                    Accent <span className="text-ink-900">{accent}</span> · Tiles <span className="text-ink-900">{tiles.map((t) => `{${t.id}}`).join(' ')}</span> · {h.from}
+                  </p>
+                </div>
+                <CopyMarkup text={h.text} toMake={toMake} />
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+      {pillar === 'all' && <ShowAll expanded={expanded} onToggle={() => setExpanded((e) => !e)} total={HEADLINE_LIBRARY.length} noun="headlines" controls="headline-library-list" />}
+    </div>
+  );
+};
 
 export const HeadlinesSection = () => (
   <Section id="headlines">
     <div className="flex flex-col gap-8">
-      <Example id="headline" label="Two-tone headline">
+      <Example id="headline" label="Headline">
         <div className="flex flex-col divide-y divide-line-soft">
           {EXAMPLES.map((ex) => (
             <figure key={ex.where} className="flex flex-col gap-4 py-8 first:pt-2 last:pb-2">
-              <Headline as="h3" lead={ex.lead} rest={ex.rest} className="max-w-3xl" />
+              <Headline as="h3" text={ex.text} className="max-w-3xl" />
               <figcaption className="flex flex-wrap items-center gap-x-3 gap-y-1 font-sans text-label text-ink-500">
                 <span className="uppercase">{ex.where}</span>
-                <code className="normal-case text-ink-600">
-                  lead="{ex.lead}" rest="{ex.rest}"
-                </code>
+                <code className="normal-case text-ink-600">text="{ex.text}"</code>
               </figcaption>
             </figure>
           ))}
@@ -64,27 +142,8 @@ export const HeadlinesSection = () => (
         </dl>
       </Demo>
 
-      <Example id="headline-tiles" label="Tile library">
-        <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3">
-          {Object.values(HEADLINE_TILES).map((t) => (
-            <li key={t.id} className="flex flex-col gap-3">
-              <span className={cn('flex aspect-square w-full max-w-40 items-center justify-center overflow-hidden rounded-lg ring-1 ring-inset', TONE_SWATCH[t.tone])}>
-                <img src={t.src} alt={t.alt} loading="lazy" decoding="async" className="h-full w-full object-contain" />
-              </span>
-              <span className="font-sans text-label text-ink-900">{`{${t.id}}`}</span>
-              <span className="font-sans text-label text-ink-500">{t.means.join(' · ')}</span>
-            </li>
-          ))}
-        </ul>
-      </Example>
-
-      <Example id="headline-tile-recipe" label="Making a new tile">
-        <div className="flex flex-col gap-4">
-          <p className="max-w-reading font-sans text-body text-ink-600">
-            Picture the word literally: software is a vintage computer, calm is balanced stones. Generate at 1:1 with a transparent background, check it is sharp and free of text and logos, then save a 1024px PNG and a 320px WebP.
-          </p>
-          <pre className="overflow-x-auto whitespace-pre-wrap rounded-md border border-line bg-surface-2 p-4 font-sans text-label normal-case text-ink-900">{RECIPE}</pre>
-        </div>
+      <Example id="headline-library" label="Headline library">
+        <Library />
       </Example>
     </div>
   </Section>

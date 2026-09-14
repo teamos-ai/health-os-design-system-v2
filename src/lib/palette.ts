@@ -15,8 +15,20 @@ export const CARBON = '#1F1F1F';
 export const WHITE = '#FFFFFF';
 export const PAPER_IVORY = '#F9F6F2';
 
-/** Two-tone headline limits: every H1 carries between tilesMin and tilesMax picture tiles. */
-export const HEADLINE = { tilesMin: 2, tilesMax: 3 } as const;
+/** Headline limits: every H1 has one accent word and between tilesMin and tilesMax picture tiles. */
+export const HEADLINE = { tilesMin: 1, tilesMax: 3 } as const;
+
+/** Banner loop limits in seconds: a banner drifts, it never races. */
+export const BANNER = { speedMin: 32, speedMax: 60 } as const;
+
+/** The floating video: it docks once less than `threshold` of its space is visible. */
+export const VIDEO_PIP = { threshold: 0.25, z: 40 } as const;
+
+/** Content that plays on its own: how long one step holds, in ms. */
+export const AUTOPLAY = { step: 6000 } as const;
+
+/** The celebration burst: soft brand colours, piece count and duration in ms. */
+export const CELEBRATION = { colours: ['#F8C39C', '#F3A0CC', '#C9A3E6', '#FDECDF', '#FADEEE'], pieces: 36, duration: 1100 } as const;
 
 /** The signature gradient stops, apricot to rose to lavender. Never reversed. */
 export const GRADIENT_STOPS = [APRICOT[400], ROSE[400], LAVENDER[400]] as const;

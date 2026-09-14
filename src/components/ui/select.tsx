@@ -49,7 +49,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             className={cn(
               'w-full appearance-none rounded-md border bg-surface py-3 pl-4 pr-10 font-sans text-body text-ink-900',
               'transition-colors duration-sm ease-out',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot-200 focus-visible:ring-offset-1 focus-visible:ring-offset-paper',
+              'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink-900',
               'disabled:cursor-not-allowed disabled:opacity-50',
               error ? 'border-error-600 focus-visible:border-error-600' : 'border-line focus-visible:border-ink-900',
               className

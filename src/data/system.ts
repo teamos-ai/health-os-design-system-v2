@@ -71,118 +71,133 @@ export const SHOWCASE_COMMANDS: string[] = [
   'open the live page',
 ];
 
-/* ── Badges: emoji + soft tints, grouped by where they are used ────────── */
+/* ── Badges: one colour key for every set ──────────────────────────────────
+ * rose      people and in person: members, one-to-one, groups, workshops, care
+ * lavender  online and self-paced: courses, webinars, replays, all-access
+ * neutral   topics, formats and everything else
+ * outline   quiet, inactive or not yet live
+ * success, warning, error  real states only, with a dot
+ */
 export interface BadgeSpec {
-  emoji: string;
   label: string;
   variant: BadgeVariant;
+  /** a real state: live, active, low stock */
+  dot?: boolean;
 }
 
+export const BADGE_KEY: { variant: BadgeVariant; label: string; meaning: string; dot?: boolean }[] = [
+  { variant: 'rose', label: 'Rose', meaning: 'People and in person' },
+  { variant: 'lavender', label: 'Lavender', meaning: 'Online and self-paced' },
+  { variant: 'neutral', label: 'Neutral', meaning: 'Topics, formats and everything else' },
+  { variant: 'outline', label: 'Outline', meaning: 'Quiet, inactive or not yet live' },
+  { variant: 'success', label: 'Status', meaning: 'A real state, with a dot', dot: true },
+];
+
 export const BADGES_STATUS: BadgeSpec[] = [
-  { emoji: '🟢', label: 'Live', variant: 'success' },
-  { emoji: '✅', label: 'Active', variant: 'success' },
-  { emoji: '⏳', label: 'Pending', variant: 'warning' },
-  { emoji: '⚠️', label: 'Overdue', variant: 'error' },
-  { emoji: '🆕', label: 'New', variant: 'lavender' },
-  { emoji: '⭐', label: 'Premium', variant: 'apricot' },
-  { emoji: '📝', label: 'Draft', variant: 'outline' },
+  { label: 'Live', variant: 'success', dot: true },
+  { label: 'Active', variant: 'success', dot: true },
+  { label: 'Pending', variant: 'warning', dot: true },
+  { label: 'Overdue', variant: 'error', dot: true },
+  { label: 'New', variant: 'neutral' },
+  { label: 'Premium', variant: 'neutral' },
+  { label: 'Draft', variant: 'outline' },
 ];
 
 export const BADGES_WELLNESS: BadgeSpec[] = [
-  { emoji: '🌿', label: 'Wellness', variant: 'success' },
-  { emoji: '🧘', label: 'Mindful', variant: 'lavender' },
-  { emoji: '💗', label: 'Self-care', variant: 'rose' },
-  { emoji: '☀️', label: 'Energy', variant: 'apricot' },
-  { emoji: '💧', label: 'Hydration', variant: 'lavender' },
-  { emoji: '🌙', label: 'Rest', variant: 'lavender' },
-  { emoji: '🍃', label: 'Calm', variant: 'success' },
-  { emoji: '🌸', label: 'Bloom', variant: 'rose' },
-  { emoji: '🔥', label: 'Streak', variant: 'apricot' },
-  { emoji: '🩺', label: 'Practitioner', variant: 'lavender' },
+  { label: 'Wellness', variant: 'neutral' },
+  { label: 'Mindful', variant: 'neutral' },
+  { label: 'Self-care', variant: 'rose' },
+  { label: 'Energy', variant: 'neutral' },
+  { label: 'Hydration', variant: 'neutral' },
+  { label: 'Rest', variant: 'neutral' },
+  { label: 'Calm', variant: 'neutral' },
+  { label: 'Bloom', variant: 'neutral' },
+  { label: 'Streak', variant: 'neutral' },
+  { label: 'Practitioner', variant: 'rose' },
 ];
 
 export const BADGES_OILS: BadgeSpec[] = [
-  { emoji: '🌿', label: 'Lavender', variant: 'lavender' },
-  { emoji: '🍊', label: 'Citrus', variant: 'apricot' },
-  { emoji: '🌶️', label: 'Cinnamon', variant: 'error' },
-  { emoji: '🌱', label: 'Peppermint', variant: 'success' },
-  { emoji: '🌳', label: 'Frankincense', variant: 'apricot' },
-  { emoji: '🌹', label: 'Rose blend', variant: 'rose' },
-  { emoji: '💧', label: 'Diffuser', variant: 'lavender' },
-  { emoji: '🧴', label: 'Roll-on', variant: 'neutral' },
-  { emoji: '🌾', label: 'Single note', variant: 'outline' },
-  { emoji: '✅', label: 'Therapeutic grade', variant: 'success' },
-  { emoji: '🐝', label: 'Ethically sourced', variant: 'apricot' },
-  { emoji: '⚠️', label: 'Dilute first', variant: 'warning' },
+  { label: 'Lavender', variant: 'neutral' },
+  { label: 'Citrus', variant: 'neutral' },
+  { label: 'Cinnamon', variant: 'neutral' },
+  { label: 'Peppermint', variant: 'neutral' },
+  { label: 'Frankincense', variant: 'neutral' },
+  { label: 'Rose blend', variant: 'neutral' },
+  { label: 'Diffuser', variant: 'outline' },
+  { label: 'Roll-on', variant: 'outline' },
+  { label: 'Single note', variant: 'outline' },
+  { label: 'Therapeutic grade', variant: 'neutral' },
+  { label: 'Ethically sourced', variant: 'neutral' },
+  { label: 'Dilute first', variant: 'warning', dot: true },
 ];
 
 export const BADGES_COACHING: BadgeSpec[] = [
-  { emoji: '🎓', label: 'Course', variant: 'lavender' },
-  { emoji: '🧭', label: '1:1 sessions', variant: 'rose' },
-  { emoji: '🌅', label: 'Group program', variant: 'apricot' },
-  { emoji: '📚', label: 'Self-paced', variant: 'lavender' },
-  { emoji: '🏅', label: 'Certified', variant: 'apricot' },
-  { emoji: '📈', label: 'Beginner', variant: 'success' },
-  { emoji: '🚀', label: 'Advanced', variant: 'rose' },
-  { emoji: '🪴', label: 'In progress', variant: 'warning' },
-  { emoji: '🎉', label: 'Completed', variant: 'success' },
-  { emoji: '🔓', label: 'Enrolled', variant: 'neutral' },
-  { emoji: '📝', label: 'Worksheet', variant: 'outline' },
+  { label: 'Course', variant: 'lavender' },
+  { label: '1:1 sessions', variant: 'rose' },
+  { label: 'Group program', variant: 'rose' },
+  { label: 'Self-paced', variant: 'lavender' },
+  { label: 'Certified', variant: 'neutral' },
+  { label: 'Beginner', variant: 'neutral' },
+  { label: 'Advanced', variant: 'neutral' },
+  { label: 'In progress', variant: 'warning', dot: true },
+  { label: 'Completed', variant: 'success', dot: true },
+  { label: 'Enrolled', variant: 'neutral' },
+  { label: 'Worksheet', variant: 'outline' },
 ];
 
 export const BADGES_COMMUNITY: BadgeSpec[] = [
-  { emoji: '🤝', label: 'Member', variant: 'success' },
-  { emoji: '💎', label: 'Inner circle', variant: 'lavender' },
-  { emoji: '⭐', label: 'Founding member', variant: 'apricot' },
-  { emoji: '🌸', label: 'Free tier', variant: 'outline' },
-  { emoji: '🔑', label: 'All-access', variant: 'rose' },
-  { emoji: '🛡️', label: 'Moderator', variant: 'lavender' },
-  { emoji: '💬', label: 'Active', variant: 'success' },
-  { emoji: '👋', label: 'New here', variant: 'apricot' },
-  { emoji: '🔔', label: 'Invite only', variant: 'warning' },
-  { emoji: '🏡', label: 'Community', variant: 'neutral' },
+  { label: 'Member', variant: 'rose' },
+  { label: 'Inner circle', variant: 'rose' },
+  { label: 'Founding member', variant: 'rose' },
+  { label: 'Free tier', variant: 'outline' },
+  { label: 'All-access', variant: 'lavender' },
+  { label: 'Moderator', variant: 'neutral' },
+  { label: 'Active', variant: 'success', dot: true },
+  { label: 'New here', variant: 'neutral' },
+  { label: 'Invite only', variant: 'outline' },
+  { label: 'Community', variant: 'neutral' },
 ];
 
 export const BADGES_EVENTS: BadgeSpec[] = [
-  { emoji: '🔴', label: 'Live', variant: 'error' },
-  { emoji: '📺', label: 'Webinar', variant: 'lavender' },
-  { emoji: '🗓️', label: 'Upcoming', variant: 'lavender' },
-  { emoji: '▶️', label: 'Replay', variant: 'neutral' },
-  { emoji: '🎟️', label: 'Free entry', variant: 'success' },
-  { emoji: '🏷️', label: 'Early bird', variant: 'apricot' },
-  { emoji: '🔥', label: 'Almost full', variant: 'warning' },
-  { emoji: '🚪', label: 'Sold out', variant: 'error' },
-  { emoji: '🧑‍🏫', label: 'Workshop', variant: 'rose' },
-  { emoji: '🌐', label: 'In person', variant: 'apricot' },
-  { emoji: '📝', label: 'RSVP', variant: 'outline' },
+  { label: 'Live', variant: 'success', dot: true },
+  { label: 'Webinar', variant: 'lavender' },
+  { label: 'Upcoming', variant: 'neutral' },
+  { label: 'Replay', variant: 'lavender' },
+  { label: 'Free entry', variant: 'neutral' },
+  { label: 'Early bird', variant: 'neutral' },
+  { label: 'Almost full', variant: 'warning', dot: true },
+  { label: 'Sold out', variant: 'error', dot: true },
+  { label: 'Workshop', variant: 'rose' },
+  { label: 'In person', variant: 'rose' },
+  { label: 'RSVP', variant: 'outline' },
 ];
 
 export const BADGES_SOCIAL: BadgeSpec[] = [
-  { emoji: '📸', label: 'Instagram', variant: 'rose' },
-  { emoji: '🎵', label: 'TikTok', variant: 'lavender' },
-  { emoji: '📰', label: 'Newsletter', variant: 'apricot' },
-  { emoji: '📌', label: 'Pinterest', variant: 'error' },
-  { emoji: '🎬', label: 'Reel', variant: 'lavender' },
-  { emoji: '📣', label: 'Campaign', variant: 'apricot' },
-  { emoji: '🗓️', label: 'Scheduled', variant: 'warning' },
-  { emoji: '🚀', label: 'Published', variant: 'success' },
-  { emoji: '🤝', label: 'Collab', variant: 'lavender' },
-  { emoji: '📊', label: 'Trending', variant: 'neutral' },
-  { emoji: '📝', label: 'Draft', variant: 'outline' },
+  { label: 'Instagram', variant: 'neutral' },
+  { label: 'TikTok', variant: 'neutral' },
+  { label: 'Newsletter', variant: 'neutral' },
+  { label: 'Pinterest', variant: 'neutral' },
+  { label: 'Reel', variant: 'neutral' },
+  { label: 'Campaign', variant: 'neutral' },
+  { label: 'Scheduled', variant: 'outline', dot: true },
+  { label: 'Published', variant: 'success', dot: true },
+  { label: 'Collab', variant: 'rose' },
+  { label: 'Trending', variant: 'neutral' },
+  { label: 'Draft', variant: 'outline' },
 ];
 
 export const BADGES_COMMERCE: BadgeSpec[] = [
-  { emoji: '🛒', label: 'In stock', variant: 'success' },
-  { emoji: '🏷️', label: 'On sale', variant: 'apricot' },
-  { emoji: '✨', label: 'Bestseller', variant: 'apricot' },
-  { emoji: '🆕', label: 'Just landed', variant: 'lavender' },
-  { emoji: '📦', label: 'Bundle', variant: 'rose' },
-  { emoji: '🔄', label: 'Subscription', variant: 'lavender' },
-  { emoji: '⏰', label: 'Low stock', variant: 'warning' },
-  { emoji: '🚫', label: 'Sold out', variant: 'error' },
-  { emoji: '🚚', label: 'Free shipping', variant: 'success' },
-  { emoji: '💳', label: 'Pre-order', variant: 'neutral' },
-  { emoji: '🎁', label: 'Gift card', variant: 'outline' },
+  { label: 'In stock', variant: 'success', dot: true },
+  { label: 'On sale', variant: 'neutral' },
+  { label: 'Bestseller', variant: 'neutral' },
+  { label: 'Just landed', variant: 'neutral' },
+  { label: 'Bundle', variant: 'neutral' },
+  { label: 'Subscription', variant: 'neutral' },
+  { label: 'Low stock', variant: 'warning', dot: true },
+  { label: 'Sold out', variant: 'error', dot: true },
+  { label: 'Free shipping', variant: 'neutral' },
+  { label: 'Pre-order', variant: 'outline' },
+  { label: 'Gift card', variant: 'neutral' },
 ];
 
 /* ── Overview snapshots ────────────────────────────────────────────────── */

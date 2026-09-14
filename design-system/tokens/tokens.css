@@ -88,9 +88,21 @@
   --hos-duration-xl: 480ms;
   --hos-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --hos-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --hos-headline-lead: #1F1F1F;
-  --hos-headline-rest: #A39B91;
+  --hos-autoplay-step: 6000ms;
+  --hos-headline-ink: #1F1F1F;
+  --hos-headline-accent: #F8C39C;
   --hos-headline-tile-size: 0.9em;
   --hos-headline-tile-radius: 0.24em;
   --hos-headline-tile-offset: -0.12em;
+  --hos-banner-fill: linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%);
+  --hos-banner-text: #1F1F1F;
+  --hos-banner-icon: #7C746B;
+  --hos-banner-speed-min: 32s;
+  --hos-banner-speed-max: 60s;
+  --hos-video-pip-width: 20rem;
+  --hos-video-pip-width-sm: 13rem;
+  --hos-video-pip-inset: 1.5rem;
+  --hos-video-pip-inset-sm: 1rem;
+  --hos-video-pip-threshold: 0.25;
+  --hos-video-pip-z: 40;
 }

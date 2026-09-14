@@ -1,14 +1,10 @@
 /**
- * CardsSection: the nine card types with their usage, then the bento grid and the feature
- * bento in its three styles. Images come from the tagged library; prices follow the offer.
+ * CardsSection: the nine card types with their usage. Images come from the tagged library;
+ * prices follow the offer. Bentos have their own section.
  */
-import * as React from 'react';
-import { CalendarCheck, ClipboardCheck, MailCheck } from 'lucide-react';
+import { CalendarCheck, MailCheck } from 'lucide-react';
 import { Section, Example } from '@/showcase/Section';
 import { ContentCard, FeatureCard, ServiceCard, PricingCard, ResourceCard, ActionCard, SessionCard, ProfileCard, StepsCard } from '@/components/cards';
-import { BentoGrid, BentoCell } from '@/components/bento/Bento';
-import { FeatureBento, type BentoStyle } from '@/components/bento/FeatureBento';
-import { SegmentedControl } from '@/components/ui/segmented';
 import { thumb } from '@/lib/images';
 import { PLANS, PRICING_NOTE } from '@/data/offer';
 
@@ -22,41 +18,6 @@ const IMG = {
   yoga: '/imagery/active-and-fitness/group-yoga-side-plank-in-bright-studio-16-9.png',
   portrait: '/imagery/social-and-wellness/woman-in-pink-sweatshirt-and-cap-with-phone-and-earphones-portrait-9-16.png',
   smoothie: '/imagery/social-and-wellness/woman-in-peach-activewear-with-green-smoothie-at-cafe-full-length-9-16.png',
-};
-
-const BENTO_STYLES: { value: BentoStyle; label: string }[] = [
-  { value: 'photo', label: 'Photo-led' },
-  { value: 'tint', label: 'Tinted' },
-  { value: 'quiet', label: 'Quiet' },
-];
-
-const FeatureBentoExample = () => {
-  const [variant, setVariant] = React.useState<BentoStyle>('photo');
-  return (
-    <Example
-      id="feature-bento"
-      label="Feature bento"
-      action={<SegmentedControl size="sm" aria-label="Bento style" options={BENTO_STYLES} value={variant} onValueChange={(v) => setVariant(v as BentoStyle)} />}
-    >
-      <FeatureBento
-        key={variant}
-        variant={variant}
-        hero={{
-          eyebrow: 'Health OS',
-          title: 'Set it up once, then let it run',
-          description: 'Built with you, then running in the background while you are with your clients.',
-          image: { src: thumb(IMG.coworking), alt: 'Three women working together on a sofa with laptops and coffee' },
-        }}
-        highlight={{ icon: ClipboardCheck, value: 10, label: 'questions in the check, under two minutes' }}
-        feature={{ icon: CalendarCheck, title: 'Bookings that confirm themselves', description: 'Clients book, pay and get reminders without you in the loop.' }}
-        action={{ eyebrow: 'The check', title: 'See what still routes through you' }}
-        facts={[
-          { value: 297, prefix: '$', label: 'AUD a month for Health OS' },
-          { value: 'One', label: 'place for booking, clients and sales' },
-        ]}
-      />
-    </Example>
-  );
 };
 
 export const CardsSection = () => (
@@ -239,32 +200,6 @@ export const CardsSection = () => (
           />
         </div>
       </Example>
-
-      <Example id="bento-grid" label="Bento grid">
-        <BentoGrid>
-          <BentoCell span={2}>
-            <ContentCard
-              title="Set it up once, then let it run"
-              excerpt="Built with you, then running in the background."
-              image={{ src: thumb(IMG.coworking), alt: 'Three women working together on a sofa with laptops and coffee' }}
-              ratio="3/2"
-              category="Setup"
-              className="h-full"
-            />
-          </BentoCell>
-          <BentoCell>
-            <FeatureCard icon={MailCheck} accent="lavender" title="Enquiries answered" description="New enquiries get a reply and a next step while you are with a client." />
-          </BentoCell>
-          <BentoCell>
-            <FeatureCard icon={CalendarCheck} accent="apricot" title="Reminders on time" description="Every booking gets its reminder without anyone sending it." />
-          </BentoCell>
-          <BentoCell span={2}>
-            <ActionCard title="See what still routes through you" description="Ten questions, under two minutes." action={{ label: 'Start the check' }} className="h-full" />
-          </BentoCell>
-        </BentoGrid>
-      </Example>
-
-      <FeatureBentoExample />
     </div>
   </Section>
 );

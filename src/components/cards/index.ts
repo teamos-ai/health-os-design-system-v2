@@ -16,7 +16,7 @@
 export { ContentCard, type ContentCardProps, type ImageRatio } from './ContentCard';
 export { FeatureCard, type FeatureCardProps } from './FeatureCard';
 export { ServiceCard, type ServiceCardProps } from './ServiceCard';
-export { PricingCard, type PricingCardProps } from './PricingCard';
+export { PricingCard, type PricingCardProps, type Billing } from './PricingCard';
 export { ResourceCard, type ResourceCardProps } from './ResourceCard';
 export { ActionCard, type ActionCardProps } from './ActionCard';
 export { SessionCard, type SessionCardProps } from './SessionCard';

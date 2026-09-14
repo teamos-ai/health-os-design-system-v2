@@ -6,6 +6,7 @@
  *   Usage    purpose, when to use, when not to, API and source for one catalogue entry
  */
 import type { ReactNode } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { FadeIn } from '@/components/ui/animated';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -66,11 +67,46 @@ export const Demo = ({
   <div className={cn('min-w-0 overflow-clip rounded-lg border border-line bg-surface', className)}>
     {(label || action) && (
       <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-line bg-surface-2 px-4 py-2">
-        {label ? <span className="font-sans text-label uppercase text-ink-500">{label}</span> : <span />}
+        {label ? <span className="font-sans text-label uppercase text-ink-600">{label}</span> : <span />}
         {action}
       </div>
     )}
     <div className={cn(padded && 'p-6 md:p-8')}>{children}</div>
+  </div>
+);
+
+/**
+ * The control that collapses a long library to its first few items. It names what it reveals
+ * and how many, and points at the list it controls.
+ */
+export const ShowAll = ({
+  expanded,
+  onToggle,
+  total,
+  noun,
+  controls,
+  className,
+}: {
+  expanded: boolean;
+  onToggle: () => void;
+  total: number;
+  /** plural noun for the items, e.g. "headlines" */
+  noun: string;
+  /** id of the list this control expands */
+  controls: string;
+  className?: string;
+}) => (
+  <div className={cn('flex justify-center', className)}>
+    <button
+      type="button"
+      aria-expanded={expanded}
+      aria-controls={controls}
+      onClick={onToggle}
+      className="inline-flex h-11 items-center gap-2 rounded-md border border-line bg-surface px-6 font-display text-body text-ink-900 transition-colors duration-sm ease-out hover:border-ink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+    >
+      {expanded ? `Show fewer ${noun}` : `Show all ${total} ${noun}`}
+      <ChevronDown aria-hidden strokeWidth={1.75} className={cn('h-4 w-4 transition-transform duration-md ease-out', expanded && 'rotate-180')} />
+    </button>
   </div>
 );
 
@@ -148,7 +184,7 @@ export const Example = ({
   <div className={cn('min-w-0 overflow-clip rounded-lg border border-line bg-surface', className)}>
     {(label || action) && (
       <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-line bg-surface-2 px-4 py-2">
-        {label ? <span className="font-sans text-label uppercase text-ink-500">{label}</span> : <span />}
+        {label ? <span className="font-sans text-label uppercase text-ink-600">{label}</span> : <span />}
         {action}
       </div>
     )}

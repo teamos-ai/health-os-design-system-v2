@@ -1,5 +1,5 @@
 /**
- * BlogSection: the blog system. An article page (breadcrumb, two-tone headline, meta, hero
+ * BlogSection: the blog system. An article page (breadcrumb, headline, meta, hero
  * figure, table of contents beside the reading column, pull quote on a rose rule, a
  * table, then tags, author, related posts and one next step) and a blog index (headline,
  * featured post, category filter, post grid and pagination). Headlines render as h3 so the
@@ -80,7 +80,7 @@ const ArticleExample = () => {
 
         <header className="mt-8 max-w-3xl">
           <Badge variant="lavender">Operations</Badge>
-          <Headline as="h3" lead="Fewer {tools} tools," rest="wired {cables} together" className="mt-6" />
+          <Headline as="h3" text="Fewer {tools} tools, [wired] {cables} together" className="mt-6" />
           <p className="mt-6 max-w-reading font-sans text-body text-ink-600">
             Most wellness businesses end up running on a handful of separate tools. This is a look at what to bring together first, and what can wait.
           </p>
@@ -115,7 +115,7 @@ const ArticleExample = () => {
           <h4 id="blog-compare" className="mt-10 scroll-mt-8 font-display text-subheading text-ink-900">
             A quick comparison
           </h4>
-          <div className="mt-4 overflow-x-auto rounded-lg border border-line">
+          <div className="relative mt-4 overflow-x-auto rounded-lg border border-line">
             <table className="w-full min-w-[420px] border-collapse">
               <caption className="sr-only">One connected system compared with separate tools</caption>
               <thead>
@@ -199,7 +199,7 @@ const BlogIndexExample = () => {
   return (
     <Example id="blog-index" label="Blog index">
       <div className="py-4">
-        <Headline as="h3" lead="Notes for a calm {stones} practice" rest="that runs {computer} on its own" className="max-w-3xl" />
+        <Headline as="h3" text="Notes for a [calm] {stones} practice that runs {computer} on its own" className="max-w-3xl" />
         <p className="mt-6 max-w-reading font-sans text-body text-ink-600">Plain guides on bookings, clients and the admin in between.</p>
 
         <FeaturedPost post={FEATURED} className="mt-10" />

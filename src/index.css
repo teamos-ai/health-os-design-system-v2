@@ -74,9 +74,9 @@
     -webkit-box-decoration-break: clone;
     animation: hos-highlight 480ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
   }
-  /* Headline tile: a square picture between the words of a two-tone headline. Every value
-     comes from the headline tokens and is in em, so the tile scales with the heading role.
-     The object sits on a transparent ground; the tint and edge come from the tile's tone. */
+  /* Headline tile: a square picture beside a word of a headline. Every value comes from the
+     headline tokens and is in em, so the tile scales with the heading role. The object sits
+     on a transparent ground; the tint and edge come from the tile's tone. */
   .headline-tile {
     display: inline-block;
     width: var(--hos-headline-tile-size);
@@ -91,6 +91,32 @@
     height: 100%;
     object-fit: contain;
     user-select: none;
+  }
+  /* The floating video: a playing video that has scrolled out of view docks in the bottom
+     right corner. Size, inset and layer come from the video tokens. */
+  .video-pip {
+    position: fixed;
+    right: var(--hos-video-pip-inset-sm);
+    bottom: var(--hos-video-pip-inset-sm);
+    width: var(--hos-video-pip-width-sm);
+    z-index: var(--hos-video-pip-z);
+  }
+  @media (min-width: 640px) {
+    .video-pip {
+      right: var(--hos-video-pip-inset);
+      bottom: var(--hos-video-pip-inset);
+      width: var(--hos-video-pip-width);
+    }
+  }
+
+  /* A tile shown on its own in the squircle library, at 86px (0.9em of 6rem). */
+  .squircle-specimen {
+    display: block;
+    font-size: 6rem;
+    line-height: 1;
+  }
+  .squircle-specimen .headline-tile {
+    vertical-align: top;
   }
 
   /* Image fade: the soft white dissolve every image card uses. The photo fades into the

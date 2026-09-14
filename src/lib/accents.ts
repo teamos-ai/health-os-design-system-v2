@@ -13,14 +13,14 @@ export interface AccentStyle {
   /** solid dot or marker */
   dot: string;
   /** matching Badge variant */
-  badge: 'rose' | 'apricot' | 'lavender' | 'neutral';
+  badge: 'rose' | 'lavender' | 'neutral';
   /** soft field for media placeholders */
   wash: string;
 }
 
 export const ACCENTS: Record<Accent, AccentStyle> = {
   rose: { well: 'bg-rose-50 text-rose-200', icon: 'text-rose-200', dot: 'bg-rose-200', badge: 'rose', wash: 'bg-rose-50' },
-  apricot: { well: 'bg-apricot-50 text-apricot-200', icon: 'text-apricot-200', dot: 'bg-apricot-200', badge: 'apricot', wash: 'bg-apricot-50' },
+  apricot: { well: 'bg-apricot-50 text-apricot-200', icon: 'text-apricot-200', dot: 'bg-apricot-200', badge: 'neutral', wash: 'bg-apricot-50' },
   lavender: { well: 'bg-lavender-50 text-lavender-200', icon: 'text-lavender-200', dot: 'bg-lavender-200', badge: 'lavender', wash: 'bg-lavender-50' },
   ink: { well: 'bg-ink-100 text-ink-900', icon: 'text-ink-900', dot: 'bg-ink-400', badge: 'neutral', wash: 'bg-ink-100' },
 };

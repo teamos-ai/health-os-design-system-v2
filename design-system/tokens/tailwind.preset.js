@@ -132,6 +132,7 @@ export default {
         "container": "1200px",
         "container-wide": "1320px",
         "reading": "680px",
+        "narrow": "800px",
         "hero-subcopy": "600px"
       },
       "transitionDuration": {

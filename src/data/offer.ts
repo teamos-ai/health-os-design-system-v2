@@ -2,14 +2,15 @@
  * The Health OS offer as shown in examples. Mirrors db-health-os
  * (02-offer-and-pricing/pricing-and-tiers.md, as of 10 Sep 2026): AUD everywhere, $297 is
  * the lead, Platinum is published but never promoted, usage charges are stated, partner
- * payouts are never shown publicly. Change the database first, then this file.
+ * payouts are never shown publicly. The database records no annual plan, so no plan has an
+ * annualPrice and the billing switch stays hidden. Change the database first, then this file.
  */
 import type { PricingCardProps } from '@/components/cards';
 
 export const PLANS: PricingCardProps[] = [
   {
     name: 'Build Your OS',
-    price: '$97',
+    price: 97,
     cadence: 'AUD / month',
     fee: 'No onboarding fee',
     description: 'The business platform with step-by-step training.',
@@ -18,7 +19,7 @@ export const PLANS: PricingCardProps[] = [
   },
   {
     name: 'Health OS',
-    price: '$297',
+    price: 297,
     cadence: 'AUD / month',
     fee: '+ $997 AUD onboarding',
     description: 'The platform, set up and customised for your business.',
@@ -28,7 +29,7 @@ export const PLANS: PricingCardProps[] = [
   },
   {
     name: 'Health OS Platinum',
-    price: '$497',
+    price: 497,
     cadence: 'AUD / month',
     fee: '+ $997 AUD onboarding',
     description: 'Everything in Health OS, with AI phone calls.',

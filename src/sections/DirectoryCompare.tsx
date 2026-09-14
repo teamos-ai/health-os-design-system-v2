@@ -14,7 +14,7 @@ export const DirectoryCompare = ({ id = 'compare' }: { id?: string }) => (
         <p className="mt-4 font-sans text-body text-ink-600">The same jobs, done across separate logins, or done once in one place.</p>
       </FadeIn>
       <FadeIn delay={0.05} y={16}>
-        <div className="overflow-x-auto rounded-lg border border-line bg-surface">
+        <div className="relative overflow-x-auto rounded-lg border border-line bg-surface">
           <table className="w-full min-w-[560px] border-collapse">
             <caption className="sr-only">A typical stack of separate tools compared with Health OS</caption>
             <thead>

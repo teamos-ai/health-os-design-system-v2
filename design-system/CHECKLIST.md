@@ -6,10 +6,10 @@ A quick check for every page, post, email or asset built from this system. If an
 
 1. Every colour, size, radius, shadow and duration comes from a token. No hex codes or pixel values typed by hand.
 2. The page uses one theme: light or paper. Nothing sits on a dark or carbon background.
-3. Every H1 is a two-tone headline: the point in ink-900, the rest in ink-400, with two or three picture tiles that literally show what it says.
+3. Every H1 is the Headline: ink-900 with one descriptive word in apricot-200 and a picture tile beside it that literally shows the word, three tiles at most.
 4. Other headings use the heading or subheading role in ink-900, running text uses body, small text uses label.
-5. Rose, apricot and lavender appear only in their 50, 200 and 400 shades, and text stays in the ink neutrals. Status colours report real states only.
-6. Apricot is the only interactive accent: buttons, links, ticks, toggles and selected states are apricot, never rose or lavender, and apricot is never decoration. Focus rings are ink-900.
+5. Rose, apricot and lavender appear only in their 50, 200 and 400 shades, and text stays in the ink neutrals except the headline accent word. Status colours report real states only.
+6. Apricot is the only interactive accent: buttons, links, ticks, toggles and selected states are apricot, never rose or lavender, and apricot is never decoration beyond the headline accent word. Focus rings are ink-900.
 7. At most one gradient moment per view, using one of the three gradients, and never a saturated gradient as a large fill.
 8. Widgets and cards use the light (200) and soft (50) shades only, and every button fill is apricot-200 #F8C39C with ink text.
 9. There is one primary button per view. Other actions are secondary or text.

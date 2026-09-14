@@ -9,6 +9,7 @@ import { OverviewSection } from '@/showcase/sections/OverviewSection';
 import { ChecklistSection } from '@/showcase/sections/ChecklistSection';
 import { TokensSection } from '@/showcase/sections/TokensSection';
 import { HeadlinesSection } from '@/showcase/sections/HeadlinesSection';
+import { SquirclesSection } from '@/showcase/sections/SquirclesSection';
 import { LogoSection } from '@/showcase/sections/LogoSection';
 import { IconsSection } from '@/showcase/sections/IconsSection';
 import { MotionSection } from '@/showcase/sections/MotionSection';
@@ -16,11 +17,14 @@ import { ButtonsSection } from '@/showcase/sections/ButtonsSection';
 import { BadgesSection } from '@/showcase/sections/BadgesSection';
 import { ElementsSection } from '@/showcase/sections/ElementsSection';
 import { CardsSection } from '@/showcase/sections/CardsSection';
+import { FeaturesSection } from '@/showcase/sections/FeaturesSection';
+import { BentosSection } from '@/showcase/sections/BentosSection';
 import { BlocksSection } from '@/showcase/sections/BlocksSection';
 import { WidgetsSection } from '@/showcase/sections/WidgetsSection';
 import { SignatureSection } from '@/showcase/sections/SignatureSection';
 import { BannersSection } from '@/showcase/sections/BannersSection';
 import { BlogSection } from '@/showcase/sections/BlogSection';
+import { LeadMagnetsSection } from '@/showcase/sections/LeadMagnetsSection';
 import { CalculatorsSection } from '@/showcase/sections/CalculatorsSection';
 import { SocialMediaSection } from '@/showcase/sections/SocialMediaSection';
 import { BackgroundsSection } from '@/showcase/sections/BackgroundsSection';
@@ -35,6 +39,7 @@ const RENDER: Record<string, ComponentType> = {
   checklist: ChecklistSection,
   tokens: TokensSection,
   headlines: HeadlinesSection,
+  squircles: SquirclesSection,
   logo: LogoSection,
   icons: IconsSection,
   motion: MotionSection,
@@ -42,11 +47,14 @@ const RENDER: Record<string, ComponentType> = {
   badges: BadgesSection,
   elements: ElementsSection,
   'card-bento': CardsSection,
+  features: FeaturesSection,
+  bentos: BentosSection,
   blocks: BlocksSection,
   widgets: WidgetsSection,
   signature: SignatureSection,
   banners: BannersSection,
   blog: BlogSection,
+  'lead-magnets': LeadMagnetsSection,
   calculators: CalculatorsSection,
   social: SocialMediaSection,
   backgrounds: BackgroundsSection,

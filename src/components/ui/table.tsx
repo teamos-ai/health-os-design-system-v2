@@ -34,7 +34,7 @@ export function Table<Row>({ columns, rows, rowKey, caption, className }: TableP
     c.align === 'right' || c.numeric ? 'text-right' : c.align === 'center' ? 'text-center' : 'text-left';
 
   return (
-    <div className={cn('overflow-x-auto rounded-lg border border-line', className)}>
+    <div className={cn('relative overflow-x-auto rounded-lg border border-line', className)}>
       <table className="w-full border-collapse">
         {caption && <caption className="sr-only">{caption}</caption>}
         <thead>

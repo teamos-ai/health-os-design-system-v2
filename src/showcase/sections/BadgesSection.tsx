@@ -1,12 +1,14 @@
 /**
- * BadgesSection: every badge set, grouped by where it is used, then the mono label.
+ * BadgesSection: the badge colour key and sizes, every badge set grouped by where it is used
+ * (each following the same key), then the mono label.
  */
-import { ArrowUpRight } from 'lucide-react';
-import { Section, Example } from '@/showcase/Section';
+import { ArrowUpRight, CalendarDays, Video } from 'lucide-react';
+import { Section, Example, Demo } from '@/showcase/Section';
 import { Badge } from '@/components/ui/badge';
 import { MonoLabel } from '@/components/ui/mono-label';
 import { BreathingDot } from '@/components/ui/animated';
 import {
+  BADGE_KEY,
   BADGES_STATUS,
   BADGES_WELLNESS,
   BADGES_OILS,
@@ -31,6 +33,43 @@ const BADGE_GROUPS = [
 export const BadgesSection = () => (
   <Section id="badges">
     <div className="flex flex-col gap-8">
+      <Demo label="Colour key and sizes">
+        <div className="flex flex-col gap-6">
+          <dl className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+            {BADGE_KEY.map((k) => (
+              <div key={k.label} className="flex items-center gap-3">
+                <dt className="w-24 shrink-0">
+                  <Badge variant={k.variant} dot={k.dot}>
+                    {k.label}
+                  </Badge>
+                </dt>
+                <dd className="font-sans text-body text-ink-600">{k.meaning}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge variant="warning" dot>
+              Warning
+            </Badge>
+            <Badge variant="error" dot>
+              Error
+            </Badge>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge size="sm">Small</Badge>
+            <Badge variant="lavender" size="sm" icon={Video}>
+              Webinar
+            </Badge>
+            <Badge variant="outline" size="sm" icon={CalendarDays}>
+              Thursday 6pm
+            </Badge>
+            <Badge variant="success" size="sm" dot>
+              Bookings open
+            </Badge>
+          </div>
+        </div>
+      </Demo>
+
       <Example id="badge" label="Badge sets">
         <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
           {BADGE_GROUPS.map((group) => (
@@ -41,7 +80,7 @@ export const BadgesSection = () => (
               </div>
               <div className="flex flex-wrap gap-2">
                 {group.items.map((b) => (
-                  <Badge key={b.label} variant={b.variant} emoji={b.emoji}>
+                  <Badge key={b.label} variant={b.variant} dot={b.dot}>
                     {b.label}
                   </Badge>
                 ))}

@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-14 · 116 entries · 39 components · 31 widgets · 12 patterns · 11 open decisions
+Updated 2026-09-15 · 125 entries · 47 components · 31 widgets · 13 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -18,9 +18,9 @@ Updated 2026-09-14 · 116 entries · 39 components · 31 widgets · 12 patterns 
 
 - [Open decisions](#open-decisions)
 - Start: [System overview video](#system-overview-video) · [Overview](#overview)
-- Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Logo](#logo) · [Icons](#icons) · [Motion](#motion)
-- Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Blocks](#blocks) · [Widgets](#widgets)
-- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Calculators](#calculators) · [Social media](#social-media) · [Backgrounds](#backgrounds) · [Image library](#image-library)
+- Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Squircle library](#squircle-library) · [Logo](#logo) · [Icons](#icons) · [Motion](#motion)
+- Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Features](#features) · [Bentos](#bentos) · [Blocks](#blocks) · [Widgets](#widgets)
+- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Backgrounds](#backgrounds) · [Image library](#image-library)
 - Proof: [The live page](#the-live-page)
 
 ## Open decisions
@@ -49,24 +49,25 @@ Start · The overview video, in the one video player the design system uses.
 
 `video-player` · component · Stable
 
-The only video player in the design system. The video sits with clean rounded edges and nothing around it; a translucent carbon control bar rises on hover, keyboard focus or pause, with time, seek, play, volume and speed.
+The only video player in the design system. The video sits with clean rounded edges and nothing around it; a translucent carbon control bar rises on hover, keyboard focus or pause. When a playing video scrolls out of view it floats into the bottom right corner with play, back to the video and close, and returns when its space scrolls back in.
 
 **Use it for**
 
 - Every video: pages, product screens, guides and the reference site
+- The floating video by default, so a reader can keep watching while they scroll
 - captionsSrc for any real content, so the video has captions
-- poster when the first frame is dark or empty
-- crop when a file has a frame or margins recorded into it
+- poster when the first frame is dark or empty, crop when a file has a frame recorded into it
 
 **Not for**
 
 - Any other video style: native browser controls, embedded third-party players or a custom frame
-- Borders, frames, shadows or gradients around the video
-- Autoplay with sound
+- Borders, frames, shadows or gradients around the video in place
+- float={false} unless a floating video would cover something the page needs, such as a checkout
+- Autoplay with sound, or floating a paused video
 
-**API** `src · crop: { top, right, bottom, left } (percent, for margins baked into a file) · poster · captionsSrc · captionsLang · captionsLabel · className (default and named export)`
+**API** `src · float (default true) · crop: { top, right, bottom, left } · poster · captionsSrc · captionsLang · captionsLabel · className · floating size, inset, threshold and layer from tokens.json → video`
 
-**Source** `src/components/ui/video-player.tsx`
+**Source** `src/components/ui/video-player.tsx · tokens.json → video · .video-pip in src/index.css`
 
 ## Overview
 
@@ -115,7 +116,7 @@ Light is the default. Paper is `.theme-paper` on `<html>`. Grounds are RGB chann
 
 ### Colour
 
-Every colour stops at its full strength and has two lighter shades. There are no darker shades. Apricot is the one interactive accent: apricot-200 fills every button, check, selected state and link underline, and apricot-50 with an apricot-200 edge marks what is selected. Focus rings are ink-900, so where you are never looks like what you chose. Apricot is never decoration: rose, lavender and the ink neutrals carry categories, charts, tiles and the gradients. Widgets and cards use only the two lighter shades, and text stays in the ink neutrals.
+Every colour stops at its full strength and has two lighter shades. There are no darker shades. Apricot is the one interactive accent: apricot-200 fills every button, check, selected state and link underline, and apricot-50 with an apricot-200 edge marks what is selected. Focus rings are ink-900, so where you are never looks like what you chose. Apricot is never decoration, with one exception: the one descriptive word of a headline is apricot-200. Rose, lavender and the ink neutrals carry categories, charts, tiles and the gradients. Widgets and cards use only the two lighter shades, and every other piece of text stays in the ink neutrals.
 
 | Token | Hex | CSS variable | Role |
 | --- | --- | --- | --- |
@@ -123,17 +124,17 @@ Every colour stops at its full strength and has two lighter shades. There are no
 | `rose-200` | #F3A0CC | `--hos-rose-200` | Light. Rose categories in widgets and cards: bars, rings, tiles, chart data, icons and borders on rose tints. |
 | `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Gradient stops and category dots only. Not for text, buttons, focus rings, checked or selected states, widgets or card colour. |
 | `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Selected rows, chips and segments (with an apricot-200 edge) and the active navigation item. Not a decorative fill. |
-| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The accent: every button and icon button fill with ink text, checked checkboxes, radios and switches, selected states, the current step, tab and link underlines and the text selection. Also one of the three data colours inside widgets. Not for decorative cells, badges on static content or headline tiles. |
+| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The accent: every button and icon button fill with ink text, checked checkboxes, radios and switches, selected states, the current step, tab and link underlines, the text selection and the FAQ plus. The one descriptive word of every headline, the only apricot text in the system. Also one of the three data colours inside widgets and the celebration confetti. Not for decorative cells, badges or headline tiles. |
 | `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. The / in command chips and category dots. Also a gradient stop. Not for focus rings (ink-900), fills, text, widgets or card colour. |
 | `lavender-50` | #EDE1F7 | `--hos-lavender-50` | Soft. Cool tinted fills. |
 | `lavender-200` | #C9A3E6 | `--hos-lavender-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons and borders on cool fills. |
 | `lavender-400` | #A668D9 | `--hos-lavender-400` | Full strength. Gradient stops and category dots only. Not for text, widgets or card colour. |
 | `ink-100` | #F2EFEB | `--hos-ink-100` | Quiet fills and hover backgrounds. |
 | `ink-200` | #E3DDD6 | `--hos-ink-200` | Stronger dividers and pressed fills. |
-| `ink-400` | #A39B91 | `--hos-ink-400` | Placeholder text, disabled text, hover borders, muted icons, and the muted rest of a two-tone headline (heading size only). |
+| `ink-400` | #A39B91 | `--hos-ink-400` | Placeholder text, disabled text, hover borders and muted icons. |
 | `ink-500` | #7C746B | `--hos-ink-500` | Secondary text and metadata. The lightest neutral for readable text. |
 | `ink-600` | #5A534B | `--hos-ink-600` | Body text. |
-| `ink-900` | #1F1F1F | `--hos-ink-900` | Headings, primary text, the lead of a two-tone headline, and every focus ring and focused field border. |
+| `ink-900` | #1F1F1F | `--hos-ink-900` | Headings, primary text, every word of a headline except its accent word, and every focus ring and focused field border. |
 | `success-100` | #E2F5EC | `--hos-success-100` | Soft. Tint behind success content. |
 | `success-300` | #9AD3BC | `--hos-success-300` | Light. Borders on success tints and chart tracks. |
 | `success-600` | #1F9D6B | `--hos-success-600` | Full strength. Icons, dots, solid marks. |
@@ -143,7 +144,7 @@ Every colour stops at its full strength and has two lighter shades. There are no
 | `error-100` | #FAE4E2 | `--hos-error-100` | Soft. Tint behind error content. |
 | `error-300` | #E6A5A1 | `--hos-error-300` | Light. Borders on error tints and chart tracks. |
 | `error-600` | #C8382F | `--hos-error-600` | Full strength. Icons, dots, solid marks, and error messages. |
-| `carbon` | #1F1F1F | `--hos-carbon` | Never a background. Only a translucent veil: the video control bar (carbon/60, carbon/80) and the modal backdrop (carbon/40). |
+| `carbon` | #1F1F1F | `--hos-carbon` | Never a background. Only a translucent veil: the video control bar (carbon/60, carbon/80), the floating video's close control and the modal backdrop (carbon/40). |
 | `white` | #FFFFFF | `--hos-white` | Icons and text on the video control bar. Never a hand-coded page ground. |
 
 Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg-carbon`. Text stays in the ink neutrals.
@@ -153,7 +154,7 @@ Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg
 | Class | CSS variable | Value | Role |
 | --- | --- | --- | --- |
 | `bg-brand-gradient` | `--hos-brand-gradient` | `linear-gradient(135deg, #F5A060 0%, #E85BA8 50%, #A668D9 100%)` | Signature. Apricot to rose to lavender, never reversed. The logo, a highlight behind one headline word, thin accents such as a progress fill. Never a large fill for a card, panel or banner. |
-| `bg-brand-gradient-soft` | `--hos-brand-gradient-soft` | `linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)` | Soft wash. Large quiet fills: section panels, media placeholders, highlight bars. Dark text on top. |
+| `bg-brand-gradient-soft` | `--hos-brand-gradient-soft` | `linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%)` | Soft wash. Large quiet fills: section panels, media placeholders, highlight bars and the one scrolling banner. Dark text on top. |
 | `bg-brand-gradient-dawn` | `--hos-brand-gradient-dawn` | `linear-gradient(160deg, #FFFFFF 0%, #FDECDF 55%, #FADEEE 100%)` | Soft dawn. A gentle warm light from white into apricot and rose tints. Action cards and invitations, with dark text and the primary button on top. |
 
 ### Type
@@ -174,19 +175,60 @@ Pair each role with its family: `font-display text-heading`, `font-display text-
 
 ### Headline
 
-Every H1 is a two-tone headline. The opening phrase that makes the point is ink-900 and the rest is ink-400, with two or three square picture tiles between the words that show what the headline says. Tiles sit on a rose, lavender or warm neutral tint, stay on the same line as the words beside them and do not react to the pointer. Tile values are in em so tiles scale with the heading.
+Every H1 is written in ink-900 except one descriptive word (calm, build, health, scale), which is apricot-200. A square picture tile sits right beside that word and shows it; one or two more tiles may picture other words, up to three in all. Tiles come from the squircle library, sit on a rose, lavender or warm neutral tint, stay on the same line as the word before them and do not react to the pointer. Tile values are in em so tiles scale with the heading.
 
 | Token | CSS variable | Value | Use |
 | --- | --- | --- | --- |
-| `lead` | `--hos-headline-lead` | #1F1F1F | ink-900 (text-ink-900). The opening phrase that makes the point. |
-| `rest` | `--hos-headline-rest` | #A39B91 | ink-400 (text-ink-400). Everything after the opening phrase. |
+| `ink` | `--hos-headline-ink` | #1F1F1F | ink-900 (text-ink-900). Every word of the headline except the accent word. |
+| `accent` | `--hos-headline-accent` | #F8C39C | apricot-200 (text-apricot-200). The one descriptive word, marked [word] in the copy. Large text only: at 1.6:1 on white it is a brand moment, not a readable colour for smaller type. |
 | `tile-size` | `--hos-headline-tile-size` | 0.9em | Width and height of a picture tile, just under the heading size so it sits inside the line. |
 | `tile-radius` | `--hos-headline-tile-radius` | 0.24em | The squircle corner of a tile, in proportion to its size. |
 | `tile-offset` | `--hos-headline-tile-offset` | -0.12em | Vertical alignment that centres a tile on the letters. |
-| `tiles-min` | Rule | 2 | The fewest tiles in a headline. |
+| `tiles-min` | Rule | 1 | The fewest tiles in a headline: the one beside the accent word. |
 | `tiles-max` | Rule | 3 | The most tiles in a headline. |
 
-Build headlines with `<Headline lead rest />` from `src/components/ui/headline.tsx`: it applies these values and checks the tile count.
+Build headlines with `<Headline text="… [accent] {tile} …" />` from `src/components/ui/headline.tsx`: it applies these values and checks the accent word and tiles. Tiles come from the squircle library, `src/data/headline-tiles.ts`.
+
+### Banner
+
+There is one banner: the scrolling strip on the soft wash. No grey, paper, white or dark banner exists, on either theme.
+
+| Token | CSS variable | Value | Use |
+| --- | --- | --- | --- |
+| `fill` | `--hos-banner-fill` | linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%) | brand-gradient-soft (bg-brand-gradient-soft), with a hairline top and bottom. |
+| `text` | `--hos-banner-text` | #1F1F1F | ink-900. Statements in the label role, uppercase. |
+| `icon` | `--hos-banner-icon` | #7C746B | ink-500. The small line icon before each statement. |
+| `speed-min` | `--hos-banner-speed-min` | 32s | The fastest loop. A banner drifts; it never races. |
+| `speed-max` | `--hos-banner-speed-max` | 60s | The slowest loop. |
+
+The one banner is `<Ticker />` from `src/components/layout/Ticker.tsx`; its loop limits are also `BANNER` in palette.ts.
+
+### Floating video
+
+The floating video. When a playing video scrolls out of view it follows the reader into the bottom right corner, and returns to its place when its space scrolls back in. It never floats while paused, and closing it pauses the video.
+
+| Token | CSS variable | Value | Use |
+| --- | --- | --- | --- |
+| `pip-width` | `--hos-video-pip-width` | 20rem | 320px wide from sm up. |
+| `pip-width-sm` | `--hos-video-pip-width-sm` | 13rem | 208px wide on phones, so it covers little of the page. |
+| `pip-inset` | `--hos-video-pip-inset` | 1.5rem | 24px from the right and bottom edges from sm up. |
+| `pip-inset-sm` | `--hos-video-pip-inset-sm` | 1rem | 16px from the edges on phones. |
+| `pip-threshold` | `--hos-video-pip-threshold` | 0.25 | The video floats once less than a quarter of its space is visible. |
+| `pip-z` | `--hos-video-pip-z` | 40 | Above page content, below dialogs, toasts and menus. |
+
+Applied by `VideoPlayer` through the `.video-pip` class; the threshold and layer are also `VIDEO_PIP` in palette.ts.
+
+### Celebration
+
+The confetti burst for a moment worth marking, such as switching to annual billing. Soft brand colours only, small round pieces, over in about a second. Off when someone has reduced motion switched on.
+
+| Token | CSS variable | Value | Use |
+| --- | --- | --- | --- |
+| `colours` | JS only | #F8C39C, #F3A0CC, #C9A3E6, #FDECDF, #FADEEE | apricot-200, rose-200, lavender-200, apricot-50 and rose-50. |
+| `pieces` | JS only | 36 | How many pieces in one burst. |
+| `duration` | JS only | 1100ms | From burst to the last piece fading. |
+
+Used through `useCelebrate()` from `src/components/ui/celebrate.tsx` (`CELEBRATION` in palette.ts).
 
 ### Spacing
 
@@ -234,6 +276,7 @@ Base rhythm is 8px (Tailwind 2, 4, 6, 8, 10, 12, 16, 24). Compact 4px steps (1, 
 | `max-w-container` | 1200px | Default page container. |
 | `max-w-container-wide` | 1320px | Full-bleed panels such as the footer. |
 | `max-w-reading` | 680px | Long-form reading column. |
+| `max-w-narrow` | 800px | Condensed blocks that should not fill the page, such as FAQs. |
 | `max-w-hero-subcopy` | 600px | Hero and intro paragraphs. |
 
 ### Motion
@@ -249,17 +292,19 @@ Health OS motion is its own: calm, flowing and on by default. Durations and easi
 | `duration-xl` | 480ms | Signature moments and widget entrances. |
 | `ease-out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Entrances, reveals, anything arriving. |
 | `ease-standard` | `cubic-bezier(0.4, 0, 0.2, 1)` | State changes on screen. |
+| `AUTOPLAY.step` | 6000ms | How long a step or slide holds before content that plays on its own moves on, such as feature steps. Long enough to read one step; always with a pause control. |
 
 ### Brand colours
 
 `colour-brand` · token · Stable
 
-Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strength (400) with two lighter shades (200, 50). Apricot is the one interactive accent; rose and lavender carry categories and charts. Widgets and cards use only the lighter two, so colour always reads soft and calm.
+Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strength (400) with two lighter shades (200, 50). Apricot is the one interactive accent, and the one descriptive word of every headline; rose and lavender carry categories and charts. Widgets and cards use only the lighter two, so colour always reads soft and calm.
 
 **Use it for**
 
 - apricot-200 #F8C39C for every button fill, checked checkbox, radio and switch, selected state, current step, tab underline and link underline, with ink text
 - apricot-50 with an apricot-200 edge for selected rows, chips, filters, segments and the active navigation item
+- apricot-200 for the one accent word of a headline, the only apricot text
 - Rose and lavender 200 and 50 for categories, badges, chart data, icons, headline tiles and tinted cells
 - 400 only for gradient stops, category dots and the / in command chips
 
@@ -269,7 +314,7 @@ Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strengt
 - Apricot focus rings: focus is ink-900 so it never looks like a selection
 - Rose or lavender for anything interactive: buttons, links, ticks, toggles or selected states
 - Full-strength colour inside a widget, card or button
-- Coloured text: text stays in the ink neutrals
+- Coloured text anywhere but the headline accent word: text stays in the ink neutrals
 - Any shade darker than 400, or shades outside 50, 200 and 400
 
 **API** `Tailwind: bg-apricot-200 (buttons, checks) · bg-apricot-50 ring-apricot-200 (selected) · ring-ink-900 (focus) · bg-rose-50 ring-rose-200 (rose category) · text-lavender-200 (icons) … Widgets: LIGHT, SOFT, TILE, BAR, SWEEP (src/components/widgets/tones.ts)`
@@ -284,19 +329,18 @@ Warm greys for text, lines and quiet fills. Carbon is never a background, only a
 
 **Use it for**
 
-- ink-900 headings, primary text and the lead of a two-tone headline; ink-600 body; ink-500 secondary text
+- ink-900 headings, primary text and every word of a headline but its accent; ink-600 body; ink-500 secondary text
 - ink-900 for every focus ring (ring-2 ring-ink-900 ring-offset-2) and focused field border
-- ink-400 for the rest of a two-tone headline, at heading size only
 - ink-100 and ink-200 for quiet fills, dividers and pressed states
-- carbon/60 and carbon/80 for the video control bar, carbon/40 for the modal backdrop
+- carbon/60 and carbon/80 for the video control bar and floating video controls, carbon/40 for the modal backdrop
 
 **Not for**
 
-- ink-400 for body text or anything smaller than a heading
+- ink-400 for readable text
 - Carbon, black or any dark colour as a background: panels, footers, banners, tooltips, tiles or logo grounds
 - Pure black or hand-coded white as a page ground
 
-**API** `text-ink-900 · text-ink-600 · text-ink-500 · text-ink-400 (headline rest) · bg-ink-100 · border-line · bg-carbon/60 (video bar only)`
+**API** `text-ink-900 · text-ink-600 · text-ink-500 · bg-ink-100 · border-line · bg-carbon/60 (video controls only)`
 
 **Source** `tokens.json → color.ink, color.carbon, color.white`
 
@@ -359,7 +403,7 @@ Apricot to rose to lavender. The strongest brand moment, used small.
 **Not for**
 
 - Large fills: cards, panels, banners or buttons
-- Inside an H1: headlines use two tones and picture tiles instead
+- Inside an H1: headlines use one apricot accent word and picture tiles instead
 - More than one gradient moment in a view
 - Reversing or recolouring the stops
 
@@ -376,6 +420,7 @@ The three 50 tints in a gentle wash. The quiet gradient.
 **Use it for**
 
 - Large calm fills: section panels, media placeholders, the featured pricing header
+- The one banner
 - The soft tone of an action card
 
 **Not for**
@@ -411,11 +456,11 @@ White into apricot and rose tints. A gentle, warm invitation.
 
 `type-heading` · token · Stable
 
-One heading size, Spline Sans 700, fluid from 36px to 58px. An H1 at this size is always the two-tone headline.
+One heading size, Spline Sans 700, fluid from 36px to 58px. An H1 at this size is always the Headline: ink with one apricot accent word and its picture tile.
 
 **Use it for**
 
-- H1s through the Headline component: two tones and two or three picture tiles
+- H1s through the Headline component
 - Section titles (h2) in ink-900, one tone
 - A single large figure
 
@@ -423,7 +468,7 @@ One heading size, Spline Sans 700, fluid from 36px to 58px. An H1 at this size i
 
 - Card titles: use subheading
 - More than one heading size on a page
-- A one-tone H1, or an H1 without its picture tiles
+- An H1 without its accent word and tile
 
 **API** `font-display text-heading`
 
@@ -576,75 +621,104 @@ Durations and easings that keep custom motion consistent.
 
 ## Headlines
 
-Foundations · Every H1 is two-tone: the point in dark ink, the rest in a light warm grey, with two or three picture tiles between the words that show what the headline says.
+Foundations · Every H1 is dark ink with one descriptive word in soft apricot, and a picture tile beside that word that shows it. Twenty ready headlines sit in the library below.
 
-### Two-tone headline
+### Headline
 
 `headline` · component · Stable
 
-The H1 style for every page. The opening phrase that makes the point is ink-900, the rest is ink-400, and two or three square picture tiles sit beside the words they picture, so the headline shows what it says.
+The H1 for every page. Every word is ink-900 except one descriptive word in apricot-200, and a square picture tile beside that word shows it, so the headline pictures what it says.
 
 **Use it for**
 
 - Every H1: page heroes, article titles, landing pages and campaign pages
-- lead for the phrase that carries the point, rest for everything after it: one switch of tone
-- Two or three tiles, each beside the word it pictures, written into the copy as {id}
-- A literal picture of the word: software is a vintage computer, calm is balanced stones
-- as h2 or h3 only where a page already has its h1, such as examples in this reference
+- One descriptive word marked [word] in the copy, such as calm, built, bookings or clarity
+- The tile that pictures the accent word right beside it, written as {id} from the squircle library
+- Up to two more tiles for other words, three at most, each beside the word it pictures
+- A ready line from the headline library, or a new one checked against the database
+- as h2 or h3 only where a page already has its h1, such as the examples in this reference
 
 **Not for**
 
-- One tile, or more than three
-- A tile as the very first or last thing in the headline
-- Abstract shapes, icons, emoji or photos of people as tiles
-- Section headings (h2): they stay one tone in ink-900
+- No accent word, or two
+- An accent word with no tile beside it
+- More than three tiles, or a tile as the very first or last thing
+- Apricot on any other text: the accent word is the one exception
+- The accent colour below heading size: at 1.6:1 it is a brand moment, not readable small text
+- Section headings (h2): they stay ink-900 with no accent or tiles
 - The gradient highlight (.text-highlight) inside an H1
-- Colouring either tone: both stay in the ink neutrals
 - Pointer effects on tiles: they are pictures, not controls
 
-**API** `<Headline lead rest as: h1 | h2 | h3 tiles id className /> · {id} marks a tile from HEADLINE_TILES`
+**API** `<Headline text="Notes for a [calm] {stones} practice that runs {computer} on its own" as: h1 | h2 | h3 tiles id className /> · headlineParts(text) → { accent, tiles, plain }`
 
 **Source** `src/components/ui/headline.tsx · tokens.json → headline`
 
-### Headline tile library
+### Headline library
 
-`headline-tiles` · asset · Stable
+`headline-library` · pattern · Stable
 
-The pictures for headline tiles. Each object is a high-quality studio shot cut out on a transparent ground; its tone sets the soft squircle behind it.
+Twenty ready headlines in the Headline markup, each mapped to a messaging pillar from the Health OS database and marked with where the line came from. Lines whose tiles are all made come first; a line with a tile still to make says so, and copying it warns.
 
 **Use it for**
 
-- Pick the tile whose picture literally matches the word beside it
-- Reuse a tile when its means list fits the headline
-- Add a tile when no picture fits: follow the recipe, then add it to HEADLINE_TILES
+- Starting a page, email or ad from a line that already follows the headline rule
+- Copy markup to paste the exact text, accent word and tiles into a Headline
+- Checking where a line came from: verified, adapted or new
 
 **Not for**
 
-- Stretching a tile's meaning to fit: make a new one
-- Pictures with text, logos or brand marks, including on product objects
-- Apricot tints: apricot is for things you can act on
-- Two tiles of the same tone side by side
+- Publishing a new or adapted line without checking it against the database
+- Changing a verified line's wording
+- Health outcomes, numbers or banned words in a new line
 
-**API** `HEADLINE_TILES (src/data/headline-tiles.ts): { id, src, original, alt, means, tone: rose | lavender | neutral }`
+**API** `HEADLINE_LIBRARY: { text, pillar, use, from }[] · HEADLINE_PILLARS (src/data/headline-library.ts)`
 
-**Source** `src/data/headline-tiles.ts · public/heading-tiles/`
+**Source** `src/data/headline-library.ts · src/showcase/sections/HeadlinesSection.tsx`
 
-### Making a new tile
+## Squircle library
 
-`headline-tile-recipe` · rule · Stable
+Foundations · Every headline picture in one place, tagged with the words it can stand for. Search the word you want to show, then use the tile beside it.
 
-How to generate a tile so every picture in the library looks like it belongs to the same set.
+### Squircle library
+
+`headline-tiles` · asset · Stable
+
+Every picture a headline tile can use: 80 squircles covering 107 headline words in nine groups. Each is one literal object on a transparent ground, tagged with the words it stands for, so a search for a word finds its tile. Ready tiles show their picture; tiles still to make show an empty tinted squircle with their brief.
 
 **Use it for**
 
-- The prompt template shown, with one literal object and its materials
-- GPT Image 2 at 1K, 1:1, transparent background, through the connected image tools, with the cost approved first
-- Check the result is sharp and free of text and logos, then trim, pad the object to 80% of the square, and save a 1024px PNG and a 320px WebP
+- Search the word you want to show, then copy the tile's {id} into the headline
+- Filter by group (presence, vitality, calm, practice, business, software, freedom, clarity, momentum) or by ready and to make
+- Read a tile's note before using one of its words: some are search tags only, such as wellbeing, journey and heal
+
+**Not for**
+
+- Stretching a tile's meaning to fit a word: add a new tile
+- A planned tile in a live headline: make it first
+- Pictures with text, numbers, logos or brand marks
+- Apricot tints: tiles sit on rose, lavender or neutral
+- Two tiles of the same tone side by side
+
+**API** `HEADLINE_TILES · HEADLINE_TILE_LIST · HEADLINE_TILE_GROUPS · tileForWord(word) (src/data/headline-tiles.ts): { id, words, group, picture, tone: rose | lavender | neutral, status: ready | planned, src?, original?, note? }`
+
+**Source** `src/data/headline-tiles.ts · public/heading-tiles/`
+
+### Making a new squircle
+
+`headline-tile-recipe` · rule · Stable
+
+How to make a tile so every picture in the library belongs to the same set. The six ready tiles are the model: one real object in studio light, cut out, with the tint coming from the tone.
+
+**Use it for**
+
+- The tile's picture brief in the prompt template shown
+- GPT Image 2 at 1K, 1:1, transparent background, through the connected image tools, with the cost approved by Tumai first
+- Check it is sharp and free of text, numbers and logos, pad the object to about 80% of the square, save a 1024px PNG and a 320px WebP named after the id, then set the tile to ready
 
 **Not for**
 
 - Paid generation without Tumai's approval
-- Illustration, clay or cartoon styles that break the set
+- Illustration, clay, emoji or cartoon styles that break the set
 - Recognisable brand logos: a classic product shape is fine, its logo is not
 
 **API** `Rule · see ASSET-RECIPES.md, Headline tile`
@@ -981,30 +1055,32 @@ An icon-only action that mirrors the three button styles. Primary is apricot-200
 
 ## Badges
 
-Library · Soft tags for status, topics and categories across the business, plus the small labels that give a heading its context.
+Library · Soft tags for status, topics and categories across the business, with one colour key for every set, plus the small labels that give a heading its context.
 
 ### Badge
 
 `badge` · component · Stable
 
-A soft tag for status, category and topic: a tint, a light same-hue edge and ink text.
+A small, quiet tag for status, category and topic: sentence case, a flat soft tint and ink text. No emoji. Every badge colour has one meaning across the system, shown in the colour key, so most badges are neutral.
 
 **Use it for**
 
-- neutral and outline for quiet tags
-- rose and lavender for categories and topics
-- apricot only where the badge marks a choice someone made, such as an applied filter
-- success, warning and error only for a real state
+- rose for people and in person: members, one-to-one, groups, workshops, care
+- lavender for online and self-paced: courses, webinars, replays, all-access
+- neutral for topics, formats and everything else; outline for quiet, inactive or not yet live
+- success, warning and error with a dot, only for a real state such as live, low stock or overdue
+- A small line icon when it names the kind of thing, such as a webinar
 
 **Not for**
 
-- Badges as buttons
-- More than three badges on one card
-- Apricot badges on static content: apricot reads as selected
+- Emoji: they bring colours from outside the palette and render differently on every device
+- Uppercase badges: eyebrows are uppercase, badges are not
+- Apricot badges: apricot marks things you can act on
+- Badges as buttons, or more than three on one card
 
-**API** `variant: neutral | outline | rose | apricot | lavender | success | warning | error · size: sm | md · emoji · dot`
+**API** `variant: neutral | outline | rose | lavender | success | warning | error · size: sm | md · dot · icon (LucideIcon) · BADGE_KEY (src/data/system.ts)`
 
-**Source** `src/components/ui/badge.tsx`
+**Source** `src/components/ui/badge.tsx · badge sets in src/data/system.ts`
 
 ### Mono label
 
@@ -1181,7 +1257,7 @@ Separate panels of related content in the same place.
 
 `disclosure` · component · Stable
 
-Show and hide a section of detail.
+Show and hide a section of detail. The soft apricot plus turns into a cross when open, the same control as the FAQ.
 
 **Use it for**
 
@@ -1404,7 +1480,7 @@ A larger search and ask input with a small toolbar.
 
 ## Cards
 
-Library · Nine card types, each styled for its job, the bento grid for composing them, and the feature bento in three styles.
+Library · Nine card types, each styled for its job.
 
 ### Content card
 
@@ -1474,13 +1550,14 @@ One plan with its price and inclusions.
 
 - Two or three plans side by side, one featured
 - Currency labelled, and anything charged on top stated
+- price as a number, and annualPrice only when it is recorded
 
 **Not for**
 
 - More than one featured card
 - Unlabelled currency
 
-**API** `name · price · cadence · fee · description · features · action · featured`
+**API** `name · price (number) · annualPrice · symbol · cadence · fee · description · features · action · featured · billing`
 
 **Source** `src/components/cards/PricingCard.tsx`
 
@@ -1611,11 +1688,103 @@ The soft white dissolve every image card shares: the photo stays whole for its f
 
 **Source** `src/index.css`
 
+## Features
+
+Library · Four ways to show what something does: steps that play through on their own, tabs, a lined grid and cards with an icon well.
+
+### Feature steps
+
+`feature-steps` · component · Stable
+
+A process that plays through step by step beside a library photo. The current step is marked in apricot and its hairline fills as it plays; it pauses on hover and focus, stops once someone picks a step, and has its own pause control.
+
+**Use it for**
+
+- How setup works, onboarding or a booking flow, three to five steps
+- A photo that pictures each step
+- The hold time from the autoplay token, so every playing block moves at the same pace
+
+**Not for**
+
+- Steps that are separate features: use the feature grid or cards
+- Promised timeframes or percentages
+- More than one autoplaying block in a view
+
+**API** `items: { icon, title, description, image, label?, tone? }[] · autoPlay · interval (default tokens.json → motion.autoplay.step) · mediaSide · eyebrow · title · description · align · headingLevel`
+
+**Source** `src/components/features/FeatureSteps.tsx`
+
+### Feature tabs
+
+`feature-tabs` · component · Stable
+
+Three or four product areas behind tabs. Each panel has a badge, a subheading, a sentence, one button and a photo that fades toward the text. Arrow keys, Home and End move between tabs.
+
+**Use it for**
+
+- Comparing areas such as reminders, follow-up and client records
+- Short one-word tab labels with a line icon
+
+**Not for**
+
+- More than four tabs
+- Content people need to see at once: use the feature grid
+- A second primary button in the view
+
+**API** `items: { icon, label, title, description, image, badge?, action?, tone?, value? }[] · value · defaultValue · onValueChange · eyebrow · title · description · align · headingLevel`
+
+**Source** `src/components/features/FeatureTabs.tsx`
+
+### Feature grid
+
+`feature-grid` · component · Stable
+
+Many small features at a glance in one lined frame, each an icon, a short title and one sentence.
+
+**Use it for**
+
+- Four to nine features, ideally a multiple of the column count
+- A plain list of what the system handles
+
+**Not for**
+
+- Cards or photos inside cells
+- Long descriptions
+
+**API** `items: { icon, title, description, tone? }[] · columns: 2 | 3 · tone · eyebrow · title · description · align · headingLevel`
+
+**Source** `src/components/features/FeatureGrid.tsx`
+
+### Feature cards
+
+`feature-cards` · component · Stable
+
+Two to four benefits as centred cards, each icon in a small well over a faint grid that fades out, in an outline or muted style.
+
+**Use it for**
+
+- Three headline benefits
+- muted for a quieter row, outline on white or paper
+
+**Not for**
+
+- Links: these cards do not lift
+- Apricot tones on the icon wells
+- More than four cards
+
+**API** `items: { icon, title, description, tone? }[] · variant: outline | muted · columns: 2 | 3 · eyebrow · title · description · align · headingLevel`
+
+**Source** `src/components/features/FeatureCards.tsx`
+
+## Bentos
+
+Library · Three bento systems for three jobs: the feature bento for a section summary, the product bento for what the platform does, and the gallery bento for a studio or practice page.
+
 ### Bento grid
 
 `bento-grid` · component · Stable
 
-Compose cards at different sizes in one grid. For a website feature section with a photo, figures and an action, use the feature bento.
+Compose cards at different sizes in one grid by hand. For a ready-made bento, use the feature, product or gallery bento.
 
 **Use it for**
 
@@ -1639,7 +1808,7 @@ The website feature grid, remodelled from the 21st.dev feature bento. A hero wit
 
 **Use it for**
 
-- A product or service section after the hero, once per page
+- A section summary after the hero, once per page
 - photo when there is a strong library photo; tint on quiet pages that need warmth; quiet beside other tinted sections
 - Figures from the offer or the database only: prices, the ten-question check
 
@@ -1655,48 +1824,100 @@ The website feature grid, remodelled from the 21st.dev feature bento. A hero wit
 
 **Source** `src/components/bento/FeatureBento.tsx`
 
+### Product bento
+
+`product-bento` · component · Stable
+
+Shows what the platform does, one job per cell, each with a small drawn visual: one place, a booking, a reply, the pipeline and client records.
+
+**Use it for**
+
+- A product or features page explaining bookings, follow-up, the pipeline and client records
+- Pages where a drawn visual explains a job better than a photo
+- Sample names and times inside the visuals, never real clients
+
+**Not for**
+
+- A website section summary: use the feature bento
+- Figures, results or anything that reads as a claim
+- Screenshots or photos inside the cells
+- Apricot in the visuals: nothing in them can be pressed
+
+**API** `<ProductBento figure={{ value, label?, title, description }} booking={{ title, description, days, bookedDay?, slots, bookedSlot? }} followUp={{ title, description, received, sent, sentLabel? }} pipeline={{ title, description, stages }} clients={{ title, description, rows: [{ name, detail? }] }} className? />`
+
+**Source** `src/components/bento/ProductBento.tsx`
+
+### Gallery bento
+
+`gallery-bento` · component · Stable
+
+An image-led mosaic for a practitioner's own studio, class or retreat page: a tall photo, two wide photos, a text cell with one action and a details cell.
+
+**Use it for**
+
+- Introducing a studio, class or retreat with library photos, plain details and one action
+- Captions that name the place, such as the lounge or the garden
+- reverse to mirror the layout when the page alternates sides
+
+**Not for**
+
+- Explaining Health OS features: use the product bento or the feature bento
+- Text on photos, or captions that describe the people in them
+- More than one action, or photos that zoom on hover
+
+**API** `<GalleryBento photos={{ portrait, wide, second }} eyebrow? title description action={{ label, href?, variant?: 'text' | 'secondary' }} details={[{ icon, label, value }]} reverse? className? />`
+
+**Source** `src/components/bento/GalleryBento.tsx`
+
 ## Blocks
 
-Library · Composed sections to drop into a page: pricing, common questions and the feature grid.
+Library · Composed sections to drop into a page: pricing with a billing switch, common questions and the feature grid.
 
 ### Pricing table
 
 `pricing-table` · pattern · Stable
 
-Plans side by side, with the notes that complete the price.
+Plans side by side, with the notes that complete the price. The cards rise into place as the table scrolls in, with the featured plan settling slightly forward. When every plan has an annual price, a billing switch slides the prices and marks the change with a small burst of confetti in the soft brand colours.
 
 **Use it for**
 
 - Pricing pages and pricing sections
+- The billing switch only when the database records an annual price for every plan
+- The note for currency and anything charged on top
 
 **Not for**
 
 - Promoting a plan the offer rules say not to promote
+- Annual prices, savings or months free that the database does not record: Health OS has no annual plan
+- More than one pricing table in a view
 
-**API** `plans: PricingCardProps[] · note`
+**API** `<PricingTable plans: PricingCardProps[] note annualLabel annualNote /> · useCelebrate() for the burst · colours from tokens.json → celebration`
 
-**Source** `src/components/blocks/PricingTable.tsx`
+**Source** `src/components/blocks/PricingTable.tsx · src/components/ui/celebrate.tsx`
 
 ### FAQ
 
 `faq` · pattern · Stable
 
-Common questions, answered plainly.
+Common questions in a condensed column, 800px wide at most. Each question has a soft apricot plus that turns into a cross when open, and the answer sits beside a small picture.
 
 **Use it for**
 
-- Pricing and product pages
-- columns 2 for six or more questions
+- Pricing and product pages, after the offer
+- A library photo for each answer, image on the left and answer on the right
+- One answer open at a time, the first open by default
 
 **Not for**
 
 - Hiding information everyone needs
+- Two columns or full-width rows: the FAQ stays condensed
+- Pictures that show a person as if they were a client
 
-**API** `items: { question, answer }[] · columns: 1 | 2`
+**API** `<Faq items: { question, answer, image?: { src, alt } }[] defaultOpen multiple headingLevel: h3 | h4 /> · width from tokens.json → size.narrow`
 
 **Source** `src/components/blocks/Faq.tsx`
 
-### Feature grid
+### Pillars
 
 `pillars` · pattern · Stable
 
@@ -2383,27 +2604,28 @@ A typical stack of separate tools against one system, as a real table.
 
 ## Banners
 
-Applied · A thin scrolling banner in two tones. It pauses on hover and has its own pause control.
+Applied · One thin scrolling banner on the soft wash. It pauses on hover and has its own pause control.
 
-### Ticker
+### Banner
 
 `ticker` · component · Stable
 
-A thin scrolling banner of short statements, in two light tones.
+The one banner: a thin strip of short statements on the soft wash that scrolls slowly, pauses on hover and has its own pause control. It is the same on light and paper.
 
 **Use it for**
 
-- subtle on light pages, tint on paper pages or for a softer moment
+- The top of a page or a quiet break between sections
+- reverse and speed (32 to 60 seconds a loop) to vary two banners on one page
 
 **Not for**
 
+- Any other banner: no grey, paper, white or dark strip exists
 - Critical information
-- More than one ticker on a page
-- A dark bar: there is no carbon tone
+- More than two banners on a page
 
-**API** `items: { icon, text }[] · tone: subtle | tint · reverse · speed (32 to 60)`
+**API** `<Ticker items: { icon, text }[] reverse speed ariaLabel /> · fill, text, icon and speed from tokens.json → banner`
 
-**Source** `src/components/layout/Ticker.tsx`
+**Source** `src/components/layout/Ticker.tsx · tokens.json → banner`
 
 ## Blog
 
@@ -2454,6 +2676,56 @@ The list of articles: the two-tone headline, one featured post with its photo di
 **API** `Compose: Headline · FeaturedPost · CategoryFilter · ContentCard · Pagination (src/components/blog/Blog.tsx)`
 
 **Source** `src/components/blog/Blog.tsx · src/showcase/sections/BlogSection.tsx`
+
+## Lead magnets
+
+Applied · Useful things to offer for an email address: an ebook you can page through, and a fan of swipe files that turn over to show what is inside.
+
+### Ebook
+
+`ebook` · component · Stable
+
+An ebook to offer for an email address: a closed 3D book that turns to show its pages, opens into a page-flip preview and ends with a short email capture.
+
+**Use it for**
+
+- A guide offered in exchange for an email address
+- Letting people read a few pages before they sign up
+- Any ebook, built from the five page kinds (cover, contents, chapter, quote, call to action) so each one reads the same
+
+**Not for**
+
+- Long reading: keep the preview to about ten short pages
+- A download with no preview: use a resource card
+- Crowded pages: one or two short paragraphs, one if the page has an image
+- Promised results or figures in the pages
+
+**API** `<Ebook title subtitle cover={{ src, alt }} pages: EbookPage[] action={{ label, fieldLabel?, placeholder?, onSubmit?(email), confirmation? }} format? description? readLabel? /> · EbookPage: cover | contents { items } | chapter { number, title, body[], image? } | quote { text, cite? } | cta { title, body, action? } · page turns with react-pageflip · needs ToastProvider`
+
+**Source** `src/components/lead-magnets/Ebook.tsx`
+
+### Swipe files
+
+`swipe-files` · component · Stable
+
+A fan of swipe files: ready-to-use messages to take away. Hover spreads the fan, the arrows page through it, and the centre card turns over to show a spec sheet with what is inside and one action.
+
+**Use it for**
+
+- A set of templates offered for an email address: emails, texts or scripts
+- Browsing several small offers in one place
+- Three to nine items with the same shape of content
+
+**Not for**
+
+- A single offer: use a resource card or the ebook
+- Items that need more than three points
+- Navigation, or anything people must find quickly
+- Tinted format badges: formats are neutral under the badge key
+
+**API** `<SwipeFiles files: { id, title, format, length, subtitle, body, inside: [three items], cover: { src }, tone?: neutral | rose | lavender }[] label? actionLabel? onGet?(file) /> · Framer Motion springs, no overshoot`
+
+**Source** `src/components/lead-magnets/SwipeFiles.tsx`
 
 ## Calculators
 

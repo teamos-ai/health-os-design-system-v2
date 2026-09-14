@@ -106,7 +106,7 @@ export function SegmentedControl<T extends string = string>({
               pad,
               isActive
                 ? 'bg-apricot-50 text-ink-900 shadow-sm ring-1 ring-inset ring-apricot-200'
-                : 'text-ink-500 hover:text-ink-900'
+                : 'text-ink-600 hover:text-ink-900'
             )}
           >
             {opt.label}

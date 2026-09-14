@@ -43,7 +43,7 @@ export const ImageLibrarySection = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by activity, place, mood or use"
-                className="h-12 w-full rounded-md border border-line bg-surface pl-12 pr-4 font-sans text-body text-ink-900 placeholder:text-ink-400 focus:border-ink-900 focus:outline-none focus:ring-2 focus:ring-apricot-200"
+                className="h-12 w-full rounded-md border border-line bg-surface pl-12 pr-4 font-sans text-body text-ink-900 placeholder:text-ink-400 focus:border-ink-900 focus:outline-none focus:ring-1 focus:ring-ink-900 [&::-webkit-search-cancel-button]:appearance-none"
               />
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3">

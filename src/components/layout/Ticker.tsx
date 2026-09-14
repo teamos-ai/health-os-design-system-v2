@@ -1,38 +1,22 @@
 /**
- * Ticker: a thin banner of short statements that scrolls slowly and pauses on hover.
- * A keyboard-reachable pause control sits at the right edge (WCAG 2.2.2).
+ * Ticker: the one banner. A thin strip of short statements on the soft wash that scrolls
+ * slowly and pauses on hover. A keyboard-reachable pause control sits at the right edge
+ * (WCAG 2.2.2).
  *
- * Tones: `subtle` (quiet fill) and `tint` (soft wash). There is no dark bar.
- * Options: `reverse` direction and `speed` in seconds per loop (32 to 60).
+ * There is only this banner: no grey, paper, white or dark strip exists on either theme
+ * (tokens.json → banner). Options: `reverse` direction and `speed` in seconds per loop,
+ * kept inside the banner token's 32 to 60 second band.
  */
 import * as React from 'react';
 import { Pause, Play } from 'lucide-react';
 import { TICKER_ITEMS, type TickerItem } from '@/data/system';
+import { BANNER } from '@/lib/palette';
 import { cn } from '@/lib/utils';
-
-/* `fade` backs the pause control with the strip's own colour; `ring` is the focus ring. */
-const TONES = {
-  subtle: {
-    wrap: 'bg-ink-100 border-line',
-    text: 'text-ink-600',
-    icon: 'text-ink-400',
-    fade: 'from-ink-100',
-    ring: 'focus-visible:ring-ink-900',
-  },
-  tint: {
-    wrap: 'bg-brand-gradient-soft border-line',
-    text: 'text-ink-900',
-    icon: 'text-ink-500',
-    fade: 'from-lavender-50',
-    ring: 'focus-visible:ring-ink-900',
-  },
-} as const;
 
 export interface TickerProps {
   items?: TickerItem[];
-  tone?: keyof typeof TONES;
   reverse?: boolean;
-  /** seconds per loop (lower = faster) — clamped to the sanctioned 32–60s band */
+  /** seconds per loop (lower is faster), kept inside the banner token range of 32 to 60 */
   speed?: number;
   /** Accessible name for the strip. Defaults to 'Announcements'. */
   ariaLabel?: string;
@@ -41,24 +25,21 @@ export interface TickerProps {
 
 export const Ticker = ({
   items = TICKER_ITEMS,
-  tone = 'subtle',
   reverse = false,
   speed = 32,
   ariaLabel,
   className,
 }: TickerProps) => {
-  const t = TONES[tone];
   const [paused, setPaused] = React.useState(false);
-  /* Clamp to a calm range: a ticker should drift, never race. */
-  const duration = Math.min(60, Math.max(32, speed));
+  /* Clamp to the banner token's range: a banner drifts, it never races. */
+  const duration = Math.min(BANNER.speedMax, Math.max(BANNER.speedMin, speed));
   const doubled = [...items, ...items];
   return (
     <div
       role="group"
       aria-label={ariaLabel ?? 'Announcements'}
       className={cn(
-        'pause-on-hover relative w-full overflow-hidden border-y py-3',
-        t.wrap,
+        'pause-on-hover relative w-full overflow-hidden border-y border-line bg-brand-gradient-soft py-3',
         className
       )}
     >
@@ -75,10 +56,10 @@ export const Ticker = ({
         {doubled.map(({ icon: Icon, text }, i) => (
           <div
             key={i}
-            className={cn('flex items-center gap-2 font-sans text-label uppercase', t.text)}
+            className="flex items-center gap-2 font-sans text-label uppercase text-ink-900"
             aria-hidden={i >= items.length ? true : undefined}
           >
-            <Icon className={cn('h-3 w-3', t.icon)} strokeWidth={1.5} />
+            <Icon className="h-3 w-3 text-ink-500" strokeWidth={1.5} />
             <span>{text}</span>
           </div>
         ))}
@@ -90,12 +71,9 @@ export const Ticker = ({
         aria-label={paused ? 'Play announcements' : 'Pause announcements'}
         onClick={() => setPaused((p) => !p)}
         className={cn(
-          'absolute inset-y-0 right-0 flex items-center bg-gradient-to-l to-transparent pl-6 pr-2',
-          'opacity-60 transition-opacity duration-sm hover:opacity-100 active:opacity-100',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset',
-          t.text,
-          t.fade,
-          t.ring
+          'absolute inset-y-0 right-0 flex min-w-12 items-center justify-end bg-gradient-to-l from-lavender-50 from-60% to-transparent pl-10 pr-4',
+          'text-ink-600 transition-colors duration-sm hover:text-ink-900',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ink-900'
         )}
       >
         {paused ? (

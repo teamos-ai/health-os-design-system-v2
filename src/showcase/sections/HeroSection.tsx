@@ -24,7 +24,7 @@ export const HeroSection = () => {
     <Hero id="hero">
       <HeroContainer>
         <FadeIn delay={0.05}>
-          <Headline lead="The design system {swatches}" rest="behind a calm {stones} practice" />
+          <Headline text="The design {swatches} system behind a [calm] {stones} practice" />
         </FadeIn>
         <FadeIn delay={0.1} className="mt-hero-gap-sm">
           <p className="max-w-hero-subcopy font-sans text-body text-ink-600">{meta.lead}</p>

@@ -124,7 +124,16 @@ function tokenTables() {
     ),
     ''
   );
-  out.push('Build headlines with `<Headline lead rest />` from `src/components/ui/headline.tsx`: it applies these values and checks the tile count.', '');
+  out.push('Build headlines with `<Headline text="… [accent] {tile} …" />` from `src/components/ui/headline.tsx`: it applies these values and checks the accent word and tiles. Tiles come from the squircle library, `src/data/headline-tiles.ts`.', '');
+
+  const group = (title, node, prefix, note) => {
+    out.push(`### ${title}`, '', desc(node), '');
+    out.push(table(['Token', 'CSS variable', 'Value', 'Use'], entries(node).map(([k, n]) => [code(k), prefix ? code(`--hos-${prefix}-${k}`) : 'JS only', Array.isArray(val(n)) ? val(n).join(', ') : val(n), desc(n)])), '');
+    if (note) out.push(note, '');
+  };
+  group('Banner', tokens.banner, 'banner', 'The one banner is `<Ticker />` from `src/components/layout/Ticker.tsx`; its loop limits are also `BANNER` in palette.ts.');
+  group('Floating video', tokens.video, 'video', 'Applied by `VideoPlayer` through the `.video-pip` class; the threshold and layer are also `VIDEO_PIP` in palette.ts.');
+  group('Celebration', tokens.celebration, null, 'Used through `useCelebrate()` from `src/components/ui/celebrate.tsx` (`CELEBRATION` in palette.ts).');
 
   out.push('### Spacing', '', desc(tokens.space), '');
   out.push(
@@ -151,6 +160,7 @@ function tokenTables() {
       [
         ...entries(tokens.motion.duration).map(([k, n]) => [code(`duration-${k}`), val(n), desc(n)]),
         ...entries(tokens.motion.easing).map(([k, n]) => [code(`ease-${k}`), code(`cubic-bezier(${val(n).join(', ')})`), desc(n)]),
+        ...entries(tokens.motion.autoplay).map(([k, n]) => [code(`AUTOPLAY.${k}`), val(n), desc(n)]),
       ]
     ),
     ''
