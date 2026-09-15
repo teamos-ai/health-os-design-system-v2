@@ -44,16 +44,16 @@ const TILES: FloatingTile[] = [
 
 /* Tiles placed on the hero itself rather than the headline, from md up: percent of the hero, size
    in rem. The bonsai and rope knot sit at the edges, the magnet on its own in the top right corner,
-   the monstera and lightning bolt down in the bottom left, and the diamond alone in the open space
-   above the search, towards the middle. */
+   the monstera and lightning bolt at the left edge level with the open space under the subtitle
+   (Tumai's markup, 16 September 2026), and the diamond alone above the search, towards the middle. */
 const EDGE_TILES: FloatingTile[] = [
   { id: 'bonsai', x: 5, y: 7, size: 2.9, from: 'md' },
   { id: 'horseshoe-magnet', x: 96.5, y: 4, size: 2.6, from: 'md' },
   { id: 'rope-knot', x: 95, y: 47, size: 3.1, from: 'md' },
-  { id: 'monstera', x: 6.5, y: 86, size: 5.2, from: 'xl' },
-  { id: 'lightning-bolt', x: 14, y: 95, size: 2.9, from: 'xl' },
-  { id: 'monstera', x: 6, y: 89, size: 4.2, from: 'md', until: 'xl' },
-  { id: 'lightning-bolt', x: 15, y: 95.5, size: 2.6, from: 'md', until: 'xl' },
+  { id: 'monstera', x: 7.4, y: 45.7, size: 5.2, from: 'xl' },
+  { id: 'lightning-bolt', x: 3.2, y: 55, size: 2.9, from: 'xl' },
+  { id: 'monstera', x: 8.5, y: 49, size: 4.2, from: 'md', until: 'xl' },
+  { id: 'lightning-bolt', x: 4.5, y: 58, size: 2.6, from: 'md', until: 'xl' },
   { id: 'diamond', x: 74, y: 50, size: 4, from: 'md' },
 ];
 

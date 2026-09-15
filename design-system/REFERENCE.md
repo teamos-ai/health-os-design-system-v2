@@ -722,7 +722,7 @@ The home hero's headline stands clear, and icon tiles float in the space around 
 - A page's opening hero only: anchor="headline" inside a relative wrapper around the Headline (set to tilesAround), so positions and sizes are in the headline's em and the field hugs the words at every width
 - Different sizes for every tile, between icon.float-size-min and float-size-max, at uneven positions: scattered, never set out in a grid
 - Tiles around the headline and subtitle only, behind the letters, at least about 0.4em clear of the words so they read easily; up to nine on wide screens, six on tablets, five on phones (from and until)
-- A second, box-anchored field on the hero itself for tiles that stand apart from the headline (the home hero, from md up: bonsai and rope knot at the edges, the horseshoe magnet alone in the top right corner, the diamond alone above the search towards the middle, and the monstera and lightning bolt in the bottom left)
+- A second, box-anchored field on the hero itself for tiles that stand apart from the headline (the home hero, from md up: bonsai and rope knot at the edges, the horseshoe magnet alone in the top right corner, the diamond alone above the search towards the middle, and the monstera and lightning bolt at the left edge below the subtitle)
 - Icons that picture what the page is about
 
 **Not for**
