@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-15 · 130 entries · 51 components · 31 widgets · 13 patterns · 11 open decisions
+Updated 2026-09-15 · 131 entries · 51 components · 31 widgets · 14 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -20,7 +20,7 @@ Updated 2026-09-15 · 130 entries · 51 components · 31 widgets · 13 patterns 
 - Start: [System overview video](#system-overview-video) · [Overview](#overview)
 - Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Icon library](#icon-library) · [Logo](#logo) · [Motion](#motion)
 - Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Features](#features) · [Bentos](#bentos) · [Blocks](#blocks) · [Widgets](#widgets)
-- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Health OS music](#health-os-music) · [Backgrounds](#backgrounds) · [Image library](#image-library)
+- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Emails and newsletters](#emails-and-newsletters) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Health OS music](#health-os-music) · [Backgrounds](#backgrounds) · [Image library](#image-library)
 - Proof: [The live page](#the-live-page)
 
 ## Open decisions
@@ -740,7 +740,7 @@ The home hero's headline stands clear, and icon tiles float in the space around 
 
 ## Icon library
 
-Foundations · Every Health OS icon: one photoreal object on a warm charcoal squircle, tagged with the words it stands for. 228 icons in 17 groups. Search a word or an object, then use the icon in a headline, a card or on its own.
+Foundations · Every Health OS icon: one photoreal object on a squircle, tagged with the words it stands for. 228 icons in 17 groups, on charcoal, paper or white. Search a word or an object, then use the icon in a headline, a card or on its own.
 
 ### Icon library
 
@@ -1815,7 +1815,7 @@ The one pricing system: every pricing view on every page is a PricingTable, so t
 
 ## Features
 
-Library · Four ways to show what something does: steps that play through on their own, tabs, a lined grid and cards with an icon well.
+Library · Four ways to show what something does: steps that play through on their own, tabs, a lined grid and centred cards, each with icons from the icon library.
 
 ### Feature steps
 
@@ -2806,6 +2806,37 @@ The list of articles: the headline with its accent word and floating icon tiles,
 **API** `Compose: Headline · FeaturedPost · CategoryFilter · ContentCard · Pagination (src/components/blog/Blog.tsx)`
 
 **Source** `src/components/blog/Blog.tsx · src/showcase/sections/BlogSection.tsx`
+
+## Emails and newsletters
+
+Applied · Every Health OS email in one place: 46 emails in 10 series, written from the Health OS database. Search, or open a series, then preview an email on desktop or phone and copy its HTML or text.
+
+### Email library
+
+`email-library` · pattern · Stable
+
+The Health OS email and newsletter library, built on 15 September 2026 from db-health-os and the email-sequence and newsletter skills: the newsletter (four editions with KIE header images), lead nurture for each of the three diagnostics, cold and warm outreach, onboarding over the 30-day setup, retention and renewal, win-back, and billing, account and trial. Each email is data (src/data/emails) rendered to inbox-ready HTML and plain text by one renderer, so the preview is exactly what copies.
+
+**Use it for**
+
+- Search a subject, a word in the copy or an open decision, or open a series, then pick the email
+- Check the badges before anything sends: marketing emails wait for a list with a recorded consent basis; service messages go to signed clients about their own account
+- Copy HTML with merge tags into the sending platform, or with samples to review; copy the plain text for the text part or a one-to-one message
+- Read the open decisions and merge field hints: a field that cannot be filled truthfully means the email is not ready
+- New emails follow the database playbook for their type: its word range, one idea, at most one ask, one messaging pillar, the footer block and a truthful reason line
+
+**Not for**
+
+- Sending a marketing email before the list, collection method and consent basis are recorded
+- Filling a merge field with anything invented: a result, a figure, a connection or a reason she left
+- Restating the guarantee in other words; quote it whole or leave it out
+- A trial mention without all four trial facts, or any email that states a price without AUD and the usage note
+- Em dashes, exclamation marks, emojis, banned words, figures from the banned statistics, or naming the platform underneath Health OS
+- A second button, a discount to keep or win back a client, or a referral reward
+
+**API** `<EmailLibrary /> · EMAILS, EMAIL_SERIES, fieldsFor(email), GLOBAL_FIELDS, SENDER_BLOCK (src/data/emails) · renderEmailHtml(email, { base, fields: sample | tags, highlight }), renderEmailText(email, { fields }), countWords(email) (src/lib/email-html.ts) · ?email=<id> opens one email`
+
+**Source** `src/components/email/EmailLibrary.tsx · src/components/email/EmailPreview.tsx · src/data/emails/ · src/lib/email-html.ts · public/email/`
 
 ## Lead magnets
 

@@ -31,6 +31,7 @@ import {
   BookOpen,
   Globe,
   Music,
+  Mail,
   type LucideIcon,
 } from 'lucide-react';
 import { SECTIONS, type CatalogSection } from '@/showcase/catalog';
@@ -56,6 +57,7 @@ const ICONS: Record<string, LucideIcon> = {
   signature: LayoutTemplate,
   banners: ScrollText,
   blog: Newspaper,
+  emails: Mail,
   'lead-magnets': BookOpen,
   calculators: Calculator,
   social: Share2,

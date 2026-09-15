@@ -23,6 +23,7 @@ import { WidgetsSection } from '@/showcase/sections/WidgetsSection';
 import { SignatureSection } from '@/showcase/sections/SignatureSection';
 import { BannersSection } from '@/showcase/sections/BannersSection';
 import { BlogSection } from '@/showcase/sections/BlogSection';
+import { EmailsSection } from '@/showcase/sections/EmailsSection';
 import { LeadMagnetsSection } from '@/showcase/sections/LeadMagnetsSection';
 import { CalculatorsSection } from '@/showcase/sections/CalculatorsSection';
 import { SocialMediaSection } from '@/showcase/sections/SocialMediaSection';
@@ -53,6 +54,7 @@ const RENDER: Record<string, ComponentType> = {
   signature: SignatureSection,
   banners: BannersSection,
   blog: BlogSection,
+  emails: EmailsSection,
   'lead-magnets': LeadMagnetsSection,
   calculators: CalculatorsSection,
   social: SocialMediaSection,

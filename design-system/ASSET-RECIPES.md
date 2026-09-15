@@ -42,8 +42,13 @@ The reference site's Blog section is this recipe, assembled. Parts are in `src/c
 
 ## 4. Email
 
-- 600px single column. Page ground outside, `surface` card inside with a `line` hairline and 12px corners.
-- Logo mark at 40px, top left. Headline in Spline Sans 700 at the subheading size or the heading's 36px floor; body 16px on 26px in Anonymous Pro, with `ui-monospace, Menlo, monospace` as the fallback.
+Every Health OS email lives in the email library (`src/data/emails`, the Emails section): write a new one there, in blocks, and copy its HTML from the section rather than hand-building it. The renderer (`src/lib/email-html.ts`) already follows this recipe.
+
+- Copy first: the database playbook for the email's type sets its word range, one idea, at most one ask and one messaging pillar. Marketing waits for a list with a recorded consent basis; service messages go to signed clients. Every email ends with the OS A.I sender block and a truthful "You are receiving this because" line; marketing adds an unsubscribe.
+- Four layouts: **plain** (a personal note on white, no logo: cold, warm, check-ins, win-back), **letter** (long logo, white card: nurture, onboarding, retention), **newsletter** (logo and web link, a 2:1 header image, edition label, title and subheads) and **account** (an icon tile, a title, a facts table: receipts, payments, trial).
+- 600px single column. Paper ground outside, a white card inside with an ink-200 hairline and 12px corners.
+- The long logo (`public/email/health-os-logo.png`, white background) at 140px, top left. Headline in Spline Sans 700 at 28px; body 16px on 26px in Anonymous Pro, with `ui-monospace, Menlo, monospace` as the fallback.
+- Newsletter header images: a calm editorial still life from GPT Image 2 through KIE (about 6 credits each, cost approved by Tumai first), 3:2 at 1K with no people, hands, text, numbers, logos or screens, cropped to 1200 × 600 JPG in `public/email/newsletter/`. Everything else uses library photos (thumbnails) or icon tiles baked on white at 112px in `public/email/icons/`.
 - One button: apricot-200 `#F8C39C` fill, dark ink `#1F1F1F` text, 8px corners, written as a bulletproof link.
 - Gradients are unreliable in email clients: use a solid `rose-50` or `apricot-50` panel for the one colour moment.
 - Transactional email drops the colour moment entirely.
