@@ -189,6 +189,10 @@ Every H1 is written in ink-900 except one descriptive word (calm, together, make
 | `tile-tilt` | `--hos-headline-tile-tilt` | 3deg | How far each tile is turned. The first tile leans left, the next right and so on, at full, two thirds and five sixths of this value, so tiles float between the words instead of sitting in a row. |
 | `float-distance` | `--hos-headline-float-distance` | 0.06em | How far a tile drifts up and down as it floats: about 3px at heading size. Enough to feel weightless, never enough to pull the eye off the words. |
 | `float-duration` | `--hos-headline-float-duration` | 6s | One slow float, up and back. Tiles start at staggered points so they never move in step. The float stops while the headline is off screen and when reduced motion is on. |
+| `leading-stacked` | `--hos-headline-leading-stacked` | 1.32 | Line height for a headline written on two lines with a line break, such as the home hero: more air between the lines than the heading role's 1.08. |
+| `fade-to` | `--hos-headline-fade-to` | rgba(31, 31, 31, 0.62) | Where a fading headline ends: each line runs from ink-900 at the top of the letters to this softer ink at their foot (about 6:1 on white). The home hero only; the accent word stays solid apricot. |
+| `logo-height` | `--hos-headline-logo-height` | 0.95em | Height of the long logo when it stands in for the words Health OS inside a headline. |
+| `logo-offset` | `--hos-headline-logo-offset` | -0.17em | Vertical alignment that seats the long logo on the headline's baseline. |
 
 Build headlines with `<Headline text="… [accent] {tile} …" />` from `src/components/ui/headline.tsx`: it applies these values and checks the accent word and tiles. Tiles come from the squircle library, `src/data/headline-tiles.ts`.
 
@@ -681,7 +685,7 @@ The H1 for every page. Every word is ink-900 except one descriptive word in apri
 - Inline tiles in the home hero: its tiles float around the headline instead (tilesAround with FloatingTiles), and that is the only headline allowed to do so
 - text-highlight or a gradient inside a headline
 
-**API** `<Headline text="You built {blocks} it. Now [make] it run {computer} without you." as: h1 | h2 | h3 | p tiles id className /> · headlineParts(text) → { accent, tiles, plain } · tilt and float from tokens.json → headline.tile-tilt, float-distance, float-duration`
+**API** `<Headline text="You built {blocks} it. Now [make] it run {computer} without you." as: h1 | h2 | h3 | p tiles tilesAround hero id className /> · \n breaks a line · {@logo} sets the long filled logo in place of Health OS (home hero) · hero: stacked leading and the per-line ink fade (tokens.json → headline.leading-stacked, fade-to, logo-height, logo-offset) · headlineParts(text) → { accent, tiles, plain } · tilt and float from tokens.json → headline.tile-tilt, float-distance, float-duration`
 
 **Source** `src/components/ui/headline.tsx · tokens.json → headline, icon`
 
@@ -717,7 +721,8 @@ The home hero's headline stands clear, and icon tiles float in the space around 
 
 - A page's opening hero only: anchor="headline" inside a relative wrapper around the Headline (set to tilesAround), so positions and sizes are in the headline's em and the field hugs the words at every width
 - Different sizes for every tile, between icon.float-size-min and float-size-max, at uneven positions: scattered, never set out in a grid
-- Tiles around the headline and subtitle only, behind the letters, easing just clear of the glyphs; up to nine on wide screens, six on tablets, five on phones (from and until)
+- Tiles around the headline and subtitle only, behind the letters, at least about 0.4em clear of the words so they read easily; up to nine on wide screens, six on tablets, five on phones (from and until)
+- A second, box-anchored field for small tiles at the hero's far edges (the home hero: bonsai, horseshoe magnet and rope knot, from md up)
 - Icons that picture what the page is about
 
 **Not for**
@@ -844,6 +849,7 @@ HEALTH beside the OS tile in a rounded frame, 2.8 : 1. Two versions: white backg
 **Use it for**
 
 - Headers, footers, email signatures, documents and slides with room for a wide logo
+- The filled version inside the home hero headline, in place of the words Health OS ({@logo}, Tumai 15 September 2026), sized to the heading at 0.95em
 - white on busy or tinted layouts where the logo should stay quiet; filled where it is the main brand moment
 - On light or paper grounds exactly as supplied
 - 32px tall or more, with clear space of at least half its height on every side
@@ -1553,7 +1559,7 @@ A quick-action suggestion written as a /command, with the slash in apricot.
 
 `command-widget` · component · Stable
 
-A larger search input with a picture of a small toolbar. With onSubmit it searches for real: the home hero matches the query against the catalogue and jumps to the best section, and / focuses it from anywhere. The toolbar icons never take focus; only a wired submit disc does.
+A larger search input with a picture of a small toolbar, and a submit disc in the soft wash (Tumai's exception to apricot buttons). With onSubmit it searches for real: the home hero matches the query against the catalogue and jumps to the best section, and / focuses it from anywhere. The toolbar icons never take focus; only a wired submit disc does.
 
 **Use it for**
 

@@ -5,7 +5,8 @@
  * Decorative by default; pass `value`/`onChange` to control the input and `onSubmit` to
  * fire on Enter and on submit. The add, search, chat and voice buttons are pictures of a
  * toolbar and never take focus; the submit disc joins the tab order only when `onSubmit` is
- * set. Show the "/" key hint only when the page really focuses the input on "/" (`shortcut`).
+ * set. The submit disc is the soft wash (brand-gradient-soft), Tumai's one exception to apricot
+ * buttons. Show the "/" key hint only when the page really focuses the input on "/" (`shortcut`).
  */
 import * as React from 'react';
 import { Search, Plus, MessageCircle, Mic, ArrowRight } from 'lucide-react';
@@ -117,7 +118,7 @@ export const CommandWidget = ({
             aria-hidden={onSubmit ? undefined : true}
             tabIndex={onSubmit ? undefined : -1}
             onClick={onSubmit ? submit : undefined}
-            className="flex h-9 w-9 items-center justify-center rounded-md bg-apricot-200 text-ink-900 transition-colors duration-sm hover:bg-apricot-200/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-gradient-soft text-ink-900 ring-1 ring-inset ring-line transition-shadow duration-sm hover:shadow-sm hover:ring-apricot-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
           >
             <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
           </button>

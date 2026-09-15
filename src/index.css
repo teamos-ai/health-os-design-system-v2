@@ -107,6 +107,27 @@
     animation-play-state: running;
   }
 
+  /* The home hero headline: stacked lines with more air, each line fading from ink-900 at the top
+     of the letters to a softer ink at their foot. The fade is painted per line (clone), the accent
+     word keeps its solid apricot, and the long logo sits on the baseline in place of Health OS. */
+  .headline.headline-hero {
+    line-height: var(--hos-headline-leading-stacked);
+  }
+  .headline-ink {
+    background-image: linear-gradient(to bottom, var(--hos-headline-ink), var(--hos-headline-fade-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .headline-logo {
+    display: inline-block;
+    height: var(--hos-headline-logo-height);
+    width: auto;
+    vertical-align: var(--hos-headline-logo-offset);
+  }
+
   /* Floating tiles: the home hero's icons hanging in the space around the headline. Each is
      centred on its point; the drift, rock and pointer repel are Framer Motion (floating-tiles.tsx). */
   /* above the hero fade (-2), below the hero's content */

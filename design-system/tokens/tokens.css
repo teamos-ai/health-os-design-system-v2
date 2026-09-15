@@ -98,6 +98,10 @@
   --hos-headline-tile-tilt: 3deg;
   --hos-headline-float-distance: 0.06em;
   --hos-headline-float-duration: 6s;
+  --hos-headline-leading-stacked: 1.32;
+  --hos-headline-fade-to: rgba(31, 31, 31, 0.62);
+  --hos-headline-logo-height: 0.95em;
+  --hos-headline-logo-offset: -0.17em;
   --hos-icon-ground: radial-gradient(circle at 50% 42%, #36322F 0%, #2C2927 55%, #252220 100%);
   --hos-icon-radius: 24%;
   --hos-icon-inset: 10%;

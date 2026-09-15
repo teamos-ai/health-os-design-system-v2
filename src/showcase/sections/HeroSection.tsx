@@ -20,32 +20,40 @@ import { ENTRIES, SECTIONS, sectionMeta } from '@/showcase/catalog';
 import { useTheme } from '@/lib/useTheme';
 
 /* Tumai's nine icons, scattered around the headline and behind its letters. Positions and sizes
-   are in the headline's em from its top centre, so the field hugs the words at every width. Each
-   screen size has its own scatter: uneven, different sizes, never set out in a grid. */
+   are in the headline's em from its top centre, so the field hugs the words at every width, each
+   tile kept a touch clear of the letters so the words read easily. Each screen size has its own
+   scatter: uneven, different sizes, never set out in a grid. */
 const TILES: FloatingTile[] = [
   /* wide screens */
-  { id: 'cloud', x: -7.4, y: -0.55, size: 1.5, from: 'xl' },
-  { id: 'paper-plane', x: -3.6, y: -1.75, size: 1, from: 'xl' },
-  { id: 'feather', x: 1.9, y: -2.05, size: 1.3, from: 'xl' },
-  { id: 'orange-juice', x: 6.05, y: -1.9, size: 0.85, from: 'xl' },
-  { id: 'computer', x: 7.4, y: 0.3, size: 1.8, from: 'xl' },
-  { id: 'monstera', x: -4.95, y: 1.75, size: 1.65, from: 'xl' },
-  { id: 'terminal', x: 3.7, y: 1.55, size: 0.95, from: 'xl' },
-  { id: 'lightning-bolt', x: -8.2, y: 3.35, size: 0.8, from: 'xl' },
-  { id: 'diamond', x: 7.55, y: 3.05, size: 1.2, from: 'xl' },
+  { id: 'cloud', x: -7.6, y: -0.5, size: 1.45, from: 'xl' },
+  { id: 'paper-plane', x: -3.6, y: -1.6, size: 1, from: 'xl' },
+  { id: 'feather', x: 1.9, y: -2, size: 1.3, from: 'xl' },
+  { id: 'orange-juice', x: 5.9, y: -1.75, size: 0.85, from: 'xl' },
+  { id: 'computer', x: 7.75, y: 0.55, size: 1.75, from: 'xl' },
+  { id: 'monstera', x: -6, y: 2.6, size: 1.5, from: 'xl' },
+  { id: 'terminal', x: 3.6, y: 2.3, size: 0.9, from: 'xl' },
+  { id: 'lightning-bolt', x: -8.1, y: 3.2, size: 0.8, from: 'xl' },
+  { id: 'diamond', x: 7.4, y: 3, size: 1.15, from: 'xl' },
   /* tablets */
-  { id: 'cloud', x: -5.6, y: -1.35, size: 1.2, from: 'md', until: 'xl' },
-  { id: 'paper-plane', x: -1.7, y: -2, size: 1, from: 'md', until: 'xl' },
-  { id: 'feather', x: 2.45, y: -1.8, size: 1.25, from: 'md', until: 'xl' },
-  { id: 'computer', x: 6.35, y: -0.55, size: 1.3, from: 'md', until: 'xl' },
-  { id: 'monstera', x: -5.35, y: 1.7, size: 1.15, from: 'md', until: 'xl' },
-  { id: 'diamond', x: 5.2, y: 2.05, size: 1, from: 'md', until: 'xl' },
+  { id: 'cloud', x: -5.4, y: -1.3, size: 1.15, from: 'md', until: 'xl' },
+  { id: 'paper-plane', x: -1.6, y: -1.9, size: 0.95, from: 'md', until: 'xl' },
+  { id: 'feather', x: 2.5, y: -1.7, size: 1.2, from: 'md', until: 'xl' },
+  { id: 'computer', x: 4.7, y: -1.75, size: 1.15, from: 'md', until: 'xl' },
+  { id: 'monstera', x: -5, y: 2.2, size: 1.05, from: 'md', until: 'xl' },
+  { id: 'diamond', x: 4.6, y: 2.35, size: 0.95, from: 'md', until: 'xl' },
   /* phones */
-  { id: 'cloud', x: -3.8, y: -1.75, size: 1.3, until: 'md' },
-  { id: 'paper-plane', x: 0.3, y: -2.3, size: 0.95, until: 'md' },
-  { id: 'feather', x: 3.7, y: -1.95, size: 1.4, until: 'md' },
-  { id: 'orange-juice', x: 4.3, y: 1.75, size: 1.05, until: 'md' },
-  { id: 'lightning-bolt', x: -4.2, y: 2.6, size: 0.95, until: 'md' },
+  { id: 'cloud', x: -3.8, y: -1.5, size: 1.2, until: 'md' },
+  { id: 'paper-plane', x: 0.3, y: -2.2, size: 0.95, until: 'md' },
+  { id: 'feather', x: 3.6, y: -1.8, size: 1.35, until: 'md' },
+  { id: 'orange-juice', x: 4.4, y: 2.9, size: 1, until: 'md' },
+  { id: 'lightning-bolt', x: -4.3, y: 3.2, size: 0.95, until: 'md' },
+];
+
+/* Three small tiles at the hero's far edges, Tumai's marked spots: percent of the hero, size in rem. */
+const EDGE_TILES: FloatingTile[] = [
+  { id: 'bonsai', x: 5, y: 7, size: 2.9, from: 'md' },
+  { id: 'horseshoe-magnet', x: 93, y: 9, size: 2.6, from: 'md' },
+  { id: 'rope-knot', x: 95, y: 47, size: 3.1, from: 'md' },
 ];
 
 const JUMP: Record<string, string> = {
@@ -114,10 +122,11 @@ export const HeroSection = () => {
 
   return (
     <Hero id="hero" fade>
+      <FloatingTiles tiles={EDGE_TILES} />
       <HeroContainer>
         <FadeIn delay={0.05} className="relative">
           <FloatingTiles anchor="headline" tiles={TILES} />
-          <Headline tilesAround text={'The [Ultimate] Design System\nFor Health OS'} />
+          <Headline tilesAround hero text={'The [Ultimate] Design System\nFor {@logo}'} />
         </FadeIn>
         <FadeIn delay={0.1} className="mt-hero-gap-sm">
           <p className="max-w-hero-subcopy font-sans text-body text-ink-600">{meta.lead}</p>

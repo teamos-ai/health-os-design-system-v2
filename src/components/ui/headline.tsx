@@ -19,7 +19,9 @@
  * and down, so the icons hang between the words (tokens.json → headline.tile-tilt, float-*). The
  * float stops while the headline is off screen and when reduced motion is on; the tilt stays.
  * The home hero is the one exception: its tiles float around the headline instead (`tilesAround`
- * with FloatingTiles), so the words stand clear.
+ * with FloatingTiles), so the words stand clear. It also takes `hero`: more space between its two
+ * lines and each line fading from ink-900 to a softer ink, and it sets the long filled logo in place
+ * of the words Health OS with {@logo} (the image carries the words for screen readers).
  * In development, a headline with no accent word or more than one, too few or too many tiles,
  * a tile at the very start or end, or a tile still to be made, warns.
  */
@@ -30,9 +32,9 @@ import { HEADLINE } from '@/lib/palette';
 import { EASE_OUT, DURATION } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
-type Atom = { kind: 'word'; text: string; accent: boolean } | { kind: 'space'; text: string } | { kind: 'break' } | { kind: 'tile'; tile: HeadlineTile };
+type Atom = { kind: 'word'; text: string; accent: boolean } | { kind: 'space'; text: string } | { kind: 'break' } | { kind: 'logo' } | { kind: 'tile'; tile: HeadlineTile };
 
-const MARK = /(\[[^\]]+\]|\{[a-z0-9-]+\})/g;
+const MARK = /(\[[^\]]+\]|\{@?[a-z0-9-]+\})/g;
 
 /** Splits headline copy into words, spaces and tiles. Unknown tile ids are dropped with a warning. */
 export const parseHeadline = (text: string, library: Record<string, HeadlineTile> = HEADLINE_TILES): Atom[] => {
@@ -50,6 +52,7 @@ export const parseHeadline = (text: string, library: Record<string, HeadlineTile
   for (const piece of text.split(MARK)) {
     if (!piece) continue;
     if (piece.startsWith('[') && piece.endsWith(']')) pushText(piece.slice(1, -1), true);
+    else if (piece === '{@logo}') atoms.push({ kind: 'logo' });
     else if (piece.startsWith('{') && piece.endsWith('}')) {
       const tile = library[piece.slice(1, -1)];
       if (tile) atoms.push({ kind: 'tile', tile });
@@ -68,17 +71,19 @@ export const headlineParts = (text: string, library: Record<string, HeadlineTile
       .map((a) => a.text)
       .join(' '),
     tiles: atoms.filter((a): a is Extract<Atom, { kind: 'tile' }> => a.kind === 'tile').map((a) => a.tile),
-    plain: text.replace(/\{[a-z0-9-]+\}\s?/g, '').replace(/[[\]]/g, '').replace(/\s+/g, ' ').trim(),
+    plain: text.replace(/\{@logo\}/g, 'Health OS').replace(/\{[a-z0-9-]+\}\s?/g, '').replace(/[[\]]/g, '').replace(/\s+/g, ' ').trim(),
   };
 };
 
 export interface HeadlineProps {
-  /** The whole headline. Mark the one descriptive word as [word] and each tile as {id}; a \n breaks the line. */
+  /** The whole headline. Mark the one descriptive word as [word] and each tile as {id}; a \n breaks the line; {@logo} sets the long filled logo in place of the words Health OS. */
   text: string;
   /** h1 on a real page; h2 or h3 when a page already has its h1 (as in this reference); p inside an asset such as a social post */
   as?: 'h1' | 'h2' | 'h3' | 'p';
   /** Tiles float around this headline (FloatingTiles, the home hero) instead of sitting in it: no inline tiles expected. */
   tilesAround?: boolean;
+  /** the home hero's finish: more air between its two lines, and each line fading from ink-900 at the top of the letters to a softer ink at their foot */
+  hero?: boolean;
   /** Tile library to resolve {id} against. Defaults to the icon library. */
   tiles?: Record<string, HeadlineTile>;
   id?: string;
@@ -124,7 +129,7 @@ const warn = (text: string, atoms: Atom[], tilesAround = false) => {
   });
 };
 
-export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, tilesAround = false, id, className }: HeadlineProps) => {
+export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, tilesAround = false, hero = false, id, className }: HeadlineProps) => {
   const ref = React.useRef<HTMLHeadingElement>(null);
   const inView = useInView(ref);
   const atoms = parseHeadline(text, tiles);
@@ -145,6 +150,7 @@ export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, tilesAr
   const render = (a: Atom, key: number) => {
     if (a.kind === 'space') return <React.Fragment key={key}>{a.text}</React.Fragment>;
     if (a.kind === 'break') return <br key={key} />;
+    if (a.kind === 'logo') return <img key={key} src="/logo/health-os-long-filled.png" alt="Health OS" width={1119} height={400} draggable={false} decoding="async" className="headline-logo" />;
     if (a.kind === 'tile') return <Tile key={key} tile={a.tile} index={tileIndex++} />;
     return a.accent ? (
       <span key={key} className="text-apricot-400">
@@ -169,8 +175,8 @@ export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, tilesAr
   for (; i < atoms.length; i++) out.push(render(atoms[i], i));
 
   return (
-    <Tag ref={ref} id={id} data-floating={inView || undefined} className={cn('headline font-display text-heading text-ink-900', className)}>
-      {out}
+    <Tag ref={ref} id={id} data-floating={inView || undefined} className={cn('headline font-display text-heading text-ink-900', hero && 'headline-hero', className)}>
+      {hero ? <span className="headline-ink">{out}</span> : out}
     </Tag>
   );
 };
