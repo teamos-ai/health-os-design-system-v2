@@ -135,6 +135,7 @@ export default {
         "hero-py-lg": "11rem",
         "hero-gap": "3.5rem",
         "hero-gap-sm": "2rem",
+        "hero-gap-lg": "12rem",
         "hero-fade": "18rem"
       },
       "maxWidth": {

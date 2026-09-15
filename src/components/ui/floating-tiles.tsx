@@ -11,9 +11,13 @@
  *     </HeroContainer>
  *   </Hero>
  *
- * Place it as the first child of a `Hero` (it fills the hero behind the content). Positions are
- * percentages of the hero, so keep tiles in the side margins, above the headline and below the
- * chips, clear of the words and the search; `from` shows a tile only from a breakpoint up and
+ * Two ways to place it. `anchor="box"` (the default) fills its positioned parent and takes x and
+ * y as percentages of it. `anchor="headline"` (the home hero) sits at the top centre of the
+ * headline, inside a relative wrapper around it, and takes x, y and size in the headline's own em:
+ * so the scatter hugs the words at every screen width, grows with the heading and sits behind the
+ * letters. Give tiles different sizes (tokens.json → icon.float-size-min to float-size-max) and
+ * uneven positions so the field reads as scattered, never set out. Keep tiles around the headline
+ * and subtitle only, never down by the search. `from` shows a tile only from a breakpoint up and
  * `until` only below one, so each screen size gets its own placement. Tiles are pictures: hidden
  * from screen readers and never a click target; the repel follows a mouse only, never touch. The
  * float runs while the hero is on screen; with reduced motion on the tiles simply sit in place.
@@ -29,11 +33,11 @@ import { cn } from '@/lib/utils';
 export interface FloatingTile {
   /** a tile id from the icon library */
   id: string;
-  /** centre of the tile, as a percentage of the hero's width and height */
+  /** centre of the tile: percent of the box, or em from the headline's top centre (anchor headline) */
   x: number;
   y: number;
-  /** hero (64px, 80px from md) by default; sm, md or lg for a smaller field */
-  size?: 'sm' | 'md' | 'lg' | 'hero';
+  /** a number is the tile's size in the headline's em (anchor headline); or hero (64px, 80px from md), sm, md, lg */
+  size?: number | 'sm' | 'md' | 'lg' | 'hero';
   /** show the tile only from this breakpoint up */
   from?: 'sm' | 'md' | 'lg' | 'xl';
   /** show the tile only below this breakpoint */
@@ -47,7 +51,7 @@ const UNTIL = { sm: 'sm:hidden', md: 'md:hidden', lg: 'lg:hidden', xl: 'xl:hidde
 type Pointer = { x: number; y: number } | null;
 type Listener = (p: Pointer) => void;
 
-const Tile = ({ tile, index, subscribe, floating, still }: { tile: FloatingTile; index: number; subscribe: (l: Listener) => () => void; floating: boolean; still: boolean }) => {
+const Tile = ({ tile, index, subscribe, floating, still, unit }: { tile: FloatingTile; index: number; subscribe: (l: Listener) => () => void; floating: boolean; still: boolean; unit: '%' | 'em' }) => {
   const ref = React.useRef<HTMLSpanElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -92,13 +96,14 @@ const Tile = ({ tile, index, subscribe, floating, still }: { tile: FloatingTile;
     <motion.span
       ref={ref}
       className={cn('floating-tile', tile.from && FROM[tile.from], tile.until && UNTIL[tile.until])}
-      style={{ left: `${tile.x}%`, top: `${tile.y}%`, x: springX, y: springY }}
+      style={{ left: `${tile.x}${unit}`, top: `${tile.y}${unit}`, x: springX, y: springY }}
       initial={still ? false : { opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.08, duration: 0.6, ease: EASE_OUT }}
     >
       <motion.span
-        className={cn('floating-tile-face icon-tile', SIZE[tile.size ?? 'hero'])}
+        className={cn('floating-tile-face icon-tile', typeof tile.size !== 'number' && SIZE[tile.size ?? 'hero'])}
+        style={typeof tile.size === 'number' ? ({ '--icon-size': `${tile.size}em` } as React.CSSProperties) : undefined}
         animate={
           floating && !still
             ? {
@@ -116,7 +121,7 @@ const Tile = ({ tile, index, subscribe, floating, still }: { tile: FloatingTile;
   );
 };
 
-export const FloatingTiles = ({ tiles, className }: { tiles: FloatingTile[]; className?: string }) => {
+export const FloatingTiles = ({ tiles, anchor = 'box', className }: { tiles: FloatingTile[]; anchor?: 'box' | 'headline'; className?: string }) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
   const reduced = useReducedMotion() ?? false;
@@ -156,9 +161,17 @@ export const FloatingTiles = ({ tiles, className }: { tiles: FloatingTile[]; cla
   }, [reduced, inView]);
 
   return (
-    <div ref={ref} aria-hidden className={cn('floating-tiles pointer-events-none absolute inset-0', className)}>
+    <div
+      ref={ref}
+      aria-hidden
+      className={cn(
+        'floating-tiles pointer-events-none absolute',
+        anchor === 'headline' ? 'left-1/2 top-0 h-px w-px text-heading' : 'inset-0',
+        className
+      )}
+    >
       {tiles.map((t, i) => (
-        <Tile key={`${t.id}-${i}`} tile={t} index={i} subscribe={subscribe} floating={inView} still={reduced} />
+        <Tile key={`${t.id}-${i}`} tile={t} index={i} subscribe={subscribe} floating={inView} still={reduced} unit={anchor === 'headline' ? 'em' : '%'} />
       ))}
     </div>
   );

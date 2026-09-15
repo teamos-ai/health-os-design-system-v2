@@ -255,6 +255,7 @@ Base rhythm is 8px (Tailwind 2, 4, 6, 8, 10, 12, 16, 24). Compact 4px steps (1, 
 | `hero-py-lg` | 11rem | 176px | `pt-hero-py-lg` | `--hos-space-hero-py-lg` | Hero top and bottom padding from md up (176px). |
 | `hero-gap` | 3.5rem | 56px | `mt-hero-gap` | `--hos-space-hero-gap` | Gap between hero blocks: subcopy to action (56px). |
 | `hero-gap-sm` | 2rem | 32px | `mt-hero-gap-sm` | `--hos-space-hero-gap-sm` | Tighter hero gap: title to subcopy, action to chips (32px). |
+| `hero-gap-lg` | 12rem | 192px | `mt-hero-gap-lg` | `--hos-space-hero-gap-lg` | The long pause between a home hero's headline group and its search from md up (192px), so the headline and its floating icons own the top of the hero and the search sits in its lower third. |
 | `hero-fade` | 18rem | 288px | `pt-hero-fade` | `--hos-space-hero-fade` | Height of the soft blend at the foot of a page's opening hero, where its ground dissolves into the section below (288px). No line marks where the fold was. |
 
 ### Radius
@@ -575,6 +576,7 @@ An 8px rhythm with 4px steps for tight spots. The same spacing in both themes.
 - 4px steps (1, 3, 5) for icon gaps, badge padding and dense controls
 - Section padding py-16 on phones, py-24 on desktop; hero-py tokens for heroes
 - hero-fade: the height over which a page's opening hero dissolves into the textured section below (Hero fade)
+- hero-gap-lg (12rem): the long pause between a home hero's headline group and its search from md up
 
 **Not for**
 
@@ -713,19 +715,21 @@ The home hero's headline stands clear, and icon tiles float in the space around 
 
 **Use it for**
 
-- A page's opening hero only, as the first child of Hero, with the Headline set to tilesAround
-- Up to nine tiles in the side margins, above the headline and below the chips on wide screens; a row above and below on tablets; three on phones (from and until)
+- A page's opening hero only: anchor="headline" inside a relative wrapper around the Headline (set to tilesAround), so positions and sizes are in the headline's em and the field hugs the words at every width
+- Different sizes for every tile, between icon.float-size-min and float-size-max, at uneven positions: scattered, never set out in a grid
+- Tiles around the headline and subtitle only, behind the letters, easing just clear of the glyphs; up to nine on wide screens, six on tablets, five on phones (from and until)
 - Icons that picture what the page is about
 
 **Not for**
 
-- Tiles over the words, the search or the chips
+- Tiles below the subtitle, beside the search or the chips
+- Resting a dark tile under a letter where it swallows the glyph edge
 - Click targets on tiles: they are pictures
 - Inline tiles in the same headline
 - More than one floating field on a page
 - The repel on touch: it follows a mouse only
 
-**API** `<FloatingTiles tiles: { id, x, y (percent of the hero), size: hero | sm | md | lg, from, until }[] /> · <Headline tilesAround /> · tokens.json → icon.size-hero, float-rise, float-drift, float-turn, float-duration-min, float-duration-max, repel-radius, repel-force, spring-stiffness, spring-damping · ICON_FLOAT (palette.ts)`
+**API** `<FloatingTiles anchor: box | headline tiles: { id, x, y (percent of the box, or em from the headline's top centre), size (em number, or hero | sm | md | lg), from, until }[] /> · <Headline tilesAround /> · tokens.json → icon.size-hero, float-rise, float-drift, float-turn, float-duration-min, float-duration-max, repel-radius, repel-force, spring-stiffness, spring-damping · ICON_FLOAT (palette.ts)`
 
 **Source** `src/components/ui/floating-tiles.tsx · src/showcase/sections/HeroSection.tsx`
 

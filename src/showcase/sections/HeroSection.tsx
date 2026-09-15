@@ -1,7 +1,8 @@
 /**
  * HeroSection: the reference site's opening. "The Ultimate Design System / For Health OS" in title
- * case on two lines (Tumai's copy), with nine icon tiles floating around it that drift and ease
- * away from the mouse (FloatingTiles). Then a short line, a search
+ * case on two lines (Tumai's copy), with nine icon tiles of different sizes scattered around it
+ * and behind its letters, drifting and easing away from the mouse (FloatingTiles, anchored to the
+ * headline). A long pause (hero-gap-lg) puts the search in the lower part of the hero. Then a short line, a search
  * that really searches the catalogue and jumps to the best section, and quick links to the parts
  * people look for most. Press / anywhere to search. The hero dissolves into the section below
  * (Hero `fade`), so there is no hard line at the fold.
@@ -18,29 +19,33 @@ import { SHOWCASE_COMMANDS } from '@/data/system';
 import { ENTRIES, SECTIONS, sectionMeta } from '@/showcase/catalog';
 import { useTheme } from '@/lib/useTheme';
 
-/* Tumai's nine icons for the home hero. Wide screens hang them in the side margins, above the
-   headline and below the chips; tablets keep a row above and one below; phones keep three. */
+/* Tumai's nine icons, scattered around the headline and behind its letters. Positions and sizes
+   are in the headline's em from its top centre, so the field hugs the words at every width. Each
+   screen size has its own scatter: uneven, different sizes, never set out in a grid. */
 const TILES: FloatingTile[] = [
-  { id: 'cloud', x: 11, y: 12, from: 'xl' },
-  { id: 'computer', x: 89, y: 14, from: 'xl' },
-  { id: 'monstera', x: 6, y: 47, from: 'xl' },
-  { id: 'terminal', x: 94, y: 49, from: 'xl' },
-  { id: 'paper-plane', x: 31, y: 7, from: 'xl' },
-  { id: 'feather', x: 69, y: 7, from: 'xl' },
-  { id: 'lightning-bolt', x: 5, y: 88, from: 'xl' },
-  { id: 'diamond', x: 93, y: 81, from: 'xl' },
-  { id: 'orange-juice', x: 50, y: 92, from: 'xl' },
+  /* wide screens */
+  { id: 'cloud', x: -7.4, y: -0.55, size: 1.5, from: 'xl' },
+  { id: 'paper-plane', x: -3.6, y: -1.75, size: 1, from: 'xl' },
+  { id: 'feather', x: 1.9, y: -2.05, size: 1.3, from: 'xl' },
+  { id: 'orange-juice', x: 6.05, y: -1.9, size: 0.85, from: 'xl' },
+  { id: 'computer', x: 7.4, y: 0.3, size: 1.8, from: 'xl' },
+  { id: 'monstera', x: -4.95, y: 1.75, size: 1.65, from: 'xl' },
+  { id: 'terminal', x: 3.7, y: 1.55, size: 0.95, from: 'xl' },
+  { id: 'lightning-bolt', x: -8.2, y: 3.35, size: 0.8, from: 'xl' },
+  { id: 'diamond', x: 7.55, y: 3.05, size: 1.2, from: 'xl' },
   /* tablets */
-  { id: 'cloud', x: 9, y: 9, from: 'md', until: 'xl' },
-  { id: 'paper-plane', x: 33, y: 6, from: 'md', until: 'xl' },
-  { id: 'feather', x: 67, y: 6, from: 'md', until: 'xl' },
-  { id: 'computer', x: 91, y: 9, from: 'md', until: 'xl' },
-  { id: 'diamond', x: 22, y: 92, from: 'md', until: 'xl' },
-  { id: 'orange-juice', x: 78, y: 92, from: 'md', until: 'xl' },
+  { id: 'cloud', x: -5.6, y: -1.35, size: 1.2, from: 'md', until: 'xl' },
+  { id: 'paper-plane', x: -1.7, y: -2, size: 1, from: 'md', until: 'xl' },
+  { id: 'feather', x: 2.45, y: -1.8, size: 1.25, from: 'md', until: 'xl' },
+  { id: 'computer', x: 6.35, y: -0.55, size: 1.3, from: 'md', until: 'xl' },
+  { id: 'monstera', x: -5.35, y: 1.7, size: 1.15, from: 'md', until: 'xl' },
+  { id: 'diamond', x: 5.2, y: 2.05, size: 1, from: 'md', until: 'xl' },
   /* phones */
-  { id: 'cloud', x: 15, y: 5, until: 'md' },
-  { id: 'feather', x: 85, y: 5, until: 'md' },
-  { id: 'orange-juice', x: 50, y: 94, until: 'md' },
+  { id: 'cloud', x: -3.8, y: -1.75, size: 1.3, until: 'md' },
+  { id: 'paper-plane', x: 0.3, y: -2.3, size: 0.95, until: 'md' },
+  { id: 'feather', x: 3.7, y: -1.95, size: 1.4, until: 'md' },
+  { id: 'orange-juice', x: 4.3, y: 1.75, size: 1.05, until: 'md' },
+  { id: 'lightning-bolt', x: -4.2, y: 2.6, size: 0.95, until: 'md' },
 ];
 
 const JUMP: Record<string, string> = {
@@ -109,15 +114,15 @@ export const HeroSection = () => {
 
   return (
     <Hero id="hero" fade>
-      <FloatingTiles tiles={TILES} />
       <HeroContainer>
-        <FadeIn delay={0.05}>
+        <FadeIn delay={0.05} className="relative">
+          <FloatingTiles anchor="headline" tiles={TILES} />
           <Headline tilesAround text={'The [Ultimate] Design System\nFor Health OS'} />
         </FadeIn>
         <FadeIn delay={0.1} className="mt-hero-gap-sm">
           <p className="max-w-hero-subcopy font-sans text-body text-ink-600">{meta.lead}</p>
         </FadeIn>
-        <FadeIn delay={0.15} className="mt-hero-gap w-full max-w-2xl">
+        <FadeIn delay={0.15} className="mt-hero-gap w-full max-w-2xl md:mt-hero-gap-lg">
           <CommandWidget id="hero-search" shortcut onSubmit={search} />
         </FadeIn>
         <Stagger className="mt-hero-gap-sm flex flex-wrap items-center justify-center gap-2" amount={0.4}>

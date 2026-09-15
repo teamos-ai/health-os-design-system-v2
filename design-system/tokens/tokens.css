@@ -74,6 +74,7 @@
   --hos-space-hero-py-lg: 11rem;
   --hos-space-hero-gap: 3.5rem;
   --hos-space-hero-gap-sm: 2rem;
+  --hos-space-hero-gap-lg: 12rem;
   --hos-space-hero-fade: 18rem;
   --hos-radius-none: 0px;
   --hos-radius-md: 8px;
@@ -105,6 +106,8 @@
   --hos-icon-size-lg: 6rem;
   --hos-icon-size-hero: 4rem;
   --hos-icon-size-hero-lg: 5rem;
+  --hos-icon-float-size-min: 0.75em;
+  --hos-icon-float-size-max: 1.9em;
   --hos-icon-float-rise: 0.5rem;
   --hos-icon-float-drift: 0.375rem;
   --hos-icon-float-turn: 5deg;
