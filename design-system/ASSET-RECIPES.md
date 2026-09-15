@@ -2,7 +2,7 @@
 
 What to reach for when building each kind of asset. Each recipe names the ground, type, colour moments, components and checks. Values and props are in [REFERENCE.md](REFERENCE.md); copy and claims follow [VOICE.md](VOICE.md) and the Health OS database. Finish every asset with [CHECKLIST.md](CHECKLIST.md).
 
-**Every asset:** one theme (light or paper), never a dark background · Spline Sans headings, Anonymous Pro body · every H1 a `Headline`: ink with one apricot-200 accent word and its picture tile · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · apricot for every interactive accent and never as decoration, focus rings in ink-900 · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · video only in `VideoPlayer` · sentence case, no em dashes, no invented numbers.
+**Every asset:** one theme (light or paper), never a dark background · Spline Sans headings, Anonymous Pro body · every H1 a `Headline`: ink with one apricot-400 accent word and one to three icon tiles · the only dark surface is the small icon tile · rose, apricot and lavender only in 50, 200 and 400, with widgets and cards in 200 and 50 only, text in ink · apricot for every interactive accent and never as decoration, focus rings in ink-900 · one gradient moment, never a saturated fill · buttons in apricot-200 `#F8C39C` with ink text · flat surfaces with hairlines · images from the tagged library · video only in `VideoPlayer` · sentence case, no em dashes, no invented numbers.
 
 ## 1. Marketing page
 
@@ -12,7 +12,7 @@ The live page in the reference site is this recipe, assembled.
 |---|---|---|
 | Banner | `Ticker` | Optional. The one banner, on the soft wash, on both themes. One per page |
 | Navigation | `Nav` | One primary button in the bar |
-| Hero | `CommandHero`, or `Hero` + `HeroContainer` + `HeroGlow` | Spacing comes from the hero tokens. The H1 is a `Headline` with its accent word and tile, ideally a line from the headline library |
+| Hero | `CommandHero`, or `Hero` + `HeroContainer` + `HeroGlow` | Spacing comes from the hero tokens. The H1 is a `Headline` with its accent word and icon tiles, ideally a line from the headline library |
 | Why it works | `Pillars` (feature grid) | Up to four `FeatureCard`s |
 | What runs | `FeatureBento` for a section summary, `ProductBento` for what the platform does, or feature components (`FeatureSteps`, `FeatureTabs`, `FeatureGrid`, `FeatureCards`) | One bento per page. Figures from the database only |
 | Plans | `PricingTable` with plans from `src/data/offer.ts` | Prices and fees exactly as the database states them |
@@ -26,7 +26,7 @@ Sections sit at `py-16 md:py-24` inside `max-w-container px-6`. Every third sect
 
 The reference site's Blog section is this recipe, assembled. Parts are in `src/components/blog/Blog.tsx`.
 
-- **Article page:** `Breadcrumb` · category `Badge` · the H1 as a `Headline` with its accent word and tile · a standfirst in `text-body text-ink-600` · `ArticleMeta` (author, date, reading time, copy link) · a hero figure with a `text-label` caption.
+- **Article page:** `Breadcrumb` · category `Badge` · the H1 as a `Headline` with its accent word and icon tiles · a standfirst in `text-body text-ink-600` · `ArticleMeta` (author, date, reading time, copy link) · a hero figure with a `text-label` caption.
 - The body sits on `max-w-reading` beside a `TableOfContents` (sticky from lg) when there are three or more subheadings. Section titles in `text-subheading`.
 - A pull quote is `PullQuote`: larger subheading type on a 2px rose-200 rule. Never a filled or gradient block behind reading text.
 - The body goes inside `ArticleLayout`, so the reading column can shrink on phones and wide tables scroll inside their own frame.
@@ -86,16 +86,16 @@ The reference site's social templates are the starting point.
 - Design the empty, loading (`Skeleton`) and error (`Alert`) states for every view.
 - Experimental widgets can be used. Check their notes in REFERENCE.md first.
 
-## 9. Headline tile
+## 9. Icon
 
-Every H1 needs the tile that pictures its accent word, and may use up to two more. Search the squircle library (`HEADLINE_TILE_LIST`, or the Squircle library section) for the word: all 107 headline words point at a tile. A tile marked `planned` has its picture brief written and needs making before it goes live.
+Every H1 uses one to three icons, and cards, bentos and posts use them on their own (`IconTile`). Search the icon library (`HEADLINE_TILE_LIST`, or the Icon library section) for the word: all 107 headline words point at an icon. An icon marked `planned` needs making before it goes live.
 
-- **Model:** the six ready tiles. Match them: one real object, studio light, cut out, with the tint coming from the tone. When Tumai supplies example tiles, those examples lead.
+- **Model:** Tumai's tiles (Health OS Branding Guidelines, pages 11 and 12): one real object in warm studio light, cut out, sitting on the warm charcoal squircle. The ground comes from the `icon` tokens, never from the image.
 - **Subject:** one literal, recognisable object for the word beside it, written as the tile's `picture`. Software is a vintage all-in-one computer, calm is balanced river stones, built is wooden blocks. No people, icons, emoji, abstract shapes or brand logos (a classic product shape is fine; its logo is not).
-- **Prompt:** "Photorealistic studio product photograph of [object], [materials and colours], three-quarter view. Isolated on a fully transparent background, centred and filling about 80% of a square frame, soft diffused daylight from the upper left, gentle natural shading, crisp high detail, calm minimal aesthetic. No text, no letters, no logos, no brand marks, no watermark."
+- **Prompt:** "Photorealistic studio product photograph of [object], true-to-life materials and colours, three-quarter view. Isolated on a fully transparent background, centred and filling about 80% of a square frame, soft warm studio light from the upper left with a gentle rim light so every edge reads clearly, soft natural shading, crisp high detail, calm premium minimal aesthetic, like a refined app icon object. No text, no letters, no numbers, no logos, no brand marks, no watermark, no background, no floor, no shadow plane."
 - **Settings:** GPT Image 2 text to image, 1K, 1:1, transparent background, through the KIE connection. Quote the cost and get Tumai's approval before generating.
-- **Check:** sharp at 3× the tile size, no text or logos, reads at 32px. Redo anything that doesn't.
-- **Save:** trim to the object, pad it to 80% of a square, and save a 1024px PNG and a 320px WebP to `public/heading-tiles/`. Name both files after the id, then switch its entry in `src/data/headline-tiles.ts` from `planned(...)` to `ready(...)` with the file name. A new word gets an entry with its `words`, `group`, `picture` and a `tone` (rose, lavender or neutral, never apricot) that differs from its neighbours.
+- **Check:** sharp at 3× the tile size, no text, numbers or logos, reads on the charcoal ground at 40px. Redo anything that doesn't.
+- **Save:** trim to the object and pad it to 80% of a square. Save a 1024px PNG, a 320px WebP and the baked `-tile.png` (the object on the charcoal squircle, for Canva) to `public/heading-tiles/`, named after the id. Add the entry to `src/data/headline-tiles.ts` with its `words`, `group` and `picture`, and remove the id from `PLANNED` once its files exist.
 
 ## 10. Screenshot of the product
 

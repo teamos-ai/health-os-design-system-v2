@@ -1,34 +1,29 @@
 /**
- * Headline: the H1 for every page. Dark ink, one descriptive word in apricot, and a picture
- * tile beside that word that shows it.
+ * Headline: the H1 for every page. Dark ink, one descriptive word in apricot, and icon tiles
+ * beside the words they picture.
  *
  * Write the whole headline as one string. Mark the one descriptive word with [brackets] and
- * each tile with {id} from the squircle library (HEADLINE_TILES). The accent word's tile sits
- * right beside it; one or two more tiles may picture other words, up to three in all:
+ * each tile with {id} from the icon library (HEADLINE_TILES), right after the word it pictures.
+ * One to three tiles; the accent word does not need a tile of its own:
  *
  *   <Headline text="Notes for a [calm] {stones} practice that runs {computer} on its own" />
+ *   <Headline text="You built {blocks} it. Now [make] it run {computer} without you." />
  *
- * Every word is ink-900 except the accent word, which is apricot-200: the one place text is
+ * Every word is ink-900 except the accent word, which is apricot-400: the one place text is
  * apricot in the system. Tiles are decorative (the words carry the meaning), so they are
  * hidden from screen readers and do not react to the pointer. Each tile is kept on the same
  * line as the word before it, so it never starts a line on its own; gluing both sides would
  * make chunks too wide for a phone. Sizes are in em, so tiles scale with the heading role.
- * A tile still to be made shows as an empty tinted squircle. In development, a headline with
- * no accent word or more than one, an accent word with no tile beside it, too few or too many
- * tiles, a tile at the very start or end, or a tile still to be made, warns.
+ * Tiles are dark icon tiles (tokens.json → icon); one still to be made shows as an empty squircle.
+ * In development, a headline with no accent word or more than one, too few or too many tiles,
+ * a tile at the very start or end, or a tile still to be made, warns.
  */
 import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { HEADLINE_TILES, type HeadlineTile, type HeadlineTileTone } from '@/data/headline-tiles';
+import { HEADLINE_TILES, type HeadlineTile } from '@/data/headline-tiles';
 import { HEADLINE } from '@/lib/palette';
 import { EASE_OUT, DURATION } from '@/lib/motion';
 import { cn } from '@/lib/utils';
-
-const TONE: Record<HeadlineTileTone, { ready: string; planned: string }> = {
-  rose: { ready: 'bg-rose-50 ring-1 ring-inset ring-rose-200', planned: 'bg-rose-50 border border-dashed border-rose-200' },
-  lavender: { ready: 'bg-lavender-50 ring-1 ring-inset ring-lavender-200', planned: 'bg-lavender-50 border border-dashed border-lavender-200' },
-  neutral: { ready: 'bg-ink-100 ring-1 ring-inset ring-ink-200', planned: 'bg-ink-100 border border-dashed border-ink-400' },
-};
 
 type Atom = { kind: 'word'; text: string; accent: boolean } | { kind: 'space'; text: string } | { kind: 'tile'; tile: HeadlineTile };
 
@@ -81,11 +76,10 @@ export interface HeadlineProps {
 
 export const Tile = ({ tile, index = 0, className }: { tile: HeadlineTile; index?: number; className?: string }) => {
   const reduced = useReducedMotion();
-  const tone = TONE[tile.tone];
   return (
     <motion.span
       aria-hidden
-      className={cn('headline-tile', tile.src ? tone.ready : tone.planned, className)}
+      className={cn('headline-tile', !tile.src && 'border border-dashed border-ink-400', className)}
       initial={reduced ? false : { opacity: 0, scale: 0.6, rotate: -8 }}
       whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -108,9 +102,6 @@ const warn = (text: string, atoms: Atom[]) => {
   atoms.forEach((a) => {
     if (a.kind === 'tile' && a.tile.status === 'planned') say(`the {${a.tile.id}} tile is still to be made. Make it before this headline goes live.`);
   });
-  const tileAt = (i: number, step: 1 | -1) => atoms[atoms[i + step]?.kind === 'space' ? i + 2 * step : i + step]?.kind === 'tile';
-  const accents = atoms.map((_, i) => i).filter(isAccent);
-  if (accents.length && !tileAt(accents[0], -1) && !tileAt(accents[accents.length - 1], 1)) say('put the tile that pictures the accent word right beside it.');
 };
 
 export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, id, className }: HeadlineProps) => {
@@ -133,7 +124,7 @@ export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, id, cla
     if (a.kind === 'space') return <React.Fragment key={key}>{a.text}</React.Fragment>;
     if (a.kind === 'tile') return <Tile key={key} tile={a.tile} index={tileIndex++} />;
     return a.accent ? (
-      <span key={key} className="text-apricot-200">
+      <span key={key} className="text-apricot-400">
         {a.text}
       </span>
     ) : (

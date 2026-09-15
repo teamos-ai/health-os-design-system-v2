@@ -22,13 +22,13 @@ export interface LibraryHeadline {
 }
 
 export const HEADLINE_LIBRARY: LibraryHeadline[] = [
-  { text: 'You [built] {blocks} it. Now make it run {computer} without you.', pillar: 'The bottleneck', use: 'Homepage hero', from: 'Verified core brand message' },
+  { text: 'You built {blocks} it. Now [make] it run {computer} without you.', pillar: 'The bottleneck', use: 'Homepage hero', from: 'Verified core brand message' },
   { text: 'Stop being the bottleneck in the [business] {briefcase} you built.', pillar: 'The bottleneck', use: 'Landing page hero', from: 'Adapted from a verified persona headline' },
-  { text: 'Your [time] {pocket-watch} belongs to the clients who booked it.', pillar: 'The bottleneck', use: 'Landing page section', from: 'New' },
+  { text: 'Your [time] {pocket-watch} belongs to the clients {coffee-cups} who booked it.', pillar: 'The bottleneck', use: 'Landing page section', from: 'New' },
   { text: 'More [space] {ringed-planet} in the week for the work only you can do.', pillar: 'The bottleneck', use: 'Email header', from: 'New' },
   { text: 'One [system] {computer} instead of eight {tools} tools.', pillar: 'One system', use: 'Ad or landing page', from: 'Adapted from a verified pillar line' },
   { text: 'Eight logins. Eight bills. One [dashboard] {gauge} for all of it.', pillar: 'One system', use: 'Landing page section', from: 'Adapted from a hook in the content bank' },
-  { text: 'Every client, booking and message [connected] {cables} in one place.', pillar: 'One system', use: 'Homepage section', from: 'New' },
+  { text: 'Every client {coffee-cups} and booking {desk-calendar} [connected] {cables} in one place.', pillar: 'One system', use: 'Homepage section', from: 'New' },
   { text: 'A [CRM] {card-index} that follows up while you are with a client.', pillar: 'One system', use: 'Feature page', from: 'New' },
   { text: '[Bookings] {desk-calendar} that confirm themselves.', pillar: 'One system', use: 'Feature page', from: 'Existing product copy' },
   { text: '[Automation] {gears} for the follow-up between sessions.', pillar: 'Steady, not stop-start', use: 'Feature page', from: 'New' },

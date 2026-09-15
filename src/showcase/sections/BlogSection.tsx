@@ -80,7 +80,7 @@ const ArticleExample = () => {
 
         <header className="mt-8 max-w-3xl">
           <Badge variant="lavender">Operations</Badge>
-          <Headline as="h3" text="Fewer {tools} tools, [wired] {cables} together" className="mt-6" />
+          <Headline as="h3" text="Fewer {tools} tools, wired {cables} [together]" className="mt-6" />
           <p className="mt-6 max-w-reading font-sans text-body text-ink-600">
             Most wellness businesses end up running on a handful of separate tools. This is a look at what to bring together first, and what can wait.
           </p>

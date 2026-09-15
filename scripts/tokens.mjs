@@ -71,6 +71,7 @@ function buildCss() {
   for (const [name, node] of entries(t.headline)) {
     if (typeof val(node) === 'string') lines.push(`  --hos-headline-${name}: ${val(node)};`);
   }
+  for (const [name, node] of entries(t.icon)) lines.push(`  --hos-icon-${name}: ${val(node)};`);
   for (const [name, node] of entries(t.banner)) lines.push(`  --hos-banner-${name}: ${val(node)};`);
   for (const [name, node] of entries(t.video)) lines.push(`  --hos-video-${name}: ${val(node)};`);
   lines.push('}', '');

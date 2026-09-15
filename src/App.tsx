@@ -9,7 +9,6 @@ import { OverviewSection } from '@/showcase/sections/OverviewSection';
 import { ChecklistSection } from '@/showcase/sections/ChecklistSection';
 import { TokensSection } from '@/showcase/sections/TokensSection';
 import { HeadlinesSection } from '@/showcase/sections/HeadlinesSection';
-import { SquirclesSection } from '@/showcase/sections/SquirclesSection';
 import { LogoSection } from '@/showcase/sections/LogoSection';
 import { IconsSection } from '@/showcase/sections/IconsSection';
 import { MotionSection } from '@/showcase/sections/MotionSection';
@@ -39,7 +38,6 @@ const RENDER: Record<string, ComponentType> = {
   checklist: ChecklistSection,
   tokens: TokensSection,
   headlines: HeadlinesSection,
-  squircles: SquirclesSection,
   logo: LogoSection,
   icons: IconsSection,
   motion: MotionSection,

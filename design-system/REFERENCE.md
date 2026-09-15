@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-15 · 125 entries · 47 components · 31 widgets · 13 patterns · 11 open decisions
+Updated 2026-09-15 · 125 entries · 48 components · 31 widgets · 13 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -18,7 +18,7 @@ Updated 2026-09-15 · 125 entries · 47 components · 31 widgets · 13 patterns 
 
 - [Open decisions](#open-decisions)
 - Start: [System overview video](#system-overview-video) · [Overview](#overview)
-- Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Squircle library](#squircle-library) · [Logo](#logo) · [Icons](#icons) · [Motion](#motion)
+- Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Icon library](#icon-library) · [Logo](#logo) · [Motion](#motion)
 - Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Features](#features) · [Bentos](#bentos) · [Blocks](#blocks) · [Widgets](#widgets)
 - Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Backgrounds](#backgrounds) · [Image library](#image-library)
 - Proof: [The live page](#the-live-page)
@@ -32,7 +32,7 @@ Decisions still waiting on Tumai, and what the system does until each one is mad
 | Radius | R4.1 · C10 | Keep md 8px, lg 12px and full, or return to the earlier 8px cap? | Provisional: md 8px for controls, lg 12px for containers, full for round things only. No pill buttons. |
 | Audience noun | R1.2 · C02 | Which word does copy use for the customer: operator, practitioner or something else? | The database says operator. Demo copy in this system says you and clients, and names neither. |
 | Archetype | R1.3 · C03 | Sage 70 / Creator 30, or Creator 70 / Explorer 30? | Not used anywhere in this system until decided. |
-| Icon library | R4.7 | Which filled icon set, in which two sizes? | The Icons section is intentionally empty. Components still use Lucide line icons until the set is chosen. |
+| Interface icons | R4.7 | Should interface controls (arrows, close, checks) keep Lucide line icons beside the new icon library? | Decided 15 Sep 2026: the icon library is the photoreal tile set on a charcoal squircle. Controls and small labels still use Lucide line icons. |
 | Reduced motion | R4.6 · O06 | What should motion do when someone has reduced motion switched on? | Unchanged from before the cleanup: loops stop and entrances settle instantly. Not an approved policy. |
 | Logo files | R6 · C13 | Commission true vector files for the mark and the long logo? | The 500px PNG mark and the two 1120 × 400 long logo PNGs (white and filled background) are the usable files. The SVG embeds PNG rasters and is not a vector. |
 | Experimental widgets | X05 | Polish, keep or delete the five experimental widgets? | 05 Live session timer, 08 Countdown, 29 Rating summary, 30 Assistant message and 31 Check-in are on and labelled. |
@@ -116,7 +116,7 @@ Light is the default. Paper is `.theme-paper` on `<html>`. Grounds are RGB chann
 
 ### Colour
 
-Every colour stops at its full strength and has two lighter shades. There are no darker shades. Apricot is the one interactive accent: apricot-200 fills every button, check, selected state and link underline, and apricot-50 with an apricot-200 edge marks what is selected. Focus rings are ink-900, so where you are never looks like what you chose. Apricot is never decoration, with one exception: the one descriptive word of a headline is apricot-200. Rose, lavender and the ink neutrals carry categories, charts, tiles and the gradients. Widgets and cards use only the two lighter shades, and every other piece of text stays in the ink neutrals.
+Every colour stops at its full strength and has two lighter shades. There are no darker shades. Apricot is the one interactive accent: apricot-200 fills every button, check, selected state and link underline, and apricot-50 with an apricot-200 edge marks what is selected. Focus rings are ink-900, so where you are never looks like what you chose. Apricot is never decoration, with one exception: the one descriptive word of a headline is apricot-400. Rose, lavender and the ink neutrals carry categories, charts, tiles and the gradients. Widgets and cards use only the two lighter shades, and every other piece of text stays in the ink neutrals.
 
 | Token | Hex | CSS variable | Role |
 | --- | --- | --- | --- |
@@ -124,8 +124,8 @@ Every colour stops at its full strength and has two lighter shades. There are no
 | `rose-200` | #F3A0CC | `--hos-rose-200` | Light. Rose categories in widgets and cards: bars, rings, tiles, chart data, icons and borders on rose tints. |
 | `rose-400` | #E85BA8 | `--hos-rose-400` | Full strength, the primary. Gradient stops and category dots only. Not for text, buttons, focus rings, checked or selected states, widgets or card colour. |
 | `apricot-50` | #FDECDF | `--hos-apricot-50` | Soft. Selected rows, chips and segments (with an apricot-200 edge) and the active navigation item. Not a decorative fill. |
-| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The accent: every button and icon button fill with ink text, checked checkboxes, radios and switches, selected states, the current step, tab and link underlines, the text selection and the FAQ plus. The one descriptive word of every headline, the only apricot text in the system. Also one of the three data colours inside widgets and the celebration confetti. Not for decorative cells, badges or headline tiles. |
-| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength. The / in command chips and category dots. Also a gradient stop. Not for focus rings (ink-900), fills, text, widgets or card colour. |
+| `apricot-200` | #F8C39C | `--hos-apricot-200` | Light. The accent: every button and icon button fill with ink text, checked checkboxes, radios and switches, selected states, the current step, tab and link underlines, the text selection and the FAQ plus. Also one of the three data colours inside widgets and the celebration confetti. Not for text, decorative cells, badges or icon tiles. |
+| `apricot-400` | #F5A060 | `--hos-apricot-400` | Full strength, Sunlit Apricot. The one descriptive word of every headline (the only apricot text in the system), the / in command chips and category dots. Also a gradient stop. Not for focus rings (ink-900), fills, other text, widgets or card colour. |
 | `lavender-50` | #EDE1F7 | `--hos-lavender-50` | Soft. Cool tinted fills. |
 | `lavender-200` | #C9A3E6 | `--hos-lavender-200` | Light. The colour of widgets and cards: bars, rings, tiles, chart data, icons and borders on cool fills. |
 | `lavender-400` | #A668D9 | `--hos-lavender-400` | Full strength. Gradient stops and category dots only. Not for text, widgets or card colour. |
@@ -144,7 +144,7 @@ Every colour stops at its full strength and has two lighter shades. There are no
 | `error-100` | #FAE4E2 | `--hos-error-100` | Soft. Tint behind error content. |
 | `error-300` | #E6A5A1 | `--hos-error-300` | Light. Borders on error tints and chart tracks. |
 | `error-600` | #C8382F | `--hos-error-600` | Full strength. Icons, dots, solid marks, and error messages. |
-| `carbon` | #1F1F1F | `--hos-carbon` | Never a background. Only a translucent veil: the video control bar (carbon/60, carbon/80), the floating video's close control and the modal backdrop (carbon/40). |
+| `carbon` | #1F1F1F | `--hos-carbon` | Never a page, panel or card background. Only a translucent veil: the video control bar (carbon/60, carbon/80), the floating video controls and the modal backdrop (carbon/40). The one small dark surface in the system is the icon tile, with its own warm charcoal ground (icon.ground). |
 | `white` | #FFFFFF | `--hos-white` | Icons and text on the video control bar. Never a hand-coded page ground. |
 
 Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg-carbon`. Text stays in the ink neutrals.
@@ -175,16 +175,15 @@ Pair each role with its family: `font-display text-heading`, `font-display text-
 
 ### Headline
 
-Every H1 is written in ink-900 except one descriptive word (calm, build, health, scale), which is apricot-200. A square picture tile sits right beside that word and shows it; one or two more tiles may picture other words, up to three in all. Tiles come from the squircle library, sit on a rose, lavender or warm neutral tint, stay on the same line as the word before them and do not react to the pointer. Tile values are in em so tiles scale with the heading.
+Every H1 is written in ink-900 except one descriptive word (calm, together, make, bookings), which is apricot-400. One to three icon tiles sit beside the words they picture; the accent word does not need a tile of its own. Tiles come from the icon library, stay on the same line as the word before them and do not react to the pointer. Values are in em so tiles scale with the heading.
 
 | Token | CSS variable | Value | Use |
 | --- | --- | --- | --- |
 | `ink` | `--hos-headline-ink` | #1F1F1F | ink-900 (text-ink-900). Every word of the headline except the accent word. |
-| `accent` | `--hos-headline-accent` | #F8C39C | apricot-200 (text-apricot-200). The one descriptive word, marked [word] in the copy. Large text only: at 1.6:1 on white it is a brand moment, not a readable colour for smaller type. |
-| `tile-size` | `--hos-headline-tile-size` | 0.9em | Width and height of a picture tile, just under the heading size so it sits inside the line. |
-| `tile-radius` | `--hos-headline-tile-radius` | 0.24em | The squircle corner of a tile, in proportion to its size. |
+| `accent` | `--hos-headline-accent` | #F5A060 | apricot-400 (text-apricot-400). The one descriptive word, marked [word] in the copy. Heading size only: at about 2.1:1 on white it is a brand moment, not a readable colour for smaller type. |
+| `tile-size` | `--hos-headline-tile-size` | 0.9em | Width and height of an icon tile inside a headline, just under the heading size so it sits inside the line. |
 | `tile-offset` | `--hos-headline-tile-offset` | -0.12em | Vertical alignment that centres a tile on the letters. |
-| `tiles-min` | Rule | 1 | The fewest tiles in a headline: the one beside the accent word. |
+| `tiles-min` | Rule | 1 | The fewest tiles in a headline. |
 | `tiles-max` | Rule | 3 | The most tiles in a headline. |
 
 Build headlines with `<Headline text="… [accent] {tile} …" />` from `src/components/ui/headline.tsx`: it applies these values and checks the accent word and tiles. Tiles come from the squircle library, `src/data/headline-tiles.ts`.
@@ -298,15 +297,15 @@ Health OS motion is its own: calm, flowing and on by default. Durations and easi
 
 `colour-brand` · token · Stable
 
-Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strength (400) with two lighter shades (200, 50). Apricot is the one interactive accent, and the one descriptive word of every headline; rose and lavender carry categories and charts. Widgets and cards use only the lighter two, so colour always reads soft and calm.
+Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strength (400) with two lighter shades (200, 50). Apricot is the one interactive accent, and at full strength the one descriptive word of every headline; rose and lavender carry categories and charts. Widgets and cards use only the lighter two, so colour always reads soft and calm.
 
 **Use it for**
 
 - apricot-200 #F8C39C for every button fill, checked checkbox, radio and switch, selected state, current step, tab underline and link underline, with ink text
 - apricot-50 with an apricot-200 edge for selected rows, chips, filters, segments and the active navigation item
-- apricot-200 for the one accent word of a headline, the only apricot text
+- apricot-400 for the one accent word of a headline, the only apricot text
 - Rose and lavender 200 and 50 for categories, badges, chart data, icons, headline tiles and tinted cells
-- 400 only for gradient stops, category dots and the / in command chips
+- 400 for the headline accent word, gradient stops, category dots and the / in command chips
 
 **Not for**
 
@@ -325,7 +324,7 @@ Sunlit Apricot, Expressive Rose and Neutral Lavender. Each stops at full strengt
 
 `colour-neutral` · token · Stable
 
-Warm greys for text, lines and quiet fills. Carbon is never a background, only a translucent veil over media.
+Warm greys for text, lines and quiet fills. Carbon is never a page, panel or card background, only a translucent veil over media; the one small dark surface is the icon tile's own charcoal ground.
 
 **Use it for**
 
@@ -337,7 +336,7 @@ Warm greys for text, lines and quiet fills. Carbon is never a background, only a
 **Not for**
 
 - ink-400 for readable text
-- Carbon, black or any dark colour as a background: panels, footers, banners, tooltips, tiles or logo grounds
+- Carbon, black or any dark colour as a background: panels, footers, banners, tooltips or logo grounds (icon tiles have their own ground)
 - Pure black or hand-coded white as a page ground
 
 **API** `text-ink-900 · text-ink-600 · text-ink-500 · bg-ink-100 · border-line · bg-carbon/60 (video controls only)`
@@ -456,7 +455,7 @@ White into apricot and rose tints. A gentle, warm invitation.
 
 `type-heading` · token · Stable
 
-One heading size, Spline Sans 700, fluid from 36px to 58px. An H1 at this size is always the Headline: ink with one apricot accent word and its picture tile.
+One heading size, Spline Sans 700, fluid from 36px to 58px. An H1 at this size is always the Headline: ink with one apricot accent word and its icon tiles.
 
 **Use it for**
 
@@ -468,7 +467,7 @@ One heading size, Spline Sans 700, fluid from 36px to 58px. An H1 at this size i
 
 - Card titles: use subheading
 - More than one heading size on a page
-- An H1 without its accent word and tile
+- An H1 without its accent word and at least one icon tile
 
 **API** `font-display text-heading`
 
@@ -621,37 +620,35 @@ Durations and easings that keep custom motion consistent.
 
 ## Headlines
 
-Foundations · Every H1 is dark ink with one descriptive word in soft apricot, and a picture tile beside that word that shows it. Twenty ready headlines sit in the library below.
+Foundations · Every H1 is dark ink with one descriptive word in Sunlit Apricot, and icon tiles beside the words they picture. Twenty ready headlines sit in the library below.
 
 ### Headline
 
 `headline` · component · Stable
 
-The H1 for every page. Every word is ink-900 except one descriptive word in apricot-200, and a square picture tile beside that word shows it, so the headline pictures what it says.
+The H1 for every page. Every word is ink-900 except one descriptive word in apricot-400, and one to three icon tiles sit beside the words they picture, so the headline shows what it says.
 
 **Use it for**
 
 - Every H1: page heroes, article titles, landing pages and campaign pages
-- One descriptive word marked [word] in the copy, such as calm, built, bookings or clarity
-- The tile that pictures the accent word right beside it, written as {id} from the squircle library
-- Up to two more tiles for other words, three at most, each beside the word it pictures
+- One descriptive word marked [word] in the copy, such as calm, together, make or bookings
+- One to three icon tiles, each written as {id} right after the word it pictures; the accent word does not need its own
 - A ready line from the headline library, or a new one checked against the database
 - as h2 or h3 only where a page already has its h1, such as the examples in this reference
 
 **Not for**
 
 - No accent word, or two
-- An accent word with no tile beside it
 - More than three tiles, or a tile as the very first or last thing
+- An icon still to make in a live headline
 - Apricot on any other text: the accent word is the one exception
-- The accent colour below heading size: at 1.6:1 it is a brand moment, not readable small text
+- The accent colour below heading size: at about 2.1:1 it is a brand moment, not readable small text
 - Section headings (h2): they stay ink-900 with no accent or tiles
-- The gradient highlight (.text-highlight) inside an H1
 - Pointer effects on tiles: they are pictures, not controls
 
-**API** `<Headline text="Notes for a [calm] {stones} practice that runs {computer} on its own" as: h1 | h2 | h3 tiles id className /> · headlineParts(text) → { accent, tiles, plain }`
+**API** `<Headline text="You built {blocks} it. Now [make] it run {computer} without you." as: h1 | h2 | h3 tiles id className /> · headlineParts(text) → { accent, tiles, plain }`
 
-**Source** `src/components/ui/headline.tsx · tokens.json → headline`
+**Source** `src/components/ui/headline.tsx · tokens.json → headline, icon`
 
 ### Headline library
 
@@ -675,50 +672,75 @@ Twenty ready headlines in the Headline markup, each mapped to a messaging pillar
 
 **Source** `src/data/headline-library.ts · src/showcase/sections/HeadlinesSection.tsx`
 
-## Squircle library
+## Icon library
 
-Foundations · Every headline picture in one place, tagged with the words it can stand for. Search the word you want to show, then use the tile beside it.
+Foundations · Every Health OS icon: one photoreal object on a warm charcoal squircle, tagged with the words it stands for. Search a word, then use the icon in a headline, a card or on its own.
 
-### Squircle library
+### Icon library
 
 `headline-tiles` · asset · Stable
 
-Every picture a headline tile can use: 80 squircles covering 107 headline words in nine groups. Each is one literal object on a transparent ground, tagged with the words it stands for, so a search for a word finds its tile. Ready tiles show their picture; tiles still to make show an empty tinted squircle with their brief.
+Every Health OS icon: 80 photoreal objects on a warm charcoal squircle, covering all 107 headline words in nine groups. Each is tagged with the words it stands for, so a search for a word finds its icon. Use the same icons in headlines and on their own.
 
 **Use it for**
 
-- Search the word you want to show, then copy the tile's {id} into the headline
-- Filter by group (presence, vitality, calm, practice, business, software, freedom, clarity, momentum) or by ready and to make
-- Read a tile's note before using one of its words: some are search tags only, such as wellbeing, journey and heal
+- Search the word you want to show, then copy the icon's {id} into a headline or use <IconTile id />
+- Download the baked tile PNG for Canva, slides and social posts
+- Filter by group (presence, vitality, calm, practice, business, software, freedom, clarity, momentum)
+- Read an icon's note before using one of its words: some words are search tags only, such as wellbeing, journey and heal
 
 **Not for**
 
-- Stretching a tile's meaning to fit a word: add a new tile
-- A planned tile in a live headline: make it first
-- Pictures with text, numbers, logos or brand marks
-- Apricot tints: tiles sit on rose, lavender or neutral
-- Two tiles of the same tone side by side
+- Stretching an icon's meaning to fit a word: add a new icon
+- An icon still to make in live work
+- Icons with text, numbers, logos or people
+- Recolouring the charcoal ground, or putting the object on a light ground
+- Line icons from another set styled to look like these
 
-**API** `HEADLINE_TILES · HEADLINE_TILE_LIST · HEADLINE_TILE_GROUPS · tileForWord(word) (src/data/headline-tiles.ts): { id, words, group, picture, tone: rose | lavender | neutral, status: ready | planned, src?, original?, note? }`
+**API** `HEADLINE_TILES · HEADLINE_TILE_LIST · HEADLINE_TILE_GROUPS · tileForWord(word) (src/data/headline-tiles.ts): { id, words, group, picture, status: ready | planned, src (320px WebP), original (1024px PNG), baked (-tile.png), note? }`
 
-**Source** `src/data/headline-tiles.ts · public/heading-tiles/`
+**Source** `src/data/headline-tiles.ts · public/heading-tiles/ · tokens.json → icon`
 
-### Making a new squircle
+### Icon tile
 
-`headline-tile-recipe` · rule · Stable
+`icon-tile` · component · Stable
 
-How to make a tile so every picture in the library belongs to the same set. The six ready tiles are the model: one real object in studio light, cut out, with the tint coming from the tone.
+One icon from the library on its own: the photoreal object on its charcoal squircle, in three sizes from the icon tokens.
 
 **Use it for**
 
-- The tile's picture brief in the prompt template shown
-- GPT Image 2 at 1K, 1:1, transparent background, through the connected image tools, with the cost approved by Tumai first
-- Check it is sharp and free of text, numbers and logos, pad the object to about 80% of the square, save a 1024px PNG and a 320px WebP named after the id, then set the tile to ready
+- sm (40px) beside a list item or card title
+- md (64px) in a feature card, bento cell or lead magnet
+- lg (96px) on its own: a library, a social post, a cover
+- label when the icon stands in for words with none beside it
+
+**Not for**
+
+- Controls: arrows, close, checks and small labels keep line icons
+- More than one icon size in the same row of cards
+- Hover effects on the tile: wrap it in a link or button instead
+- Large dark panels built from the tile ground
+
+**API** `<IconTile id size: sm | md | lg label className /> · sizes and ground from tokens.json → icon`
+
+**Source** `src/components/ui/icon-tile.tsx · .icon-tile in src/index.css`
+
+### Making a new icon
+
+`headline-tile-recipe` · rule · Stable
+
+How to make an icon so every one belongs to the same set: one real object in warm studio light, cut out on a transparent ground, then placed on the charcoal squircle.
+
+**Use it for**
+
+- The icon's picture brief in the prompt template shown
+- GPT Image 2 at 1K, 1:1, transparent background, through the KIE connection, with the cost approved by Tumai first
+- Check it is sharp and free of text, numbers and logos; trim and pad the object to 80% of a square; save the 1024px PNG, the 320px WebP and the baked -tile.png named after the id; take the id out of PLANNED
 
 **Not for**
 
 - Paid generation without Tumai's approval
-- Illustration, clay, emoji or cartoon styles that break the set
+- Illustration, clay, emoji or flat vector styles that break the set
 - Recognisable brand logos: a classic product shape is fine, its logo is not
 
 **API** `Rule · see ASSET-RECIPES.md, Headline tile`
@@ -775,29 +797,6 @@ HEALTH beside the OS tile in a rounded frame, 2.8 : 1. Two versions: white backg
 **API** `<LogoLong variant: white | filled height={40} /> · LOGO_LONG_RATIO`
 
 **Source** `src/components/brand/Logo.tsx · public/logo/health-os-long-white.png · public/logo/health-os-long-filled.png`
-
-## Icons
-
-Foundations · The icon set is being rebuilt as one filled library in two sizes. This space stays empty until the new set is approved.
-
-### Icon library
-
-`icons` · asset · In progress
-
-One filled icon set in two sizes: small and large. Being rebuilt.
-
-**Use it for**
-
-- Until the set is approved, components keep their current icons
-
-**Not for**
-
-- Adding a second icon style in the meantime
-- Mixing outline and filled icons in new work
-
-**API** `Pending approval`
-
-**Source** `src/showcase/sections/IconsSection.tsx`
 
 ## Motion
 

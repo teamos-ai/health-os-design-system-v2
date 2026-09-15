@@ -90,10 +90,15 @@
   --hos-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --hos-autoplay-step: 6000ms;
   --hos-headline-ink: #1F1F1F;
-  --hos-headline-accent: #F8C39C;
+  --hos-headline-accent: #F5A060;
   --hos-headline-tile-size: 0.9em;
-  --hos-headline-tile-radius: 0.24em;
   --hos-headline-tile-offset: -0.12em;
+  --hos-icon-ground: radial-gradient(circle at 50% 42%, #36322F 0%, #2C2927 55%, #252220 100%);
+  --hos-icon-radius: 24%;
+  --hos-icon-inset: 10%;
+  --hos-icon-size-sm: 2.5rem;
+  --hos-icon-size-md: 4rem;
+  --hos-icon-size-lg: 6rem;
   --hos-banner-fill: linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%);
   --hos-banner-text: #1F1F1F;
   --hos-banner-icon: #7C746B;

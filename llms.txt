@@ -1,6 +1,6 @@
 # Health OS design system
 
-> The design and brand reference for Health OS, built for AI agents first and people second. Light and paper themes; Spline Sans headings and Anonymous Pro body; rose, apricot and lavender in three shades each; three gradients; 47 components, six card types, 31 widgets and a tagged image library.
+> The design and brand reference for Health OS, built for AI agents first and people second. Light and paper themes; Spline Sans headings and Anonymous Pro body; rose, apricot and lavender in three shades each; three gradients; 48 components, six card types, 31 widgets and a tagged image library.
 
 Read in this order. Take every value from the tokens and never type a hex, size, radius, shadow or duration by hand. Claims, prices, offers and voice come from the Health OS database (teamos-ai/db-health-os), which this system never overrides. Tumai approves every exception.
 

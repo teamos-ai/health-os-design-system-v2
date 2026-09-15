@@ -23,7 +23,7 @@ export const CommandHero = ({ id = 'top', headingLevel = 'h1' }: CommandHeroProp
       <HeroGlow />
       <HeroContainer>
         <FadeIn>
-          <Headline as={headingLevel} text="You [built] {blocks} it. Now make it run {computer} without you." />
+          <Headline as={headingLevel} text="You built {blocks} it. Now [make] it run {computer} without you." />
         </FadeIn>
         <FadeIn delay={0.08} className="mt-hero-gap-sm">
           <p className="max-w-hero-subcopy font-sans text-body text-ink-600">

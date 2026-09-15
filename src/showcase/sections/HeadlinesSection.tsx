@@ -2,8 +2,7 @@
  * HeadlinesSection: the Headline. Live examples with the markup that produces them, the
  * anatomy, and the headline library: twenty ready headlines that open on the first four,
  * with a pillar filter and a copy button for each line's markup. Headlines render as h3 so
- * the reference keeps one h1; on a real page each is the h1. Tiles live in the squircle
- * library section.
+ * the reference keeps one h1; on a real page each is the h1. Icons live in the icon library.
  */
 import * as React from 'react';
 import { Copy } from 'lucide-react';
@@ -15,15 +14,15 @@ import { useToast } from '@/components/ui/toast';
 import { HEADLINE_LIBRARY, HEADLINE_PILLARS, type HeadlinePillar } from '@/data/headline-library';
 
 const EXAMPLES = [
-  { text: 'You [built] {blocks} it. Now make it run {computer} without you.', where: 'Homepage hero' },
+  { text: 'You built {blocks} it. Now [make] it run {computer} without you.', where: 'Homepage hero' },
   { text: 'The design {swatches} system behind a [calm] {stones} practice', where: 'Reference site hero' },
-  { text: 'Fewer {tools} tools, [wired] {cables} together', where: 'Article' },
+  { text: 'Fewer {tools} tools, wired {cables} [together]', where: 'Article' },
 ];
 
 const ANATOMY = [
   { name: 'Words', value: 'ink-900', note: 'Every word of the headline is dark ink, in one size and weight.' },
-  { name: 'Accent', value: 'apricot-200', note: 'One descriptive word, marked [word]: calm, built, bookings. Never two.' },
-  { name: 'Tiles', value: '1 to 3', note: 'The tile that pictures the accent word sits right beside it. Up to two more may picture other words. Never first or last.' },
+  { name: 'Accent', value: 'apricot-400', note: 'One descriptive word, marked [word]: calm, together, make. Never two.' },
+  { name: 'Icon tiles', value: '1 to 3', note: 'Dark icon tiles right after the words they picture. The accent word does not need its own. Never first or last.' },
 ];
 
 const PEEK = 4;

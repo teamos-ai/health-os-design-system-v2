@@ -1,6 +1,6 @@
 # Health OS design system
 
-The design and brand reference for Health OS. One token file, two themes, three brand colours, headlines with one apricot word and a picture tile, an 80-tile squircle library, nine card types, three bento systems, feature components, lead magnets, a full widget library and a tagged image library, documented so AI agents can build from it first and people can browse it second.
+The design and brand reference for Health OS. One token file, two themes, three brand colours, headlines with one apricot word and icon tiles, an 80-icon library of photoreal tiles, nine card types, three bento systems, feature components, lead magnets, a full widget library and a tagged image library, documented so AI agents can build from it first and people can browse it second.
 
 - Reference site: https://ds-healthos.vercel.app
 - For AI agents: start at [`llms.txt`](llms.txt), then [`design-system/CLAUDE.md`](design-system/CLAUDE.md)
