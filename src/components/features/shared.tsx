@@ -5,21 +5,24 @@
  * title, description) and one heading rule: `headingLevel` is the level of the intro title
  * and item titles sit one level below it. Spacing is shared too: the intro sits 40 to 48px
  * above the items, cells and cards pad 24 then 32px, the icon sits 24px above its title and
- * the sentence 8px below it. Icons are Lucide at 24px with a 1.5 stroke. Tone is decoration
+ * the sentence 8px below it. Icons are tiles from the icon library (IconTile), one ground per
+ * component: charcoal in the grid and cards, paper beside the photos that dissolve in the steps
+ * and tabs. Pass `ground` to change it for the whole component. Tone colours a tab's badge
  * only, so it never includes apricot: apricot is kept for the current step and selected tab.
  */
-import type { LucideIcon } from 'lucide-react';
 import { FadeIn } from '@/components/ui/animated';
+import type { IconTileGround } from '@/components/ui/icon-tile';
 import { ACCENTS } from '@/lib/accents';
 import { cn } from '@/lib/utils';
 
 export type FeatureHeadingLevel = 'h2' | 'h3';
 
-/** decoration tone for an item's icon: ink, or the light rose and lavender shades */
+/** decoration tone for an item's badge: ink, or the light rose and lavender shades */
 export type FeatureTone = 'ink' | 'rose' | 'lavender';
 
 export interface FeatureItem {
-  icon: LucideIcon;
+  /** a tile id from the icon library */
+  icon: string;
   title: string;
   /** one or two plain sentences */
   description: string;
@@ -39,6 +42,8 @@ export interface FeatureIntroProps {
 }
 
 export interface FeatureBaseProps extends FeatureIntroProps {
+  /** the icon tiles' ground, the same for every item */
+  ground?: IconTileGround;
   className?: string;
 }
 
@@ -48,11 +53,6 @@ export const itemHeading = (level: FeatureHeadingLevel = 'h2') => (level === 'h2
 export const FOCUS_RING =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper';
 
-/** Lucide icon size and stroke used across the feature set. */
-export const ICON_CLASS = 'h-6 w-6 shrink-0';
-export const ICON_STROKE = 1.5;
-
-export const toneIcon = (tone: FeatureTone = 'ink') => ACCENTS[tone].icon;
 export const toneBadge = (tone: FeatureTone = 'ink') => (tone === 'ink' ? 'outline' : ACCENTS[tone].badge);
 
 export const FeatureIntro = ({ eyebrow, title, description, align = 'start', headingLevel = 'h2' }: FeatureIntroProps) => {

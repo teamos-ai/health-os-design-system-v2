@@ -1,8 +1,8 @@
 /**
  * FeatureTabs: a few product areas behind tabs, one panel at a time.
  *
- * Remodelled from the 21st.dev Feature108 (shadcnblocks). Each tab has an icon and a one-word
- * label; its panel holds a small badge, a subheading, a sentence or two, one button and a
+ * Remodelled from the 21st.dev Feature108 (shadcnblocks). Each tab has a small paper icon tile
+ * and a one-word label; its panel holds a small badge, a subheading, a sentence or two, one button and a
  * library photo. Tabs follow the Tabs component: role tablist, tab and tabpanel, a roving
  * tabindex, arrow keys, Home and End, and selection that follows focus. The selected tab has
  * the apricot underline on a hairline rail. On phones the tabs stack and the rail runs down
@@ -19,7 +19,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DURATION, EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
-import { FeatureIntro, FOCUS_RING, ICON_STROKE, itemHeading, toneBadge, type FeatureBaseProps, type FeatureItem } from './shared';
+import { IconTile } from '@/components/ui/icon-tile';
+import { FeatureIntro, FOCUS_RING, itemHeading, toneBadge, type FeatureBaseProps, type FeatureItem } from './shared';
 
 export interface FeatureTab extends FeatureItem {
   /** stable id for the tab; defaults to the label */
@@ -46,6 +47,7 @@ export interface FeatureTabsProps extends FeatureBaseProps {
 
 export const FeatureTabs = ({
   items,
+  ground = 'paper',
   value,
   defaultValue,
   onValueChange,
@@ -97,7 +99,6 @@ export const FeatureTabs = ({
       >
         {items.map((tab, i) => {
           const selected = keyOf(tab) === active;
-          const Icon = tab.icon;
           return (
             <button
               key={keyOf(tab)}
@@ -118,7 +119,7 @@ export const FeatureTabs = ({
                 selected ? 'text-ink-900' : 'text-ink-500 hover:text-ink-900'
               )}
             >
-              <Icon className="h-5 w-5 shrink-0" strokeWidth={ICON_STROKE} aria-hidden />
+              <IconTile id={tab.icon} size="xs" ground={ground} />
               <span className="truncate">{tab.label}</span>
               <span
                 aria-hidden

@@ -1,27 +1,34 @@
 /**
  * FeatureCard: one benefit, told plainly.
  *
- * The icon sits in the top row in its accent colour, beside an optional tag that names
- * the area. The title and sentence settle at the bottom, so cards of different heights in
- * a bento or grid still line up along their text. No icon tile and no numbering: those are
- * the template tells this card avoids. Not a link; hover gives a quiet lift.
+ * An icon tile from the icon library sits in the top row, beside an optional tag in the card's
+ * accent that names the area. The title and sentence settle at the bottom, so cards of
+ * different heights in a bento or grid still line up along their text. No numbering. The
+ * tile is charcoal on a plain card; pass `ground="paper"` or `"white"` when the cards sit
+ * beside dissolving photos or on a wash, and keep one ground across the grid. Not a link;
+ * hover gives a quiet lift.
+ *
+ *   <FeatureCard icon="stones" title="Clarity" description="One view of what is booked." />
  */
-import type { LucideIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { IconTile, type IconTileGround } from '@/components/ui/icon-tile';
 import { ACCENTS, type Accent } from '@/lib/accents';
 import { cn } from '@/lib/utils';
 
 export interface FeatureCardProps {
-  icon: LucideIcon;
+  /** a tile id from the icon library */
+  icon: string;
   title: string;
   description: string;
   accent?: Accent;
   /** names the area, top right: "Booking", "Follow-up" */
   tag?: string;
+  /** the tile's ground: carbon (default), paper or white */
+  ground?: IconTileGround;
   className?: string;
 }
 
-export const FeatureCard = ({ icon: Icon, title, description, accent = 'rose', tag, className }: FeatureCardProps) => {
+export const FeatureCard = ({ icon, title, description, accent = 'rose', tag, ground = 'carbon', className }: FeatureCardProps) => {
   const a = ACCENTS[accent];
   return (
     <div
@@ -30,15 +37,15 @@ export const FeatureCard = ({ icon: Icon, title, description, accent = 'rose', t
         className
       )}
     >
-      <div className="flex min-h-6 items-center justify-between gap-3">
-        <Icon className={cn('h-6 w-6 transition-transform duration-md ease-out group-hover:-translate-y-px', a.icon)} strokeWidth={1.5} aria-hidden />
+      <div className="flex items-start justify-between gap-3">
+        <IconTile id={icon} size="md" ground={ground} className="transition-transform duration-md ease-out group-hover:-translate-y-0.5" />
         {tag && (
           <Badge variant={a.badge} size="sm">
             {tag}
           </Badge>
         )}
       </div>
-      <div className="mt-auto pt-10">
+      <div className="mt-auto pt-8">
         <h3 className="font-display text-subheading text-ink-900">{title}</h3>
         <p className="mt-2 font-sans text-body text-ink-600">{description}</p>
       </div>

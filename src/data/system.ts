@@ -7,11 +7,8 @@
  */
 import {
   CalendarCheck,
-  CalendarClock,
   Layers,
-  LineChart,
   MailCheck,
-  Megaphone,
   ShieldCheck,
   Sparkles,
   Users,
@@ -255,28 +252,30 @@ export const COMMANDS: string[] = [
 export interface Pillar {
   title: string;
   description: string;
-  icon: LucideIcon;
+  /** a tile id from the icon library */
+  icon: string;
   accent: Accent;
 }
 export const PILLARS: Pillar[] = [
-  { title: 'Consolidate', description: 'Booking, clients, courses, content and sales in one system, so the stack of subscriptions can go.', icon: Layers, accent: 'rose' },
-  { title: 'Clarity', description: 'One view of what is booked, what is owed and what needs you today.', icon: LineChart, accent: 'lavender' },
-  { title: 'Control', description: 'Your clients and your data in one place, with workflows running in the background.', icon: ShieldCheck, accent: 'apricot' },
-  { title: 'Consistency', description: 'Every client gets the same welcome and the same follow-up, whoever is working that day.', icon: Sparkles, accent: 'rose' },
+  { title: 'Consolidate', description: 'Booking, clients, courses, content and sales in one system, so the stack of subscriptions can go.', icon: 'cables', accent: 'rose' },
+  { title: 'Clarity', description: 'One view of what is booked, what is owed and what needs you today.', icon: 'quartz', accent: 'lavender' },
+  { title: 'Control', description: 'Your clients and your data in one place, with workflows running in the background.', icon: 'shield', accent: 'apricot' },
+  { title: 'Consistency', description: 'Every client gets the same welcome and the same follow-up, whoever is working that day.', icon: 'metronome', accent: 'rose' },
 ];
 
 export interface BentoItem {
   title: string;
   description: string;
-  icon: LucideIcon;
+  /** a tile id from the icon library */
+  icon: string;
   accent: Accent;
   span: 1 | 2 | 3;
 }
 export const BENTO_ITEMS: BentoItem[] = [
-  { title: 'Done-for-you setup', description: 'We move your tools, rebuild your workflows and hand over a system that already runs.', icon: Wrench, accent: 'rose', span: 2 },
-  { title: 'Enquiries answered', description: 'New enquiries get a reply and a next step while you are with a client.', icon: Megaphone, accent: 'lavender', span: 1 },
-  { title: 'Onboarding without the chasing', description: 'Forms, welcome and first booking go out in order, without a reminder from you.', icon: CalendarClock, accent: 'apricot', span: 1 },
-  { title: 'One clear view', description: 'Bookings, revenue and the day ahead, in plain language, on one screen.', icon: LineChart, accent: 'rose', span: 2 },
+  { title: 'Done-for-you setup', description: 'We move your tools, rebuild your workflows and hand over a system that already runs.', icon: 'toolbox', accent: 'rose', span: 2 },
+  { title: 'Enquiries answered', description: 'New enquiries get a reply and a next step while you are with a client.', icon: 'chat-bubbles', accent: 'lavender', span: 1 },
+  { title: 'Onboarding without the chasing', description: 'Forms, welcome and first booking go out in order, without a reminder from you.', icon: 'clipboard-checklist', accent: 'apricot', span: 1 },
+  { title: 'One clear view', description: 'Bookings, revenue and the day ahead, in plain language, on one screen.', icon: 'gauge', accent: 'rose', span: 2 },
 ];
 
 export interface CompareRow {

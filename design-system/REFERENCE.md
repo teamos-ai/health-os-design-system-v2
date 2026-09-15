@@ -599,7 +599,7 @@ Three corner sizes.
 
 **Use it for**
 
-- md (8px) for controls: buttons, inputs, chips, badges, icon wells
+- md (8px) for controls: buttons, inputs, chips, badges
 - lg (12px) for containers: cards, panels, dialogs, media frames
 - full for round things: avatars, dots, toggles and the theme switch
 
@@ -746,12 +746,12 @@ Foundations · Every Health OS icon: one photoreal object on a warm charcoal squ
 
 `headline-tiles` · asset · Stable
 
-Every Health OS icon: 228 photoreal objects on a warm charcoal squircle in 17 groups. The first nine groups cover all 107 headline words; the other eight hold everyday and business objects (communication, devices, automation, workplace, everyday, food and drink, nature, play), added on 15 September 2026 from Tumai's reference sheets plus a software, email and automation set. Each is tagged with the words it stands for, so a search for a word finds its icon. Use the same icons in headlines and on their own.
+Every Health OS icon: 228 photoreal objects on a squircle in 17 groups, shown on charcoal, paper or white with the switch above the list. The first nine groups cover all 107 headline words; the other eight hold everyday and business objects (communication, devices, automation, workplace, everyday, food and drink, nature, play), added on 15 September 2026 from Tumai's reference sheets plus a software, email and automation set. Each is tagged with the words it stands for, so a search for a word finds its icon. Use the same icons in headlines and on their own.
 
 **Use it for**
 
 - Search the word you want to show, then copy the icon's {id} into a headline or use <IconTile id />
-- Download the baked tile PNG for Canva, slides and social posts
+- Switch the ground to charcoal, paper or white, then download that tile as a PNG for Canva, slides and social posts (charcoal is the baked file; paper and white are made in the browser from the same object)
 - Filter by group: presence, vitality, calm, practice, business, software, freedom, clarity and momentum for headline words; communication, devices, automation, workplace, everyday, food and drink, nature and play for objects
 - Read an icon's note before using one of its words: some words are search tags only, such as wellbeing, journey and heal
 
@@ -760,10 +760,10 @@ Every Health OS icon: 228 photoreal objects on a warm charcoal squircle in 17 gr
 - Stretching an icon's meaning to fit a word: add a new icon
 - An icon still to make in live work
 - Icons with text, numbers, logos or people
-- Recolouring the charcoal ground, or putting the object on a light ground
+- Grounds outside the three: a tinted, gradient or dark panel behind the object
 - Line icons from another set styled to look like these
 
-**API** `HEADLINE_TILES · HEADLINE_TILE_LIST · HEADLINE_TILE_GROUPS · tileForWord(word) (src/data/headline-tiles.ts): { id, words, group, picture, status: ready | planned, src (320px WebP), original (1024px PNG), baked (-tile.png), note? }`
+**API** `HEADLINE_TILES · HEADLINE_TILE_LIST · HEADLINE_TILE_GROUPS · tileForWord(word) (src/data/headline-tiles.ts): { id, words, group, picture, status: ready | planned, src (320px WebP), original (1024px PNG), baked (-tile.png, charcoal), note? } · bakeTile(original, ground) (src/lib/bake-tile.ts) for paper and white PNGs`
 
 **Source** `src/data/headline-tiles.ts · public/heading-tiles/ · tokens.json → icon`
 
@@ -771,23 +771,24 @@ Every Health OS icon: 228 photoreal objects on a warm charcoal squircle in 17 gr
 
 `icon-tile` · component · Stable
 
-One icon from the library on its own: the photoreal object on its charcoal squircle, in three sizes from the icon tokens.
+One icon from the library on its own: the photoreal object on its squircle, in four sizes and three grounds from the icon tokens. Charcoal is the default; paper and white carry a hairline edge and a soft contact shadow for light contexts, added on 15 September 2026 so cards beside dissolving photos and on washes do not carry a heavy dark square.
 
 **Use it for**
 
-- sm (40px) beside a list item or card title
+- xs (28px) beside a tab label; sm (40px) beside a list item or card title
 - md (64px) in a feature card, bento cell or lead magnet
 - lg (96px) on its own: a library, a social post, a cover
+- ground carbon on headlines, the library and plain white or paper cards (pillars, feature grid, feature cards); paper on tabs and beside photos that dissolve (feature steps, feature tabs, the quiet bento); white on brand washes, 50 tints and gradient tiles (the photo and tint bentos, stat tiles, muted feature cards)
 - label when the icon stands in for words with none beside it
 
 **Not for**
 
 - Controls: arrows, close, checks and small labels keep line icons
-- More than one icon size in the same row of cards
+- More than one icon size, or more than one ground, in the same row of cards
 - Hover effects on the tile: wrap it in a link or button instead
 - Large dark panels built from the tile ground
 
-**API** `<IconTile id size: sm | md | lg label className /> · sizes and ground from tokens.json → icon`
+**API** `<IconTile id size: xs | sm | md | lg ground: carbon | paper | white label className /> · sizes and grounds from tokens.json → icon (ground, ground-paper, ground-white, edge-light, object-shadow-light)`
 
 **Source** `src/components/ui/icon-tile.tsx · .icon-tile in src/index.css`
 
@@ -795,7 +796,7 @@ One icon from the library on its own: the photoreal object on its charcoal squir
 
 `headline-tile-recipe` · rule · Stable
 
-How to make an icon so every one belongs to the same set: one real object in warm studio light, cut out on a transparent ground, then placed on the charcoal squircle.
+How to make an icon so every one belongs to the same set: one real object in warm studio light, cut out on a transparent ground, then placed on the squircle. The same cut-out makes the charcoal, paper and white tiles, so a new icon never needs a second render.
 
 **Use it for**
 
@@ -1603,12 +1604,13 @@ Text with an image: articles, updates and stories. The image dissolves into the 
 
 `feature-card` · component · Stable
 
-One benefit, told plainly.
+One benefit, told plainly: an icon tile from the icon library at the top, the title and a sentence settled at the bottom.
 
 **Use it for**
 
 - Two to four benefits, in a bento or a two-column grid
 - tag to name the area the benefit belongs to
+- ground paper or white when the cards sit beside dissolving photos or on a wash, the same across the grid
 
 **Not for**
 
@@ -1616,7 +1618,7 @@ One benefit, told plainly.
 - Numbering the cards, or long descriptions: keep to one or two sentences
 - A feature grid on a website that needs photos and figures: use the feature bento
 
-**API** `icon · title · description · accent: rose | apricot | lavender | ink · tag`
+**API** `icon (tile id) · title · description · accent (tag colour): rose | apricot | lavender | ink · tag · ground: carbon | paper | white`
 
 **Source** `src/components/cards/FeatureCard.tsx`
 
@@ -1824,7 +1826,7 @@ A process that plays through step by step beside a library photo. The current st
 **Use it for**
 
 - How setup works, onboarding or a booking flow, three to five steps
-- A photo that pictures each step
+- A photo that pictures each step, with the step's icon tile on paper in the caption under it
 - The hold time from the autoplay token, so every playing block moves at the same pace
 
 **Not for**
@@ -1833,7 +1835,7 @@ A process that plays through step by step beside a library photo. The current st
 - Promised timeframes or percentages
 - More than one autoplaying block in a view
 
-**API** `items: { icon, title, description, image, label?, tone? }[] · autoPlay · interval (default tokens.json → motion.autoplay.step) · mediaSide · eyebrow · title · description · align · headingLevel`
+**API** `items: { icon (tile id), title, description, image, label? }[] · ground (default paper) · autoPlay · interval (default tokens.json → motion.autoplay.step) · mediaSide · eyebrow · title · description · align · headingLevel`
 
 **Source** `src/components/features/FeatureSteps.tsx`
 
@@ -1846,7 +1848,7 @@ Three or four product areas behind tabs. Each panel has a badge, a subheading, a
 **Use it for**
 
 - Comparing areas such as reminders, follow-up and client records
-- Short one-word tab labels with a line icon
+- Short one-word tab labels, each with a small paper icon tile (xs) from the icon library
 
 **Not for**
 
@@ -1854,7 +1856,7 @@ Three or four product areas behind tabs. Each panel has a badge, a subheading, a
 - Content people need to see at once: use the feature grid
 - A second primary button in the view
 
-**API** `items: { icon, label, title, description, image, badge?, action?, tone?, value? }[] · value · defaultValue · onValueChange · eyebrow · title · description · align · headingLevel`
+**API** `items: { icon (tile id), label, title, description, image, badge?, action?, tone? (badge), value? }[] · value · defaultValue · onValueChange · ground (default paper) · eyebrow · title · description · align · headingLevel`
 
 **Source** `src/components/features/FeatureTabs.tsx`
 
@@ -1862,7 +1864,7 @@ Three or four product areas behind tabs. Each panel has a badge, a subheading, a
 
 `feature-grid` · component · Stable
 
-Many small features at a glance in one lined frame, each an icon, a short title and one sentence.
+Many small features at a glance in one lined frame, each an icon tile (charcoal, sm), a short title and one sentence.
 
 **Use it for**
 
@@ -1874,7 +1876,7 @@ Many small features at a glance in one lined frame, each an icon, a short title 
 - Cards or photos inside cells
 - Long descriptions
 
-**API** `items: { icon, title, description, tone? }[] · columns: 2 | 3 · tone · eyebrow · title · description · align · headingLevel`
+**API** `items: { icon (tile id), title, description }[] · columns: 2 | 3 · ground (default carbon) · eyebrow · title · description · align · headingLevel`
 
 **Source** `src/components/features/FeatureGrid.tsx`
 
@@ -1882,7 +1884,7 @@ Many small features at a glance in one lined frame, each an icon, a short title 
 
 `feature-cards` · component · Stable
 
-Two to four benefits as centred cards, each icon in a small well over a faint grid that fades out, in an outline or muted style.
+Two to four benefits as centred cards, each with an icon tile (md) over a faint grid that fades out, in an outline or muted style. Outline takes charcoal tiles, muted takes white.
 
 **Use it for**
 
@@ -1892,10 +1894,10 @@ Two to four benefits as centred cards, each icon in a small well over a faint gr
 **Not for**
 
 - Links: these cards do not lift
-- Apricot tones on the icon wells
+- Line icons in wells: the tile is the icon
 - More than four cards
 
-**API** `items: { icon, title, description, tone? }[] · variant: outline | muted · columns: 2 | 3 · eyebrow · title · description · align · headingLevel`
+**API** `items: { icon (tile id), title, description }[] · variant: outline | muted · columns: 2 | 3 · ground (default carbon, white when muted) · eyebrow · title · description · align · headingLevel`
 
 **Source** `src/components/features/FeatureCards.tsx`
 
@@ -1939,11 +1941,12 @@ The website feature grid, remodelled from the 21st.dev feature bento. A hero wit
 
 - Invented statistics, ratings or satisfaction percentages
 - Apricot or saturated cells: fills are rose and lavender tints, surfaces or one soft gradient
+- Charcoal tiles beside the dissolving photo: the bento's tiles are light
 - More than one large figure: facts stay at the subheading size
 - Changing the cell order: the layout is the pattern
 - More than one feature bento on a page
 
-**API** `<FeatureBento variant: photo | tint | quiet hero: { eyebrow, live, title, description, image } highlight: { icon, value, prefix, suffix, label } feature: { icon, title, description } action: { eyebrow, title, href } facts: [figure, figure] />`
+**API** `<FeatureBento variant: photo | tint | quiet hero: { eyebrow, live, title, description, image } highlight: { icon, value, prefix, suffix, label } feature: { icon, title, description } action: { eyebrow, title, href } facts: [figure, figure] ground? /> · icons are tile ids, on white in the photo and tint styles and paper in the quiet style`
 
 **Source** `src/components/bento/FeatureBento.tsx`
 
@@ -2044,7 +2047,7 @@ Library · A full, functional widget library. Each widget takes real data, anima
 
 | # | Widget | Group | Status | Inputs | Source |
 | --- | --- | --- | --- | --- | --- |
-| 01 | Aura stat tiles | Headline figures | Stable | `items: { label, value, icon, accent, suffix }[]` | `src/components/widgets/figures.tsx` |
+| 01 | Aura stat tiles | Headline figures | Stable | `items: { label, value, icon (tile id), accent, suffix }[]` | `src/components/widgets/figures.tsx` |
 | 02 | Gradient ring | Headline figures | Stable | `value (0 to 100) · unit · caption` | `src/components/widgets/figures.tsx` |
 | 03 | Capacity meter | Headline figures | Stable | `used · total · unit · note` | `src/components/widgets/figures.tsx` |
 | 04 | Trend card | Headline figures | Stable | `label · value · suffix · delta · points: number[]` | `src/components/widgets/figures.tsx` |
@@ -2082,7 +2085,7 @@ Library · A full, functional widget library. Each widget takes real data, anima
 
 `widget-01` · widget · Stable
 
-The three numbers that matter most, on soft tiles.
+The three numbers that matter most, on soft tiles, each with a white icon tile from the icon library.
 
 **Use it for**
 
@@ -2092,7 +2095,7 @@ The three numbers that matter most, on soft tiles.
 
 - Unsourced figures in marketing
 
-**API** `items: { label, value, icon, accent, suffix }[]`
+**API** `items: { label, value, icon (tile id), accent, suffix }[]`
 
 **Source** `src/components/widgets/figures.tsx`
 

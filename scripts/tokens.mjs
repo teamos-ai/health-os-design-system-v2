@@ -22,6 +22,12 @@ const HEADER = (what) =>
 /* ── helpers ───────────────────────────────────────────────────────────── */
 const entries = (group) => Object.entries(group).filter(([k]) => !k.startsWith('$'));
 const val = (node) => node.$value;
+
+/** "radial-gradient(… #36322F 0%, #2C2927 55% …)" or "#FFFFFF" → "[['#36322F', 0], …]" */
+const groundStops = (g) => {
+  const stops = [...String(g).matchAll(/(#[0-9A-Fa-f]{6})\s+(\d+(?:\.\d+)?)%/g)].map((x) => `['${x[1]}', ${parseFloat(x[2]) / 100}]`);
+  return `[${stops.length ? stops.join(', ') : `['${String(g).trim()}', 0]`}]`;
+};
 const rgb = (hex) => {
   const h = hex.replace('#', '');
   return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16)).join(' ');
@@ -185,6 +191,9 @@ function buildPalette() {
     '',
     '/** Floating tiles around the home headline: float in px, degrees and seconds; repel radius and force in px; spring settings. */',
     `export const ICON_FLOAT = { rise: ${parseFloat(val(t.icon['float-rise'])) * 16}, drift: ${parseFloat(val(t.icon['float-drift'])) * 16}, turn: ${parseFloat(val(t.icon['float-turn']))}, durationMin: ${parseFloat(val(t.icon['float-duration-min']))}, durationMax: ${parseFloat(val(t.icon['float-duration-max']))}, repelRadius: ${val(t.icon['repel-radius'])}, repelForce: ${val(t.icon['repel-force'])}, stiffness: ${val(t.icon['spring-stiffness'])}, damping: ${val(t.icon['spring-damping'])} } as const;`,
+    '',
+    '/** Icon tile grounds as gradient stops ([colour, offset 0 to 1]), for baking a tile on a canvas. Light grounds add a hairline edge and a contact shadow colour. */',
+    `export const ICON_GROUNDS = { carbon: ${groundStops(val(t.icon.ground))}, paper: ${groundStops(val(t.icon['ground-paper']))}, white: ${groundStops(val(t.icon['ground-white']))}, edgeLight: '${val(t.icon['edge-light'])}', shadowLight: '${(val(t.icon['object-shadow-light']).match(/rgba?\([^)]*\)/) || ['rgba(31, 31, 31, 0.14)'])[0]}' } as const;`,
     '',
     '/** The floating video: it docks once less than `threshold` of its space is visible. */',
     `export const VIDEO_PIP = { threshold: ${val(t.video['pip-threshold'])}, z: ${val(t.video['pip-z'])} } as const;`,

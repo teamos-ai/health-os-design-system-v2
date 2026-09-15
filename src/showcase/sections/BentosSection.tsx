@@ -3,7 +3,7 @@
  * composing cards by hand. Images come from the tagged library; figures follow the offer.
  */
 import * as React from 'react';
-import { CalendarCheck, ClipboardCheck, Clock, MailCheck, MapPin, Users } from 'lucide-react';
+import { Clock, MapPin, Users } from 'lucide-react';
 import { Section, Example } from '@/showcase/Section';
 import { ContentCard, FeatureCard, ActionCard } from '@/components/cards';
 import { BentoGrid, BentoCell } from '@/components/bento/Bento';
@@ -47,8 +47,8 @@ const FeatureBentoExample = () => {
           description: 'Built with you, then running in the background while you are with your clients.',
           image: { src: thumb(IMG.coworking), alt: 'Three women working together on a sofa with laptops and coffee' },
         }}
-        highlight={{ icon: ClipboardCheck, value: 10, label: 'questions in the check, under two minutes' }}
-        feature={{ icon: CalendarCheck, title: 'Bookings that confirm themselves', description: 'Clients book, pay and get reminders without you in the loop.' }}
+        highlight={{ icon: 'clipboard-checklist', value: 10, label: 'questions in the check, under two minutes' }}
+        feature={{ icon: 'desk-calendar', title: 'Bookings that confirm themselves', description: 'Clients book, pay and get reminders without you in the loop.' }}
         action={{ eyebrow: 'The check', title: 'See what still routes through you' }}
         facts={[
           { value: 297, prefix: '$', label: 'AUD a month for Health OS' },
@@ -160,10 +160,10 @@ export const BentosSection = () => (
             />
           </BentoCell>
           <BentoCell>
-            <FeatureCard icon={MailCheck} accent="lavender" title="Enquiries answered" description="New enquiries get a reply and a next step while you are with a client." />
+            <FeatureCard icon="chat-bubbles" accent="lavender" title="Enquiries answered" description="New enquiries get a reply and a next step while you are with a client." />
           </BentoCell>
           <BentoCell>
-            <FeatureCard icon={CalendarCheck} accent="apricot" title="Reminders on time" description="Every booking gets its reminder without anyone sending it." />
+            <FeatureCard icon="gold-bell" accent="apricot" title="Reminders on time" description="Every booking gets its reminder without anyone sending it." />
           </BentoCell>
           <BentoCell span={2}>
             <ActionCard title="See what still routes through you" description="Ten questions, under two minutes." action={{ label: 'Start the check' }} className="h-full" />

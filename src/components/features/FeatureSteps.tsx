@@ -3,7 +3,7 @@
  *
  * Remodelled from the 21st.dev feature-section (Serenity UI). Steps sit in a hairline list on
  * one side and a library photo sits on the other, dissolving into a caption with the step's
- * icon. The current step is the only apricot: its node fills apricot-200 and its hairline
+ * icon tile, on paper so it sits softly under the photo. The current step is the only apricot: its node fills apricot-200 and its hairline
  * fills from left to right as the step plays, like the tab underline. Earlier steps show a
  * tick; later steps stay in the ink neutrals. The photo swaps with a short rise and fade.
  *
@@ -18,7 +18,8 @@ import { AnimatePresence, motion, useAnimationFrame, useInView, useMotionValue, 
 import { Check, Pause, Play } from 'lucide-react';
 import { DURATION, EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
-import { FeatureIntro, FOCUS_RING, ICON_CLASS, ICON_STROKE, itemHeading, toneIcon, type FeatureBaseProps, type FeatureItem } from './shared';
+import { IconTile } from '@/components/ui/icon-tile';
+import { FeatureIntro, FOCUS_RING, itemHeading, type FeatureBaseProps, type FeatureItem } from './shared';
 import { AUTOPLAY } from '@/lib/palette';
 
 /** How long each step holds before the next, in ms (tokens.json → motion.autoplay.step). */
@@ -46,6 +47,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
 export const FeatureSteps = ({
   items,
+  ground = 'paper',
   autoPlay = true,
   interval = FEATURE_STEPS_INTERVAL,
   mediaSide = 'end',
@@ -105,7 +107,6 @@ export const FeatureSteps = ({
 
   const step = items[current] ?? items[0];
   if (!step) return null;
-  const StepIcon = step.icon;
 
   const hoverHandlers = { onMouseEnter: () => setHovered(true), onMouseLeave: () => setHovered(false) };
 
@@ -189,7 +190,7 @@ export const FeatureSteps = ({
             </div>
             <figcaption className="flex min-h-12 items-center justify-between gap-4 px-6 pb-6 pt-2">
               <span className="flex min-w-0 items-center gap-3">
-                <StepIcon className={cn(ICON_CLASS, toneIcon(step.tone))} strokeWidth={ICON_STROKE} aria-hidden />
+                <IconTile id={step.icon} size="sm" ground={ground} />
                 <span className="truncate font-sans text-label uppercase text-ink-500">
                   {step.label ?? `Step ${pad(current + 1)} of ${pad(items.length)}`}
                 </span>

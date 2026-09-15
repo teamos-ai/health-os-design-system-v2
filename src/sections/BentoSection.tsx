@@ -2,7 +2,6 @@
  * BentoSection: what the product runs, as the feature bento in its photo-led style. A photo
  * hero, a real figure, one feature, the check as the next step and two facts from the offer.
  */
-import { ClipboardCheck } from 'lucide-react';
 import { FeatureBento, type BentoStyle } from '@/components/bento/FeatureBento';
 import { FadeIn } from '@/components/ui/animated';
 import { BENTO_ITEMS } from '@/data/system';
@@ -30,7 +29,7 @@ export const BentoSection = ({ id = 'runs', variant = 'photo' }: { id?: string; 
               description: setup.description,
               image: { src: thumb(coworking), alt: 'Three women working together on a sofa with laptops and coffee' },
             }}
-            highlight={{ icon: ClipboardCheck, value: 10, label: 'questions in the check, under two minutes' }}
+            highlight={{ icon: 'clipboard-checklist', value: 10, label: 'questions in the check, under two minutes' }}
             feature={{ icon: enquiries.icon, title: enquiries.title, description: enquiries.description }}
             action={{ eyebrow: 'The check', title: 'See what still routes through you' }}
             facts={[

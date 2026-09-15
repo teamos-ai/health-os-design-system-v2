@@ -4,7 +4,6 @@
  * passes headingLevel="h3". Copy is Health OS product copy; images come from the tagged library.
  */
 import * as React from 'react';
-import { BellRing, CalendarCheck, CalendarClock, GraduationCap, LineChart, MailCheck, Megaphone, MessagesSquare, Users, Workflow, Wrench } from 'lucide-react';
 import { Section, Example } from '@/showcase/Section';
 import { FeatureSteps, FeatureTabs, FeatureGrid, FeatureCards, type FeatureCardsVariant } from '@/components/features';
 import { SegmentedControl } from '@/components/ui/segmented';
@@ -40,9 +39,9 @@ const FeatureCardsExample = () => {
         title="Built with you, then left to run"
         description="Three parts of the business that stop waiting on you."
         items={[
-          { icon: Wrench, tone: 'rose', title: 'Done-for-you setup', description: 'We move your tools, rebuild your workflows and hand over a system that already runs.' },
-          { icon: CalendarClock, tone: 'lavender', title: 'Onboarding without the chasing', description: 'Forms, welcome and first booking go out in order, without a reminder from you.' },
-          { icon: LineChart, title: 'One clear view', description: 'Bookings, revenue and the day ahead, in plain language, on one screen.' },
+          { icon: 'toolbox', title: 'Done-for-you setup', description: 'We move your tools, rebuild your workflows and hand over a system that already runs.' },
+          { icon: 'clipboard-checklist', title: 'Onboarding without the chasing', description: 'Forms, welcome and first booking go out in order, without a reminder from you.' },
+          { icon: 'gauge', title: 'One clear view', description: 'Bookings, revenue and the day ahead, in plain language, on one screen.' },
         ]}
       />
     </Example>
@@ -60,25 +59,25 @@ export const FeaturesSection = () => (
           description="What happens after you say yes, in the order it happens."
           items={[
             {
-              icon: MessagesSquare,
+              icon: 'chat-bubbles',
               title: 'A walkthrough of your setup',
               description: 'A short call to look at your current tools and what still routes through you.',
               image: { src: thumb(IMG.lounge), alt: 'Three women talking over a laptop and coffee on a sofa in a studio lounge' },
             },
             {
-              icon: CalendarCheck,
+              icon: 'desk-calendar',
               title: 'Bookings moved across',
               description: 'We move your clients and bookings into Health OS, with reminders set to send on their own.',
               image: { src: thumb(IMG.yoga), alt: 'Three people holding side plank on mats in a bright studio' },
             },
             {
-              icon: Workflow,
+              icon: 'conveyor-belt',
               title: 'Follow-up rebuilt',
               description: 'Welcome messages and check-ins go out in order, whoever is working that day.',
               image: { src: thumb(IMG.coffee), alt: 'Two women talking over coffee at an outdoor table' },
             },
             {
-              icon: Wrench,
+              icon: 'computer',
               title: 'A system that already runs',
               description: 'You get training on the parts you use, then it runs in the background while you are with clients.',
               image: { src: thumb(IMG.grass), alt: 'Two women lying on the grass, seen from above' },
@@ -94,7 +93,7 @@ export const FeaturesSection = () => (
           description="Reminders, follow-up and client records in one place, instead of a login for each."
           items={[
             {
-              icon: BellRing,
+              icon: 'gold-bell',
               label: 'Reminders',
               badge: 'Online booking',
               tone: 'rose',
@@ -104,7 +103,7 @@ export const FeaturesSection = () => (
               image: { src: thumb(IMG.stairs), alt: 'Two people running up stadium stairs' },
             },
             {
-              icon: MailCheck,
+              icon: 'envelope',
               label: 'Follow-up',
               badge: 'Email and follow-up',
               tone: 'lavender',
@@ -114,7 +113,7 @@ export const FeaturesSection = () => (
               image: { src: thumb(IMG.smoothie), alt: 'A woman in peach activewear with a green smoothie at a cafe table' },
             },
             {
-              icon: Users,
+              icon: 'card-index',
               label: 'Clients',
               badge: 'Client records',
               title: 'Every client record in one place',
@@ -132,12 +131,12 @@ export const FeaturesSection = () => (
           title="The admin that runs without you"
           description="The small jobs that used to wait for you, handled while you are with clients."
           items={[
-            { icon: CalendarCheck, title: 'Online booking', description: 'Clients book from your page at the hours you set, as far ahead as you allow.' },
-            { icon: BellRing, title: 'Reminders', description: 'Every booking gets its reminder without anyone sending it.' },
-            { icon: MailCheck, title: 'Follow-up', description: 'Every client gets the next message when it is due.' },
-            { icon: Users, title: 'Client records', description: 'Bookings, forms and history for each client, in one place.' },
-            { icon: Megaphone, title: 'Enquiries answered', description: 'New enquiries get a reply and a next step while you are with a client.' },
-            { icon: GraduationCap, title: 'Courses and memberships', description: 'Run courses and memberships from the same system as your bookings.' },
+            { icon: 'desk-calendar', title: 'Online booking', description: 'Clients book from your page at the hours you set, as far ahead as you allow.' },
+            { icon: 'gold-bell', title: 'Reminders', description: 'Every booking gets its reminder without anyone sending it.' },
+            { icon: 'envelope', title: 'Follow-up', description: 'Every client gets the next message when it is due.' },
+            { icon: 'card-index', title: 'Client records', description: 'Bookings, forms and history for each client, in one place.' },
+            { icon: 'chat-bubbles', title: 'Enquiries answered', description: 'New enquiries get a reply and a next step while you are with a client.' },
+            { icon: 'hardcover-book', title: 'Courses and memberships', description: 'Run courses and memberships from the same system as your bookings.' },
           ]}
         />
       </Example>

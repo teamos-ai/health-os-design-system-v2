@@ -16,9 +16,13 @@
  * come into view. Colour comes from the 50 and 200 shades; apricot appears only on the
  * action's arrow, because apricot means you can act. Figures must be real: prices from the
  * offer or facts from the database.
+ *
+ * The highlight and feature carry icon tiles from the icon library on a light ground, since
+ * the bento's photo dissolves and its tints would make a charcoal square the heaviest thing
+ * in it: white in the photo and tint styles, paper in the quiet style. `ground` overrides both.
  */
-import type { LucideIcon } from 'lucide-react';
 import { ArrowUpRight } from 'lucide-react';
+import { IconTile, type IconTileGround } from '@/components/ui/icon-tile';
 import { CountUp, BreathingDot } from '@/components/ui/animated';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -43,23 +47,26 @@ export interface FeatureBentoProps {
     description: string;
     image: { src: string; alt: string };
   };
-  highlight: BentoFigure & { icon: LucideIcon };
-  feature: { icon: LucideIcon; title: string; description: string };
+  /** icon: a tile id from the icon library */
+  highlight: BentoFigure & { icon: string };
+  feature: { icon: string; title: string; description: string };
   action: { eyebrow: string; title: string; href?: string };
   facts: [BentoFigure, BentoFigure];
+  /** the icon tiles' ground; defaults to white (photo, tint) or paper (quiet) */
+  ground?: IconTileGround;
   className?: string;
 }
 
 const cell = 'relative flex flex-col overflow-hidden rounded-lg';
 
-const FILL: Record<BentoStyle, { hero: string; highlight: string; feature: string; action: string; facts: [string, string]; well: string }> = {
+const FILL: Record<BentoStyle, { hero: string; highlight: string; feature: string; action: string; facts: [string, string]; ground: IconTileGround }> = {
   photo: {
     hero: 'border border-line bg-surface',
     highlight: 'bg-lavender-50 ring-1 ring-inset ring-lavender-200',
     feature: 'border border-line bg-surface',
     action: 'border border-line bg-brand-gradient-dawn',
     facts: ['bg-rose-50 ring-1 ring-inset ring-rose-200', 'border border-line bg-surface-2'],
-    well: 'bg-surface text-ink-900',
+    ground: 'white',
   },
   tint: {
     hero: 'bg-brand-gradient-soft ring-1 ring-inset ring-line',
@@ -67,7 +74,7 @@ const FILL: Record<BentoStyle, { hero: string; highlight: string; feature: strin
     feature: 'border border-line bg-surface',
     action: 'border border-line bg-surface',
     facts: ['bg-rose-50 ring-1 ring-inset ring-rose-200', 'border border-line bg-surface'],
-    well: 'bg-surface text-ink-900',
+    ground: 'white',
   },
   quiet: {
     hero: 'border border-line bg-surface',
@@ -75,7 +82,7 @@ const FILL: Record<BentoStyle, { hero: string; highlight: string; feature: strin
     feature: 'border border-line bg-surface',
     action: 'border border-line bg-brand-gradient-dawn',
     facts: ['border border-line bg-surface', 'border border-line bg-surface'],
-    well: 'bg-surface-2 text-ink-900',
+    ground: 'paper',
   },
 };
 
@@ -133,10 +140,9 @@ const Hero = ({ hero, variant }: { hero: FeatureBentoProps['hero']; variant: Ben
   );
 };
 
-export const FeatureBento = ({ variant = 'photo', hero, highlight, feature, action, facts, className }: FeatureBentoProps) => {
+export const FeatureBento = ({ variant = 'photo', hero, highlight, feature, action, facts, ground, className }: FeatureBentoProps) => {
   const f = FILL[variant];
-  const HighlightIcon = highlight.icon;
-  const FeatureIcon = feature.icon;
+  const tileGround = ground ?? f.ground;
   return (
     <div className={cn('grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3', className)}>
       <div className={cn(cell, 'min-h-96 sm:col-span-2 lg:row-span-2', f.hero)}>
@@ -144,9 +150,7 @@ export const FeatureBento = ({ variant = 'photo', hero, highlight, feature, acti
       </div>
 
       <div className={cn(cell, 'justify-between gap-8 p-6 md:p-8 lg:min-h-64', f.highlight)}>
-        <span className={cn('flex h-12 w-12 shrink-0 items-center justify-center rounded-md', f.well)}>
-          <HighlightIcon className="h-6 w-6" strokeWidth={1.5} aria-hidden />
-        </span>
+        <IconTile id={highlight.icon} size="md" ground={tileGround} />
         <div>
           <p className="font-display text-heading text-ink-900">{figureText(highlight)}</p>
           <p className="mt-1 font-sans text-body text-ink-600">{highlight.label}</p>
@@ -154,7 +158,7 @@ export const FeatureBento = ({ variant = 'photo', hero, highlight, feature, acti
       </div>
 
       <div className={cn(cell, 'justify-between gap-8 p-6 md:p-8 lg:min-h-64', f.feature)}>
-        <FeatureIcon className="h-6 w-6 text-ink-900" strokeWidth={1.5} aria-hidden />
+        <IconTile id={feature.icon} size="md" ground={tileGround} />
         <div>
           <h3 className="font-display text-subheading text-ink-900">{feature.title}</h3>
           <p className="mt-2 font-sans text-body text-ink-600">{feature.description}</p>

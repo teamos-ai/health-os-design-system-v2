@@ -4,7 +4,6 @@
  * where it applies, an experimental label. All figures are sample data.
  */
 import type { ReactNode } from 'react';
-import { CalendarCheck, CheckCircle2, Users } from 'lucide-react';
 import { PLANS } from '@/data/offer';
 import { Section } from '@/showcase/Section';
 import { Badge } from '@/components/ui/badge';
@@ -109,9 +108,9 @@ export const WidgetsSection = () => (
         <Widget id="widget-01" span="full">
           <AuraStatTiles
             items={[
-              { label: 'Tasks in progress', value: 15, icon: CheckCircle2, accent: 'apricot' },
-              { label: 'Sessions this month', value: 97, icon: CalendarCheck, accent: 'rose' },
-              { label: 'Active members', value: 1284, icon: Users, accent: 'lavender' },
+              { label: 'Tasks in progress', value: 15, icon: 'clipboard-checklist', accent: 'apricot' },
+              { label: 'Sessions this month', value: 97, icon: 'desk-calendar', accent: 'rose' },
+              { label: 'Active members', value: 1284, icon: 'coffee-cups', accent: 'lavender' },
             ]}
           />
         </Widget>

@@ -33,7 +33,7 @@ In practice that means a lot of air, warm neutrals, soft colour used with intent
 ## Signature moves
 
 - The headline: one apricot word and dark icon tiles that picture the words, rising in once, then leaning a few degrees and floating gently between the words.
-- The icon library: 228 photoreal objects on a warm charcoal squircle, searchable by word.
+- The icon library: 228 photoreal objects on a squircle, searchable by word, on warm charcoal or on paper and white for light contexts. Every icon in a card, feature, bento or widget comes from it.
 - A mini confetti moment when someone books, confirms, saves or chooses annual billing: streamers, ribbons and stars popping from the top of the button.
 - The opening hero: the headline standing clear while icon tiles float in the space around it, and the hero dissolving into the page below with no line at the fold.
 - The command hero: headline, search bar, a row of command chips and a product preview.

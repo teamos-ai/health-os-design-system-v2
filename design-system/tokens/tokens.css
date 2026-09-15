@@ -103,8 +103,13 @@
   --hos-headline-logo-height: 0.95em;
   --hos-headline-logo-offset: -0.17em;
   --hos-icon-ground: radial-gradient(circle at 50% 42%, #36322F 0%, #2C2927 55%, #252220 100%);
+  --hos-icon-ground-paper: radial-gradient(circle at 50% 42%, #FDFBF8 0%, #F9F6F2 55%, #F1ECE4 100%);
+  --hos-icon-ground-white: #FFFFFF;
+  --hos-icon-edge-light: rgba(31, 31, 31, 0.08);
+  --hos-icon-object-shadow-light: drop-shadow(0 0.1rem 0.15rem rgba(31, 31, 31, 0.14));
   --hos-icon-radius: 24%;
   --hos-icon-inset: 10%;
+  --hos-icon-size-xs: 1.75rem;
   --hos-icon-size-sm: 2.5rem;
   --hos-icon-size-md: 4rem;
   --hos-icon-size-lg: 6rem;

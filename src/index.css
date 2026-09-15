@@ -154,6 +154,7 @@
     width: var(--icon-size, var(--hos-icon-size-md));
     height: var(--icon-size, var(--hos-icon-size-md));
   }
+  .icon-tile-xs { --icon-size: var(--hos-icon-size-xs); }
   .icon-tile-sm { --icon-size: var(--hos-icon-size-sm); }
   .icon-tile-md { --icon-size: var(--hos-icon-size-md); }
   .icon-tile-lg { --icon-size: var(--hos-icon-size-lg); }
@@ -165,6 +166,18 @@
     padding: var(--hos-icon-inset);
     object-fit: contain;
     user-select: none;
+  }
+  /* Light grounds: paper and white keep a hairline so the squircle holds its shape on a ground of
+     the same colour, and the object gets a soft contact shadow so pale objects still read. */
+  .icon-tile-paper,
+  .icon-tile-white {
+    box-shadow: inset 0 0 0 1px var(--hos-icon-edge-light);
+  }
+  .icon-tile-paper { background: var(--hos-icon-ground-paper); }
+  .icon-tile-white { background: var(--hos-icon-ground-white); }
+  .icon-tile-paper img,
+  .icon-tile-white img {
+    filter: var(--hos-icon-object-shadow-light);
   }
 
   /* The floating video: a playing video that has scrolled out of view docks in the bottom

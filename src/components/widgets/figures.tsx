@@ -4,7 +4,8 @@
  */
 import * as React from 'react';
 import { motion } from 'framer-motion';
-import { Pause, Play, Square, TrendingUp, TrendingDown, type LucideIcon } from 'lucide-react';
+import { Pause, Play, Square, TrendingUp, TrendingDown } from 'lucide-react';
+import { IconTile } from '@/components/ui/icon-tile';
 import { APRICOT, ROSE, LAVENDER, WHITE } from '@/lib/palette';
 import { EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
@@ -15,16 +16,18 @@ import { TILE, SWEEP, SWEEP_BAR, LIGHT, SOFT, type WidgetAccent } from './tones'
 export type { WidgetAccent } from './tones';
 
 /* ── 01 · Aura stat tiles ─────────────────────────────────────────────── */
+/* Each tile carries a white icon tile from the icon library, which sits cleanly on the gradient. */
 export interface StatTileItem {
   label: string;
   value: number;
-  icon: LucideIcon;
+  /** a tile id from the icon library */
+  icon: string;
   accent: WidgetAccent;
   suffix?: string;
 }
 export const AuraStatTiles = ({ items }: { items: StatTileItem[] }) => (
   <div className="grid w-full gap-4 sm:grid-cols-3">
-    {items.map(({ label, value, icon: Icon, accent, suffix }, i) => (
+    {items.map(({ label, value, icon, accent, suffix }, i) => (
       <motion.div
         key={label}
         className="relative isolate overflow-hidden rounded-lg p-5 text-ink-900 shadow-sm"
@@ -35,9 +38,7 @@ export const AuraStatTiles = ({ items }: { items: StatTileItem[] }) => (
         transition={{ duration: 0.48, delay: i * 0.08, ease: EASE_OUT }}
       >
         <span aria-hidden className="widget-bloom" />
-        <span className="mb-6 flex h-10 w-10 items-center justify-center rounded-md bg-white/40">
-          <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />
-        </span>
+        <IconTile id={icon} size="sm" ground="white" className="relative mb-6 block" />
         <Figure value={value} suffix={suffix} className="block font-display text-heading" />
         <span className="mt-2 block font-sans text-label uppercase text-ink-900">{label}</span>
       </motion.div>

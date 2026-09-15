@@ -3,7 +3,6 @@
  * prices follow the offer. Pricing is shown once, here, as the one pricing system (PricingTable)
  * that page blocks and live pages also use. Bentos have their own section.
  */
-import { CalendarCheck, MailCheck } from 'lucide-react';
 import { Section, Example } from '@/showcase/Section';
 import { ContentCard, FeatureCard, ServiceCard, ResourceCard, ActionCard, SessionCard, ProfileCard, StepsCard } from '@/components/cards';
 import { PricingTable } from '@/components/blocks/PricingTable';
@@ -66,8 +65,8 @@ export const CardsSection = () => (
 
       <Example id="feature-card" label="Feature card">
         <div className="grid gap-4 md:grid-cols-2">
-          <FeatureCard icon={CalendarCheck} tag="Booking" title="Bookings that confirm themselves" description="Clients book, pay and get reminders without you in the loop." />
-          <FeatureCard icon={MailCheck} accent="lavender" tag="Follow-up" title="Follow-up that sends on time" description="Every client gets the next message when it is due." />
+          <FeatureCard icon="desk-calendar" tag="Booking" title="Bookings that confirm themselves" description="Clients book, pay and get reminders without you in the loop." />
+          <FeatureCard icon="envelope" accent="lavender" tag="Follow-up" title="Follow-up that sends on time" description="Every client gets the next message when it is due." />
         </div>
       </Example>
 
