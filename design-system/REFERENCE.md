@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-15 · 128 entries · 49 components · 31 widgets · 13 patterns · 11 open decisions
+Updated 2026-09-15 · 130 entries · 51 components · 31 widgets · 13 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -20,7 +20,7 @@ Updated 2026-09-15 · 128 entries · 49 components · 31 widgets · 13 patterns 
 - Start: [System overview video](#system-overview-video) · [Overview](#overview)
 - Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Icon library](#icon-library) · [Logo](#logo) · [Motion](#motion)
 - Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Features](#features) · [Bentos](#bentos) · [Blocks](#blocks) · [Widgets](#widgets)
-- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Backgrounds](#backgrounds) · [Image library](#image-library)
+- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Health OS music](#health-os-music) · [Backgrounds](#backgrounds) · [Image library](#image-library)
 - Proof: [The live page](#the-live-page)
 
 ## Open decisions
@@ -709,22 +709,23 @@ Twenty ready headlines in the Headline markup, each mapped to a messaging pillar
 
 `floating-tiles` · component · Stable
 
-The home hero's headline stands clear, and icon tiles float in the space around it: each leans a few degrees and bobs slowly at its own pace, as if suspended. Added on 15 September 2026 at Tumai's request for the reference site's opening.
+The home hero's headline stands clear, and icon tiles float in the space around it: each rises in, drifts on its own slow loop (up and down, side to side, rocking a few degrees) and eases away from the mouse when it comes close, springing back once it leaves. Built on 15 September 2026 from the floating icons hero example Tumai supplied, with the nine icons Tumai chose.
 
 **Use it for**
 
 - A page's opening hero only, as the first child of Hero, with the Headline set to tilesAround
-- Six to eight tiles in the side margins and above the words from xl up, two above the headline on phones (from and until)
+- Up to nine tiles in the side margins, above the headline and below the chips on wide screens; a row above and below on tablets; three on phones (from and until)
 - Icons that picture what the page is about
 
 **Not for**
 
 - Tiles over the words, the search or the chips
-- Pointer effects or parallax: tiles are pictures
+- Click targets on tiles: they are pictures
 - Inline tiles in the same headline
 - More than one floating field on a page
+- The repel on touch: it follows a mouse only
 
-**API** `<FloatingTiles tiles: { id, x, y (percent of the hero), size: sm | md | lg, lean (-1 to 1), from, until }[] /> · <Headline tilesAround /> · tokens.json → icon.float-tilt, float-distance, float-duration`
+**API** `<FloatingTiles tiles: { id, x, y (percent of the hero), size: hero | sm | md | lg, from, until }[] /> · <Headline tilesAround /> · tokens.json → icon.size-hero, float-rise, float-drift, float-turn, float-duration-min, float-duration-max, repel-radius, repel-force, spring-stiffness, spring-damping · ICON_FLOAT (palette.ts)`
 
 **Source** `src/components/ui/floating-tiles.tsx · src/showcase/sections/HeroSection.tsx`
 
@@ -2732,6 +2733,7 @@ Long-form reading: breadcrumb, category, the headline with its accent word and f
 **Use it for**
 
 - Blog posts and guides on the site
+- AudioPlayer under the author line when the article has an episode or voice version
 - ArticleLayout for the body, so the reading column can shrink and wide tables scroll inside their frame
 - PullQuote for one line worth repeating: a rose rule, never a filled block
 - TableOfContents when the article has three or more subheadings
@@ -2746,6 +2748,29 @@ Long-form reading: breadcrumb, category, the headline with its accent word and f
 **API** `Compose: Breadcrumb · Badge · Headline · ArticleMeta · figure · ArticleLayout (TableOfContents) · PullQuote · Table · AuthorNote · ContentCard · ResourceCard (src/components/blog/Blog.tsx)`
 
 **Source** `src/components/blog/Blog.tsx · src/showcase/sections/BlogSection.tsx`
+
+### Audio player
+
+`audio-player` · component · Stable
+
+The one audio player, for an article's episode, a voice version or a voice note: an icon tile, what is playing, play with 15 second skips, a seek bar with elapsed and total time, playback speed and mute, on a light card. Added on 15 September 2026 for Health OS blogs recorded as video, with a clip from Hustle HQ season 1, episode 3 as the sample.
+
+**Use it for**
+
+- Under the standfirst and author line of an article that has an episode or voice version
+- Audio Health OS owns, saved as a compact m4a in public/media/audio
+- A transcript in the transcript slot for anything published
+
+**Not for**
+
+- The browser's own audio controls or a third-party audio embed
+- Other people's music: use the music library
+- Autoplay: listening always starts from the play button
+- Publishing audio without its transcript
+
+**API** `<AudioPlayer src title meta icon transcript className /> · MediaProgress and formatTime (src/components/ui/media-progress.tsx)`
+
+**Source** `src/components/ui/audio-player.tsx · src/components/ui/media-progress.tsx`
 
 ### Blog index
 
@@ -2866,6 +2891,32 @@ Feed post (1080 × 1080), story (1080 × 1920) and link preview (1200 × 630).
 **API** `See source for the three template compositions`
 
 **Source** `src/showcase/sections/SocialMediaSection.tsx`
+
+## Health OS music
+
+Applied · Nine songs that set the feel for Health OS background music. Play them here, one at a time, from their official videos.
+
+### Music library
+
+`music-library` · component · Stable
+
+Reference music people can play, as music cards on a grid of three: nine songs Tumai chose on 15 September 2026 for how Health OS background music should feel. They are other artists' copyrighted recordings, so nothing is copied: each card plays its song from the official YouTube video through YouTube's own player, visible in the card's artwork while it plays, with Health OS controls around it (previous, play or pause, next, seek, elapsed and total time, a link to YouTube). One song at a time; a song that ends moves to the next.
+
+**Use it for**
+
+- A brief for the sound of Health OS: music direction for editors, agencies and agents
+- Songs added to src/data/music.ts as a YouTube id, title and artist
+
+**Not for**
+
+- Hiding or covering YouTube's player: its terms require it to stay visible
+- Copying these songs into the repo or using them in Health OS content without a licence
+- Health OS's own audio or video: use AudioPlayer and VideoPlayer
+- Autoplay on load
+
+**API** `<MusicLibrary tracks: { youtubeId, title, artist }[] /> · MUSIC_TRACKS, trackThumbnail, trackUrl (src/data/music.ts)`
+
+**Source** `src/components/media/MusicLibrary.tsx · src/data/music.ts · src/showcase/sections/MusicSection.tsx`
 
 ## Backgrounds
 

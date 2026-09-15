@@ -30,6 +30,7 @@ import {
   LayoutPanelTop,
   BookOpen,
   Globe,
+  Music,
   type LucideIcon,
 } from 'lucide-react';
 import { SECTIONS, type CatalogSection } from '@/showcase/catalog';
@@ -58,6 +59,7 @@ const ICONS: Record<string, LucideIcon> = {
   'lead-magnets': BookOpen,
   calculators: Calculator,
   social: Share2,
+  music: Music,
   backgrounds: Wallpaper,
   imagery: Images,
   live: Globe,

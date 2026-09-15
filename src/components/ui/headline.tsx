@@ -30,7 +30,7 @@ import { HEADLINE } from '@/lib/palette';
 import { EASE_OUT, DURATION } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
-type Atom = { kind: 'word'; text: string; accent: boolean } | { kind: 'space'; text: string } | { kind: 'tile'; tile: HeadlineTile };
+type Atom = { kind: 'word'; text: string; accent: boolean } | { kind: 'space'; text: string } | { kind: 'break' } | { kind: 'tile'; tile: HeadlineTile };
 
 const MARK = /(\[[^\]]+\]|\{[a-z0-9-]+\})/g;
 
@@ -38,7 +38,11 @@ const MARK = /(\[[^\]]+\]|\{[a-z0-9-]+\})/g;
 export const parseHeadline = (text: string, library: Record<string, HeadlineTile> = HEADLINE_TILES): Atom[] => {
   const atoms: Atom[] = [];
   const pushText = (chunk: string, accent: boolean) => {
-    for (const piece of chunk.split(/(\s+)/)) {
+    for (const piece of chunk.split(/(\n|[^\S\n]+)/)) {
+      if (piece === '\n') {
+        atoms.push({ kind: 'break' });
+        continue;
+      }
       if (!piece) continue;
       atoms.push(/^\s+$/.test(piece) ? { kind: 'space', text: piece } : { kind: 'word', text: piece, accent });
     }
@@ -69,7 +73,7 @@ export const headlineParts = (text: string, library: Record<string, HeadlineTile
 };
 
 export interface HeadlineProps {
-  /** The whole headline. Mark the one descriptive word as [word] and each tile as {id}. */
+  /** The whole headline. Mark the one descriptive word as [word] and each tile as {id}; a \n breaks the line. */
   text: string;
   /** h1 on a real page; h2 or h3 when a page already has its h1 (as in this reference); p inside an asset such as a social post */
   as?: 'h1' | 'h2' | 'h3' | 'p';
@@ -140,6 +144,7 @@ export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, tilesAr
   let tileIndex = 0;
   const render = (a: Atom, key: number) => {
     if (a.kind === 'space') return <React.Fragment key={key}>{a.text}</React.Fragment>;
+    if (a.kind === 'break') return <br key={key} />;
     if (a.kind === 'tile') return <Tile key={key} tile={a.tile} index={tileIndex++} />;
     return a.accent ? (
       <span key={key} className="text-apricot-400">

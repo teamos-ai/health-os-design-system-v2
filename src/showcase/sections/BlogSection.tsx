@@ -15,6 +15,7 @@ import { Pagination } from '@/components/ui/pagination';
 import { ContentCard, ResourceCard } from '@/components/cards';
 import { ArticleLayout, ArticleMeta, AuthorNote, CategoryFilter, FeaturedPost, PullQuote, type Author, type PostSummary } from '@/components/blog/Blog';
 import { Appear } from '@/components/ui/animated';
+import { AudioPlayer } from '@/components/ui/audio-player';
 import { PHOTOS } from '@/data/photos';
 import { thumb } from '@/lib/images';
 
@@ -85,6 +86,12 @@ const ArticleExample = () => {
             Most wellness businesses end up running on a handful of separate tools. This is a look at what to bring together first, and what can wait.
           </p>
           <ArticleMeta author={JORDAN} date="11 September 2026" readTime="6 min read" className="mt-8" />
+          <AudioPlayer
+            className="mt-8"
+            src="/media/audio/hustle-hq-s1e3-clip.m4a"
+            title="Listen to the episode"
+            meta="Sample clip · Hustle HQ, season 1, episode 3: Aroma with Audrey"
+          />
         </header>
 
         <figure className="mt-10">

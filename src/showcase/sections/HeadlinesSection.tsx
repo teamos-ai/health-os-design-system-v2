@@ -31,11 +31,11 @@ const PEEK = 4;
 
 /* A small field for the example frame: tiles in the margins, clear of the words. */
 const FIELD: FloatingTile[] = [
-  { id: 'swatches', x: 10, y: 28, size: 'md', lean: -1, from: 'sm' },
-  { id: 'stones', x: 18, y: 76, size: 'sm', lean: 0.8, from: 'md' },
-  { id: 'computer', x: 89, y: 30, size: 'md', lean: 0.9, from: 'sm' },
-  { id: 'desk-calendar', x: 81, y: 78, size: 'sm', lean: -0.7, from: 'md' },
-  { id: 'envelope', x: 50, y: 12, size: 'sm', lean: 0.5, until: 'sm' },
+  { id: 'cloud', x: 10, y: 28, size: 'md', from: 'sm' },
+  { id: 'feather', x: 18, y: 76, size: 'sm', from: 'md' },
+  { id: 'computer', x: 89, y: 30, size: 'md', from: 'sm' },
+  { id: 'lightning-bolt', x: 81, y: 78, size: 'sm', from: 'md' },
+  { id: 'paper-plane', x: 50, y: 12, size: 'sm', until: 'sm' },
 ];
 
 /* Lines whose tiles are all made come first, so the library opens on headlines ready to use. */
@@ -155,7 +155,7 @@ export const HeadlinesSection = () => (
       <Example id="floating-tiles" label="Floating tiles: the home hero only" padded={false}>
         <div className="relative isolate overflow-hidden px-6 py-20 md:py-24">
           <FloatingTiles tiles={FIELD} />
-          <Headline as="h3" tilesAround text="The [ultimate] design system for Health OS" className="mx-auto max-w-xl text-center" />
+          <Headline as="h3" tilesAround text={'The [Ultimate] Design System\nFor Health OS'} className="mx-auto max-w-xl text-center" />
         </div>
       </Example>
 

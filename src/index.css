@@ -108,20 +108,26 @@
   }
 
   /* Floating tiles: the home hero's icons hanging in the space around the headline. Each is
-     centred on its point, leans by the float-tilt token and bobs on its own pace and phase. */
+     centred on its point; the drift, rock and pointer repel are Framer Motion (floating-tiles.tsx). */
+  /* above the hero fade (-2), below the hero's content */
+  .floating-tiles {
+    z-index: -1;
+  }
   .floating-tile {
     position: absolute;
     translate: -50% -50%;
   }
   .floating-tile-face {
     display: block;
-    rotate: calc(var(--hos-icon-float-tilt) * var(--tile-lean, -1));
     box-shadow: var(--hos-shadow-lg);
-    animation: hos-icon-float calc(var(--hos-icon-float-duration) * var(--tile-pace, 1)) ease-in-out var(--tile-phase, 0s) infinite;
-    animation-play-state: paused;
   }
-  .floating-tiles[data-floating] .floating-tile-face {
-    animation-play-state: running;
+  .icon-tile-hero {
+    --icon-size: var(--hos-icon-size-hero);
+  }
+  @media (min-width: 768px) {
+    .icon-tile-hero {
+      --icon-size: var(--hos-icon-size-hero-lg);
+    }
   }
   .icon-tile {
     width: var(--icon-size, var(--hos-icon-size-md));
@@ -170,7 +176,7 @@
     position: absolute;
     inset-inline: 0;
     bottom: 0;
-    z-index: -1;
+    z-index: -2;
     height: var(--hos-space-hero-fade);
     pointer-events: none;
     background: linear-gradient(
@@ -228,16 +234,6 @@
     }
     50% {
       translate: 0 calc(var(--hos-headline-float-distance) * -1);
-    }
-  }
-
-  @keyframes hos-icon-float {
-    0%,
-    100% {
-      translate: 0 0;
-    }
-    50% {
-      translate: 0 calc(var(--hos-icon-float-distance) * -1);
     }
   }
 

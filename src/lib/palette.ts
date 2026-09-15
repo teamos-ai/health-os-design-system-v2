@@ -21,6 +21,9 @@ export const HEADLINE = { tilesMin: 1, tilesMax: 3 } as const;
 /** Banner loop limits in seconds: a banner drifts, it never races. */
 export const BANNER = { speedMin: 32, speedMax: 60 } as const;
 
+/** Floating tiles around the home headline: float in px, degrees and seconds; repel radius and force in px; spring settings. */
+export const ICON_FLOAT = { rise: 8, drift: 6, turn: 5, durationMin: 5, durationMax: 10, repelRadius: 150, repelForce: 50, stiffness: 300, damping: 20 } as const;
+
 /** The floating video: it docks once less than `threshold` of its space is visible. */
 export const VIDEO_PIP = { threshold: 0.25, z: 40 } as const;
 

@@ -1,6 +1,7 @@
 /**
- * HeroSection: the reference site's opening. The headline stands clear with its one apricot
- * word, and icon tiles float in the space around it (FloatingTiles). Then a short line, a search
+ * HeroSection: the reference site's opening. "The Ultimate Design System / For Health OS" in title
+ * case on two lines (Tumai's copy), with nine icon tiles floating around it that drift and ease
+ * away from the mouse (FloatingTiles). Then a short line, a search
  * that really searches the catalogue and jumps to the best section, and quick links to the parts
  * people look for most. Press / anywhere to search. The hero dissolves into the section below
  * (Hero `fade`), so there is no hard line at the fold.
@@ -17,18 +18,29 @@ import { SHOWCASE_COMMANDS } from '@/data/system';
 import { ENTRIES, SECTIONS, sectionMeta } from '@/showcase/catalog';
 import { useTheme } from '@/lib/useTheme';
 
-/* Tiles hang in the side margins and above the words. Phones keep two above the headline. */
+/* Tumai's nine icons for the home hero. Wide screens hang them in the side margins, above the
+   headline and below the chips; tablets keep a row above and one below; phones keep three. */
 const TILES: FloatingTile[] = [
-  { id: 'swatches', x: 9, y: 20, size: 'lg', lean: -1, from: 'xl' },
-  { id: 'stones', x: 14, y: 50, size: 'md', lean: 0.8, from: 'xl' },
-  { id: 'envelope', x: 7, y: 77, size: 'sm', lean: -0.6, from: 'xl' },
-  { id: 'computer', x: 90, y: 23, size: 'lg', lean: 0.9, from: 'xl' },
-  { id: 'desk-calendar', x: 86, y: 53, size: 'md', lean: -0.8, from: 'xl' },
-  { id: 'gears', x: 93, y: 79, size: 'sm', lean: 0.6, from: 'xl' },
-  { id: 'paint-palette', x: 29, y: 9, size: 'sm', lean: -0.5, from: 'md' },
-  { id: 'chat-bubbles', x: 72, y: 8, size: 'md', lean: 0.7, from: 'md' },
-  { id: 'coffee-cups', x: 16, y: 5, size: 'sm', lean: -0.7, until: 'md' },
-  { id: 'bar-chart', x: 84, y: 6, size: 'sm', lean: 0.7, until: 'md' },
+  { id: 'cloud', x: 11, y: 12, from: 'xl' },
+  { id: 'computer', x: 89, y: 14, from: 'xl' },
+  { id: 'monstera', x: 6, y: 47, from: 'xl' },
+  { id: 'terminal', x: 94, y: 49, from: 'xl' },
+  { id: 'paper-plane', x: 31, y: 7, from: 'xl' },
+  { id: 'feather', x: 69, y: 7, from: 'xl' },
+  { id: 'lightning-bolt', x: 5, y: 88, from: 'xl' },
+  { id: 'diamond', x: 93, y: 81, from: 'xl' },
+  { id: 'orange-juice', x: 50, y: 92, from: 'xl' },
+  /* tablets */
+  { id: 'cloud', x: 9, y: 9, from: 'md', until: 'xl' },
+  { id: 'paper-plane', x: 33, y: 6, from: 'md', until: 'xl' },
+  { id: 'feather', x: 67, y: 6, from: 'md', until: 'xl' },
+  { id: 'computer', x: 91, y: 9, from: 'md', until: 'xl' },
+  { id: 'diamond', x: 22, y: 92, from: 'md', until: 'xl' },
+  { id: 'orange-juice', x: 78, y: 92, from: 'md', until: 'xl' },
+  /* phones */
+  { id: 'cloud', x: 15, y: 5, until: 'md' },
+  { id: 'feather', x: 85, y: 5, until: 'md' },
+  { id: 'orange-juice', x: 50, y: 94, until: 'md' },
 ];
 
 const JUMP: Record<string, string> = {
@@ -100,7 +112,7 @@ export const HeroSection = () => {
       <FloatingTiles tiles={TILES} />
       <HeroContainer>
         <FadeIn delay={0.05}>
-          <Headline tilesAround text="The [ultimate] design system for Health OS" />
+          <Headline tilesAround text={'The [Ultimate] Design System\nFor Health OS'} />
         </FadeIn>
         <FadeIn delay={0.1} className="mt-hero-gap-sm">
           <p className="max-w-hero-subcopy font-sans text-body text-ink-600">{meta.lead}</p>
