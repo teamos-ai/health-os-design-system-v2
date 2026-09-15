@@ -1,10 +1,12 @@
 /**
  * SocialMediaSection: three post templates built only from tokens and the tagged library.
- * Shown scaled down; export at the sizes on each label.
+ * Shown scaled down; export at the sizes on each label. Headline-size copy in a post is the
+ * Headline (as a paragraph), with its apricot accent word and floating icon tiles.
  */
 import type { ReactNode } from 'react';
 import { Section, Example } from '@/showcase/Section';
 import { LogoMark } from '@/components/brand/Logo';
+import { Headline } from '@/components/ui/headline';
 import { thumb } from '@/lib/images';
 import { PAPER_IVORY } from '@/lib/palette';
 
@@ -31,9 +33,7 @@ export const SocialMediaSection = () => (
               <span className="font-sans text-label uppercase text-ink-500">Health OS</span>
               <LogoMark size={32} />
             </div>
-            <p className="font-display text-heading text-ink-900">
-              You built it. Now make it <span className="text-highlight">run without you</span>.
-            </p>
+            <Headline as="p" text="You built {blocks} it. Now [make] it run {computer} without you." />
             <p className="font-sans text-body text-ink-600">See what still routes through you.</p>
           </div>
         </Frame>
@@ -57,7 +57,7 @@ export const SocialMediaSection = () => (
               <LogoMark size={32} />
               <div>
                 <p className="font-sans text-label uppercase text-ink-500">Guide</p>
-                <p className="mt-2 font-display text-heading text-ink-900">The quiet week plan</p>
+                <Headline as="p" text="The [quiet] week {wall-calendar} plan" className="mt-2 text-subheading sm:text-heading" />
               </div>
               <span aria-hidden className="h-1 w-24 rounded-full bg-brand-gradient" />
             </div>

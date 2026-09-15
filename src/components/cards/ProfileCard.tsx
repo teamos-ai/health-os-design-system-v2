@@ -21,7 +21,8 @@ export interface ProfileCardProps {
   focus?: string[];
   /** one sentence on how they work */
   approach?: string;
-  action?: { label: string; href?: string };
+  /** book with this person; set `celebrate` to pop confetti when the click itself completes the step */
+  action?: { label: string; href?: string; celebrate?: boolean };
   className?: string;
 }
 
@@ -62,7 +63,8 @@ export const ProfileCard = ({ name, role, portrait, focus = [], approach, action
       {action && (
         <Button
           variant="text"
-          href={action.href ?? '#'}
+          href={action.href}
+          celebrate={action.celebrate}
           className="group mt-auto self-start"
           trailingIcon={<ArrowRight className="h-4 w-4 transition-transform duration-sm ease-out group-hover:translate-x-1" strokeWidth={1.5} aria-hidden />}
         >

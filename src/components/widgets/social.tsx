@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Star } from 'lucide-react';
-import { APRICOT, LAVENDER, ROSE } from '@/lib/palette';
+import { APRICOT, INK, LAVENDER, ROSE } from '@/lib/palette';
 import { EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Figure, Grow, useSeen } from './motion';
@@ -165,9 +165,9 @@ export const CheckIn = ({
             >
               <svg viewBox="0 0 48 48" className={cn('h-11 w-11 rounded-md transition-shadow duration-sm', on && 'ring-2 ring-apricot-200 ring-offset-2 ring-offset-surface')} aria-hidden>
                 <rect width="48" height="48" rx="10" fill={FACE_FILL[i % FACE_FILL.length]} />
-                <circle cx="18" cy="21" r="2" fill="#1F1F1F" />
-                <circle cx="30" cy="21" r="2" fill="#1F1F1F" />
-                <path d={MOUTHS[i % MOUTHS.length]} fill="none" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="18" cy="21" r="2" fill={INK[900]} />
+                <circle cx="30" cy="21" r="2" fill={INK[900]} />
+                <path d={MOUTHS[i % MOUTHS.length]} fill="none" stroke={INK[900]} strokeWidth="2" strokeLinecap="round" />
               </svg>
               <span className="font-sans text-label text-ink-500">{o}</span>
             </motion.button>

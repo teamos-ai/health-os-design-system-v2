@@ -13,7 +13,7 @@ export const VideoSection = () => (
       </h2>
       {/* overview.mp4 has a pastel frame recorded into it (25px at the sides, 57px top and bottom
           at 1920x1080) and a stray dot in its first frame; the crop trims both off on screen. */}
-      <VideoPlayer src="/media/overview.mp4" crop={{ top: 6, right: 2.6, bottom: 6, left: 2.6 }} />
+      <VideoPlayer src="/media/overview.mp4" poster="/media/overview-poster.jpg" crop={{ top: 6, right: 2.6, bottom: 6, left: 2.6 }} />
       <div className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-lg border border-line">
         <Usage id="video-player" className="border-t-0" />
       </div>

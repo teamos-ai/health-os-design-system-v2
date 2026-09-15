@@ -260,6 +260,7 @@ export const ElementsSection = () => {
               Cancel
             </Button>
             <Button
+              celebrate
               onClick={() => {
                 setModalOpen(false);
                 toast({ tone: 'success', title: 'Booking confirmed' });

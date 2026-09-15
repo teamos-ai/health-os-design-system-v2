@@ -37,7 +37,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           aria-describedby={describedBy}
           className={cn(
             'w-full resize-y rounded-md border bg-surface px-4 py-3 font-sans text-body text-ink-900',
-            'placeholder:text-ink-400 transition-colors duration-sm ease-out',
+            'placeholder:text-ink-500 transition-colors duration-sm ease-out',
             'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink-900',
             'disabled:cursor-not-allowed disabled:opacity-50',
             error ? 'border-error-600 focus-visible:border-error-600' : 'border-line focus-visible:border-ink-900',

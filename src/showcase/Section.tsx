@@ -18,7 +18,9 @@ export interface SectionProps {
   title?: string;
   /** override the catalogue lead */
   lead?: string;
-  children: ReactNode;
+  children?: ReactNode;
+  /** full-bleed content after the column, edge to edge of the page area (e.g. a marquee) */
+  bleed?: ReactNode;
   className?: string;
 }
 
@@ -28,7 +30,7 @@ const opensGroup = (id: string) => {
   return i <= 0 || SECTIONS[i - 1].group !== SECTIONS[i].group;
 };
 
-export const Section = ({ id, title, lead, children, className }: SectionProps) => {
+export const Section = ({ id, title, lead, children, bleed, className }: SectionProps) => {
   const meta = sectionMeta(id);
   const heading = title ?? meta.title;
   const intro = lead ?? meta.lead;
@@ -46,6 +48,7 @@ export const Section = ({ id, title, lead, children, className }: SectionProps) 
         </FadeIn>
         {children}
       </div>
+      {bleed && <div className="-mx-6 md:-mx-12">{bleed}</div>}
     </section>
   );
 };

@@ -24,15 +24,54 @@ import { Stat } from '@/components/ui/stat';
 import { Counter, StatTrend, SeatsRemaining, TicketsSold, MembersCount, Countdown } from '@/components/ui/counters';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { celebrate } from '@/components/ui/celebrate';
 
 
 const MoveButton = ({ onClick }: { onClick: () => void }) => (
   <Button variant="secondary" size="small" onClick={onClick} leadingIcon={<Play className="h-3 w-3 fill-current" strokeWidth={0} />}>
-    Move
+    Replay
   </Button>
 );
 
-/** Wraps a demo with a Move button that replays its motion by remounting the content. */
+/* Three commitments that land: a booking on click, a plan switched to annual, a save once it has finished. */
+const CelebrateDemo = () => {
+  const [annual, setAnnual] = React.useState(false);
+  const [saving, setSaving] = React.useState(false);
+  const switchRef = React.useRef<HTMLSpanElement>(null);
+  const saveRef = React.useRef<HTMLButtonElement>(null);
+  return (
+    <div className="flex min-h-44 flex-col items-center justify-center gap-5 pt-20">
+      <Button celebrate>Book the walkthrough</Button>
+      <span ref={switchRef} className="inline-flex">
+        <Switch
+          label="Annual billing"
+          checked={annual}
+          onCheckedChange={(on) => {
+            setAnnual(on);
+            if (on) celebrate(switchRef.current);
+          }}
+        />
+      </span>
+      <Button
+        ref={saveRef}
+        variant="secondary"
+        loading={saving}
+        onClick={() => {
+          setSaving(true);
+          window.setTimeout(() => {
+            setSaving(false);
+            celebrate(saveRef.current);
+          }, 1200);
+        }}
+      >
+        {saving ? 'Saving' : 'Save changes'}
+      </Button>
+    </div>
+  );
+};
+
+/** Wraps a demo with a Replay button that replays its motion by remounting the content. */
 const MotionDemo = ({
   label,
   children,
@@ -204,10 +243,14 @@ export const MotionSection = () => (
         <PresenceDemo />
       </Demo>
 
-      <UsageRow ids={['hover', 'appear']} />
+      <Demo label="Celebrate">
+        <CelebrateDemo />
+      </Demo>
+
+      <UsageRow ids={['hover', 'appear', 'celebrate']} />
 
       {/* ── Counters ── */}
-      <MotionDemo label="Counters: seats and members (sample data)">
+      <MotionDemo label="Counters: seats and members (product UI, sample data)">
         <div className="grid gap-8 sm:grid-cols-2">
           <SeatsRemaining taken={128} total={200} noun="seats" accent="rose" />
           <SeatsRemaining taken={47} total={60} noun="seats left" count="remaining" accent="lavender" />
@@ -236,7 +279,7 @@ export const MotionSection = () => (
         </div>
       </MotionDemo>
 
-      <MotionDemo label="Counters: countdown to a date">
+      <MotionDemo label="Counters: countdown to a real start time">
         <div className="flex flex-col items-start gap-6">
           <Countdown to={COUNTDOWN_FULL} />
           <Countdown to={COUNTDOWN_DAYS} compact />

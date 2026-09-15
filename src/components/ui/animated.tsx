@@ -212,6 +212,9 @@ export interface MarqueeProps {
   pauseControl?: boolean;
   className?: string;
   gapClassName?: string;
+  /** classes for the pause control's row, and for a box inside it that the button aligns to (e.g. a content column when the row is full bleed) */
+  controlsClassName?: string;
+  controlsInnerClassName?: string;
 }
 export const Marquee = ({
   children,
@@ -223,6 +226,8 @@ export const Marquee = ({
   pauseControl = false,
   className,
   gapClassName = 'gap-5',
+  controlsClassName,
+  controlsInnerClassName,
 }: MarqueeProps) => {
   const reduced = useReducedMotion();
   const x = useMotionValue(0);
@@ -342,7 +347,8 @@ export const Marquee = ({
 
   return (
     <div className={cn('flex flex-col gap-3', className)}>
-      <div className="flex justify-end">
+      <div className={controlsClassName}>
+        <div className={cn('flex justify-end', controlsInnerClassName)}>
         <button
           type="button"
           aria-pressed={stopped}
@@ -353,6 +359,7 @@ export const Marquee = ({
           {stopped ? <Play className="h-3 w-3" strokeWidth={1.75} aria-hidden /> : <Pause className="h-3 w-3" strokeWidth={1.75} aria-hidden />}
           {stopped ? 'Play' : 'Pause'}
         </button>
+        </div>
       </div>
       {row}
     </div>

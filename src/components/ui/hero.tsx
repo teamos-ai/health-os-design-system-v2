@@ -15,21 +15,28 @@
  *       <div className="mt-hero-gap-sm" …/>     // action → supporting chips
  *     </HeroContainer>
  *   </Hero>
+ *
+ * `fade` (a page's opening hero only): no hairline at the foot; instead the hero's ground
+ * dissolves over the hero-fade height into the textured ground of the section below, so
+ * nothing marks where the fold was. Use it when the next section sits on the textured ground.
  */
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 export interface HeroProps extends React.HTMLAttributes<HTMLElement> {
   id?: string;
+  /** blend softly into the section below instead of ending on a hairline */
+  fade?: boolean;
   children: React.ReactNode;
 }
 
 /** The hero section — owns the spacious, tokenised vertical padding. */
-export const Hero = ({ id, className, children, ...rest }: HeroProps) => (
+export const Hero = ({ id, fade = false, className, children, ...rest }: HeroProps) => (
   <section
     id={id}
     className={cn(
-      'relative scroll-mt-8 overflow-hidden border-b border-line px-6',
+      'relative isolate scroll-mt-8 overflow-hidden px-6',
+      fade ? 'hero-fade' : 'border-b border-line',
       'pb-hero-py pt-hero-py md:pb-hero-py-lg md:pt-hero-py-lg',
       className
     )}

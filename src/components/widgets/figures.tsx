@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
 import { Pause, Play, Square, TrendingUp, TrendingDown, type LucideIcon } from 'lucide-react';
-import { APRICOT, ROSE, LAVENDER } from '@/lib/palette';
+import { APRICOT, ROSE, LAVENDER, WHITE } from '@/lib/palette';
 import { EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Figure, Grow, SweepRing, useSeen } from './motion';
@@ -130,7 +130,7 @@ export const TrendCard = ({ label, value, suffix = '', delta, points }: { label:
           cy={peak[1]}
           r={4}
           fill={ROSE[200]}
-          stroke="#FFFFFF"
+          stroke={WHITE}
           strokeWidth={2}
           initial={reduced ? false : { scale: 0 }}
           animate={seen ? { scale: 1 } : undefined}

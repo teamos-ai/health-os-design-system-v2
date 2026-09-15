@@ -1,5 +1,5 @@
 /**
- * CommandHero: the command-palette hero. The two-tone headline with its picture tiles, a
+ * CommandHero: the command-palette hero. The headline with its floating icon tiles, a
  * short line, the command bar and quick-action chips, then an illustrative product preview.
  * Built on <Hero> so the spacing rules hold.
  */

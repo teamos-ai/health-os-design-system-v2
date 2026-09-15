@@ -181,6 +181,9 @@ export const TokensSection = () => {
             <RoleRow id="type-subheading" token="text-subheading" spec="Spline Sans 600 · 20 to 24px">
               <p className="font-display text-subheading text-ink-900">Bookings that confirm themselves</p>
             </RoleRow>
+            <RoleRow id="type-title" token="text-title" spec="Spline Sans 500 · 18px on 27px">
+              <p className="font-display text-title text-ink-900">Can I keep my booking link?</p>
+            </RoleRow>
             <RoleRow id="type-body" token="text-body" spec="Anonymous Pro 400 · 16px on 26px">
               <p className="font-sans text-body text-ink-600">Clients book, pay and get reminders while you are with someone else. Nothing waits on you.</p>
             </RoleRow>

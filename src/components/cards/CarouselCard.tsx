@@ -69,6 +69,7 @@ export const CarouselCard = ({ images, category, title, meta, description, figur
               src={images[index].src}
               alt={images[index].alt}
               draggable={false}
+              loading="lazy"
               decoding="async"
               custom={direction}
               variants={SLIDE}

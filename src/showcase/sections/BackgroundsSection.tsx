@@ -4,7 +4,7 @@
  * use, and links the original for download.
  */
 import { useMemo, useState, type ReactNode } from 'react';
-import { Section, Usage } from '@/showcase/Section';
+import { Section, Usage, ShowAll } from '@/showcase/Section';
 import { Badge } from '@/components/ui/badge';
 import { BACKGROUNDS, type Background } from '@/data/backgrounds';
 import { CARD_MEDIA } from '@/data/media';
@@ -49,7 +49,7 @@ export const ImageTile = ({
   meta: string;
   note?: string;
 }) => (
-  <figure className="group flex flex-col gap-3">
+  <figure className="group flex min-w-0 flex-col gap-3">
     <a href={href} download title={`Download ${name}`} className="block overflow-hidden rounded-lg border border-line bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2">
       <img src={src} alt={alt} loading="lazy" decoding="async" className={cn('w-full object-cover transition-transform duration-xl ease-out group-hover:scale-[1.02]', ratio)} />
     </a>
@@ -65,8 +65,8 @@ export const ImageTile = ({
       <span className="font-sans text-label text-ink-600">
         <span className="uppercase text-ink-900">Suggested use</span> {suggestedUse}
       </span>
-      <span className="font-sans text-label text-ink-500">{meta}</span>
-      {note && <span className="font-sans text-label text-ink-600">{note}</span>}
+      <span className="break-words font-sans text-label text-ink-500 [overflow-wrap:anywhere]">{meta}</span>
+      {note && <span className="break-words font-sans text-label text-ink-600 [overflow-wrap:anywhere]">{note}</span>}
     </figcaption>
   </figure>
 );
@@ -89,13 +89,18 @@ export const BackgroundsSection = () => {
   const [ratio, setRatio] = useState<string | null>(null);
   const [tone, setTone] = useState<string | null>(null);
   const [subject, setSubject] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   const filtered = useMemo(
     () => BACKGROUNDS.filter((b) => (!ratio || b.ratio === ratio) && (!tone || b.tone === tone) && (!subject || b.subject === subject)),
     [ratio, tone, subject]
   );
-  const wide = filtered.filter((b) => b.ratio === '16:9');
-  const tall = filtered.filter((b) => b.ratio === '9:16');
+  /* the library opens on a peek of each kind; a filter or Show all reveals every image */
+  const open = expanded || Boolean(ratio || tone || subject);
+  const wide = filtered.filter((b) => b.ratio === '16:9').slice(0, open ? undefined : 6);
+  const tall = filtered.filter((b) => b.ratio === '9:16').slice(0, open ? undefined : 8);
+  const crops = open ? CARD_MEDIA : CARD_MEDIA.slice(0, 4);
+  const total = BACKGROUNDS.length + CARD_MEDIA.length;
   const reset = () => {
     setRatio(null);
     setTone(null);
@@ -143,7 +148,7 @@ export const BackgroundsSection = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-12 bg-paper p-6 md:p-8">
+        <div id="background-list" className="flex flex-col gap-12 bg-paper p-6 md:p-8">
           {wide.length > 0 && (
             <div>
               <h3 className="mb-6 font-display text-subheading text-ink-900">16:9 for web and slides</h3>
@@ -179,10 +184,10 @@ export const BackgroundsSection = () => {
               The images in media/cards, kept as supplied and tagged. Several are exact copies of backgrounds; the note says which.
             </p>
             <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
-              {CARD_MEDIA.map((m) => (
+              {crops.map((m) => (
                 <ImageTile
                   key={m.src}
-                  src={m.src}
+                  src={thumb(m.src)}
                   href={m.src}
                   alt={m.description}
                   name={m.name}
@@ -195,6 +200,7 @@ export const BackgroundsSection = () => {
               ))}
             </div>
           </div>
+          {!(ratio || tone || subject) && <ShowAll expanded={expanded} onToggle={() => setExpanded((e) => !e)} total={total} noun="images" controls="background-list" />}
         </div>
         <Usage id="backgrounds" />
       </div>

@@ -350,7 +350,7 @@ const FanCard = ({
             </ul>
           </div>
           <div className="mt-auto flex flex-col items-center gap-1">
-            <Button className="w-full" onClick={() => onGet?.(file)} leadingIcon={<Download className="h-4 w-4" strokeWidth={1.5} aria-hidden />}>
+            <Button className="w-full" celebrate onClick={() => onGet?.(file)} leadingIcon={<Download className="h-4 w-4" strokeWidth={1.5} aria-hidden />}>
               {actionLabel}
             </Button>
             <Button variant="text" size="small" onClick={onTurnBack}>

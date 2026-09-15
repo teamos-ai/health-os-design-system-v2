@@ -183,7 +183,7 @@ export const FeatureSteps = ({
                   exit={reduced ? { opacity: 0 } : { opacity: 0, y: -8 }}
                   transition={{ duration: DURATION.lg, ease: EASE_OUT }}
                 >
-                  <img src={step.image.src} alt={step.image.alt} decoding="async" className="h-full w-full object-cover" />
+                  <img src={step.image.src} alt={step.image.alt} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                 </motion.div>
               </AnimatePresence>
             </div>

@@ -26,6 +26,7 @@ import * as React from 'react';
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from 'framer-motion';
 import { ArrowUpLeft, Pause, Play, Volume1, Volume2, VolumeX, X } from 'lucide-react';
 import { VIDEO_PIP } from '@/lib/palette';
+import { celebrate } from '@/components/ui/celebrate';
 import { DURATION, EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
@@ -95,15 +96,18 @@ const ControlButton = ({
   label,
   active = false,
   onClick,
+  buttonRef,
   children,
 }: {
   label: string;
   active?: boolean;
   onClick: () => void;
+  buttonRef?: React.Ref<HTMLButtonElement>;
   children: React.ReactNode;
 }) => (
   <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
     <button
+      ref={buttonRef}
       type="button"
       aria-label={label}
       aria-pressed={active || undefined}
@@ -170,6 +174,9 @@ export const VideoPlayer = ({
   className,
 }: VideoPlayerProps) => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
+  const playButtonRef = React.useRef<HTMLButtonElement>(null);
+  /* the first play of each player is a small moment: confetti pops once from the play button */
+  const celebrated = React.useRef(false);
   const slotRef = React.useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const controls = useAnimationControls();
@@ -235,7 +242,15 @@ export const VideoPlayer = ({
   const togglePlay = () => {
     const video = videoRef.current;
     if (!video) return;
-    if (video.paused) void video.play().catch(() => setIsPlaying(false));
+    if (video.paused)
+      void video
+        .play()
+        .then(() => {
+          if (celebrated.current) return;
+          celebrated.current = true;
+          celebrate(playButtonRef.current ?? video);
+        })
+        .catch(() => setIsPlaying(false));
     else video.pause();
   };
 
@@ -386,7 +401,7 @@ export const VideoPlayer = ({
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <ControlButton label={isPlaying ? 'Pause' : 'Play'} onClick={togglePlay}>
+                    <ControlButton label={isPlaying ? 'Pause' : 'Play'} onClick={togglePlay} buttonRef={playButtonRef}>
                       {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
                     </ControlButton>
                     <div className="flex items-center gap-x-1">

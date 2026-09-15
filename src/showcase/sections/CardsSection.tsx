@@ -1,12 +1,14 @@
 /**
  * CardsSection: the nine card types with their usage. Images come from the tagged library;
- * prices follow the offer. Bentos have their own section.
+ * prices follow the offer. Pricing is shown once, here, as the one pricing system (PricingTable)
+ * that page blocks and live pages also use. Bentos have their own section.
  */
 import { CalendarCheck, MailCheck } from 'lucide-react';
 import { Section, Example } from '@/showcase/Section';
-import { ContentCard, FeatureCard, ServiceCard, PricingCard, ResourceCard, ActionCard, SessionCard, ProfileCard, StepsCard } from '@/components/cards';
+import { ContentCard, FeatureCard, ServiceCard, ResourceCard, ActionCard, SessionCard, ProfileCard, StepsCard } from '@/components/cards';
+import { PricingTable } from '@/components/blocks/PricingTable';
 import { thumb } from '@/lib/images';
-import { PLANS, PRICING_NOTE } from '@/data/offer';
+import { PLANS, PRICING_NOTE, ANNUAL_NOTE } from '@/data/offer';
 
 const IMG = {
   filming: '/imagery/work-and-content-creation/woman-filming-content-on-laptop-by-city-window-16-9.png',
@@ -83,13 +85,10 @@ export const CardsSection = () => (
         />
       </Example>
 
-      <Example id="pricing-card" label="Pricing card">
-        <div className="grid gap-6 md:grid-cols-3">
-          {PLANS.map((plan) => (
-            <PricingCard key={plan.name} {...plan} />
-          ))}
+      <Example id="pricing-table" label="Pricing">
+        <div className="py-4">
+          <PricingTable plans={PLANS} note={PRICING_NOTE} annualNote={ANNUAL_NOTE} />
         </div>
-        <p className="mt-6 font-sans text-label text-ink-500">{PRICING_NOTE}</p>
       </Example>
 
       <Example id="resource-card" label="Resource card">
@@ -124,7 +123,7 @@ export const CardsSection = () => (
             tone="soft"
             title="A walkthrough of your setup"
             description="A short call to look at your current setup and what could run on its own."
-            action={{ label: 'Book the walkthrough' }}
+            action={{ label: 'Book the walkthrough', celebrate: true }}
             image={{ src: thumb(IMG.coffee), alt: 'Two women talking over coffee at an outdoor table' }}
           />
         </div>
@@ -140,7 +139,7 @@ export const CardsSection = () => (
             place="Bondi studio"
             mode="In studio"
             image={{ src: thumb(IMG.yoga), alt: 'A group holding side plank on mats in a bright yoga studio' }}
-            action={{ label: 'Reserve a place' }}
+            action={{ label: 'Reserve a place', celebrate: true }}
             calendarHref="#card-bento"
           />
           <SessionCard
@@ -164,7 +163,7 @@ export const CardsSection = () => (
             portrait={{ src: thumb(IMG.portrait), alt: 'A woman in a pink sweatshirt and cap holding her phone' }}
             focus={['Mobility', 'Strength', 'Pilates']}
             approach="Small groups, slow progressions and a plan you can keep up at home."
-            action={{ label: 'Book with Priya' }}
+            action={{ label: 'Book with Priya', celebrate: true }}
           />
           <ProfileCard
             name="Ana Silva"

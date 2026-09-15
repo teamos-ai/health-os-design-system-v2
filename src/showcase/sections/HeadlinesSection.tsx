@@ -3,11 +3,13 @@
  * anatomy, and the headline library: twenty ready headlines that open on the first four,
  * with a pillar filter and a copy button for each line's markup. Headlines render as h3 so
  * the reference keeps one h1; on a real page each is the h1. Icons live in the icon library.
+ * Floating tiles show the home hero's exception: tiles around the headline instead of inside it.
  */
 import * as React from 'react';
 import { Copy } from 'lucide-react';
 import { Section, Example, Demo, ShowAll } from '@/showcase/Section';
 import { Headline, headlineParts } from '@/components/ui/headline';
+import { FloatingTiles, type FloatingTile } from '@/components/ui/floating-tiles';
 import { Badge } from '@/components/ui/badge';
 import { SegmentedControl } from '@/components/ui/segmented';
 import { useToast } from '@/components/ui/toast';
@@ -15,7 +17,7 @@ import { HEADLINE_LIBRARY, HEADLINE_PILLARS, type HeadlinePillar } from '@/data/
 
 const EXAMPLES = [
   { text: 'You built {blocks} it. Now [make] it run {computer} without you.', where: 'Homepage hero' },
-  { text: 'The design {swatches} system behind a [calm] {stones} practice', where: 'Reference site hero' },
+  { text: 'Notes for a [calm] {stones} practice that runs {computer} on its own', where: 'Blog index' },
   { text: 'Fewer {tools} tools, wired {cables} [together]', where: 'Article' },
 ];
 
@@ -26,6 +28,15 @@ const ANATOMY = [
 ];
 
 const PEEK = 4;
+
+/* A small field for the example frame: tiles in the margins, clear of the words. */
+const FIELD: FloatingTile[] = [
+  { id: 'swatches', x: 10, y: 28, size: 'md', lean: -1, from: 'sm' },
+  { id: 'stones', x: 18, y: 76, size: 'sm', lean: 0.8, from: 'md' },
+  { id: 'computer', x: 89, y: 30, size: 'md', lean: 0.9, from: 'sm' },
+  { id: 'desk-calendar', x: 81, y: 78, size: 'sm', lean: -0.7, from: 'md' },
+  { id: 'envelope', x: 50, y: 12, size: 'sm', lean: 0.5, until: 'sm' },
+];
 
 /* Lines whose tiles are all made come first, so the library opens on headlines ready to use. */
 const ORDERED = [...HEADLINE_LIBRARY].sort((a, b) => Number(headlineParts(a.text).tiles.some((t) => t.status === 'planned')) - Number(headlineParts(b.text).tiles.some((t) => t.status === 'planned')));
@@ -140,6 +151,13 @@ export const HeadlinesSection = () => (
           ))}
         </dl>
       </Demo>
+
+      <Example id="floating-tiles" label="Floating tiles: the home hero only" padded={false}>
+        <div className="relative isolate overflow-hidden px-6 py-20 md:py-24">
+          <FloatingTiles tiles={FIELD} />
+          <Headline as="h3" tilesAround text="The [ultimate] design system for Health OS" className="mx-auto max-w-xl text-center" />
+        </div>
+      </Example>
 
       <Example id="headline-library" label="Headline library">
         <Library />

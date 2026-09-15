@@ -13,7 +13,8 @@ import { cn } from '@/lib/utils';
 export interface ActionCardProps {
   title: string;
   description: string;
-  action: { label: string; href?: string };
+  /** the one next step; set `celebrate` to pop confetti when the click itself completes the step */
+  action: { label: string; href?: string; celebrate?: boolean };
   /** a short line under the button, e.g. what happens next */
   note?: string;
   tone?: 'dawn' | 'soft';
@@ -34,7 +35,8 @@ export const ActionCard = ({ title, description, action, note, tone = 'dawn', im
       <h3 className="max-w-md font-display text-subheading text-ink-900">{title}</h3>
       <p className="max-w-md font-sans text-body text-ink-600">{description}</p>
       <Button
-        href={action.href ?? '#'}
+        href={action.href}
+        celebrate={action.celebrate}
         className="mt-2"
         trailingIcon={<ArrowRight className="h-4 w-4 transition-transform duration-sm group-hover:translate-x-1" strokeWidth={1.5} aria-hidden />}
       >

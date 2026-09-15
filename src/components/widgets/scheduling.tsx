@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
-import { Figure } from './motion';
+import { PricingCard, type PricingCardProps } from '@/components/cards';
 
 const pop = (i: number, step = 0.02) => ({
   initial: { opacity: 0, y: 6 },
@@ -156,51 +156,9 @@ export const OnboardingStepper = ({ steps }: { steps: { title: string; status: S
 );
 
 /* ── 26 · Plan card ───────────────────────────────────────────────────── */
-export const PlanCard = ({
-  name,
-  price,
-  cadence,
-  fee,
-  features,
-  action,
-}: {
-  name: string;
-  price: number;
-  cadence: string;
-  fee?: string;
-  features: string[];
-  action: string;
-}) => (
-  <div className="w-full overflow-hidden rounded-lg border border-line bg-surface">
-    <div className="relative overflow-hidden bg-brand-gradient-soft px-5 py-4">
-      <span aria-hidden className="widget-sheen" />
-      <p className="relative font-sans text-label uppercase text-ink-900">{name}</p>
-      <p className="relative mt-1 font-display text-heading text-ink-900">
-        <Figure value={price} prefix="$" />
-        <span className="ml-2 font-sans text-body text-ink-600">{cadence}</span>
-      </p>
-      {fee && <p className="relative font-sans text-label text-ink-600">{fee}</p>}
-    </div>
-    <ul className="flex flex-col gap-3 p-5">
-      {features.map((f, i) => (
-        <motion.li key={f} className="flex items-center gap-3 font-sans text-body text-ink-900" {...pop(i, 0.1)}>
-          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-apricot-50 text-ink-900 ring-1 ring-inset ring-apricot-200">
-            <Check className="h-3 w-3" strokeWidth={3} aria-hidden />
-          </span>
-          {f}
-        </motion.li>
-      ))}
-      <li className="mt-1">
-        <button
-          type="button"
-          className="h-11 w-full rounded-md bg-apricot-200 font-display text-body text-ink-900 transition-colors hover:bg-apricot-200/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2"
-        >
-          {action}
-        </button>
-      </li>
-    </ul>
-  </div>
-);
+/** One plan inside the product, such as an upgrade prompt. It is the same PricingCard as every
+ *  pricing view, featured, so a plan never looks different in the product and on the site. */
+export const PlanCard = (props: PricingCardProps) => <PricingCard {...props} featured />;
 
 /* ── 27 · Toggle settings ─────────────────────────────────────────────── */
 export const ToggleSettings = ({

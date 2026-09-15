@@ -27,6 +27,7 @@ import { Button } from '@/components/ui/button';
 import { IconButton } from '@/components/ui/icon-button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/toast';
+import { celebrate } from '@/components/ui/celebrate';
 import { DURATION, EASE_OUT } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
@@ -283,6 +284,7 @@ const CtaPage = ({ page, n }: { page: Extract<EbookPage, { kind: 'cta' }>; n: nu
   const [email, setEmail] = React.useState('');
   const [error, setError] = React.useState<string>();
   const formRef = React.useRef<HTMLFormElement>(null);
+  const submitRef = React.useRef<HTMLButtonElement>(null);
 
   /* The engine turns the page on mousedown and cancels its default, which would keep the field
      from taking focus. Stop those events at the form, natively, before they reach the engine. */
@@ -307,6 +309,7 @@ const CtaPage = ({ page, n }: { page: Extract<EbookPage, { kind: 'cta' }>; n: nu
     }
     setError(undefined);
     action.onSubmit?.(value);
+    celebrate(submitRef.current);
     if (action.confirmation) toast({ ...action.confirmation, tone: 'success' });
     setEmail('');
   };
@@ -328,7 +331,7 @@ const CtaPage = ({ page, n }: { page: Extract<EbookPage, { kind: 'cta' }>; n: nu
           onChange={(e) => setEmail(e.target.value)}
           error={error}
         />
-        <Button type="submit" className="w-full">
+        <Button ref={submitRef} type="submit" className="w-full">
           {action.label}
         </Button>
       </form>

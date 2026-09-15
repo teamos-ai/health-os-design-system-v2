@@ -11,7 +11,7 @@ import { BentoSection } from '@/sections/BentoSection';
 import { DirectoryCompare } from '@/sections/DirectoryCompare';
 import { PricingTable } from '@/components/blocks/PricingTable';
 import { Faq } from '@/components/blocks/Faq';
-import { PLANS, PRICING_NOTE, FAQ_ITEMS } from '@/data/offer';
+import { PLANS, PRICING_NOTE, ANNUAL_NOTE, FAQ_ITEMS } from '@/data/offer';
 
 export const LivePageSection = () => (
   <Section id="live" className="border-b-0 [&>div]:max-w-6xl">
@@ -39,7 +39,7 @@ export const LivePageSection = () => (
         <section id="live-pricing" className="py-16 md:py-24">
           <div className="mx-auto max-w-container px-6">
             <h2 className="mb-12 max-w-2xl font-display text-heading text-ink-900">Three plans</h2>
-            <PricingTable plans={PLANS} note={PRICING_NOTE} />
+            <PricingTable plans={PLANS} note={PRICING_NOTE} annualNote={ANNUAL_NOTE} />
           </div>
         </section>
         <DirectoryCompare id="live-compare" />

@@ -32,7 +32,7 @@ export default {
         "100": "#F2EFEB",
         "200": "#E3DDD6",
         "400": "#A39B91",
-        "500": "#7C746B",
+        "500": "#6E665D",
         "600": "#5A534B",
         "900": "#1F1F1F"
       },
@@ -92,6 +92,14 @@ export default {
           "fontWeight": "600"
         }
       ],
+      "title": [
+        "1.125rem",
+        {
+          "lineHeight": "1.5",
+          "letterSpacing": "-0.005em",
+          "fontWeight": "500"
+        }
+      ],
       "body": [
         "1rem",
         {
@@ -126,7 +134,8 @@ export default {
         "hero-py": "7rem",
         "hero-py-lg": "11rem",
         "hero-gap": "3.5rem",
-        "hero-gap-sm": "2rem"
+        "hero-gap-sm": "2rem",
+        "hero-fade": "18rem"
       },
       "maxWidth": {
         "container": "1200px",

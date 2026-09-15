@@ -12,6 +12,7 @@
 #
 # Output:  public/backgrounds/thumbs/<name>.jpg
 #          public/imagery/<theme>/thumbs/<name>.jpg
+#          public/media/cards/thumbs/<name>.jpg
 #
 set -euo pipefail
 shopt -s nullglob nocaseglob
@@ -41,5 +42,7 @@ gen() {
 for png in "$ROOT"/public/backgrounds/*.png; do gen "$png"; done
 # Imagery — one level of theme sub-directories
 for png in "$ROOT"/public/imagery/*/*.png; do gen "$png"; done
+# Card crops — shown at card size in the Backgrounds section, originals kept for download
+for png in "$ROOT"/public/media/cards/*.png; do gen "$png"; done
 
 echo "thumbnails written: $count  skipped: $skipped  (${MAXEDGE}px longest edge, q${QUALITY})"

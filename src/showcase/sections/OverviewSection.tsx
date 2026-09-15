@@ -2,7 +2,9 @@
  * OverviewSection: the system in carousel cards on a slow, draggable marquee that drifts
  * left to right, with a pause button. Each card shows background photos, one idea, one
  * figure and an Open action that scrolls to its section. Photo arrows and dots work by
- * pointer and touch; keyboard users get one stop per card, and focus pauses the row.
+ * pointer and touch; keyboard users get one stop per card, and focus pauses the row. The row
+ * runs edge to edge of the page area so more cards are in view; the pause button stays aligned
+ * with the section's content column.
  */
 import { Section } from '@/showcase/Section';
 import { Marquee } from '@/components/ui/animated';
@@ -17,8 +19,20 @@ const photo = (src: string) => ({
 });
 
 export const OverviewSection = () => (
-  <Section id="overview">
-    <Marquee speed={18} reverse draggable pauseControl gapClassName="gap-4" ariaLabel="System snapshots" className="py-2">
+  <Section
+    id="overview"
+    bleed={
+    <Marquee
+      speed={18}
+      reverse
+      draggable
+      pauseControl
+      gapClassName="gap-4"
+      ariaLabel="System snapshots"
+      className="py-2"
+      controlsClassName="px-6 md:px-12"
+      controlsInnerClassName="mx-auto max-w-5xl"
+    >
       {OVERVIEW_CARDS.map((card) => (
         <CarouselCard
           key={card.title}
@@ -33,5 +47,6 @@ export const OverviewSection = () => (
         />
       ))}
     </Marquee>
-  </Section>
+    }
+  />
 );

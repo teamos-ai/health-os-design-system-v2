@@ -66,22 +66,22 @@ const TileEntry = ({ tile, terms }: { tile: HeadlineTile; terms: string[] }) => 
         <p className="font-sans text-label text-ink-600">{tile.picture}</p>
         {tile.note && <p className="font-sans text-label text-ink-500">{tile.note}</p>}
       </div>
-      <div className="mt-auto flex flex-wrap items-center gap-2">
+      <div className="mt-auto flex min-w-0 items-center gap-2">
         <button
           type="button"
           onClick={copy}
           aria-label={`Copy ${mark}, the ${tile.words[0].toLowerCase()} icon`}
-          className="inline-flex h-9 w-fit items-center gap-2 rounded-md border border-line bg-surface px-3 font-sans text-label text-ink-900 transition-colors duration-sm ease-out hover:border-ink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
+          className="inline-flex h-9 min-w-0 items-center gap-2 rounded-md border border-line bg-surface px-3 font-sans text-label text-ink-900 transition-colors duration-sm ease-out hover:border-ink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
         >
-          {mark}
-          <Copy className="h-3 w-3 text-ink-500" strokeWidth={1.75} aria-hidden />
+          <span className="truncate">{mark}</span>
+          <Copy className="h-3 w-3 shrink-0 text-ink-500" strokeWidth={1.75} aria-hidden />
         </button>
         {tile.baked && (
           <a
             href={tile.baked}
             download
             aria-label={`Download the ${tile.words[0].toLowerCase()} icon tile as a PNG`}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line bg-surface text-ink-600 transition-colors duration-sm ease-out hover:border-ink-400 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
+            className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-md border sm:inline-flex border-line bg-surface text-ink-600 transition-colors duration-sm ease-out hover:border-ink-400 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
           >
             <Download className="h-4 w-4" strokeWidth={1.75} aria-hidden />
           </a>
@@ -126,11 +126,11 @@ const Library = () => {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search a headline word: calm, bookings, software"
+            placeholder="Search a word or an object: calm, bookings, laptop"
             className="h-12 w-full rounded-md border border-line bg-surface pl-12 pr-4 font-sans text-body text-ink-900 placeholder:text-ink-500 focus:border-ink-900 focus:outline-none focus:ring-1 focus:ring-ink-900 [&::-webkit-search-cancel-button]:appearance-none"
           />
         </div>
-        <div role="group" aria-label="Filter by group" className="flex flex-wrap gap-2">
+        <div role="group" aria-label="Filter by group" className="no-scrollbar -mx-6 flex gap-2 overflow-x-auto px-6 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
           {[null, ...HEADLINE_TILE_GROUPS].map((g) => (
             <button
               key={g ?? 'all'}
@@ -138,7 +138,7 @@ const Library = () => {
               aria-pressed={group === g}
               onClick={() => setGroup(g)}
               className={cn(
-                'rounded-md border px-3 py-2 font-sans text-label transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900',
+                'shrink-0 whitespace-nowrap rounded-md border px-3 py-2 font-sans text-label transition-colors duration-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ink-900',
                 group === g ? 'border-apricot-200 bg-apricot-50 text-ink-900' : 'border-line bg-surface text-ink-600 hover:border-ink-400 hover:text-ink-900'
               )}
             >
@@ -147,9 +147,14 @@ const Library = () => {
           ))}
         </div>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <SegmentedControl size="sm" aria-label="Filter by status" options={STATUS_OPTIONS} value={status} onValueChange={(v) => setStatus(v as StatusFilter)} />
+          {/* the status filter only earns its place while some icons are still to make */}
+          {READY < HEADLINE_TILE_LIST.length ? (
+            <SegmentedControl size="sm" aria-label="Filter by status" options={STATUS_OPTIONS} value={status} onValueChange={(v) => setStatus(v as StatusFilter)} />
+          ) : (
+            <span />
+          )}
           <span className="font-sans text-label text-ink-600" aria-live="polite">
-            {filtering ? `${filtered.length} of ${HEADLINE_TILE_LIST.length} icons` : `${HEADLINE_TILE_LIST.length} icons, ${READY} ready`}
+            {filtering ? `${filtered.length} of ${HEADLINE_TILE_LIST.length} icons` : READY < HEADLINE_TILE_LIST.length ? `${HEADLINE_TILE_LIST.length} icons, ${READY} ready` : `${HEADLINE_TILE_LIST.length} icons in ${HEADLINE_TILE_GROUPS.length} groups`}
           </span>
         </div>
       </div>

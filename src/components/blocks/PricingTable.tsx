@@ -1,22 +1,24 @@
 /**
- * PricingTable: a row of PricingCards. Two or three plans, one featured.
- * Put the currency and anything charged on top in the note below the table.
+ * PricingTable: the one pricing system. A row of PricingCards, two or three plans, one featured,
+ * used everywhere pricing appears (the card reference, page blocks and live pages) so every view
+ * has the same layout, motion, switch and celebration. Put the currency and anything charged on
+ * top in the note below the table.
  *
  * Motion: as the table scrolls into view the cards rise into place. From md up the featured
  * plan settles slightly forward and the plans beside it slightly back and in, so the eye lands
  * on the recommendation; on phones the cards simply rise in order. Reduced motion shows them
  * at rest.
  *
- * Billing switch: when every plan has an `annualPrice`, a switch appears above the cards.
- * Turning annual billing on slides each price to its annual figure and marks the moment with
- * a small burst of confetti in the soft brand colours. The switch never appears for plans
- * without a recorded annual price, so a table cannot invent one.
+ * Billing switch: when every plan has an `annualPrice`, a switch appears above the cards with
+ * its note (Health OS: "2 months free"). Turning annual billing on slides each price to its
+ * yearly figure and pops confetti from the switch. The featured plan's action celebrates too.
+ * The switch never appears for plans without an annual price, so a table cannot invent one.
  */
 import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { PricingCard, type Billing, type PricingCardProps } from '@/components/cards';
 import { Switch } from '@/components/ui/switch';
-import { useCelebrate } from '@/components/ui/celebrate';
+import { celebrate } from '@/components/ui/celebrate';
 import { cn } from '@/lib/utils';
 
 export interface PricingTableProps {
@@ -44,7 +46,6 @@ const useWide = () => {
 export const PricingTable = ({ plans, note, annualLabel = 'Annual billing', annualNote, className }: PricingTableProps) => {
   const [billing, setBilling] = React.useState<Billing>('monthly');
   const switchRef = React.useRef<HTMLSpanElement>(null);
-  const { celebrate, confetti } = useCelebrate();
   const reduced = useReducedMotion();
   const wide = useWide();
   const hasAnnual = plans.length > 0 && plans.every((p) => p.annualPrice !== undefined);
@@ -72,7 +73,9 @@ export const PricingTable = ({ plans, note, annualLabel = 'Annual billing', annu
           </span>
           {annualNote && <span className="font-sans text-label text-ink-600">{annualNote}</span>}
           <span className="sr-only" aria-live="polite">
-            {billing === 'annual' ? 'Showing prices billed annually' : 'Showing prices billed monthly'}
+            {billing === 'annual'
+              ? `Showing prices billed annually: ${plans.map((p) => `${p.name} $${p.annualPrice?.toLocaleString('en-AU')} a year`).join(', ')}`
+              : `Showing prices billed monthly: ${plans.map((p) => `${p.name} $${p.price.toLocaleString('en-AU')} a month`).join(', ')}`}
           </span>
         </div>
       )}
@@ -86,12 +89,11 @@ export const PricingTable = ({ plans, note, annualLabel = 'Annual billing', annu
             viewport={{ once: true, amount: 0.25 }}
             transition={{ type: 'spring', stiffness: 100, damping: 30, delay: wide ? 0.1 : i * 0.08, opacity: { duration: 0.4 } }}
           >
-            <PricingCard {...plan} billing={hasAnnual ? billing : undefined} />
+            <PricingCard {...plan} billing={hasAnnual ? billing : undefined} annualNote={hasAnnual ? annualNote : undefined} />
           </motion.div>
         ))}
       </div>
       {note && <p className="mt-6 text-center font-sans text-label text-ink-500">{note}</p>}
-      {confetti}
     </div>
   );
 };

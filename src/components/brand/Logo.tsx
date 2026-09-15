@@ -26,6 +26,8 @@ export const LogoMark = ({ size = 36, className }: LogoMarkProps) => (
     width={size}
     height={size}
     draggable={false}
+    loading="lazy"
+    decoding="async"
     className={cn('block select-none', className)}
     style={{ width: size, height: size }}
   />
@@ -52,6 +54,8 @@ export const LogoLong = ({ variant = 'white', height = 40, className }: LogoLong
     width={Math.round(height * LOGO_LONG_RATIO)}
     height={height}
     draggable={false}
+    loading="lazy"
+    decoding="async"
     className={cn('block select-none', className)}
     style={{ height, width: Math.round(height * LOGO_LONG_RATIO) }}
   />

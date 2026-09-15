@@ -12,12 +12,12 @@ The live page in the reference site is this recipe, assembled.
 |---|---|---|
 | Banner | `Ticker` | Optional. The one banner, on the soft wash, on both themes. One per page |
 | Navigation | `Nav` | One primary button in the bar |
-| Hero | `CommandHero`, or `Hero` + `HeroContainer` + `HeroGlow` | Spacing comes from the hero tokens. The H1 is a `Headline` with its accent word and icon tiles, ideally a line from the headline library |
+| Hero | `CommandHero`, or `Hero` + `HeroContainer` + `HeroGlow` | Spacing comes from the hero tokens. The H1 is a `Headline` with its accent word and floating icon tiles, ideally a line from the headline library. Add `fade` when the section below sits on the textured ground. Only a page's opening hero may float its tiles around the headline with `FloatingTiles` |
 | Why it works | `Pillars` (feature grid) | Up to four `FeatureCard`s |
 | What runs | `FeatureBento` for a section summary, `ProductBento` for what the platform does, or feature components (`FeatureSteps`, `FeatureTabs`, `FeatureGrid`, `FeatureCards`) | One bento per page. Figures from the database only |
-| Plans | `PricingTable` with plans from `src/data/offer.ts` | Prices and fees exactly as the database states them |
+| Plans | `PricingTable` with plans from `src/data/offer.ts` (never a loose `PricingCard`) | Prices and fees exactly as the offer states them. Annual prices are monthly × 10, two months free; the switch and its confetti come with the table |
 | Comparison | `DirectoryCompare` | Open decision; never names a competitor |
-| Questions | `Faq`, two columns for six or more | Answers from the database FAQ |
+| Questions | `Faq`, one condensed column up to 800px | Answers from the database FAQ. Questions in the quiet title role |
 | Footer | `Footer` | Light surface-2 panel with a hairline, `rounded-lg`. `LogoLong` fits here when there is room |
 
 Sections sit at `py-16 md:py-24` inside `max-w-container px-6`. Every third section can take the textured ground. The primary action on the page is the same everywhere it appears.
@@ -88,7 +88,7 @@ The reference site's social templates are the starting point.
 
 ## 9. Icon
 
-Every H1 uses one to three icons, and cards, bentos and posts use them on their own (`IconTile`). Search the icon library (`HEADLINE_TILE_LIST`, or the Icon library section) for the word: all 107 headline words point at an icon. An icon marked `planned` needs making before it goes live.
+Every H1 uses one to three icons, and cards, bentos and posts use them on their own (`IconTile`). Search the icon library (`HEADLINE_TILE_LIST`, or the Icon library section) for the word or the object: 228 icons in 17 groups, and all 107 headline words point at an icon. An icon marked `planned` needs making before it goes live.
 
 - **Model:** Tumai's tiles (Health OS Branding Guidelines, pages 11 and 12): one real object in warm studio light, cut out, sitting on the warm charcoal squircle. The ground comes from the `icon` tokens, never from the image.
 - **Subject:** one literal, recognisable object for the word beside it, written as the tile's `picture`. Software is a vintage all-in-one computer, calm is balanced river stones, built is wooden blocks. No people, icons, emoji, abstract shapes or brand logos (a classic product shape is fine; its logo is not).

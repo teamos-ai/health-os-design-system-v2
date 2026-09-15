@@ -14,4 +14,17 @@ export default defineConfig({
     port: 5183,
     strictPort: true,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        /* libraries change rarely, so they cache apart from the system's own code */
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          motion: ['framer-motion'],
+          icons: ['lucide-react'],
+          pageflip: ['react-pageflip'],
+        },
+      },
+    },
+  },
 });

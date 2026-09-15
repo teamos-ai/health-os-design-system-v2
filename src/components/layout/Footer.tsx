@@ -36,6 +36,7 @@ export const Footer = ({ className }: { className?: string }) => {
             </div>
             <Button
               href="#book"
+              celebrate
               trailingIcon={<ArrowRight className="h-4 w-4" strokeWidth={1.5} aria-hidden />}
             >
               Book the walkthrough
@@ -82,7 +83,7 @@ export const Footer = ({ className }: { className?: string }) => {
                     type="email"
                     required
                     placeholder="Email address"
-                    className="w-full rounded-md bg-transparent px-3 py-2 font-sans text-body text-ink-900 placeholder:text-ink-400 focus:outline-none"
+                    className="w-full rounded-md bg-transparent px-3 py-2 font-sans text-body text-ink-900 placeholder:text-ink-500 focus:outline-none"
                   />
                   <button
                     type="submit"

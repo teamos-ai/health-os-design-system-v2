@@ -9,9 +9,14 @@
  * Sizes: `default` everywhere, `small` only in dense areas (tables, toolbars, cards).
  * Every style supports `disabled` and `loading`. Same shape and behaviour in both themes.
  * Icon-only actions use <IconButton>. Pass `href` to render a link that looks like a button.
+ * `celebrate` pops confetti from the top of the button when the click itself completes a
+ * commitment, such as confirming a booking or choosing a plan (see celebrate.tsx for when). For an
+ * action that has to finish first, such as a save, call celebrate(ref) when it succeeds instead.
+ * A link that leaves the page never celebrates: the confetti would be gone before anyone saw it.
  */
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { celebrate as popConfetti } from '@/components/ui/celebrate';
 import { cn } from '@/lib/utils';
 
 const button = cva(
@@ -52,6 +57,8 @@ export interface ButtonProps
   trailingIcon?: React.ReactNode;
   /** Shows a spinner, sets aria-busy and blocks clicks while keeping the label visible. */
   loading?: boolean;
+  /** Pop confetti from the top of the button on click: a booking, a plan chosen, a confirmation. */
+  celebrate?: boolean;
 }
 
 const Spinner = () => (
@@ -63,10 +70,16 @@ const Spinner = () => (
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { className, variant, size, href, leadingIcon, trailingIcon, loading = false, disabled, children, type, ...props },
+    { className, variant, size, href, leadingIcon, trailingIcon, loading = false, celebrate = false, disabled, children, type, onClick, ...props },
     ref
   ) => {
     const classes = cn(button({ variant, size }), className);
+    const leavesPage = href !== undefined && !href.startsWith('#');
+    if (import.meta.env.DEV && celebrate && leavesPage) console.warn(`Button "${String(children)}": celebrate is ignored on a link that leaves the page (${href}).`);
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement & HTMLAnchorElement>) => {
+      onClick?.(e);
+      if (celebrate && !leavesPage && !e.defaultPrevented) popConfetti(e.currentTarget);
+    };
     const content = (
       <>
         {loading ? <Spinner /> : leadingIcon}
@@ -81,6 +94,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       return (
         <a
           {...anchorProps}
+          onClick={handleClick}
           href={blocked ? undefined : href}
           aria-disabled={blocked || undefined}
           aria-busy={loading || undefined}
@@ -98,6 +112,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={classes}
         disabled={disabled || loading || undefined}
         aria-busy={loading || undefined}
+        onClick={handleClick}
         {...props}
       >
         {content}

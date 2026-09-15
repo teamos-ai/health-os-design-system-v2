@@ -98,7 +98,7 @@ export const Nav = ({ className, sticky = true, activeHref }: NavProps) => {
             aria-label="Search the platform"
           />
           <ThemeToggle />
-          <Button size="small" className="hidden sm:inline-flex">
+          <Button size="small" celebrate className="hidden sm:inline-flex">
             Book the walkthrough
           </Button>
           <IconButton

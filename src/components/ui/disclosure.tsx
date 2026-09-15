@@ -1,7 +1,8 @@
 /**
- * Disclosure: a calm accordion row. Height animates open and closed; a soft apricot plus
- * turns a quarter turn into a cross when open, the same control the FAQ uses. Ink focus
- * ring. Reduced motion snaps open and closed. 8px corners, flat hairline, no glass.
+ * Disclosure: a calm accordion row. The title is in the title role (18px Spline Sans medium),
+ * gentler than a subheading. Height animates open and closed; a small 24px apricot plus turns a
+ * quarter turn into a cross when open, the same control the FAQ uses. Ink focus ring. Reduced
+ * motion snaps open and closed. 8px corners, flat hairline, no glass.
  */
 import * as React from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
@@ -51,14 +52,14 @@ export const Disclosure = ({
         onClick={toggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className="flex w-full items-center justify-between gap-3 rounded-md px-4 py-4 text-left font-display text-subheading text-ink-900 transition-colors duration-sm hover:bg-ink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
+        className="flex w-full items-center justify-between gap-4 rounded-md px-4 py-3 text-left font-display text-title text-ink-900 transition-colors duration-sm hover:bg-ink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
       >
         <span>{title}</span>
         <span
           aria-hidden
-          className={cn('flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-apricot-200 text-ink-900 transition-transform duration-md ease-out', open && 'rotate-45')}
+          className={cn('flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-apricot-200 text-ink-900 transition-transform duration-md ease-out', open && 'rotate-45')}
         >
-          <Plus className="h-4 w-4" strokeWidth={2} />
+          <Plus className="h-3 w-3" strokeWidth={2.25} />
         </span>
       </button>
       <AnimatePresence initial={false}>

@@ -6,6 +6,7 @@ import * as React from 'react';
 import { ArrowRight, CalendarCheck, Copy, MoreHorizontal, Play, X } from 'lucide-react';
 import { Section, Example } from '@/showcase/Section';
 import { Button } from '@/components/ui/button';
+import { celebrate } from '@/components/ui/celebrate';
 import { IconButton } from '@/components/ui/icon-button';
 
 const Row = ({ label, children }: { label: string; children: React.ReactNode }) => (
@@ -17,9 +18,14 @@ const Row = ({ label, children }: { label: string; children: React.ReactNode }) 
 
 export const ButtonsSection = () => {
   const [saving, setSaving] = React.useState(false);
+  const saveRef = React.useRef<HTMLButtonElement>(null);
+  /* the save lands, then it celebrates: confetti never fires while something is still loading */
   const save = () => {
     setSaving(true);
-    window.setTimeout(() => setSaving(false), 1600);
+    window.setTimeout(() => {
+      setSaving(false);
+      celebrate(saveRef.current);
+    }, 1600);
   };
 
   return (
@@ -27,9 +33,13 @@ export const ButtonsSection = () => {
       <div className="flex flex-col gap-8">
         <Example id="button" label="Button">
           <Row label="Primary">
-            <Button leadingIcon={<CalendarCheck className="h-4 w-4" strokeWidth={1.5} />}>Book the walkthrough</Button>
+            <Button celebrate leadingIcon={<CalendarCheck className="h-4 w-4" strokeWidth={1.5} />}>
+              Book the walkthrough
+            </Button>
             <Button trailingIcon={<ArrowRight className="h-4 w-4" strokeWidth={1.5} />}>Start the check</Button>
-            <Button size="small">Save</Button>
+            <Button size="small" celebrate>
+              Save
+            </Button>
           </Row>
           <Row label="Secondary">
             <Button variant="secondary">See pricing</Button>
@@ -47,7 +57,7 @@ export const ButtonsSection = () => {
             </Button>
           </Row>
           <Row label="Loading">
-            <Button loading={saving} onClick={save}>
+            <Button ref={saveRef} loading={saving} onClick={save}>
               {saving ? 'Saving' : 'Save changes'}
             </Button>
             <Button variant="secondary" loading>

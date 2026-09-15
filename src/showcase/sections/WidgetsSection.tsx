@@ -5,6 +5,7 @@
  */
 import type { ReactNode } from 'react';
 import { CalendarCheck, CheckCircle2, Users } from 'lucide-react';
+import { PLANS } from '@/data/offer';
 import { Section } from '@/showcase/Section';
 import { Badge } from '@/components/ui/badge';
 import { entry } from '@/showcase/catalog';
@@ -44,7 +45,8 @@ import {
 } from '@/components/widgets';
 
 type Span = 'third' | 'half' | 'full';
-const SPAN: Record<Span, string> = { third: 'md:col-span-2', half: 'md:col-span-3', full: 'md:col-span-6' };
+/* thirds are halves until xl, so dense widgets such as the calendar keep usable targets at tablet width */
+const SPAN: Record<Span, string> = { third: 'md:col-span-3 xl:col-span-2', half: 'md:col-span-3', full: 'md:col-span-6' };
 
 const Widget = ({ id, span = 'third', children, align = 'center' }: { id: string; span?: Span; children: ReactNode; align?: 'center' | 'start' }) => {
   const e = entry(id);
@@ -310,14 +312,7 @@ export const WidgetsSection = () => (
           />
         </Widget>
         <Widget id="widget-26" span="half">
-          <PlanCard
-            name="Health OS"
-            price={297}
-            cadence="AUD / month"
-            fee="+ $997 AUD onboarding"
-            features={['The Health OS platform', 'Health OS wellness assets', 'Customisation, setup and support']}
-            action="Book the walkthrough"
-          />
+          <PlanCard {...PLANS[1]} className="w-full" />
         </Widget>
         <Widget id="widget-27" span="half" align="start">
           <ToggleSettings

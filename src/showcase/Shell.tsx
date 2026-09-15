@@ -44,6 +44,17 @@ const REPO = 'https://github.com/teamos-ai/health-os-design-system-v2';
 export const Shell = ({ children }: { children: React.ReactNode }) => {
   const ids = React.useMemo(() => NAV.map((n) => n.id), []);
   const active = useActiveSection(ids);
+  const navRef = React.useRef<HTMLElement>(null);
+  /* keep the current section's link inside the rail's own scroll area */
+  React.useEffect(() => {
+    const nav = navRef.current;
+    const link = nav?.querySelector<HTMLElement>('[aria-current="location"]');
+    if (!nav || !link) return;
+    const top = link.offsetTop - nav.offsetTop;
+    if (top < nav.scrollTop + 8 || top + link.offsetHeight > nav.scrollTop + nav.clientHeight - 8) {
+      nav.scrollTo({ top: Math.max(0, top - nav.clientHeight / 2), behavior: 'smooth' });
+    }
+  }, [active]);
   const [collapsed, setCollapsed] = React.useState<boolean>(() => {
     try {
       return localStorage.getItem('sidebar-collapsed') === '1';
@@ -119,7 +130,7 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
           </button>
         </div>
 
-        <nav aria-label="Design system sections" className="no-scrollbar mt-6 min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4">
+        <nav ref={navRef} aria-label="Design system sections" className="no-scrollbar mt-6 min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4">
           {GROUPS.map((group) => (
             <div key={group} className="mb-4 last:mb-0">
               {collapsed ? (

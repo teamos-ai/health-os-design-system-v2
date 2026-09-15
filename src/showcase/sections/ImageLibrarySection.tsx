@@ -6,7 +6,7 @@
  */
 import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
-import { Section, Usage } from '@/showcase/Section';
+import { Section, Usage, ShowAll } from '@/showcase/Section';
 import { PHOTOS, PHOTO_THEMES } from '@/data/photos';
 import { thumb } from '@/lib/images';
 import { cn } from '@/lib/utils';
@@ -14,9 +14,12 @@ import { ImageTile } from './BackgroundsSection';
 
 const RATIO: Record<string, string> = { '16:9': 'aspect-video', '9:16': 'aspect-[9/16]', '4:3': 'aspect-[4/3]' };
 
+const PEEK = 12;
+
 export const ImageLibrarySection = () => {
   const [query, setQuery] = useState('');
   const [theme, setTheme] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   const filtered = useMemo(() => {
     const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -26,6 +29,9 @@ export const ImageLibrarySection = () => {
       return terms.every((t) => hay.includes(t));
     });
   }, [query, theme]);
+  /* the library opens on its first twelve; a search or theme shows every match */
+  const filtering = query.trim() !== '' || theme !== null;
+  const shown = filtering || expanded ? filtered : filtered.slice(0, PEEK);
 
   return (
     <Section id="imagery">
@@ -43,7 +49,7 @@ export const ImageLibrarySection = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by activity, place, mood or use"
-                className="h-12 w-full rounded-md border border-line bg-surface pl-12 pr-4 font-sans text-body text-ink-900 placeholder:text-ink-400 focus:border-ink-900 focus:outline-none focus:ring-1 focus:ring-ink-900 [&::-webkit-search-cancel-button]:appearance-none"
+                className="h-12 w-full rounded-md border border-line bg-surface pl-12 pr-4 font-sans text-body text-ink-900 placeholder:text-ink-500 focus:border-ink-900 focus:outline-none focus:ring-1 focus:ring-ink-900 [&::-webkit-search-cancel-button]:appearance-none"
               />
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -85,8 +91,8 @@ export const ImageLibrarySection = () => {
                 </button>
               </div>
             ) : (
-              <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-                {filtered.map((p) => (
+              <div id="image-list" className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+                {shown.map((p) => (
                   <ImageTile
                     key={p.src}
                     src={thumb(p.src)}
@@ -102,6 +108,7 @@ export const ImageLibrarySection = () => {
                 ))}
               </div>
             )}
+            {!filtering && filtered.length > PEEK && <ShowAll className="mt-10" expanded={expanded} onToggle={() => setExpanded((e) => !e)} total={filtered.length} noun="images" controls="image-list" />}
           </div>
           <Usage id="photos" />
         </div>

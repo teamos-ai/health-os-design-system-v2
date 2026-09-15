@@ -78,7 +78,7 @@
      headline it is sized in em from the headline tokens, so it scales with the heading role;
      on its own it takes one of the icon sizes. The object image has a transparent ground and
      sits inset so it fills about two thirds of the tile. */
-  .headline-tile,
+  .headline-tile-face,
   .icon-tile {
     display: inline-block;
     flex-shrink: 0;
@@ -86,10 +86,42 @@
     border-radius: var(--hos-icon-radius);
     background: var(--hos-icon-ground);
   }
+  /* In a headline the slot holds the tile's place in the line; the face inside it leans by the
+     tilt token (alternating via --tile-lean) and floats while the headline is on screen. */
   .headline-tile {
+    display: inline-block;
     width: var(--hos-headline-tile-size);
     height: var(--hos-headline-tile-size);
     vertical-align: var(--hos-headline-tile-offset);
+  }
+  .headline-tile-face {
+    display: block;
+    width: 100%;
+    height: 100%;
+    rotate: calc(var(--hos-headline-tile-tilt) * var(--tile-lean, -1));
+    box-shadow: var(--hos-shadow-md);
+    animation: hos-tile-float var(--hos-headline-float-duration) ease-in-out var(--tile-phase, 0s) infinite;
+    animation-play-state: paused;
+  }
+  .headline[data-floating] .headline-tile-face {
+    animation-play-state: running;
+  }
+
+  /* Floating tiles: the home hero's icons hanging in the space around the headline. Each is
+     centred on its point, leans by the float-tilt token and bobs on its own pace and phase. */
+  .floating-tile {
+    position: absolute;
+    translate: -50% -50%;
+  }
+  .floating-tile-face {
+    display: block;
+    rotate: calc(var(--hos-icon-float-tilt) * var(--tile-lean, -1));
+    box-shadow: var(--hos-shadow-lg);
+    animation: hos-icon-float calc(var(--hos-icon-float-duration) * var(--tile-pace, 1)) ease-in-out var(--tile-phase, 0s) infinite;
+    animation-play-state: paused;
+  }
+  .floating-tiles[data-floating] .floating-tile-face {
+    animation-play-state: running;
   }
   .icon-tile {
     width: var(--icon-size, var(--hos-icon-size-md));
@@ -98,7 +130,7 @@
   .icon-tile-sm { --icon-size: var(--hos-icon-size-sm); }
   .icon-tile-md { --icon-size: var(--hos-icon-size-md); }
   .icon-tile-lg { --icon-size: var(--hos-icon-size-lg); }
-  .headline-tile img,
+  .headline-tile-face img,
   .icon-tile img {
     display: block;
     width: 100%;
@@ -125,6 +157,32 @@
     }
   }
 
+
+  /* Hero fade: the opening hero has no hairline at its foot. Its ground dissolves over the
+     hero-fade height into the textured ground below, on an eased curve so no band shows, and the
+     texture of the next section fades in over the same height. The layer sits behind the hero's
+     content (isolation), so chips and widgets near the foot keep their own surfaces. */
+  .hero-fade {
+    isolation: isolate;
+  }
+  .hero-fade::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: -1;
+    height: var(--hos-space-hero-fade);
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgb(var(--ground-textured) / 0) 0%,
+      rgb(var(--ground-textured) / 0.08) 20%,
+      rgb(var(--ground-textured) / 0.28) 40%,
+      rgb(var(--ground-textured) / 0.56) 60%,
+      rgb(var(--ground-textured) / 0.84) 80%,
+      rgb(var(--ground-textured)) 100%
+    );
+  }
 
   /* Image fade: the soft white dissolve every image card uses. The photo fades into the
      card behind it along a long, eased curve (opaque for the first 35%, then a cosine
@@ -163,6 +221,26 @@
     --fade-to: to left;
   }
 
+  @keyframes hos-tile-float {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 calc(var(--hos-headline-float-distance) * -1);
+    }
+  }
+
+  @keyframes hos-icon-float {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 calc(var(--hos-icon-float-distance) * -1);
+    }
+  }
+
   @keyframes hos-highlight {
     from {
       background-size: 0% 0.36em, 0% 0.36em;
@@ -184,10 +262,11 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   }
 
-  /* Edge fade for marquee rows */
+  /* Edge fade for marquee rows: 12% of the row, but never more than 5rem, so a wide row keeps
+     its outer cards readable. */
   .marquee-mask {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 min(12%, 5rem), #000 calc(100% - min(12%, 5rem)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 min(12%, 5rem), #000 calc(100% - min(12%, 5rem)), transparent 100%);
   }
 
   .pause-on-hover:hover * {
@@ -226,8 +305,18 @@
    textured ground so a change of section is felt while scrolling. The noise is a
    static background image with its own low alpha: no pseudo-element, no blend mode,
    so tall sections never become a separate compositing layer. */
+:root {
+  --ground-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 main > section:nth-of-type(3n + 2) {
   background-color: rgb(var(--ground-textured));
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: var(--ground-noise);
   background-size: 200px 200px;
+}
+/* Below a fading hero the texture arrives gradually: a wash of the plain ground over the noise
+   thins out across the hero-fade height, so grain and colour both blend. */
+main > .hero-fade + section:nth-of-type(3n + 2) {
+  background-image: linear-gradient(to bottom, rgb(var(--ground-textured)) 0, rgb(var(--ground-textured) / 0) var(--hos-space-hero-fade)), var(--ground-noise);
+  background-size: 100% var(--hos-space-hero-fade), 200px 200px;
+  background-repeat: no-repeat, repeat;
 }

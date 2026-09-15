@@ -1,13 +1,13 @@
 /**
  * Blog: the parts of a Health OS article page and blog index.
  *
- * Article page, top to bottom: Breadcrumb, a category badge, the two-tone Headline, a
+ * Article page, top to bottom: Breadcrumb, a category badge, the Headline (apricot accent word, floating icon tiles), a
  * standfirst, ArticleMeta (author, date, reading time, copy link), the hero figure, then
  * ArticleLayout: the reading column beside a TableOfContents. Inside the body: subheadings,
  * running text, PullQuote, figures and tables. It ends with tags, AuthorNote, related posts
  * and one next step.
  *
- * Blog index: the two-tone Headline, one FeaturedPost, CategoryFilter, a grid of content
+ * Blog index: the Headline (apricot accent word, floating icon tiles), one FeaturedPost, CategoryFilter, a grid of content
  * cards with a result count for screen readers, and Pagination.
  *
  * Nothing here uses a filled block behind reading text: pull quotes sit on a rose rule.

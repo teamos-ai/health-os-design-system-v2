@@ -7,7 +7,7 @@
 export const ROSE = { 50: '#FADEEE', 200: '#F3A0CC', 400: '#E85BA8' } as const;
 export const APRICOT = { 50: '#FDECDF', 200: '#F8C39C', 400: '#F5A060' } as const;
 export const LAVENDER = { 50: '#EDE1F7', 200: '#C9A3E6', 400: '#A668D9' } as const;
-export const INK = { 100: '#F2EFEB', 200: '#E3DDD6', 400: '#A39B91', 500: '#7C746B', 600: '#5A534B', 900: '#1F1F1F' } as const;
+export const INK = { 100: '#F2EFEB', 200: '#E3DDD6', 400: '#A39B91', 500: '#6E665D', 600: '#5A534B', 900: '#1F1F1F' } as const;
 export const SUCCESS = { 100: '#E2F5EC', 300: '#9AD3BC', 600: '#1F9D6B' } as const;
 export const WARNING = { 100: '#FBF2DC', 300: '#E3C896', 600: '#C08415' } as const;
 export const ERROR = { 100: '#FAE4E2', 300: '#E6A5A1', 600: '#C8382F' } as const;
@@ -27,8 +27,8 @@ export const VIDEO_PIP = { threshold: 0.25, z: 40 } as const;
 /** Content that plays on its own: how long one step holds, in ms. */
 export const AUTOPLAY = { step: 6000 } as const;
 
-/** The celebration burst: soft brand colours, piece count and duration in ms. */
-export const CELEBRATION = { colours: ['#F8C39C', '#F3A0CC', '#C9A3E6', '#FDECDF', '#FADEEE'], pieces: 36, duration: 1100 } as const;
+/** Confetti: brand colours at 400 and 200, piece count, duration in ms and how high it pops. */
+export const CELEBRATION = { colours: ['#F5A060', '#E85BA8', '#A668D9', '#F8C39C', '#F3A0CC', '#C9A3E6'], pieces: 30, duration: 1800, rise: '7rem' } as const;
 
 /** The signature gradient stops, apricot to rose to lavender. Never reversed. */
 export const GRADIENT_STOPS = [APRICOT[400], ROSE[400], LAVENDER[400]] as const;

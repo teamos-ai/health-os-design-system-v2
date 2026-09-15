@@ -28,7 +28,8 @@ export interface SessionCardProps {
   repeats?: string;
   description?: string;
   image?: { src: string; alt: string };
-  action: { label: string; href?: string };
+  /** the booking action; set `celebrate` to pop confetti when the click itself completes the step */
+  action: { label: string; href?: string; celebrate?: boolean };
   /** a quiet link beside the action, such as add to calendar */
   calendarHref?: string;
   className?: string;
@@ -89,7 +90,8 @@ export const SessionCard = ({ title, date, time, place, mode, repeats, descripti
       <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line-soft pt-4">
         <Button
           variant="text"
-          href={action.href ?? '#'}
+          href={action.href}
+          celebrate={action.celebrate}
           aria-label={`${action.label}: ${title}, ${date.weekday} ${date.day} ${date.month}`}
           className="group"
           trailingIcon={<ArrowRight className="h-4 w-4 transition-transform duration-sm ease-out group-hover:translate-x-1" strokeWidth={1.5} aria-hidden />}

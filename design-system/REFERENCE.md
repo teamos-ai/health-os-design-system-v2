@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-15 · 125 entries · 48 components · 31 widgets · 13 patterns · 11 open decisions
+Updated 2026-09-15 · 128 entries · 49 components · 31 widgets · 13 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -49,7 +49,7 @@ Start · The overview video, in the one video player the design system uses.
 
 `video-player` · component · Stable
 
-The only video player in the design system. The video sits with clean rounded edges and nothing around it; a translucent carbon control bar rises on hover, keyboard focus or pause. When a playing video scrolls out of view it floats into the bottom right corner with play, back to the video and close, and returns when its space scrolls back in.
+The only video player in the design system. The video sits with clean rounded edges and nothing around it; a translucent carbon control bar rises on hover, keyboard focus or pause. When a playing video scrolls out of view it floats into the bottom right corner with play, back to the video and close, and returns when its space scrolls back in. The first play of each player pops a small burst of confetti from the play button.
 
 **Use it for**
 
@@ -132,7 +132,7 @@ Every colour stops at its full strength and has two lighter shades. There are no
 | `ink-100` | #F2EFEB | `--hos-ink-100` | Quiet fills and hover backgrounds. |
 | `ink-200` | #E3DDD6 | `--hos-ink-200` | Stronger dividers and pressed fills. |
 | `ink-400` | #A39B91 | `--hos-ink-400` | Placeholder text, disabled text, hover borders and muted icons. |
-| `ink-500` | #7C746B | `--hos-ink-500` | Secondary text and metadata. The lightest neutral for readable text. |
+| `ink-500` | #6E665D | `--hos-ink-500` | Secondary text, labels and metadata. The lightest neutral for readable text: at least 4.5:1 on every ground in both themes, including the textured and tinted 50 grounds (darkened from #7C746B on 15 September 2026 after the audit found 12px labels at 3.9 to 4.3:1). |
 | `ink-600` | #5A534B | `--hos-ink-600` | Body text. |
 | `ink-900` | #1F1F1F | `--hos-ink-900` | Headings, primary text, every word of a headline except its accent word, and every focus ring and focused field border. |
 | `success-100` | #E2F5EC | `--hos-success-100` | Soft. Tint behind success content. |
@@ -168,6 +168,7 @@ Classes follow the token name: `bg-rose-400`, `bg-rose-50`, `ring-rose-200`, `bg
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | heading | `text-heading` | `font-display` | `clamp(2.25rem, 1.65rem + 2.25vw, 3.625rem)` | 1.08 | -0.02em | 700 | One heading size, fluid from 36px on phones to 58px on desktop. Page and section titles, hero headlines, big figures. |
 | subheading | `text-subheading` | `font-display` | `clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)` | 1.3 | -0.01em | 600 | Fluid from 20px to 24px. Card titles, group titles inside a section, compact figures. |
+| title | `text-title` | `font-display` | `1.125rem` | 1.5 | -0.005em | 500 | 18px / 27px medium. Quiet titles in a list of rows: FAQ questions, disclosure rows, settings and step rows. Gentler than a subheading, so a list of questions reads as a list, not a stack of headings. |
 | body | `text-body` | `font-sans` | `1rem` | 1.625 | 0em | 400 | 16px / 26px. All running text, descriptions, inputs, table cells, button labels (in the display family). |
 | label | `text-label` | `font-sans` | `0.75rem` | 1.34 | 0.06em | 700 | 12px / 16px bold. Only where needed: badges, eyebrows (uppercase), metadata, table headers, chart axes. |
 
@@ -185,6 +186,9 @@ Every H1 is written in ink-900 except one descriptive word (calm, together, make
 | `tile-offset` | `--hos-headline-tile-offset` | -0.12em | Vertical alignment that centres a tile on the letters. |
 | `tiles-min` | Rule | 1 | The fewest tiles in a headline. |
 | `tiles-max` | Rule | 3 | The most tiles in a headline. |
+| `tile-tilt` | `--hos-headline-tile-tilt` | 3deg | How far each tile is turned. The first tile leans left, the next right and so on, at full, two thirds and five sixths of this value, so tiles float between the words instead of sitting in a row. |
+| `float-distance` | `--hos-headline-float-distance` | 0.06em | How far a tile drifts up and down as it floats: about 3px at heading size. Enough to feel weightless, never enough to pull the eye off the words. |
+| `float-duration` | `--hos-headline-float-duration` | 6s | One slow float, up and back. Tiles start at staggered points so they never move in step. The float stops while the headline is off screen and when reduced motion is on. |
 
 Build headlines with `<Headline text="… [accent] {tile} …" />` from `src/components/ui/headline.tsx`: it applies these values and checks the accent word and tiles. Tiles come from the squircle library, `src/data/headline-tiles.ts`.
 
@@ -196,7 +200,7 @@ There is one banner: the scrolling strip on the soft wash. No grey, paper, white
 | --- | --- | --- | --- |
 | `fill` | `--hos-banner-fill` | linear-gradient(135deg, #FDECDF 0%, #FADEEE 50%, #EDE1F7 100%) | brand-gradient-soft (bg-brand-gradient-soft), with a hairline top and bottom. |
 | `text` | `--hos-banner-text` | #1F1F1F | ink-900. Statements in the label role, uppercase. |
-| `icon` | `--hos-banner-icon` | #7C746B | ink-500. The small line icon before each statement. |
+| `icon` | `--hos-banner-icon` | #6E665D | ink-500. The small line icon before each statement. |
 | `speed-min` | `--hos-banner-speed-min` | 32s | The fastest loop. A banner drifts; it never races. |
 | `speed-max` | `--hos-banner-speed-max` | 60s | The slowest loop. |
 
@@ -219,13 +223,14 @@ Applied by `VideoPlayer` through the `.video-pip` class; the threshold and layer
 
 ### Celebration
 
-The confetti burst for a moment worth marking, such as switching to annual billing. Soft brand colours only, small round pieces, over in about a second. Off when someone has reduced motion switched on.
+Confetti: a small celebration when someone commits to something, such as choosing annual billing, booking, confirming or saving. Curly streamers, short ribbons, stars and dots pop up from the top edge of the control, then drift down and fade. Brand colours at 400 and 200, the one place 400 appears as a fill, because it lasts under two seconds. Once per action, never on load, and off when reduced motion is on.
 
 | Token | CSS variable | Value | Use |
 | --- | --- | --- | --- |
-| `colours` | JS only | #F8C39C, #F3A0CC, #C9A3E6, #FDECDF, #FADEEE | apricot-200, rose-200, lavender-200, apricot-50 and rose-50. |
-| `pieces` | JS only | 36 | How many pieces in one burst. |
-| `duration` | JS only | 1100ms | From burst to the last piece fading. |
+| `colours` | JS only | #F5A060, #E85BA8, #A668D9, #F8C39C, #F3A0CC, #C9A3E6 | apricot-400, rose-400, lavender-400, then apricot-200, rose-200 and lavender-200. |
+| `pieces` | JS only | 30 | How many pieces in one burst: a mini moment, not a party. |
+| `duration` | JS only | 1800ms | From the pop to the last piece fading. |
+| `rise` | JS only | 7rem | Roughly how high the tallest pieces pop above the control before they fall. |
 
 Used through `useCelebrate()` from `src/components/ui/celebrate.tsx` (`CELEBRATION` in palette.ts).
 
@@ -250,6 +255,7 @@ Base rhythm is 8px (Tailwind 2, 4, 6, 8, 10, 12, 16, 24). Compact 4px steps (1, 
 | `hero-py-lg` | 11rem | 176px | `pt-hero-py-lg` | `--hos-space-hero-py-lg` | Hero top and bottom padding from md up (176px). |
 | `hero-gap` | 3.5rem | 56px | `mt-hero-gap` | `--hos-space-hero-gap` | Gap between hero blocks: subcopy to action (56px). |
 | `hero-gap-sm` | 2rem | 32px | `mt-hero-gap-sm` | `--hos-space-hero-gap-sm` | Tighter hero gap: title to subcopy, action to chips (32px). |
+| `hero-fade` | 18rem | 288px | `pt-hero-fade` | `--hos-space-hero-fade` | Height of the soft blend at the foot of a page's opening hero, where its ground dissolves into the section below (288px). No line marks where the fold was. |
 
 ### Radius
 
@@ -466,6 +472,7 @@ One heading size, Spline Sans 700, fluid from 36px to 58px. An H1 at this size i
 **Not for**
 
 - Card titles: use subheading
+- Questions in an FAQ or disclosure: use title
 - More than one heading size on a page
 - An H1 without its accent word and at least one icon tile
 
@@ -488,10 +495,32 @@ Spline Sans 600, fluid from 20px to 24px.
 
 - Running text
 - Stacking two subheadings without body between
+- A list of rows such as FAQ questions: use title, so the list stays quiet
 
 **API** `font-display text-subheading`
 
 **Source** `tokens.json → font.role.subheading`
+
+### Title
+
+`type-title` · token · Stable
+
+Spline Sans 500 at 18px on 27px. The quiet title for a list of rows, added on 15 September 2026 because FAQ questions at subheading size read as loud headings.
+
+**Use it for**
+
+- FAQ questions and disclosure titles
+- Settings, step and list rows that need a title above body text
+
+**Not for**
+
+- Card titles: use subheading
+- Running text: use body
+- Bolding it up: one weight per role
+
+**API** `font-display text-title`
+
+**Source** `tokens.json → font.role.title`
 
 ### Body
 
@@ -545,6 +574,7 @@ An 8px rhythm with 4px steps for tight spots. The same spacing in both themes.
 - 8px steps (2, 4, 6, 8, 12, 16, 24) for layout, sections and cards
 - 4px steps (1, 3, 5) for icon gaps, badge padding and dense controls
 - Section padding py-16 on phones, py-24 on desktop; hero-py tokens for heroes
+- hero-fade: the height over which a page's opening hero dissolves into the textured section below (Hero fade)
 
 **Not for**
 
@@ -620,13 +650,13 @@ Durations and easings that keep custom motion consistent.
 
 ## Headlines
 
-Foundations · Every H1 is dark ink with one descriptive word in Sunlit Apricot, and icon tiles beside the words they picture. Twenty ready headlines sit in the library below.
+Foundations · Every H1 is dark ink with one descriptive word in Sunlit Apricot, and icon tiles that lean and float beside the words they picture. Twenty ready headlines sit in the library below.
 
 ### Headline
 
 `headline` · component · Stable
 
-The H1 for every page. Every word is ink-900 except one descriptive word in apricot-400, and one to three icon tiles sit beside the words they picture, so the headline shows what it says.
+The H1 for every page. Every word is ink-900 except one descriptive word in apricot-400, and one to three icon tiles sit beside the words they picture, so the headline shows what it says. Each tile leans about three degrees, alternating left and right, and floats gently up and down between the words; the float stops off screen and with reduced motion on.
 
 **Use it for**
 
@@ -645,8 +675,11 @@ The H1 for every page. Every word is ink-900 except one descriptive word in apri
 - The accent colour below heading size: at about 2.1:1 it is a brand moment, not readable small text
 - Section headings (h2): they stay ink-900 with no accent or tiles
 - Pointer effects on tiles: they are pictures, not controls
+- Straightening the tiles or stopping the float on one headline: the lean and float are part of the style
+- Inline tiles in the home hero: its tiles float around the headline instead (tilesAround with FloatingTiles), and that is the only headline allowed to do so
+- text-highlight or a gradient inside a headline
 
-**API** `<Headline text="You built {blocks} it. Now [make] it run {computer} without you." as: h1 | h2 | h3 tiles id className /> · headlineParts(text) → { accent, tiles, plain }`
+**API** `<Headline text="You built {blocks} it. Now [make] it run {computer} without you." as: h1 | h2 | h3 | p tiles id className /> · headlineParts(text) → { accent, tiles, plain } · tilt and float from tokens.json → headline.tile-tilt, float-distance, float-duration`
 
 **Source** `src/components/ui/headline.tsx · tokens.json → headline, icon`
 
@@ -672,21 +705,44 @@ Twenty ready headlines in the Headline markup, each mapped to a messaging pillar
 
 **Source** `src/data/headline-library.ts · src/showcase/sections/HeadlinesSection.tsx`
 
+### Floating tiles
+
+`floating-tiles` · component · Stable
+
+The home hero's headline stands clear, and icon tiles float in the space around it: each leans a few degrees and bobs slowly at its own pace, as if suspended. Added on 15 September 2026 at Tumai's request for the reference site's opening.
+
+**Use it for**
+
+- A page's opening hero only, as the first child of Hero, with the Headline set to tilesAround
+- Six to eight tiles in the side margins and above the words from xl up, two above the headline on phones (from and until)
+- Icons that picture what the page is about
+
+**Not for**
+
+- Tiles over the words, the search or the chips
+- Pointer effects or parallax: tiles are pictures
+- Inline tiles in the same headline
+- More than one floating field on a page
+
+**API** `<FloatingTiles tiles: { id, x, y (percent of the hero), size: sm | md | lg, lean (-1 to 1), from, until }[] /> · <Headline tilesAround /> · tokens.json → icon.float-tilt, float-distance, float-duration`
+
+**Source** `src/components/ui/floating-tiles.tsx · src/showcase/sections/HeroSection.tsx`
+
 ## Icon library
 
-Foundations · Every Health OS icon: one photoreal object on a warm charcoal squircle, tagged with the words it stands for. Search a word, then use the icon in a headline, a card or on its own.
+Foundations · Every Health OS icon: one photoreal object on a warm charcoal squircle, tagged with the words it stands for. 228 icons in 17 groups. Search a word or an object, then use the icon in a headline, a card or on its own.
 
 ### Icon library
 
 `headline-tiles` · asset · Stable
 
-Every Health OS icon: 80 photoreal objects on a warm charcoal squircle, covering all 107 headline words in nine groups. Each is tagged with the words it stands for, so a search for a word finds its icon. Use the same icons in headlines and on their own.
+Every Health OS icon: 228 photoreal objects on a warm charcoal squircle in 17 groups. The first nine groups cover all 107 headline words; the other eight hold everyday and business objects (communication, devices, automation, workplace, everyday, food and drink, nature, play), added on 15 September 2026 from Tumai's reference sheets plus a software, email and automation set. Each is tagged with the words it stands for, so a search for a word finds its icon. Use the same icons in headlines and on their own.
 
 **Use it for**
 
 - Search the word you want to show, then copy the icon's {id} into a headline or use <IconTile id />
 - Download the baked tile PNG for Canva, slides and social posts
-- Filter by group (presence, vitality, calm, practice, business, software, freedom, clarity, momentum)
+- Filter by group: presence, vitality, calm, practice, business, software, freedom, clarity and momentum for headline words; communication, devices, automation, workplace, everyday, food and drink, nature and play for objects
 - Read an icon's note before using one of its words: some words are search tags only, such as wellbeing, journey and heal
 
 **Not for**
@@ -919,6 +975,7 @@ A gentle, draggable row that loops, pauses on hover and on keyboard focus, and c
 **Use it for**
 
 - Overview cards and logo or tool rows
+- Edge to edge of the page area when the row carries cards, so more of them are in view
 - pauseControl whenever the row holds links or buttons
 
 **Not for**
@@ -927,7 +984,7 @@ A gentle, draggable row that loops, pauses on hover and on keyboard focus, and c
 - Content people must read in full
 - Interactive rows without pauseControl
 
-**API** `<Marquee speed reverse pauseOnHover draggable pauseControl ariaLabel />`
+**API** `<Marquee speed reverse pauseOnHover draggable pauseControl ariaLabel controlsClassName controlsInnerClassName /> · full bleed through Section bleed, with the pause button kept on the content column`
 
 **Source** `src/components/ui/animated.tsx`
 
@@ -948,6 +1005,32 @@ Enter and exit for content that toggles.
 **API** `<Appear show y />`
 
 **Source** `src/components/ui/animated.tsx`
+
+### Celebrate
+
+`celebrate` · motion · Stable
+
+A mini confetti moment when a commitment lands: curly streamers, short ribbons, stars and dots pop up from the top of the control, then drift down and fade in under two seconds, in brand colours at 400 and 200.
+
+**Use it for**
+
+- Choosing annual billing, booking or confirming a booking, choosing a plan, accepting, getting a lead magnet, the first play of a video
+- <Button celebrate> for actions that land on click
+- celebrate(ref) after an action that has to finish first, such as a save
+- Once per action, from the control that made it happen
+
+**Not for**
+
+- Loading, hovering, cancelling, closing or anything people undo
+- More than one burst for one action, or confetti on page load
+- Actions that failed or are still pending
+- Changing its colours: brand 400 and 200 only, from the celebration tokens
+- A link that leaves the page: Button ignores celebrate there, because the confetti would never be seen
+- Turning it on by default for repeated cards: session, profile and action cards opt in
+
+**API** `<Button celebrate /> · celebrate(element) · useCelebrate() → { celebrate } (src/components/ui/celebrate.tsx) · tokens.json → celebration: colours, pieces, duration, rise`
+
+**Source** `src/components/ui/celebrate.tsx`
 
 ### Breathing dot
 
@@ -1028,10 +1111,11 @@ The standard action in three styles. One button colour for the whole system: apr
 - Any other button colour: rose, carbon, gradients or custom fills, or pill shapes
 - White text on the apricot fill
 - A button for navigation inside running text: use a link
+- celebrate on a button whose action can still fail, such as a save: call celebrate(ref) once it succeeds
 
-**API** `variant: primary | secondary | text · size: default | small · loading · disabled · href · leadingIcon · trailingIcon`
+**API** `variant: primary | secondary | text · size: default | small · loading · disabled · href · leadingIcon · trailingIcon · celebrate (confetti on click)`
 
-**Source** `src/components/ui/button.tsx`
+**Source** `src/components/ui/button.tsx · src/components/ui/celebrate.tsx`
 
 ### Icon button
 
@@ -1256,7 +1340,7 @@ Separate panels of related content in the same place.
 
 `disclosure` · component · Stable
 
-Show and hide a section of detail. The soft apricot plus turns into a cross when open, the same control as the FAQ.
+Show and hide a section of detail. The title uses the quiet title role (18px Spline Sans medium) and a small 24px apricot plus turns into a cross when open, the same control as the FAQ.
 
 **Use it for**
 
@@ -1266,6 +1350,7 @@ Show and hide a section of detail. The soft apricot plus turns into a cross when
 **Not for**
 
 - Anything most people need to read
+- A subheading-size title or a larger plus: the row stays gentle
 
 **API** `title · defaultOpen · open · onOpenChange`
 
@@ -1463,23 +1548,26 @@ A quick-action suggestion written as a /command, with the slash in apricot.
 
 `command-widget` · component · Stable
 
-A larger search and ask input with a small toolbar.
+A larger search input with a picture of a small toolbar. With onSubmit it searches for real: the home hero matches the query against the catalogue and jumps to the best section, and / focuses it from anywhere. The toolbar icons never take focus; only a wired submit disc does.
 
 **Use it for**
 
-- Search-led heroes and assistant entry points
+- Search-led heroes and assistant entry points, wired to a real search
+- shortcut only when the page really focuses the input on /
 
 **Not for**
 
 - More than one on a page
+- A search box that does nothing on Enter
+- Placeholder promises (@, / commands) the page does not keep
 
-**API** `value · onChange · onSubmit · placeholder`
+**API** `value · onChange · onSubmit · placeholder · id · label · shortcut`
 
 **Source** `src/components/ui/command-widget.tsx`
 
 ## Cards
 
-Library · Nine card types, each styled for its job.
+Library · Nine card types, each styled for its job, and the one pricing system with its annual switch and celebration.
 
 ### Content card
 
@@ -1543,20 +1631,21 @@ An offering someone can buy or book. The image dissolves toward the offer with t
 
 `pricing-card` · component · Stable
 
-One plan with its price and inclusions.
+One plan with its price and inclusions, always shown inside a PricingTable so every pricing view matches. The featured plan gets the soft wash header, the Recommended badge and the primary action, which celebrates.
 
 **Use it for**
 
 - Two or three plans side by side, one featured
 - Currency labelled, and anything charged on top stated
-- price as a number, and annualPrice only when it is recorded
+- price as a number, annualPrice as the yearly price with annualCadence (Health OS: monthly × 10, AUD / year)
 
 **Not for**
 
+- Using the card outside a PricingTable
 - More than one featured card
 - Unlabelled currency
 
-**API** `name · price (number) · annualPrice · symbol · cadence · fee · description · features · action · featured · billing`
+**API** `name · price (number) · annualPrice · annualCadence · symbol · cadence · fee · description · features · action: { label, href, onClick, celebrate (default on for featured) } · featured · billing and annualNote (set by the table). The figure and cadence sit on their own lines so a yearly price never reflows the row`
 
 **Source** `src/components/cards/PricingCard.tsx`
 
@@ -1596,7 +1685,7 @@ The one next step: book a call, start a diagnostic. Calm: a soft gradient, a hai
 - More than one action card per view
 - A saturated gradient fill
 
-**API** `title · description · action: { label, href } · note · tone: dawn | soft · image`
+**API** `title · description · action: { label, href, celebrate (opt in) } · note · tone: dawn | soft · image`
 
 **Source** `src/components/cards/ActionCard.tsx`
 
@@ -1618,7 +1707,7 @@ One dated session someone can join: a class, workshop, retreat day or webinar. R
 - Seats left, attendee counts or countdowns
 - More than one action beside add to calendar
 
-**API** `title · date: { weekday, day, month } · time · place · mode: In studio (rose) | Online (lavender) · repeats · description · image · action: { label, href } · calendarHref`
+**API** `title · date: { weekday, day, month } · time · place · mode: In studio (rose) | Online (lavender) · repeats · description · image · action: { label, href, celebrate (opt in) } · calendarHref`
 
 **Source** `src/components/cards/SessionCard.tsx`
 
@@ -1640,7 +1729,7 @@ Who someone will work with: a team member, coach or facilitator. Remodelled from
 - Ratings, reviews, credentials as claims, or client counts
 - More than three focus badges
 
-**API** `name · role · portrait: { src, alt } · focus: string[] (up to 3) · approach · action: { label, href }`
+**API** `name · role · portrait: { src, alt } · focus: string[] (up to 3) · approach · action: { label, href, celebrate (opt in) }`
 
 **Source** `src/components/cards/ProfileCard.tsx`
 
@@ -1686,6 +1775,30 @@ The soft white dissolve every image card shares: the photo stays whole for its f
 **API** `.image-fade-b · .image-fade-r · .image-fade-l · .image-fade-t, on the element that holds the image`
 
 **Source** `src/index.css`
+
+### Pricing
+
+`pricing-table` · pattern · Stable
+
+The one pricing system: every pricing view on every page is a PricingTable, so the layout, motion, switch, data and celebration never drift apart. Plans sit side by side with the notes that complete the price, and rise into place as the table scrolls in, the featured plan settling slightly forward. When every plan has an annual price, a billing switch with its note (Health OS: 2 months free) slides each price to its yearly figure and pops confetti from the switch; the featured plan's action celebrates too.
+
+**Use it for**
+
+- Every pricing page and pricing section, with the plans from src/data/offer.ts
+- Health OS annual prices: the monthly price × 10, shown per year, two months free (confirmed by Tumai, 15 September 2026)
+- The note for currency and anything charged on top, and annualNote beside the switch
+
+**Not for**
+
+- PricingCard on its own outside a PricingTable
+- Promoting a plan the offer rules say not to promote
+- Annual prices, savings or months free the offer does not have
+- A monthly equivalent with cents: show the yearly price
+- More than one pricing table in a view
+
+**API** `<PricingTable plans: PricingCardProps[] note annualLabel annualNote /> · confetti from celebrate() and tokens.json → celebration`
+
+**Source** `src/components/blocks/PricingTable.tsx · src/data/offer.ts · src/components/ui/celebrate.tsx`
 
 ## Features
 
@@ -1870,35 +1983,13 @@ An image-led mosaic for a practitioner's own studio, class or retreat page: a ta
 
 ## Blocks
 
-Library · Composed sections to drop into a page: pricing with a billing switch, common questions and the feature grid.
-
-### Pricing table
-
-`pricing-table` · pattern · Stable
-
-Plans side by side, with the notes that complete the price. The cards rise into place as the table scrolls in, with the featured plan settling slightly forward. When every plan has an annual price, a billing switch slides the prices and marks the change with a small burst of confetti in the soft brand colours.
-
-**Use it for**
-
-- Pricing pages and pricing sections
-- The billing switch only when the database records an annual price for every plan
-- The note for currency and anything charged on top
-
-**Not for**
-
-- Promoting a plan the offer rules say not to promote
-- Annual prices, savings or months free that the database does not record: Health OS has no annual plan
-- More than one pricing table in a view
-
-**API** `<PricingTable plans: PricingCardProps[] note annualLabel annualNote /> · useCelebrate() for the burst · colours from tokens.json → celebration`
-
-**Source** `src/components/blocks/PricingTable.tsx · src/components/ui/celebrate.tsx`
+Library · Composed sections to drop into a page: common questions and the pillars. Pricing lives with the cards, as the one pricing system every page uses.
 
 ### FAQ
 
 `faq` · pattern · Stable
 
-Common questions in a condensed column, 800px wide at most. Each question has a soft apricot plus that turns into a cross when open, and the answer sits beside a small picture.
+Common questions in a condensed column, 800px wide at most. Each question is set in the quiet title role (18px Spline Sans medium) with a small 24px apricot plus that turns into a cross when open, and the answer sits beside a small picture. Gentle by design: a list of questions, not a stack of headings.
 
 **Use it for**
 
@@ -1911,6 +2002,7 @@ Common questions in a condensed column, 800px wide at most. Each question has a 
 - Hiding information everyone needs
 - Two columns or full-width rows: the FAQ stays condensed
 - Pictures that show a person as if they were a client
+- Subheading-size questions or a larger plus
 
 **API** `<Faq items: { question, answer, image?: { src, alt } }[] defaultOpen multiple headingLevel: h3 | h4 /> · width from tokens.json → size.narrow`
 
@@ -1966,7 +2058,7 @@ Library · A full, functional widget library. Each widget takes real data, anima
 | 23 | Mini calendar | Scheduling and product | Stable | `monthLabel · daysInMonth · startOffset · today · booked: number[] · defaultSelected · onSelect` | `src/components/widgets/scheduling.tsx` |
 | 24 | Slot picker | Scheduling and product | Stable | `label · slots: { time, taken }[] · defaultSelected · onSelect` | `src/components/widgets/scheduling.tsx` |
 | 25 | Onboarding stepper | Scheduling and product | Stable | `steps: { title, status: done \| current \| next, detail }[]` | `src/components/widgets/scheduling.tsx` |
-| 26 | Plan card | Scheduling and product | Stable | `name · price · cadence · fee · features · action` | `src/components/widgets/scheduling.tsx` |
+| 26 | Plan card | Scheduling and product | Stable | `PricingCardProps (the plan from offer.ts), always featured` | `src/components/widgets/scheduling.tsx` |
 | 27 | Toggle settings | Scheduling and product | Stable | `items: { id, label, detail, enabled }[] · onChange(id, enabled)` | `src/components/widgets/scheduling.tsx` |
 | 28 | Activity feed | Activity and conversation | Stable | `items: { initials, accent, actor, action, time }[]` | `src/components/widgets/social.tsx` |
 | 29 | Rating summary | Activity and conversation | Experimental | `average · count · distribution: number[] (5 to 1)` | `src/components/widgets/social.tsx` |
@@ -2435,17 +2527,18 @@ Setup progress: done, current and next.
 
 `widget-26` · widget · Stable
 
-One plan inside the product, such as an upgrade prompt.
+One plan inside the product, such as an upgrade prompt. It is the same PricingCard as every pricing view, featured, so a plan looks the same in the product and on the site.
 
 **Use it for**
 
-- In-product plan summaries
+- In-product plan summaries, with the plan from src/data/offer.ts
 
 **Not for**
 
-- Pricing pages: use pricing cards
+- Pricing pages: use the PricingTable
+- A plan card with its own styling
 
-**API** `name · price · cadence · fee · features · action`
+**API** `PricingCardProps (the plan from offer.ts), always featured`
 
 **Source** `src/components/widgets/scheduling.tsx`
 
@@ -2550,7 +2643,7 @@ Applied · Three full-width sections that make a page feel like Health OS.
 
 `command-hero` · pattern · Stable
 
-The opening of a Health OS page: the two-tone headline with its picture tiles, command bar, quick actions and a product preview.
+The opening of a Health OS page: the headline with its floating icon tiles, command bar, quick actions and a product preview.
 
 **Use it for**
 
@@ -2634,7 +2727,7 @@ Applied · The blog system: an article page with its table of contents, author a
 
 `article` · pattern · Stable
 
-Long-form reading: breadcrumb, category, the two-tone headline, standfirst, author and date with copy link, a hero figure, then ArticleLayout: the reading column beside a table of contents, with pull quotes on a rose rule, tables, tags, an author note, related posts and one next step.
+Long-form reading: breadcrumb, category, the headline with its accent word and floating icon tiles, standfirst, author and date with copy link, a hero figure, then ArticleLayout: the reading column beside a table of contents, with pull quotes on a rose rule, tables, tags, an author note, related posts and one next step.
 
 **Use it for**
 
@@ -2658,7 +2751,7 @@ Long-form reading: breadcrumb, category, the two-tone headline, standfirst, auth
 
 `blog-index` · pattern · Stable
 
-The list of articles: the two-tone headline, one featured post with its photo dissolving toward the text, a category filter that wraps, a grid of content cards with a result count announced to screen readers, and pagination.
+The list of articles: the headline with its accent word and floating icon tiles, one featured post with its photo dissolving toward the text, a category filter that wraps, a grid of content cards with a result count announced to screen readers, and pagination.
 
 **Use it for**
 
@@ -2684,7 +2777,7 @@ Applied · Useful things to offer for an email address: an ebook you can page th
 
 `ebook` · component · Stable
 
-An ebook to offer for an email address: a closed 3D book that turns to show its pages, opens into a page-flip preview and ends with a short email capture.
+An ebook to offer for an email address: a closed 3D book that turns to show its pages, opens into a page-flip preview and ends with a short email capture. A valid email submitted pops confetti from the send button.
 
 **Use it for**
 
@@ -2707,7 +2800,7 @@ An ebook to offer for an email address: a closed 3D book that turns to show its 
 
 `swipe-files` · component · Stable
 
-A fan of swipe files: ready-to-use messages to take away. Hover spreads the fan, the arrows page through it, and the centre card turns over to show a spec sheet with what is inside and one action.
+A fan of swipe files: ready-to-use messages to take away. Hover spreads the fan, the arrows page through it, and the centre card turns over to show a spec sheet with what is inside and one action. Getting a swipe file pops confetti from its button.
 
 **Use it for**
 
@@ -2762,6 +2855,7 @@ Feed post (1080 × 1080), story (1080 × 1920) and link preview (1200 × 630).
 **Use it for**
 
 - One idea per post
+- Headline-size copy as the Headline (as p): one apricot word and floating icon tiles
 - Story type kept inside the centre 1080 × 1420 safe area
 
 **Not for**
@@ -2787,6 +2881,7 @@ Nature and abstract fields for heroes, headers, slides and stories, each tagged 
 
 - 16:9 for web heroes, headers and slides; 9:16 for stories
 - Text on a surface or in the calm area the tags name
+- The section opens on a peek of each kind; filters or Show all reveal the rest. Card crops show 800px thumbnails and link the originals
 
 **Not for**
 
@@ -2811,6 +2906,7 @@ People and lifestyle photography, each tagged with facets, context and a suggest
 
 - Choose by context tags and suggested use
 - Display the thumbnail, link the original
+- The library opens on twelve; a search, a theme or Show all reveals every match
 
 **Not for**
 

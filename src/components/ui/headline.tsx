@@ -15,11 +15,16 @@
  * line as the word before it, so it never starts a line on its own; gluing both sides would
  * make chunks too wide for a phone. Sizes are in em, so tiles scale with the heading role.
  * Tiles are dark icon tiles (tokens.json → icon); one still to be made shows as an empty squircle.
+ * Each tile floats: it is turned a few degrees, alternating left and right, and drifts slowly up
+ * and down, so the icons hang between the words (tokens.json → headline.tile-tilt, float-*). The
+ * float stops while the headline is off screen and when reduced motion is on; the tilt stays.
+ * The home hero is the one exception: its tiles float around the headline instead (`tilesAround`
+ * with FloatingTiles), so the words stand clear.
  * In development, a headline with no accent word or more than one, too few or too many tiles,
  * a tile at the very start or end, or a tile still to be made, warns.
  */
 import * as React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { HEADLINE_TILES, type HeadlineTile } from '@/data/headline-tiles';
 import { HEADLINE } from '@/lib/palette';
 import { EASE_OUT, DURATION } from '@/lib/motion';
@@ -44,7 +49,7 @@ export const parseHeadline = (text: string, library: Record<string, HeadlineTile
     else if (piece.startsWith('{') && piece.endsWith('}')) {
       const tile = library[piece.slice(1, -1)];
       if (tile) atoms.push({ kind: 'tile', tile });
-      else if (import.meta.env.DEV) console.warn(`Headline: no tile called "${piece}" in the squircle library`);
+      else if (import.meta.env.DEV) console.warn(`Headline: no tile called "${piece}" in the icon library`);
     } else pushText(piece, false);
   }
   return atoms;
@@ -66,47 +71,60 @@ export const headlineParts = (text: string, library: Record<string, HeadlineTile
 export interface HeadlineProps {
   /** The whole headline. Mark the one descriptive word as [word] and each tile as {id}. */
   text: string;
-  /** h1 on a real page; h2 or h3 when a page already has its h1 (as in this reference) */
-  as?: 'h1' | 'h2' | 'h3';
-  /** Tile library to resolve {id} against. Defaults to the squircle library. */
+  /** h1 on a real page; h2 or h3 when a page already has its h1 (as in this reference); p inside an asset such as a social post */
+  as?: 'h1' | 'h2' | 'h3' | 'p';
+  /** Tiles float around this headline (FloatingTiles, the home hero) instead of sitting in it: no inline tiles expected. */
+  tilesAround?: boolean;
+  /** Tile library to resolve {id} against. Defaults to the icon library. */
   tiles?: Record<string, HeadlineTile>;
   id?: string;
   className?: string;
 }
 
+/** How each tile leans, as a share of the tilt token: left, right, left, never in step. */
+const LEAN = [-1, 2 / 3, -5 / 6];
+
 export const Tile = ({ tile, index = 0, className }: { tile: HeadlineTile; index?: number; className?: string }) => {
   const reduced = useReducedMotion();
+  const style = { '--tile-lean': LEAN[index % LEAN.length], '--tile-phase': `${index * -2.2}s` } as React.CSSProperties;
   return (
     <motion.span
       aria-hidden
-      className={cn('headline-tile', !tile.src && 'border border-dashed border-ink-400', className)}
-      initial={reduced ? false : { opacity: 0, scale: 0.6, rotate: -8 }}
-      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+      className={cn('headline-tile', className)}
+      style={style}
+      initial={reduced ? false : { opacity: 0, scale: 0.6, y: '0.2em' }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: DURATION.xl, ease: EASE_OUT, delay: 0.15 + index * 0.08 }}
     >
-      {tile.src && <img src={tile.src} alt="" draggable={false} decoding="async" />}
+      <span className={cn('headline-tile-face', !tile.src && 'border border-dashed border-ink-400')}>
+        {tile.src && <img src={tile.src} alt="" draggable={false} loading="lazy" decoding="async" />}
+      </span>
     </motion.span>
   );
 };
 
-const warn = (text: string, atoms: Atom[]) => {
+const warn = (text: string, atoms: Atom[], tilesAround = false) => {
   const say = (msg: string) => console.warn(`Headline "${text}": ${msg}`);
   const isAccent = (i: number) => atoms[i]?.kind === 'word' && (atoms[i] as { accent: boolean }).accent;
   /* consecutive accent words (across one space) count as one marked phrase */
   const starts = atoms.map((_, i) => i).filter((i) => isAccent(i) && !isAccent(i - 1) && !(atoms[i - 1]?.kind === 'space' && isAccent(i - 2)));
   const tiles = atoms.filter((a) => a.kind === 'tile').length;
   if (starts.length !== 1) say(`mark exactly one descriptive word as [word] (found ${starts.length}).`);
-  if (tiles < HEADLINE.tilesMin || tiles > HEADLINE.tilesMax) say(`has ${tiles} tiles. Use ${HEADLINE.tilesMin} to ${HEADLINE.tilesMax}.`);
+  if (tilesAround) {
+    if (tiles > 0) say('its tiles float around it (tilesAround), so it takes no inline tiles.');
+  } else if (tiles < HEADLINE.tilesMin || tiles > HEADLINE.tilesMax) say(`has ${tiles} tiles. Use ${HEADLINE.tilesMin} to ${HEADLINE.tilesMax}.`);
   if (atoms[0]?.kind === 'tile' || atoms[atoms.length - 1]?.kind === 'tile') say('a tile sits beside a word, never at the very start or end.');
   atoms.forEach((a) => {
     if (a.kind === 'tile' && a.tile.status === 'planned') say(`the {${a.tile.id}} tile is still to be made. Make it before this headline goes live.`);
   });
 };
 
-export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, id, className }: HeadlineProps) => {
+export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, tilesAround = false, id, className }: HeadlineProps) => {
+  const ref = React.useRef<HTMLHeadingElement>(null);
+  const inView = useInView(ref);
   const atoms = parseHeadline(text, tiles);
-  if (import.meta.env.DEV) warn(text, atoms);
+  if (import.meta.env.DEV) warn(text, atoms, tilesAround);
 
   /* Glue each tile to the word before it, so it never starts a line alone. */
   const ranges: [number, number][] = [];
@@ -146,7 +164,7 @@ export const Headline = ({ text, as: Tag = 'h1', tiles = HEADLINE_TILES, id, cla
   for (; i < atoms.length; i++) out.push(render(atoms[i], i));
 
   return (
-    <Tag id={id} className={cn('font-display text-heading text-ink-900', className)}>
+    <Tag ref={ref} id={id} data-floating={inView || undefined} className={cn('headline font-display text-heading text-ink-900', className)}>
       {out}
     </Tag>
   );
