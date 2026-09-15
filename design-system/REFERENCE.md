@@ -722,7 +722,7 @@ The home hero's headline stands clear, and icon tiles float in the space around 
 - A page's opening hero only: anchor="headline" inside a relative wrapper around the Headline (set to tilesAround), so positions and sizes are in the headline's em and the field hugs the words at every width
 - Different sizes for every tile, between icon.float-size-min and float-size-max, at uneven positions: scattered, never set out in a grid
 - Tiles around the headline and subtitle only, behind the letters, at least about 0.4em clear of the words so they read easily; up to nine on wide screens, six on tablets, five on phones (from and until)
-- A second, box-anchored field for small tiles at the hero's far edges (the home hero: bonsai, horseshoe magnet and rope knot, from md up)
+- A second, box-anchored field on the hero itself for tiles that stand apart from the headline (the home hero, from md up: bonsai and rope knot at the edges, the horseshoe magnet alone in the top right corner, the diamond alone above the search towards the middle, and the monstera and lightning bolt in the bottom left)
 - Icons that picture what the page is about
 
 **Not for**
@@ -849,7 +849,7 @@ HEALTH beside the OS tile in a rounded frame, 2.8 : 1. Two versions: white backg
 **Use it for**
 
 - Headers, footers, email signatures, documents and slides with room for a wide logo
-- The filled version inside the home hero headline, in place of the words Health OS ({@logo}, Tumai 15 September 2026), sized to the heading at 0.95em
+- The filled version inside a headline in place of the words Health OS ({@logo}, sized to the heading at 0.95em) where a brand moment needs it; the home hero tried it and went back to the words
 - white on busy or tinted layouts where the logo should stay quiet; filled where it is the main brand moment
 - On light or paper grounds exactly as supplied
 - 32px tall or more, with clear space of at least half its height on every side
