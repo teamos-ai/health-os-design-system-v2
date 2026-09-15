@@ -95,7 +95,7 @@ Every H1 uses one to three icons, and cards, bentos and posts use them on their 
 - **Prompt:** "Photorealistic studio product photograph of [object], true-to-life materials and colours, three-quarter view. Isolated on a fully transparent background, centred and filling about 80% of a square frame, soft warm studio light from the upper left with a gentle rim light so every edge reads clearly, soft natural shading, crisp high detail, calm premium minimal aesthetic, like a refined app icon object. No text, no letters, no numbers, no logos, no brand marks, no watermark, no background, no floor, no shadow plane."
 - **Settings:** GPT Image 2 text to image, 1K, 1:1, transparent background, through the KIE connection. Quote the cost and get Tumai's approval before generating.
 - **Check:** sharp at 3× the tile size, no text, numbers or logos, reads on the charcoal ground at 40px. Redo anything that doesn't.
-- **Save:** trim to the object and pad it to 80% of a square. Save a 1024px PNG, a 320px WebP and the baked `-tile.png` (the object on the charcoal squircle, for Canva) to `public/heading-tiles/`, named after the id. Add the entry to `src/data/headline-tiles.ts` with its `words`, `group` and `picture`, and remove the id from `PLANNED` once its files exist.
+- **Save:** run `python3 scripts/icon-tiles.py <raw> <out>`, which trims to the object and pads it to 80% of a square. Save a 1024px PNG, a 320px WebP and the baked `-tile.png` (the object on the charcoal squircle, for Canva) to `public/heading-tiles/`, named after the id. Add the entry to `src/data/headline-tiles.ts` with its `words`, `group` and `picture`, and remove the id from `PLANNED` once its files exist.
 
 ## 10. Screenshot of the product
 
