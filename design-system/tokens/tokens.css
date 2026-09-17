@@ -145,4 +145,10 @@
   --hos-card3d-flip: 700ms;
   --hos-card3d-lift: 0 40px 80px -30px rgba(31, 31, 31, 0.28);
   --hos-card3d-glow: 0 0 60px -25px rgba(245, 160, 96, 0.5);
+  --hos-wall-card-width: 20rem;
+  --hos-wall-card-width-wide: 23rem;
+  --hos-wall-column-height: 34rem;
+  --hos-wall-fade: 4rem;
+  --hos-wall-row-speed: 26;
+  --hos-wall-column-speed: 20;
 }

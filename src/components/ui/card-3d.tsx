@@ -3,7 +3,8 @@
  *
  * It rests at a slight angle so it reads as lifted off the page, tilts toward the pointer as it
  * crosses it, eases back when the pointer leaves, and on a click turns over to show whatever is
- * behind it: a video, another picture, a panel of figures.
+ * behind it: a video, another picture, a panel of figures. Turned over it squares up to the screen,
+ * level and even, and scrolls to the middle of the view, so whatever is on the back is watched flat.
  *
  *   <Card3D
  *     front={<img src="/dashboards/large/79.jpg" alt="The main Health OS dashboard" />}
@@ -69,8 +70,11 @@ export const Card3D = ({ front, back, frontAction = 'Turn it over', backAction =
     onFlippedChange?.(next);
   };
 
+  /* at rest it floats at an angle; turned over it squares up to the screen, level and even, so the
+     video behind it is watched flat rather than on a slant */
   const rest = `rotateX(${CARD_3D.restX}deg) rotateY(${CARD_3D.restY}deg)`;
-  const face = (t: string) => (isFlipped ? `${t} rotateY(180deg)` : t);
+  const level = 'rotateX(0deg) rotateY(180deg)';
+  const at = () => (isFlipped ? level : rest);
 
   const move = (e: React.PointerEvent) => {
     if (reduced || isFlipped || e.pointerType !== 'mouse') return;
@@ -85,7 +89,7 @@ export const Card3D = ({ front, back, frontAction = 'Turn it over', backAction =
 
   const settle = () => {
     setFollowing(false);
-    if (cardRef.current) cardRef.current.style.transform = face(rest);
+    if (cardRef.current) cardRef.current.style.transform = at();
   };
 
   /* Escape turns it back, the same as the button under the card */
@@ -99,16 +103,18 @@ export const Card3D = ({ front, back, frontAction = 'Turn it over', backAction =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFlipped]);
 
-  /* the turn owns the transform again, so the card never holds a pointer angle while it is over */
+  /* the turn owns the transform again, so the card never holds a pointer angle while it is over, and
+     turning over brings the card to the middle of the screen so the video is not half off the edge */
   React.useEffect(() => {
     setFollowing(false);
-    if (cardRef.current) cardRef.current.style.transform = face(rest);
+    if (cardRef.current) cardRef.current.style.transform = at();
+    if (isFlipped) cardRef.current?.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFlipped]);
 
   return (
     <div className={cn('card3d-stage', className)}>
-      <div ref={cardRef} className={cn('card3d', following && 'card3d-following')} style={{ transform: face(rest) }}>
+      <div ref={cardRef} className={cn('card3d', following && 'card3d-following')} style={{ transform: at() }}>
         {/* only the face you can see takes clicks, or the hidden one swallows them */}
         <div className={cn('card3d-face relative', isFlipped && 'pointer-events-none', reduced && isFlipped && 'opacity-0')} onPointerMove={move} onPointerLeave={settle}>
           {front}

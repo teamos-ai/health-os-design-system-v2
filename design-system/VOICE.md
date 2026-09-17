@@ -28,7 +28,8 @@ If this file and the database disagree, the database is right.
 
 - Numbers in the reference site are sample data and are labelled that way. They never move into marketing.
 - Marketing copy uses only numbers the database allows, with their source.
-- No testimonials, no countdown pressure and no before-and-after images.
+- **No published testimonial, client result, count or logo.** The database blocks all of them (C21): none has been measured and no client has given written permission. The components exist and are finished (the Testimonials section), and everything in them is sample copy carrying a Sample mark. To publish one, get the outcome measured and the person's permission in writing, replace the quote, the person and the portrait together, and turn the Sample mark off for that one alone.
+- No countdown pressure and no before-and-after images.
 
 ## Audience and archetype
 

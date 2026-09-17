@@ -29,6 +29,7 @@ export const ICON_GROUNDS = { carbon: [['#36322F', 0], ['#2C2927', 0.55], ['#252
 
 /** The floating card: tilt and resting angle in degrees, perspective in px, and how long it follows the pointer and turns over, in ms. */
 export const CARD_3D = { perspective: 1200, tilt: 11, restX: 3, restY: -7, follow: 200, flip: 700 } as const;
+export const WALL = { cardWidth: '20rem', cardWidthWide: '23rem', columnHeight: '34rem', rowSpeed: 26, columnSpeed: 20 } as const;
 
 /** The floating video: it docks once less than `threshold` of its space is visible. */
 export const VIDEO_PIP = { threshold: 0.25, z: 40 } as const;

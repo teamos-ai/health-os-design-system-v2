@@ -209,6 +209,10 @@
     position: absolute;
     inset: 0;
     transform: rotateY(180deg);
+    /* what is behind rarely has the same shape as the front, so it sits even, top and bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   /* With reduced motion on, the card sits flat and the faces cross-fade instead of turning. */
   @media (prefers-reduced-motion: reduce) {
@@ -339,6 +343,24 @@
   .marquee-mask {
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 min(12%, 5rem), #000 calc(100% - min(12%, 5rem)), transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, #000 min(12%, 5rem), #000 calc(100% - min(12%, 5rem)), transparent 100%);
+  }
+
+  /* Testimonial walls (tokens.json → wall). The sizes sit on variables so a wall lifts into
+     another page and resizes from one place. */
+  .wall-card {
+    width: var(--hos-wall-card-width);
+  }
+  /* a column shares the width it is given and stops at the card width, so three columns fit
+     whatever they sit in; the tall card simply fills its column */
+  .wall-column {
+    height: var(--hos-wall-column-height);
+    width: 100%;
+    max-width: var(--hos-wall-card-width-wide);
+  }
+  /* the vertical twin of .marquee-mask: cards arrive and leave rather than being cut off */
+  .wall-mask-y {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--hos-wall-fade), #000 calc(100% - var(--hos-wall-fade)), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 var(--hos-wall-fade), #000 calc(100% - var(--hos-wall-fade)), transparent 100%);
   }
 
   .pause-on-hover:hover * {

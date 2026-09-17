@@ -102,6 +102,17 @@ Every H1 uses one to three icons, and cards, bentos and posts use them on their 
 - **Check:** sharp at 3× the tile size, no text, numbers or logos, reads on the charcoal, paper and white grounds at 40px (pale objects lean on the light grounds' contact shadow). Redo anything that doesn't.
 - **Save:** run `python3 scripts/icon-tiles.py <raw> <out>`, which trims to the object and pads it to 80% of a square. Save a 1024px PNG, a 320px WebP and the baked `-tile.png` (the object on the charcoal squircle, for Canva) to `public/heading-tiles/`, named after the id. Paper and white PNGs are not saved: the library bakes them in the browser from the 1024px PNG (`src/lib/bake-tile.ts`). Add the entry to `src/data/headline-tiles.ts` with its `words`, `group` and `picture`, and remove the id from `PLANNED` once its files exist.
 
+## 9b. Portrait for a sample testimonial
+
+Only for the sample stories, and only while they carry the Sample mark. **A real client is photographed or not shown at all**, and a generated face never stands in for a person Health OS names as a client (rule 12; Tumai's exception of 17 September 2026 covers sample copy alone).
+
+- **Model:** one person, head and shoulders, on the same warm off-white paper the icon tiles sit against, so thirty portraits read as one set rather than thirty stock photos.
+- **Subject:** an Australian wellness operator, written out before generating: age, hair, what they are wearing in the system's warm neutrals. Spread the set across ages, backgrounds and genders the way the trade actually looks.
+- **Prompt:** "Photorealistic editorial portrait photograph of [person], [clothing]. Head and shoulders, square crop, facing the camera with a calm, warm, natural expression, a slight relaxed smile, eyes to the lens. Soft diffused natural daylight from the upper left, plain warm off-white paper studio backdrop with a gentle falloff, shallow depth of field, true-to-life skin texture and natural colour, crisp high detail, calm premium minimal editorial aesthetic, warm neutral colour grading. No text, no letters, no numbers, no logos, no brand marks, no watermark, no border, no props."
+- **Settings:** GPT Image 2 text to image, 1K, 1:1, through the KIE connection. About 6 credits each. Quote the cost and get Tumai's approval before generating.
+- **Check:** no text or marks, no resemblance to a public figure, no uniform or badge that implies a registration Health OS does not hold, and it reads at 40px in a card.
+- **Save:** `sips -s format jpeg -Z 640` as `<id>-lg.jpg` and `-Z 320` as `<id>.jpg` in `public/testimonials/`, named after the person's id in `src/data/testimonials.ts`.
+
 ## 10. Screenshot of the product
 
 - Crop to the part that makes the point. Remove browser chrome unless the frame helps.

@@ -210,6 +210,8 @@ export interface MarqueeProps {
   ariaLabel?: string;
   /** show a pause and play button above the row (WCAG 2.2.2). Use it whenever the row holds controls */
   pauseControl?: boolean;
+  /** hold the row still from outside, so one button can stop several rows at once */
+  paused?: boolean;
   className?: string;
   gapClassName?: string;
   /** classes for the pause control's row, and for a box inside it that the button aligns to (e.g. a content column when the row is full bleed) */
@@ -224,6 +226,7 @@ export const Marquee = ({
   draggable = false,
   ariaLabel = 'scrolling showcase',
   pauseControl = false,
+  paused: heldStill = false,
   className,
   gapClassName = 'gap-5',
   controlsClassName,
@@ -235,7 +238,7 @@ export const Marquee = ({
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
   const [stopped, setStopped] = React.useState(false);
-  const paused = hovered || focused || stopped;
+  const paused = hovered || focused || stopped || heldStill;
   const rootRef = React.useRef<HTMLDivElement>(null);
   const firstCopyRef = React.useRef<HTMLDivElement>(null);
   const duplicateRef = React.useRef<HTMLDivElement>(null);

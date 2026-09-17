@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-15 · 133 entries · 52 components · 31 widgets · 14 patterns · 11 open decisions
+Updated 2026-09-15 · 137 entries · 55 components · 31 widgets · 15 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -21,7 +21,7 @@ Updated 2026-09-15 · 133 entries · 52 components · 31 widgets · 14 patterns 
 - Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Icon library](#icon-library) · [Logo](#logo) · [Motion](#motion)
 - Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Features](#features) · [Bentos](#bentos) · [Blocks](#blocks) · [Widgets](#widgets)
 - Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Emails and newsletters](#emails-and-newsletters) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Health OS music](#health-os-music) · [Dashboards](#dashboards) · [Backgrounds](#backgrounds) · [Image library](#image-library)
-- Proof: [The live page](#the-live-page)
+- Proof: [Case study and testimonials](#case-study-and-testimonials) · [The live page](#the-live-page)
 
 ## Open decisions
 
@@ -2970,7 +2970,7 @@ Applied · Twenty-nine Health OS product screens, tagged by the part of the prod
 
 `dashboard-card` · component · Stable
 
-A picture that floats and turns over: it rests at a slight angle so it reads as lifted off the page, tilts toward the pointer and eases back, then turns on a click to show whatever is behind it. Built on 17 September 2026 from the Fitness OS hero card Tumai supplied, put on Health OS ground (ink lift, apricot glow, the system's easing) and driven entirely by tokens.json → card3d, so the same effect lifts into another site or brand by changing the variables. The main dashboard uses it, with the system overview video behind.
+A picture that floats and turns over: it rests at a slight angle so it reads as lifted off the page, tilts toward the pointer and eases back, then turns on a click to show whatever is behind it, squaring up level to the screen and scrolling to the middle of the view as it goes, so the back is watched flat. Built on 17 September 2026 from the Fitness OS hero card Tumai supplied, put on Health OS ground (ink lift, apricot glow, the system's easing) and driven entirely by tokens.json → card3d, so the same effect lifts into another site or brand by changing the variables. The main dashboard uses it, with the system overview video behind.
 
 **Use it for**
 
@@ -3086,6 +3086,101 @@ How product screenshots are prepared before they appear anywhere.
 **API** `Rule`
 
 **Source** `design-system/REFERENCE.md`
+
+## Case study and testimonials
+
+Proof · One client story told end to end, and thirty short quotes on two moving walls. Every word of it is sample copy: the database blocks client results, quotes and logos until one is measured and the client has given written permission, so these exist to be designed and reviewed, not published.
+
+### Testimonial card
+
+`testimonial-card` · component · Stable
+
+One person and one thing they said. The quote leads, because the sentence is what someone reads as a card goes past; the portrait, the name and what they do follow underneath. Two sizes: the row card for a line, the tall card for a sentence or two. Carries the Sample mark while the quote is sample copy, which today is all of them.
+
+**Use it for**
+
+- Inside the two walls, which is where these normally live
+- On its own beside a plan or a feature, once a real quote exists
+- showPillar when quotes are being chosen, so it is clear which argument each one makes
+
+**Not for**
+
+- Dropping the Sample mark on a quote that has not been measured and permitted (db C21)
+- A star rating, a result figure or a logo: none of them are cleared
+- Making the card a link: a moving link is a hard target to hit
+- A quote longer than about forty words in a row card
+
+**API** `<TestimonialCard testimonial size?: row | tall showPillar? sample? className? /> · data in src/data/testimonials.ts (PEOPLE, TESTIMONIALS, PILLARS, SAMPLE_NOTICE)`
+
+**Source** `src/components/testimonials/TestimonialCard.tsx`
+
+### Testimonial wall
+
+`testimonial-wall` · component · Stable
+
+Short quotes on rows that drift sideways, the middle row running the other way and each row a little slower than the last, so it reads as a crowd rather than a conveyor. Built on Marquee, so every row pauses on hover and on keyboard focus and sits still with reduced motion on, and one pause button above the wall holds all of them at once.
+
+**Use it for**
+
+- Full bleed under a section, where the fade at each end does its work
+- Fifteen or so short quotes: one line each, two at most
+- One wall per page
+
+**Not for**
+
+- Long quotes: use the columns, which are built for them
+- Two moving walls in the same view
+- A row of logos or figures instead of quotes: neither is cleared
+- Removing the pause button: a wall moves for longer than five seconds (WCAG 2.2.2)
+
+**API** `<TestimonialWall items? rows? sample? className? controlsClassName? /> · sizes and speed from tokens.json → wall`
+
+**Source** `src/components/testimonials/TestimonialWall.tsx`
+
+### Testimonial columns
+
+`testimonial-columns` · component · Stable
+
+The vertical twin of the wall: longer quotes on columns that drift upward, each column at its own speed so the three do not read as one block sliding. A column holds about three cards, so the next is always arriving. Columns fall away one at a time on smaller screens, down to one on a phone.
+
+**Use it for**
+
+- Quotes of a sentence or two, where a row card would be too small
+- Beside a headline or an offer, as a tall block of proof
+- Three columns on a desktop, one on a phone
+
+**Not for**
+
+- One-line quotes: they leave the tall card looking empty, use the wall
+- More than about five cards a column, which nobody waits to see
+- Putting a link or button inside a card that is moving
+
+**API** `<TestimonialColumns items? columns? sample? className? /> · sizes and speed from tokens.json → wall · pauses on hover, on focus and with the one button; a short scrolling list with reduced motion on`
+
+**Source** `src/components/testimonials/TestimonialColumns.tsx`
+
+### Case study
+
+`case-study` · pattern · Stable
+
+One client story in the order someone reads it: who they are, what was wrong, what we set out to do, what was actually done, what changed, what they said, and what happens next. Written from the case study playbook and fitted to the real offer, so the actions are the thirty-day setup Health OS sells rather than an invention. Takes any story shaped like CaseStudy, so a real one drops in by replacing the object.
+
+**Use it for**
+
+- A client who has agreed in writing to be named, once an outcome has been measured
+- The actions section for scope, the results section for outcomes, and never the two mixed
+- A figure only where the evidence under it is named
+
+**Not for**
+
+- Publishing it while it is sample: every figure carries what it would need first
+- A result with no method: a number without a stated before, after and period is not evidence
+- Health outcomes, regulatory status or earnings, which are permanently closed (db C23, C24, C22)
+- Stock photography standing in for the client
+
+**API** `<CaseStudy study sample? className? /> · data in src/data/case-studies.ts (CaseStudy: kicker, title, summary, about, challenge, objectives, actions, results with needs, quote, closing, next)`
+
+**Source** `src/components/case-study/CaseStudy.tsx`
 
 ## The live page
 

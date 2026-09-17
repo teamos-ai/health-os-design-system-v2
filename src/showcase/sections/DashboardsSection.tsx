@@ -1,8 +1,8 @@
 /**
  * DashboardsSection: the Health OS product screens. The main dashboard opens the section as a card
- * that floats, tilts toward the pointer and turns over into the overview video, with the same
- * effect written out underneath for any other site. Every screen follows, tagged by area, layout
- * and the parts it is built from.
+ * that floats, tilts toward the pointer and turns over, level and centred, into the overview video,
+ * with the same effect written out underneath for any other site. Every screen follows, tagged by
+ * area, layout and the parts it is built from.
  */
 import { Copy } from 'lucide-react';
 import { Section, Example } from '@/showcase/Section';
@@ -53,7 +53,8 @@ const PORTABLE = `<!-- 1. Markup. The stage owns the perspective; without it the
   will-change: transform;
 }
 .card3d.is-following { transition-duration: var(--card3d-follow); }
-.card3d.is-flipped { transform: rotateX(var(--card3d-rest-x)) rotateY(calc(var(--card3d-rest-y) + 180deg)); }
+/* turned over it squares up to the screen: level, even, and watched flat rather than on a slant */
+.card3d.is-flipped { transform: rotateX(0deg) rotateY(180deg); }
 
 .card3d-face {
   overflow: hidden;
@@ -63,7 +64,8 @@ const PORTABLE = `<!-- 1. Markup. The stage owns the perspective; without it the
 }
 .card3d-face img,
 .card3d-face video { display: block; width: 100%; height: auto; }
-.card3d-back { position: absolute; inset: 0; transform: rotateY(180deg); }
+/* the back sits even top and bottom, since a video rarely has the same shape as the picture */
+.card3d-back { position: absolute; inset: 0; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; }
 
 /* Sits flat and cross-fades for anyone who has asked for less motion. */
 @media (prefers-reduced-motion: reduce) {
@@ -95,6 +97,8 @@ document.querySelectorAll('[data-card3d]').forEach((card) => {
     rest();
     back.hidden = false;
     card.classList.add('is-flipped');
+    /* bring it to the middle of the screen so the video is not half off the edge */
+    card.scrollIntoView({ block: 'center', behavior: 'smooth' });
     /* revealed by a click, so it may play with sound; a browser that refuses gets it muted */
     video.play().catch(() => { video.muted = true; video.play(); });
   });
@@ -133,7 +137,7 @@ const FeaturedCard = () => {
 
       <div className="flex flex-col gap-4">
         <p className="max-w-reading font-sans text-body text-ink-600">
-          The main dashboard rests at a slight angle so it reads as lifted off the page, tilts toward the pointer, and turns over on a click into the system overview video. The tilt follows a mouse only and stops while the video is showing, so its controls stay usable. With reduced motion on, the card sits flat and the two faces cross-fade.
+          The main dashboard rests at a slight angle so it reads as lifted off the page, tilts toward the pointer, and turns over on a click into the system overview video. Turning over squares it up to the screen, level and even, and brings it to the middle of the view, so the video is watched flat. The tilt follows a mouse only and stops while the video is showing, so its controls stay usable. With reduced motion on, the card sits flat and the two faces cross-fade.
         </p>
         <div className="flex flex-wrap gap-2">
           <Button variant="secondary" size="small" leadingIcon={<Copy className="h-4 w-4" strokeWidth={1.75} aria-hidden />} onClick={copy}>

@@ -17,7 +17,7 @@ A quick check for every page, post, email or asset built from this system. If an
 11. Images come from the tagged library, match their suggested use, dissolve into their card with the shared image fade, and text never sits on a raw photo.
 12. Screenshots are cropped to the point, framed on a surface, and show no private or client information.
 13. Copy is plain Australian English in sentence case, with no em dashes and no invented numbers.
-14. Prices, offers and claims match the Health OS database. No testimonials, countdown pressure or before-and-after images.
+14. Prices, offers and claims match the Health OS database. No countdown pressure or before-and-after images, and no testimonial, client result, count or logo goes out without a measured outcome and the client's written permission: the walls and the case study ship as sample copy under a Sample mark until then.
 15. Motion is calm, and nothing people need is hidden until an animation finishes.
 16. Anything outside the system has a defined need, is documented, and has Tumai's approval.
 

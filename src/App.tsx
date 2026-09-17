@@ -28,6 +28,7 @@ import { LeadMagnetsSection } from '@/showcase/sections/LeadMagnetsSection';
 import { CalculatorsSection } from '@/showcase/sections/CalculatorsSection';
 import { SocialMediaSection } from '@/showcase/sections/SocialMediaSection';
 import { MusicSection } from '@/showcase/sections/MusicSection';
+import { StoriesSection } from '@/showcase/sections/StoriesSection';
 import { DashboardsSection } from '@/showcase/sections/DashboardsSection';
 import { BackgroundsSection } from '@/showcase/sections/BackgroundsSection';
 import { ImageLibrarySection } from '@/showcase/sections/ImageLibrarySection';
@@ -61,6 +62,7 @@ const RENDER: Record<string, ComponentType> = {
   social: SocialMediaSection,
   music: MusicSection,
   dashboards: DashboardsSection,
+  stories: StoriesSection,
   backgrounds: BackgroundsSection,
   imagery: ImageLibrarySection,
   live: LivePageSection,

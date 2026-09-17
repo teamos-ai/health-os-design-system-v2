@@ -33,6 +33,7 @@ import {
   Music,
   Mail,
   Gauge,
+  Quote,
   type LucideIcon,
 } from 'lucide-react';
 import { SECTIONS, type CatalogSection } from '@/showcase/catalog';
@@ -64,6 +65,7 @@ const ICONS: Record<string, LucideIcon> = {
   social: Share2,
   music: Music,
   dashboards: Gauge,
+  stories: Quote,
   backgrounds: Wallpaper,
   imagery: Images,
   live: Globe,

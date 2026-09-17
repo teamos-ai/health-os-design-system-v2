@@ -81,6 +81,7 @@ function buildCss() {
   for (const [name, node] of entries(t.banner)) lines.push(`  --hos-banner-${name}: ${val(node)};`);
   for (const [name, node] of entries(t.video)) lines.push(`  --hos-video-${name}: ${val(node)};`);
   for (const [name, node] of entries(t.card3d)) lines.push(`  --hos-card3d-${name}: ${val(node)};`);
+  for (const [name, node] of entries(t.wall)) lines.push(`  --hos-wall-${name}: ${val(node)};`);
   lines.push('}', '');
   return lines.join('\n');
 }
@@ -198,6 +199,7 @@ function buildPalette() {
     '',
     '/** The floating card: tilt and resting angle in degrees, perspective in px, and how long it follows the pointer and turns over, in ms. */',
     `export const CARD_3D = { perspective: ${parseFloat(val(t.card3d.perspective))}, tilt: ${parseFloat(val(t.card3d.tilt))}, restX: ${parseFloat(val(t.card3d['rest-x']))}, restY: ${parseFloat(val(t.card3d['rest-y']))}, follow: ${parseFloat(val(t.card3d.follow))}, flip: ${parseFloat(val(t.card3d.flip))} } as const;`,
+    `export const WALL = { cardWidth: '${val(t.wall['card-width'])}', cardWidthWide: '${val(t.wall['card-width-wide'])}', columnHeight: '${val(t.wall['column-height'])}', rowSpeed: ${val(t.wall['row-speed'])}, columnSpeed: ${val(t.wall['column-speed'])} } as const;`,
     '',
     '/** The floating video: it docks once less than `threshold` of its space is visible. */',
     `export const VIDEO_PIP = { threshold: ${val(t.video['pip-threshold'])}, z: ${val(t.video['pip-z'])} } as const;`,
