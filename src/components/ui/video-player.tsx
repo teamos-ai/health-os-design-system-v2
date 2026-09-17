@@ -160,6 +160,8 @@ export interface VideoPlayerProps {
   captionsLabel?: string;
   /** follow the reader into the bottom right corner while playing out of view (default true) */
   float?: boolean;
+  /** start playing as soon as the player appears. Only where a person's own click revealed it, such as the flip card; never on page load. If the browser refuses the sound, it plays muted and says so on the volume control */
+  playOnReveal?: boolean;
   className?: string;
 }
 
@@ -171,6 +173,7 @@ export const VideoPlayer = ({
   captionsLang = 'en',
   captionsLabel = 'English',
   float = true,
+  playOnReveal = false,
   className,
 }: VideoPlayerProps) => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
@@ -238,6 +241,18 @@ export const VideoPlayer = ({
   }, [docked, reduced, controls]);
 
   const showControls = hovered || focused || !isPlaying;
+
+  /* Revealed by a click, so play at once. A browser that refuses the sound gets a muted play instead. */
+  React.useEffect(() => {
+    if (!playOnReveal) return;
+    const video = videoRef.current;
+    if (!video) return;
+    void video.play().catch(() => {
+      video.muted = true;
+      setIsMuted(true);
+      void video.play().catch(() => setIsPlaying(false));
+    });
+  }, [playOnReveal]);
 
   const togglePlay = () => {
     const video = videoRef.current;

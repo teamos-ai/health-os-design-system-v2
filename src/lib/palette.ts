@@ -27,6 +27,9 @@ export const ICON_FLOAT = { rise: 8, drift: 6, turn: 5, durationMin: 5, duration
 /** Icon tile grounds as gradient stops ([colour, offset 0 to 1]), for baking a tile on a canvas. Light grounds add a hairline edge and a contact shadow colour. */
 export const ICON_GROUNDS = { carbon: [['#36322F', 0], ['#2C2927', 0.55], ['#252220', 1]], paper: [['#FDFBF8', 0], ['#F9F6F2', 0.55], ['#F1ECE4', 1]], white: [['#FFFFFF', 0]], edgeLight: 'rgba(31, 31, 31, 0.08)', shadowLight: 'rgba(31, 31, 31, 0.14)' } as const;
 
+/** The floating card: tilt and resting angle in degrees, perspective in px, and how long it follows the pointer and turns over, in ms. */
+export const CARD_3D = { perspective: 1200, tilt: 11, restX: 3, restY: -7, follow: 200, flip: 700 } as const;
+
 /** The floating video: it docks once less than `threshold` of its space is visible. */
 export const VIDEO_PIP = { threshold: 0.25, z: 40 } as const;
 

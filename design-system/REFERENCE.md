@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-15 · 132 entries · 51 components · 31 widgets · 14 patterns · 11 open decisions
+Updated 2026-09-15 · 133 entries · 52 components · 31 widgets · 14 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -65,7 +65,7 @@ The only video player in the design system. The video sits with clean rounded ed
 - float={false} unless a floating video would cover something the page needs, such as a checkout
 - Autoplay with sound, or floating a paused video
 
-**API** `src · float (default true) · crop: { top, right, bottom, left } · poster · captionsSrc · captionsLang · captionsLabel · className · floating size, inset, threshold and layer from tokens.json → video`
+**API** `src · float (default true) · playOnReveal (starts playing when a click reveals it, such as the floating card) · crop: { top, right, bottom, left } · poster · captionsSrc · captionsLang · captionsLabel · className · floating size, inset, threshold and layer from tokens.json → video`
 
 **Source** `src/components/ui/video-player.tsx · tokens.json → video · .video-pip in src/index.css`
 
@@ -2965,6 +2965,31 @@ Reference music people can play, as music cards on a grid of three: nine songs T
 ## Dashboards
 
 Applied · Twenty-nine Health OS product screens, tagged by the part of the product they belong to, their layout and the parts they are built from. The main dashboard opens the section. They are mockups, so where a screen differs from the system the difference is named on it, and the system wins.
+
+### Floating card
+
+`dashboard-card` · component · Stable
+
+A picture that floats and turns over: it rests at a slight angle so it reads as lifted off the page, tilts toward the pointer and eases back, then turns on a click to show whatever is behind it. Built on 17 September 2026 from the Fitness OS hero card Tumai supplied, put on Health OS ground (ink lift, apricot glow, the system's easing) and driven entirely by tokens.json → card3d, so the same effect lifts into another site or brand by changing the variables. The main dashboard uses it, with the system overview video behind.
+
+**Use it for**
+
+- One hero moment per page: the screen a page is about, with a video, a second screen or a panel of figures behind it
+- The front as the click target, and the back left to its own controls, so a video's seek bar and volume stay usable
+- playOnReveal on the video behind it, since the person's own click revealed it
+- The copy-ready HTML, CSS and JavaScript under the card for a site outside this system
+
+**Not for**
+
+- More than one on a view: it is a hero moment, not a card style
+- Tilt past about 12 degrees, which warps a large picture and makes the words inside it unreadable
+- Perspective on the card itself instead of the stage around it: the turn flattens into a skew
+- A card that turns with nothing behind it worth turning for
+- Autoplay with sound on page load: the turn is the click that permits the sound
+
+**API** `<Card3D front back frontAction backAction tilt flipped onFlippedChange className /> (src/components/ui/card-3d.tsx) · CARD_3D (src/lib/palette.ts) · .card3d-stage, .card3d, .card3d-face, .card3d-back in src/index.css · tokens.json → card3d (perspective, tilt, rest-x, rest-y, follow, flip, lift, glow) · <VideoPlayer playOnReveal />`
+
+**Source** `src/components/ui/card-3d.tsx · src/showcase/sections/DashboardsSection.tsx · tokens.json → card3d`
 
 ### Dashboard library
 

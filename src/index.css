@@ -180,6 +180,48 @@
     filter: var(--hos-icon-object-shadow-light);
   }
 
+  /* The floating card: a picture resting at a slight angle so it reads as lifted off the page,
+     tilting toward the pointer, and turning over on a click to show what is behind it. The stage
+     owns the perspective: put it on the card itself and the turn flattens into a skew. Values come
+     from tokens.json → card3d, so the same effect can be lifted into another page or brand by
+     changing the variables alone. */
+  .card3d-stage {
+    perspective: var(--hos-card3d-perspective);
+  }
+  .card3d {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform var(--hos-card3d-flip) var(--hos-ease-out);
+    will-change: transform;
+  }
+  /* while it is chasing the pointer it moves at the shorter follow time */
+  .card3d-following {
+    transition-duration: var(--hos-card3d-follow);
+  }
+  .card3d-face {
+    overflow: hidden;
+    border-radius: var(--hos-radius-lg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-shadow: var(--hos-card3d-lift), var(--hos-card3d-glow);
+  }
+  .card3d-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+  }
+  /* With reduced motion on, the card sits flat and the faces cross-fade instead of turning. */
+  @media (prefers-reduced-motion: reduce) {
+    .card3d,
+    .card3d-following {
+      transition: opacity var(--hos-duration-md) var(--hos-ease-out);
+      transform: none !important;
+    }
+    .card3d-back {
+      transform: none;
+    }
+  }
+
   /* The floating video: a playing video that has scrolled out of view docks in the bottom
      right corner. Size, inset and layer come from the video tokens. */
   .video-pip {

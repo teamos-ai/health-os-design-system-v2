@@ -80,6 +80,7 @@ function buildCss() {
   for (const [name, node] of entries(t.icon)) lines.push(`  --hos-icon-${name}: ${val(node)};`);
   for (const [name, node] of entries(t.banner)) lines.push(`  --hos-banner-${name}: ${val(node)};`);
   for (const [name, node] of entries(t.video)) lines.push(`  --hos-video-${name}: ${val(node)};`);
+  for (const [name, node] of entries(t.card3d)) lines.push(`  --hos-card3d-${name}: ${val(node)};`);
   lines.push('}', '');
   return lines.join('\n');
 }
@@ -194,6 +195,9 @@ function buildPalette() {
     '',
     '/** Icon tile grounds as gradient stops ([colour, offset 0 to 1]), for baking a tile on a canvas. Light grounds add a hairline edge and a contact shadow colour. */',
     `export const ICON_GROUNDS = { carbon: ${groundStops(val(t.icon.ground))}, paper: ${groundStops(val(t.icon['ground-paper']))}, white: ${groundStops(val(t.icon['ground-white']))}, edgeLight: '${val(t.icon['edge-light'])}', shadowLight: '${(val(t.icon['object-shadow-light']).match(/rgba?\([^)]*\)/) || ['rgba(31, 31, 31, 0.14)'])[0]}' } as const;`,
+    '',
+    '/** The floating card: tilt and resting angle in degrees, perspective in px, and how long it follows the pointer and turns over, in ms. */',
+    `export const CARD_3D = { perspective: ${parseFloat(val(t.card3d.perspective))}, tilt: ${parseFloat(val(t.card3d.tilt))}, restX: ${parseFloat(val(t.card3d['rest-x']))}, restY: ${parseFloat(val(t.card3d['rest-y']))}, follow: ${parseFloat(val(t.card3d.follow))}, flip: ${parseFloat(val(t.card3d.flip))} } as const;`,
     '',
     '/** The floating video: it docks once less than `threshold` of its space is visible. */',
     `export const VIDEO_PIP = { threshold: ${val(t.video['pip-threshold'])}, z: ${val(t.video['pip-z'])} } as const;`,

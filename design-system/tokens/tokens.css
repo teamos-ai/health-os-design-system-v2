@@ -137,4 +137,12 @@
   --hos-video-pip-inset-sm: 1rem;
   --hos-video-pip-threshold: 0.25;
   --hos-video-pip-z: 40;
+  --hos-card3d-perspective: 1200px;
+  --hos-card3d-tilt: 11deg;
+  --hos-card3d-rest-x: 3deg;
+  --hos-card3d-rest-y: -7deg;
+  --hos-card3d-follow: 200ms;
+  --hos-card3d-flip: 700ms;
+  --hos-card3d-lift: 0 40px 80px -30px rgba(31, 31, 31, 0.28);
+  --hos-card3d-glow: 0 0 60px -25px rgba(245, 160, 96, 0.5);
 }
