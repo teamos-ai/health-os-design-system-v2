@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-15 · 131 entries · 51 components · 31 widgets · 14 patterns · 11 open decisions
+Updated 2026-09-15 · 132 entries · 51 components · 31 widgets · 14 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -20,7 +20,7 @@ Updated 2026-09-15 · 131 entries · 51 components · 31 widgets · 14 patterns 
 - Start: [System overview video](#system-overview-video) · [Overview](#overview)
 - Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Icon library](#icon-library) · [Logo](#logo) · [Motion](#motion)
 - Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Features](#features) · [Bentos](#bentos) · [Blocks](#blocks) · [Widgets](#widgets)
-- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Emails and newsletters](#emails-and-newsletters) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Health OS music](#health-os-music) · [Backgrounds](#backgrounds) · [Image library](#image-library)
+- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Emails and newsletters](#emails-and-newsletters) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Health OS music](#health-os-music) · [Dashboards](#dashboards) · [Backgrounds](#backgrounds) · [Image library](#image-library)
 - Proof: [The live page](#the-live-page)
 
 ## Open decisions
@@ -2961,6 +2961,35 @@ Reference music people can play, as music cards on a grid of three: nine songs T
 **API** `<MusicLibrary tracks: { youtubeId, title, artist }[] /> · MUSIC_TRACKS, trackThumbnail, trackUrl (src/data/music.ts)`
 
 **Source** `src/components/media/MusicLibrary.tsx · src/data/music.ts · src/showcase/sections/MusicSection.tsx`
+
+## Dashboards
+
+Applied · Twenty-nine Health OS product screens, tagged by the part of the product they belong to, their layout and the parts they are built from. The main dashboard opens the section. They are mockups, so where a screen differs from the system the difference is named on it, and the system wins.
+
+### Dashboard library
+
+`dashboard-library` · asset · Stable
+
+Twenty-nine product screens supplied by Tumai on 17 September 2026 as 4K stills, read one by one and tagged so the system knows what each holds: the area of the product (overview, bookings, clients, messages, funnels and websites, content, automations, courses and community), the layout (overview, list and table, calendar, builder canvas, feed, split preview, template gallery), the parts it is built from, what to take from it, and each departure from the system. Screen 79, the main Health OS dashboard, is the featured one and opens the section.
+
+**Use it for**
+
+- Deciding the shape of a product screen: find the area or the layout, then read the parts it is built from
+- Search a part or a departure (table, calendar, kanban board, gradient) to find every screen that has one
+- The picture for the shape, the tokens for the paint: build from buttons, cards, tables and charts in this system
+- Screens 84, 86 and the monospaced inbox are the closest to the system and carry no departures
+- The 1920px copy for a page or deck, the 4K original for anything printed or zoomed
+
+**Not for**
+
+- Copying a screen's colour: the saturated pink buttons, gradient tiles and teal badges in most of these are departures, not the palette
+- Rebuilding a mockup pixel for pixel instead of composing it from the components in this system
+- Treating the sample figures as real: they are placeholders, and the database governs any number that ships
+- Health claims read off a mockup, such as the community post copy in screen 102
+
+**API** `DASHBOARDS, DASHBOARD_AREAS, DASHBOARDS_ON_SYSTEM, dashboardOriginal(d), dashboardLarge(d), dashboardThumb(d) (src/data/dashboards.ts): { id, name, area, layout, summary, parts, palette, density, useFor, departures, readsAs, featured? } · <DashboardLibrary />`
+
+**Source** `src/components/dashboards/DashboardLibrary.tsx · src/data/dashboards.ts · public/dashboards/`
 
 ## Backgrounds
 
