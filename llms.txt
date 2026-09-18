@@ -8,7 +8,7 @@ Read in this order. Take every value from the tokens and never type a hex, size,
 
 - [CLAUDE.md](design-system/CLAUDE.md): the rules, the load order and how to change the system.
 - [CHECKLIST.md](design-system/CHECKLIST.md): the 16 checks to run before shipping any page, post, email or asset.
-- [REFERENCE.md](design-system/REFERENCE.md): every token table and all 137 entries with purpose, when to use, when not to, API and source, plus the 11 open decisions.
+- [REFERENCE.md](design-system/REFERENCE.md): every token table and all 138 entries with purpose, when to use, when not to, API and source, plus the 11 open decisions.
 
 ## Values
 

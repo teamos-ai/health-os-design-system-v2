@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-15 · 137 entries · 55 components · 31 widgets · 15 patterns · 11 open decisions
+Updated 2026-09-18 · 138 entries · 55 components · 31 widgets · 16 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -20,7 +20,7 @@ Updated 2026-09-15 · 137 entries · 55 components · 31 widgets · 15 patterns 
 - Start: [System overview video](#system-overview-video) · [Overview](#overview)
 - Foundations: [Tokens](#tokens) · [Headlines](#headlines) · [Icon library](#icon-library) · [Logo](#logo) · [Motion](#motion)
 - Library: [Buttons](#buttons) · [Badges](#badges) · [Elements](#elements) · [Cards](#cards) · [Features](#features) · [Bentos](#bentos) · [Blocks](#blocks) · [Widgets](#widgets)
-- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Emails and newsletters](#emails-and-newsletters) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Health OS music](#health-os-music) · [Dashboards](#dashboards) · [Backgrounds](#backgrounds) · [Image library](#image-library)
+- Applied: [Signature sections](#signature-sections) · [Banners](#banners) · [Blog](#blog) · [Emails and newsletters](#emails-and-newsletters) · [Sending-domain warm-up](#sending-domain-warm-up) · [Lead magnets](#lead-magnets) · [Calculators](#calculators) · [Social media](#social-media) · [Health OS music](#health-os-music) · [Dashboards](#dashboards) · [Backgrounds](#backgrounds) · [Image library](#image-library)
 - Proof: [Case study and testimonials](#case-study-and-testimonials) · [The live page](#the-live-page)
 
 ## Open decisions
@@ -2837,6 +2837,36 @@ The Health OS email and newsletter library, built on 15 September 2026 from db-h
 **API** `<EmailLibrary /> · EMAILS, EMAIL_SERIES, fieldsFor(email), GLOBAL_FIELDS, SENDER_BLOCK (src/data/emails) · renderEmailHtml(email, { base, fields: sample | tags, highlight }), renderEmailText(email, { fields }), countWords(email) (src/lib/email-html.ts) · ?email=<id> opens one email`
 
 **Source** `src/components/email/EmailLibrary.tsx · src/components/email/EmailPreview.tsx · src/data/emails/ · src/lib/email-html.ts · public/email/`
+
+## Sending-domain warm-up
+
+Applied · Six emails over 24 days that exist to earn a new sending sub-domain a reputation rather than to sell anything. The ramp, the rules, and each email as both plain text and a standalone HTML document, rendered from one source so the two cannot drift. Ready to send once the qualified lists are loaded with their consent basis recorded.
+
+### Warm-up sequence
+
+`warmup-sequence` · pattern · Stable
+
+The sending-domain warm-up: six emails over 24 days written to earn a new sub-domain a reputation, not to sell. Copy is data (src/data/warmup.ts) and both bodies are rendered from the same blocks by src/lib/warmup-render.ts, so the plain text and the HTML cannot drift. The sequence follows the three CEO-locked problems in order of depth, carries no link in the body until the last email, and asks for a reply in five of six sends because a reply is the strongest signal a young domain can earn.
+
+**Use it for**
+
+- Warming a new sending sub-domain in LC Email or Mailgun before any campaign runs on it
+- Copying the plain text for the text part and the HTML for the HTML part of the same send
+- Following the ramp table: the segment order is the rule, not the email count
+- Loading the qualified lists in the ramp’s order, warmest first, so loading them and warming the domain happen in one pass
+- The A/B subject alternates, but only once the domain is warm and never on the first two sends
+
+**Not for**
+
+- Sending to any address whose collection method and consent basis are not recorded against it
+- Adding a body link to emails 1 to 5, or a second link to email 6
+- Any figure, result, percentage or client outcome: the database publishes none, and a warm-up send is the worst place to invent one
+- An image, an icon tile or a remote asset of any kind in the body
+- Raising the daily cap ahead of the ramp because the opens look good in the first window
+
+**API** `<WarmupSection /> · WARMUP, PLAN, RULES, MAIL, MERGE, SENDER, BOOKING (src/data/warmup.ts) · toPlainText(email), toHtml(email), allPlainText(emails) (src/lib/warmup-render.ts)`
+
+**Source** `src/showcase/sections/WarmupSection.tsx · src/data/warmup.ts · src/lib/warmup-render.ts · teamos-ai/db-health-os`
 
 ## Lead magnets
 

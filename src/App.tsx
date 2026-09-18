@@ -24,6 +24,7 @@ import { SignatureSection } from '@/showcase/sections/SignatureSection';
 import { BannersSection } from '@/showcase/sections/BannersSection';
 import { BlogSection } from '@/showcase/sections/BlogSection';
 import { EmailsSection } from '@/showcase/sections/EmailsSection';
+import { WarmupSection } from '@/showcase/sections/WarmupSection';
 import { LeadMagnetsSection } from '@/showcase/sections/LeadMagnetsSection';
 import { CalculatorsSection } from '@/showcase/sections/CalculatorsSection';
 import { SocialMediaSection } from '@/showcase/sections/SocialMediaSection';
@@ -57,6 +58,7 @@ const RENDER: Record<string, ComponentType> = {
   banners: BannersSection,
   blog: BlogSection,
   emails: EmailsSection,
+  warmup: WarmupSection,
   'lead-magnets': LeadMagnetsSection,
   calculators: CalculatorsSection,
   social: SocialMediaSection,
