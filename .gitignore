@@ -22,3 +22,10 @@ dist-ssr
 !.vscode/extensions.json
 *.log
 npm-debug.log*
+
+# Audio the system holds but may not publish. Every push here deploys to a public address, so an
+# uncleared recording in the repo is an uncleared recording on the internet. The shelf in the Music
+# section plays these from a machine; set a track's licence to cleared in src/data/audio-tracks.ts
+# and remove its line below once Health OS holds the licence.
+public/media/audio/yummy-instrumental.mp3
+public/media/audio/im-the-one-instrumental.mp3

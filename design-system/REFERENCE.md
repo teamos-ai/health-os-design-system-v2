@@ -4,7 +4,7 @@
 
 Every token, component, widget, pattern and asset library in the system, with what it is for, when to use it, when not to, its API and its source file. The reference site renders the same two files: https://ds-healthos.vercel.app
 
-Updated 2026-09-18 · 138 entries · 55 components · 31 widgets · 16 patterns · 11 open decisions
+Updated 2026-09-18 · 139 entries · 55 components · 31 widgets · 17 patterns · 11 open decisions
 
 ## How to use this file
 
@@ -2968,18 +2968,42 @@ Feed post (1080 × 1080), story (1080 × 1920) and link preview (1200 × 630).
 
 ## Health OS music
 
-Applied · Nine songs that set the feel for Health OS background music. Play them here, one at a time, from their official videos.
+Applied · Two shelves. The audio files the system holds, each with a licence state that decides whether its file may be in the repo at all, and ten songs that set the feel for Health OS background music, played one at a time from their official videos.
+
+### Audio shelf
+
+`audio-shelf` · pattern · Stable
+
+The audio files the system actually holds, each in an AudioPlayer, as opposed to the songs it only points at. Every track carries a licence state, and that state is what decides whether its file may be in the repo at all: this repo deploys to a public address on every push, so an uncleared recording committed here is an uncleared recording published. An uncleared track plays from a machine and keeps its file out of git.
+
+**Use it for**
+
+- Audio Health OS owns or holds a licence for: voice notes, episode clips, a cleared backing track
+- A reference track someone wants to find again, kept uncleared until a licence exists
+- Setting a track cleared only when the licence covers the actual use
+
+**Not for**
+
+- Committing an uncleared file: the ignore lines in .gitignore are the difference between a local shelf and distributing somebody else's master
+- Treating a downloaded file as a licence, including an instrumental: the instrumental is still the master
+- Other artists' songs as a listening library: reference them in the music library instead
+- A published track with no transcript where the words matter
+
+**API** `AUDIO_TRACKS, clearedTracks() (src/data/audio-tracks.ts): { id, src, title, meta, licence: cleared | not cleared, from } · <AudioPlayer src title meta transcript? />`
+
+**Source** `src/data/audio-tracks.ts · src/showcase/sections/MusicSection.tsx · src/components/ui/audio-player.tsx`
 
 ### Music library
 
 `music-library` · component · Stable
 
-Reference music people can play, as music cards on a grid of three: nine songs Tumai chose on 15 September 2026 for how Health OS background music should feel. They are other artists' copyrighted recordings, so nothing is copied: each card plays its song from the official YouTube video through YouTube's own player, visible in the card's artwork while it plays, with Health OS controls around it (previous, play or pause, next, seek, elapsed and total time, a link to YouTube). One song at a time; a song that ends moves to the next.
+Reference music people can play, as music cards on a grid of three: ten songs Tumai chose for how Health OS background music should feel, nine on 15 September 2026 and one on 22 September 2026. They are other artists' copyrighted recordings, so nothing is copied: each card plays its song from the official YouTube video through YouTube's own player, visible in the card's artwork while it plays, with Health OS controls around it (previous, play or pause, next, seek, elapsed and total time, a link to YouTube). One song at a time; a song that ends moves to the next.
 
 **Use it for**
 
 - A brief for the sound of Health OS: music direction for editors, agencies and agents
-- Songs added to src/data/music.ts as a YouTube id, title and artist
+- Songs added to src/data/music.ts as a YouTube id, title and artist, read from the official video
+- A song someone has a file of: reference the song here, leave the file where it is
 
 **Not for**
 

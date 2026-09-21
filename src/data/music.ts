@@ -1,9 +1,15 @@
 /**
- * Health OS music: nine songs Tumai chose on 15 September 2026 as a reference for how Health OS
- * background music should feel. They are other artists' copyrighted recordings, so nothing is
- * copied here: each plays from its official YouTube video through YouTube's own player, one at a
- * time. Using any of them in Health OS content needs a licence; they are a brief, not a library.
- * Titles and artists read from YouTube on 15 September 2026.
+ * Health OS music: ten songs Tumai chose as a reference for how Health OS background music should
+ * feel. They are other artists' copyrighted recordings, so nothing is copied here: each plays from
+ * its official YouTube video through YouTube's own player, one at a time. Using any of them in
+ * Health OS content needs a licence; they are a brief, not a library.
+ *
+ * **A file on a hard drive is not an entry here.** Tumai had two instrumental MP3s of these songs
+ * on 22 September 2026 and asked for them in the library. The recordings are other people's, so the
+ * files stayed where they were and the songs were referenced instead, which is what this file is
+ * for. An instrumental is still the master: downloading one does not licence it.
+ *
+ * Titles and artists read from YouTube: nine on 15 September 2026, the tenth on 22 September 2026.
  */
 
 export interface MusicTrack {
@@ -23,6 +29,7 @@ export const MUSIC_TRACKS: MusicTrack[] = [
   { youtubeId: '7wtfhZwyrcc', title: 'Believer', artist: 'Imagine Dragons' },
   { youtubeId: 'ekr2nIex040', title: 'APT.', artist: 'ROSÉ and Bruno Mars' },
   { youtubeId: 'b73BI9eUkjM', title: 'SOLO', artist: 'JENNIE' },
+  { youtubeId: 'weeI1G46q0o', title: "I'm the One", artist: 'DJ Khaled with Justin Bieber, Quavo, Chance the Rapper and Lil Wayne' },
 ];
 
 /** The widescreen YouTube thumbnail shown until a song is played, and a smaller one if that is missing. */
