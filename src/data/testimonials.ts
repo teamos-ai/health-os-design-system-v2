@@ -24,9 +24,6 @@ export interface Person {
   name: string;
   /** what they do, not a job title from a corporate ladder */
   role: string;
-  /** invented business. No real practice is named anywhere in this file */
-  business: string;
-  city: string;
 }
 
 export interface Testimonial {
@@ -47,36 +44,36 @@ export const SAMPLE_NOTICE =
   'Sample copy and generated portraits. No Health OS client result, quote or logo is cleared for use: the database blocks all of them until a measured outcome exists and the client has given written permission.';
 
 export const PEOPLE: Person[] = [
-  { id: 'priya-raman', name: 'Priya R.', role: 'Pilates studio owner', business: 'Ridgeline Pilates', city: 'Melbourne' },
-  { id: 'jess-carmody', name: 'Jess C.', role: 'Online coach', business: 'Carmody Method', city: 'Byron Bay' },
-  { id: 'mele-tupou', name: 'Mele T.', role: 'Gym owner', business: 'Stonefruit Strength', city: 'Western Sydney' },
-  { id: 'dan-whitlock', name: 'Dan W.', role: 'Physiotherapist, practice owner', business: 'Foreshore Physio', city: 'Adelaide' },
-  { id: 'aroha-ngata', name: 'Aroha N.', role: 'Yoga teacher trainer', business: 'Long Light Yoga', city: 'Gold Coast' },
-  { id: 'sophie-lindqvist', name: 'Sophie L.', role: 'Naturopath', business: 'Wildflower Clinic', city: 'Hobart' },
-  { id: 'marcus-ellery', name: 'Marcus E.', role: 'Retreat host', business: 'Kanvale Retreats', city: 'Margaret River' },
-  { id: 'anika-sorensen', name: 'Anika S.', role: 'Nutrition coach', business: 'Anika Sorensen Nutrition', city: 'Perth' },
-  { id: 'tessa-okafor', name: 'Tessa O.', role: "Women's strength coach", business: 'Okafor Strong', city: 'Brisbane' },
-  { id: 'liam-brennan', name: 'Liam B.', role: 'Breathwork facilitator', business: 'Low Tide Breathwork', city: 'Newcastle' },
-  { id: 'noor-haddad', name: 'Noor H.', role: 'Allied health practice owner', business: 'Cedarline Health', city: 'Sydney' },
-  { id: 'bec-fairweather', name: 'Bec F.', role: 'Dance studio owner', business: 'Fairweather Dance', city: 'Ballarat' },
-  { id: 'yuki-tanaka', name: 'Yuki T.', role: 'Mobility coach', business: 'Hinge Mobility', city: 'Melbourne' },
-  { id: 'grace-mbeki', name: 'Grace M.', role: 'Wellness clinic director', business: 'Thornbury Wellness', city: 'Melbourne' },
-  { id: 'toby-nash', name: 'Toby N.', role: 'Personal trainer, two sites', business: 'Nash Performance', city: 'Canberra' },
-  { id: 'harriet-vale', name: 'Harriet V.', role: 'Clinical Pilates and rehab', business: 'Vale Studio', city: 'Sydney' },
-  { id: 'sam-okada', name: 'Sam O.', role: 'Strength and conditioning coach', business: 'Okada Barbell', city: 'Melbourne' },
-  { id: 'fleur-beaumont', name: 'Fleur B.', role: 'Skin and wellness clinic owner', business: 'Maison Fleur', city: 'Sydney' },
-  { id: 'kiri-solomon', name: 'Kiri S.', role: 'Yoga studio owner', business: 'Saltbush Yoga', city: 'Sunshine Coast' },
-  { id: 'nate-cardoso', name: 'Nate C.', role: 'Online fitness coach', business: 'Cardoso Coaching', city: 'Gold Coast' },
-  { id: 'imogen-pryce', name: 'Imogen P.', role: 'Nutritionist', business: 'Pryce Nutrition', city: 'Bendigo' },
-  { id: 'ravi-kapoor', name: 'Ravi K.', role: 'Physiotherapist, three practitioners', business: 'Kapoor Physio', city: 'Perth' },
-  { id: 'lena-fischer', name: 'Lena F.', role: 'Pre and postnatal coach', business: 'Fourth Trimester Co', city: 'Wollongong' },
-  { id: 'josh-iremonger', name: 'Josh I.', role: 'Recovery studio owner', business: 'Coldhouse Recovery', city: 'Geelong' },
-  { id: 'tara-whitmore', name: 'Tara W.', role: 'Mindset coach', business: 'Whitmore Coaching', city: 'Noosa' },
-  { id: 'elias-mwangi', name: 'Elias M.', role: 'Group fitness owner', business: 'Mwangi Movement', city: 'Darwin' },
-  { id: 'cass-donnelly', name: 'Cass D.', role: 'Remedial massage clinic owner', business: 'Donnelly Remedial', city: 'Launceston' },
-  { id: 'mina-park', name: 'Mina P.', role: 'Studio owner and online programs', business: 'Park Studio', city: 'Sydney' },
-  { id: 'rob-hargreaves', name: 'Rob H.', role: 'Golf fitness coach', business: 'Hargreaves Golf Fitness', city: 'Mornington Peninsula' },
-  { id: 'simone-adeyemi', name: 'Simone A.', role: "Women's health coach", business: 'Adeyemi Health', city: 'Brisbane' },
+  { id: 'priya-raman', name: 'Priya R.', role: 'Pilates studio owner' },
+  { id: 'jess-carmody', name: 'Jess C.', role: 'Online coach' },
+  { id: 'mele-tupou', name: 'Mele T.', role: 'Gym owner' },
+  { id: 'dan-whitlock', name: 'Dan W.', role: 'Physiotherapist, practice owner' },
+  { id: 'aroha-ngata', name: 'Aroha N.', role: 'Yoga teacher trainer' },
+  { id: 'sophie-lindqvist', name: 'Sophie L.', role: 'Naturopath' },
+  { id: 'marcus-ellery', name: 'Marcus E.', role: 'Retreat host' },
+  { id: 'anika-sorensen', name: 'Anika S.', role: 'Nutrition coach' },
+  { id: 'tessa-okafor', name: 'Tessa O.', role: "Women's strength coach" },
+  { id: 'liam-brennan', name: 'Liam B.', role: 'Breathwork facilitator' },
+  { id: 'noor-haddad', name: 'Noor H.', role: 'Allied health practice owner' },
+  { id: 'bec-fairweather', name: 'Bec F.', role: 'Dance studio owner' },
+  { id: 'yuki-tanaka', name: 'Yuki T.', role: 'Mobility coach' },
+  { id: 'grace-mbeki', name: 'Grace M.', role: 'Wellness clinic director' },
+  { id: 'toby-nash', name: 'Toby N.', role: 'Personal trainer, two sites' },
+  { id: 'harriet-vale', name: 'Harriet V.', role: 'Clinical Pilates and rehab' },
+  { id: 'sam-okada', name: 'Sam O.', role: 'Strength and conditioning coach' },
+  { id: 'fleur-beaumont', name: 'Fleur B.', role: 'Skin and wellness clinic owner' },
+  { id: 'kiri-solomon', name: 'Kiri S.', role: 'Yoga studio owner' },
+  { id: 'nate-cardoso', name: 'Nate C.', role: 'Online fitness coach' },
+  { id: 'imogen-pryce', name: 'Imogen P.', role: 'Nutritionist' },
+  { id: 'ravi-kapoor', name: 'Ravi K.', role: 'Physiotherapist, three practitioners' },
+  { id: 'lena-fischer', name: 'Lena F.', role: 'Pre and postnatal coach' },
+  { id: 'josh-iremonger', name: 'Josh I.', role: 'Recovery studio owner' },
+  { id: 'tara-whitmore', name: 'Tara W.', role: 'Mindset coach' },
+  { id: 'elias-mwangi', name: 'Elias M.', role: 'Group fitness owner' },
+  { id: 'cass-donnelly', name: 'Cass D.', role: 'Remedial massage clinic owner' },
+  { id: 'mina-park', name: 'Mina P.', role: 'Studio owner and online programs' },
+  { id: 'rob-hargreaves', name: 'Rob H.', role: 'Golf fitness coach' },
+  { id: 'simone-adeyemi', name: 'Simone A.', role: "Women's health coach" },
 ];
 
 export const person = (id: string) => PEOPLE.find((p) => p.id === id) ?? PEOPLE[0];
