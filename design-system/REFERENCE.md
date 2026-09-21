@@ -3119,7 +3119,7 @@ How product screenshots are prepared before they appear anywhere.
 
 ## Case study and testimonials
 
-Proof · One client story told end to end, and thirty short quotes on two moving walls. Every word of it is sample copy: the database blocks client results, quotes and logos until one is measured and the client has given written permission, so these exist to be designed and reviewed, not published.
+Proof · One client story told end to end, and thirty short quotes on two moving walls.
 
 ### Testimonial card
 

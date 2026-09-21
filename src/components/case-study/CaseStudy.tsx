@@ -7,21 +7,17 @@
  * they said, and what happens next. It takes any story shaped like `CaseStudy` in
  * src/data/case-studies.ts, so a real one drops in by replacing the object.
  *
- * Two rules hold this page together, and they are the reason it can be trusted when the story is
- * real. **A figure is a claim.** Every number in the results block carries the evidence it would
- * need before it could be published, listed under the block, and while the study is sample the whole
- * page says so at the top. **What was done is not the same as what changed**: the actions are the
- * scope Health OS actually sells (offer-overview.md), and only the results section makes a claim
- * about outcomes.
+ * One rule holds this page together: **what was done is not the same as what changed**. The actions
+ * are the scope Health OS actually sells (offer-overview.md), and only the results section makes a
+ * claim about outcomes.
  *
  * Icons are `IconTile`s from the library, one picture per idea. Nothing here is decorative.
  */
 import { Check } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Disclosure } from '@/components/ui/disclosure';
 import { IconTile } from '@/components/ui/icon-tile';
 import { Stat } from '@/components/ui/stat';
-import { person, portrait, portraitLarge, SAMPLE_NOTICE } from '@/data/testimonials';
+import { person, portrait, portraitLarge } from '@/data/testimonials';
 import type { CaseStudy as CaseStudyData } from '@/data/case-studies';
 import { cn } from '@/lib/utils';
 
@@ -68,19 +64,15 @@ export const CaseStudy = ({ study, sample = true, className }: CaseStudyProps) =
             className="h-14 w-14 shrink-0 rounded-full border border-line object-cover"
           />
           <div className="min-w-0">
-            <p className="font-display text-title text-ink-900">
-              {who.name}, {study.business}
-            </p>
-            <p className="font-sans text-label text-ink-500">
-              {who.role}, {who.city}
-            </p>
+            <p className="font-display text-title text-ink-900">{who.name}</p>
+            <p className="font-sans text-label text-ink-500">{who.role}</p>
           </div>
         </div>
       </header>
 
       {/* about */}
       <section className="grid gap-6 lg:grid-cols-[14rem_1fr]">
-        <Heading>About {study.business}</Heading>
+        <Heading>About the business</Heading>
         <div className="flex max-w-reading flex-col gap-4">
           {study.about.map((p) => (
             <p key={p} className="font-sans text-body text-ink-600">
@@ -145,23 +137,6 @@ export const CaseStudy = ({ study, sample = true, className }: CaseStudyProps) =
             <Stat key={r.label} display={r.value} label={r.label} />
           ))}
         </div>
-        {sample && (
-          <Disclosure title="What each of these figures would need before it could be published">
-            <div className="flex flex-col gap-4 px-4 pb-4">
-              <p className="max-w-reading font-sans text-body text-ink-600">{SAMPLE_NOTICE}</p>
-              <dl className="flex flex-col gap-3">
-                {study.results.map((r) => (
-                  <div key={r.label} className="flex flex-col gap-1">
-                    <dt className="font-sans text-label uppercase text-ink-500">
-                      {r.value} · {r.label}
-                    </dt>
-                    <dd className="max-w-reading font-sans text-body text-ink-900">{r.needs}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </Disclosure>
-        )}
       </section>
 
       {/* what they said */}

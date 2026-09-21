@@ -62,9 +62,7 @@ export const TestimonialCard = ({ testimonial, size = 'row', showPillar = false,
         />
         <span className="flex min-w-0 flex-col">
           <span className="truncate font-display text-title text-ink-900">{who.name}</span>
-          <span className="truncate font-sans text-label text-ink-500">
-            {who.role}, {who.city}
-          </span>
+          <span className="truncate font-sans text-label text-ink-500">{who.role}</span>
         </span>
       </figcaption>
     </figure>

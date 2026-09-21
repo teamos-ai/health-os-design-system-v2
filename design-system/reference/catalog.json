@@ -32,7 +32,7 @@
     {"id": "dashboards", "group": "Applied", "label": "Dashboards", "title": "Dashboards", "lead": "Twenty-nine Health OS product screens, tagged by the part of the product they belong to, their layout and the parts they are built from. The main dashboard opens the section. They are mockups, so where a screen differs from the system the difference is named on it, and the system wins."},
     { "id": "backgrounds", "group": "Applied", "label": "Backgrounds", "title": "Backgrounds", "lead": "The full background library. Every image carries context tags, a tone and a suggested use." },
     { "id": "imagery", "group": "Applied", "label": "Image library", "title": "Image library", "lead": "People and lifestyle photography, kept in full and tagged. Search or filter, then download the original." },
-    { "id": "stories", "group": "Proof", "label": "Testimonials", "title": "Case study and testimonials", "lead": "One client story told end to end, and thirty short quotes on two moving walls. Every word of it is sample copy: the database blocks client results, quotes and logos until one is measured and the client has given written permission, so these exist to be designed and reviewed, not published." },
+    { "id": "stories", "group": "Proof", "label": "Testimonials", "title": "Case study and testimonials", "lead": "One client story told end to end, and thirty short quotes on two moving walls." },
     { "id": "live", "group": "Proof", "label": "Live page", "title": "The live page", "lead": "A marketing page assembled only from the parts above. Scroll inside the frame." }
   ],
   "checklist": [

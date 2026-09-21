@@ -23,7 +23,6 @@ export interface CaseStudy {
   id: string;
   /** the person whose story it is, from PEOPLE */
   person: string;
-  business: string;
   /** one line under the title */
   kicker: string;
   title: string;
@@ -43,14 +42,13 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'vale-studio',
     person: 'harriet-vale',
-    business: 'Vale Studio',
-    kicker: 'Clinical Pilates and rehab, Sydney',
+    kicker: 'Clinical Pilates and rehab',
     title: 'The studio that could not run without her',
     summary:
       'A twelve-year-old clinical Pilates studio with a full book, a waiting list she kept in her phone and a founder who was the only person who knew how any of it worked. Thirty days of done-for-you setup put the enquiry, the booking and the follow-up in one system, and handed the running of it to her team.',
     pillar: 'bottleneck',
     about: [
-      'Harriet Vale has run Vale Studio for twelve years. Two rooms, six instructors, a rehab list that comes in from physiotherapists and a reformer timetable that fills by word of mouth.',
+      'Harriet V. has run her clinical Pilates studio for twelve years. Two rooms, six instructors, a rehab list that comes in from physiotherapists and a reformer timetable that fills by word of mouth.',
       'She is a proven operator, not a beginner. She is past the income ceiling that traps most studio owners, and she is good at the work. Her constraint is not money or knowledge. It is that too much of the business still runs through her personally.',
     ],
     challenge: [
@@ -107,7 +105,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     quote: {
       text:
         'I have bought software before and ended up with a very expensive to-do list. This time somebody built the thing, showed my team how to run it, and then it kept running without me.',
-      attribution: 'Harriet Vale, Vale Studio',
+      attribution: 'Harriet V.',
     },
     closing:
       'The point was never the software. It was that a business she built over twelve years could not open its doors on a morning she was not there. It can now.',
