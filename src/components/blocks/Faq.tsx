@@ -56,7 +56,7 @@ export const Faq = ({ items, defaultOpen = 0, multiple = false, headingLevel: He
                 aria-expanded={isOpen}
                 aria-controls={isOpen ? panelId : undefined}
                 onClick={() => toggle(i)}
-                className="group -mx-2 flex w-[calc(100%+1rem)] items-center justify-between gap-4 rounded-md px-2 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                className="group -mx-2 flex w-[calc(100%+1rem)] items-center justify-between gap-4 rounded-lg px-2 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
               >
                 <span>{item.question}</span>
                 <span
@@ -84,7 +84,7 @@ export const Faq = ({ items, defaultOpen = 0, multiple = false, headingLevel: He
                 >
                   <div className={cn('grid gap-4 pb-6 sm:gap-6 sm:pr-10', item.image && 'grid-cols-[5rem_minmax(0,1fr)] sm:grid-cols-[8rem_minmax(0,1fr)]')}>
                     {item.image && (
-                      <img src={item.image.src} alt={item.image.alt} loading="lazy" decoding="async" className="aspect-square w-full rounded-md object-cover" />
+                      <img src={item.image.src} alt={item.image.alt} loading="lazy" decoding="async" className="aspect-square w-full rounded-lg object-cover" />
                     )}
                     <div className="min-w-0 self-center font-sans text-body text-ink-600">{item.answer}</div>
                   </div>

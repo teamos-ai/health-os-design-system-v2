@@ -123,7 +123,7 @@ export const TestimonialColumns = ({ items, columns = 3, sample = true, classNam
           type="button"
           onClick={() => setPaused((p) => !p)}
           aria-pressed={paused}
-          className="inline-flex h-9 items-center gap-2 rounded-md border border-line bg-surface px-3 font-sans text-label text-ink-900 transition-colors duration-sm hover:border-ink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2"
+          className="inline-flex h-9 items-center gap-2 rounded-lg border border-line bg-surface px-3 font-sans text-label text-ink-900 transition-colors duration-sm hover:border-ink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2"
         >
           {paused ? <Play className="h-3 w-3" strokeWidth={1.75} aria-hidden /> : <Pause className="h-3 w-3" strokeWidth={1.75} aria-hidden />}
           {paused ? 'Play the columns' : 'Pause the columns'}

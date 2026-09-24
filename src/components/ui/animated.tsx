@@ -357,7 +357,7 @@ export const Marquee = ({
           aria-pressed={stopped}
           aria-label={`${stopped ? 'Play' : 'Pause'} ${ariaLabel.toLowerCase()}`}
           onClick={() => setStopped((v) => !v)}
-          className="inline-flex items-center gap-2 rounded-md border border-line bg-surface px-3 py-2 font-sans text-label text-ink-600 transition-colors duration-sm hover:border-ink-400 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+          className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-2 font-sans text-label text-ink-600 transition-colors duration-sm hover:border-ink-400 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
         >
           {stopped ? <Play className="h-3 w-3" strokeWidth={1.75} aria-hidden /> : <Pause className="h-3 w-3" strokeWidth={1.75} aria-hidden />}
           {stopped ? 'Play' : 'Pause'}
@@ -491,7 +491,7 @@ export const HoverUnderline = ({
   <a
     href={href}
     className={cn(
-      'group relative inline-block rounded-md font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink-900',
+      'group relative inline-block rounded-lg font-sans text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink-900',
       className
     )}
   >

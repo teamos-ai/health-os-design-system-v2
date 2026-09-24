@@ -45,14 +45,14 @@ export const Disclosure = ({
   };
 
   return (
-    <div className={cn('overflow-hidden rounded-md border border-line bg-surface', className)}>
+    <div className={cn('overflow-hidden rounded-lg border border-line bg-surface', className)}>
       <button
         type="button"
         id={buttonId}
         onClick={toggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className="flex w-full items-center justify-between gap-4 rounded-md px-4 py-3 text-left font-display text-title text-ink-900 transition-colors duration-sm hover:bg-ink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
+        className="flex w-full items-center justify-between gap-4 rounded-lg px-4 py-3 text-left font-display text-title text-ink-900 transition-colors duration-sm hover:bg-ink-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900"
       >
         <span>{title}</span>
         <span
