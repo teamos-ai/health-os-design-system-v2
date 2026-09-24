@@ -50,11 +50,19 @@ export const FadeIn = ({ delay = 0, y = 10, className, children, as = 'div' }: F
   );
 };
 
-/* ── Stagger container + item — cascade a row/grid of children ── */
-const containerVariants: Variants = {
+/* ── Stagger container + item — cascade a row/grid of children ──
+   `stagger` and `delayChildren` exist so that two Staggers can read as ONE run.
+   The default 0.07s is a cascade you feel rather than watch, which is right for a
+   grid of cards arriving together. It is wrong when the sequence itself carries
+   meaning: two lists that answer each other read as one gesture only if the second
+   waits for the first to finish, and only if the interval is slow enough to count.
+   Give the second container a `delayChildren` of the first one's run length and the
+   pair reads as one line being drawn. */
+const cascade = (stagger: number, delayChildren: number): Variants => ({
   hidden: {},
-  show: { transition: { staggerChildren: 0.07 } },
-};
+  show: { transition: { staggerChildren: stagger, delayChildren } },
+});
+const containerVariants: Variants = cascade(0.07, 0);
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT } },
@@ -64,19 +72,31 @@ export const Stagger = ({
   children,
   amount = 0.15,
   as = 'div',
+  stagger,
+  delayChildren,
 }: {
   className?: string;
   children: React.ReactNode;
   amount?: number;
   /** the list element, when the items are list items */
   as?: 'div' | 'ol' | 'ul';
+  /** seconds between children. Default 0.07 */
+  stagger?: number;
+  /** seconds before the first child, for a container that follows another */
+  delayChildren?: number;
 }) => {
   const reduced = useReducedMotion();
   const MotionTag = motion[as] as React.ElementType;
+  /* Memoised so a re-render does not hand Framer a new variants object and restart
+     a cascade that is halfway through. */
+  const variants = React.useMemo(
+    () => (stagger === undefined && delayChildren === undefined ? containerVariants : cascade(stagger ?? 0.07, delayChildren ?? 0)),
+    [stagger, delayChildren],
+  );
   return (
     <MotionTag
       className={className}
-      variants={containerVariants}
+      variants={variants}
       initial={reduced ? false : 'hidden'}
       whileInView="show"
       viewport={{ once: true, amount }}
