@@ -143,7 +143,7 @@ export const PricingCard = ({ name, icon, price, annualPrice, annualCadence, sym
             nothing that depends on its colour: the words carry the meaning on their own. */}
         {guarantee && (
           <p className="mt-auto flex justify-center pt-6">
-            <span className="inline-flex items-center rounded-lg bg-success-300 px-3 py-1.5 text-center font-sans text-label uppercase text-ink-900">
+            <span className="inline-flex h-6 items-center rounded-lg bg-success-300 px-3 text-center font-sans text-label uppercase text-ink-900">
               {guarantee.name}
             </span>
           </p>
