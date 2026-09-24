@@ -54,7 +54,13 @@ export const Switch = ({
         disabled={disabled}
         onClick={toggle}
         className={cn(
+          /* The visible track stays 40x24, which is the design. The HIT AREA is grown to 44x44
+             by a pseudo-element, because 24px only just clears WCAG 2.5.8 (AA) and a switch is
+             usually the control that changes the most on a screen: on the Health OS pricing
+             table this one rewrites all three prices. `before:` rather than padding, so the
+             track keeps its geometry and nothing around it moves. */
           'relative inline-flex h-6 w-10 shrink-0 items-center rounded-full border transition-colors duration-md ease-out',
+          'before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[\'\']',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
           disabled ? 'cursor-not-allowed' : 'cursor-pointer',
           on ? 'border-apricot-200 bg-apricot-200' : 'border-line bg-ink-100'
