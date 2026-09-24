@@ -9,6 +9,12 @@
  * on the recommendation; on phones the cards simply rise in order. Reduced motion shows them
  * at rest.
  *
+ * IT REPLAYS. The viewport is `once: false`, so the cards settle every time the table comes
+ * back into view and return to their starting positions when it leaves. A pricing table is not
+ * a hero: a reader scrolls past it, thinks, and scrolls back, and on the second visit a
+ * play-once entrance has already happened somewhere they were not looking. The gesture is the
+ * point of this block, so it is worth repeating rather than spending once.
+ *
  * Billing switch: when every plan has an `annualPrice`, a switch appears above the cards with
  * its note (Health OS: "2 months free"). Turning annual billing on slides each price to its
  * yearly figure and pops confetti from the switch. The featured plan's action celebrates too.
@@ -102,7 +108,11 @@ export const PricingTable = ({ plans, note, annualLabel = 'Annual billing', annu
             className={cn('relative', i === featuredIndex ? 'z-10' : 'z-0', wide && featuredIndex >= 0 && i !== featuredIndex && (i < featuredIndex ? 'origin-right' : 'origin-left'))}
             initial={reduced ? false : { y: 48, opacity: 0 }}
             whileInView={settle(i)}
-            viewport={{ once: true, amount: 0.25 }}
+            /* once: false, so leaving the viewport returns each card to `initial` and coming
+               back plays the settle again. `amount: 0.25` keeps the trigger low enough that the
+               row is well inside the screen before it moves, and high enough that it does not
+               retrigger on a one-pixel wobble at the edge. */
+            viewport={{ once: false, amount: 0.25 }}
             transition={{ type: 'spring', stiffness: 100, damping: 30, delay: wide ? 0.1 : i * 0.08, opacity: { duration: 0.4 } }}
           >
             <PricingCard {...plan} billing={hasAnnual ? billing : undefined} annualNote={hasAnnual ? annualNote : undefined} />
