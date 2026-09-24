@@ -49,18 +49,35 @@ export const FeatureCard = ({ icon, title, description, accent = 'rose', tag, gr
         className
       )}
     >
+      {/* THE TAG MOVED TO THE FOOT, 24 September 2026. Tumai: "we have tags or little chips that
+          say more leads, more sales, more customers, and the H1 header needs to be squashed into
+          two lines, and that's not good hierarchy, we can move those chips to be at the bottom of
+          the card where there is space."
+
+          The arithmetic was against the title. A card in a three-up grid is about 290px wide
+          inside its padding; the tile takes 40 and its gap 12, and a tag like "Keep more
+          customers" takes about 130. That left the title roughly 108px, so "Check-in agent" broke
+          across two lines while the space under the sentence sat empty.
+
+          A tag is metadata about the card, not part of its name, so the foot is where it belongs
+          on every count: the title gets the full width of its row, the tag gets the width it
+          needs, and the empty space at the bottom of a short card is now doing something.
+
+          `mt-auto` is what makes it work across a grid: the tags line up along the bottom of the
+          row however uneven the sentences are, which is the same reason the description used to
+          be pinned there. */}
       <div className="flex items-start gap-3">
         <IconTile id={icon} size="sm" ground={ground} className="shrink-0 transition-transform duration-md ease-out group-hover:-translate-y-0.5" />
-        {/* `flex-1 min-w-0` so a long title wraps inside its own column instead of pushing the
-            tag off the card, and the tag stays pinned to the right however long the title is. */}
-        <h3 className="min-w-0 flex-1 font-display text-subheading text-ink-900">{title}</h3>
-        {tag && (
-          <Badge variant={a.badge} size="sm" className="mt-0.5 shrink-0">
-            {tag}
-          </Badge>
-        )}
+        <h3 className="min-w-0 font-display text-subheading text-ink-900">{title}</h3>
       </div>
       <p className="mt-4 font-sans text-body text-ink-600">{description}</p>
+      {tag && (
+        <p className="mt-auto pt-5">
+          <Badge variant={a.badge} size="sm">
+            {tag}
+          </Badge>
+        </p>
+      )}
     </div>
   );
 };
