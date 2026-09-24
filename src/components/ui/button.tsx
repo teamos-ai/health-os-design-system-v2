@@ -20,7 +20,7 @@ import { celebrate as popConfetti } from '@/components/ui/celebrate';
 import { cn } from '@/lib/utils';
 
 const button = cva(
-  'inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-md font-display text-body ' +
+  'inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg font-display text-body ' +
     'transition-[background-color,border-color,color,box-shadow,transform] duration-sm ease-out ' +
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
     'active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',

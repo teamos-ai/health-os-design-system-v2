@@ -18,7 +18,7 @@ import type { LucideIcon } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const badge = cva('inline-flex shrink-0 items-center whitespace-nowrap rounded-md font-sans text-label normal-case tracking-normal', {
+const badge = cva('inline-flex shrink-0 items-center whitespace-nowrap rounded-lg font-sans text-label normal-case tracking-normal', {
   variants: {
     variant: {
       neutral: 'bg-ink-100 text-ink-900',
