@@ -123,15 +123,22 @@ export const PricingCard = ({ name, icon, price, annualPrice, annualCadence, sym
             </li>
           ))}
         </ul>
-        {/* THE SEAL, and nothing else. A guarantee is the one place on a pricing card where
-            ornament is earned, and also the place it is most often overdone: a starburst, a
-            drop shadow and a second colour turn a commitment into a sticker. One flat rose
-            tint, one hairline, the system's wax seal, and the promise in body type. */}
+        {/* THE SEAL, and nothing else.
+            A guarantee is the one place on a pricing card where ornament is earned, and also the
+            place it is most often overdone: a starburst, a drop shadow and a second colour turn a
+            commitment into a sticker.
+
+            IT WAS A ROSE-50 SLAB FIRST and that was wrong. Filled, it became the loudest thing in
+            the card, louder than the price, which is the opposite of what a card like this should
+            do. A guarantee reassures; it does not compete for the first look. White with the
+            plan's own rose hairline contains it enough to read as a seal rather than a footnote,
+            and the wax is then the only colour in the block, which is the whole point of putting
+            it there. */}
         {guarantee && (
-          <div className="mt-auto flex items-start gap-3.5 rounded-md border border-rose-200 bg-rose-50 p-4">
+          <div className="mt-auto flex items-start gap-3.5 rounded-md border border-rose-200 bg-surface px-4 py-4">
             <IconTile id="red-wax-seal" size="xs" ground="white" className="shrink-0" />
             <span className="min-w-0">
-              <span className="block font-sans text-label uppercase text-ink-900">{guarantee.name}</span>
+              <span className="block font-sans text-label uppercase text-ink-600">{guarantee.name}</span>
               <span className="mt-1.5 block font-sans text-body text-ink-900">{guarantee.text}</span>
             </span>
           </div>
