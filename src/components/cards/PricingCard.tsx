@@ -11,10 +11,10 @@
  * Health OS annual prices are the monthly price × 10 (two months free, confirmed by Tumai on
  * 15 September 2026). Never show an annual price the offer does not have.
  *
- * `guarantee` marks the plan a promise is attached to, immediately above the action, which is
- * where a buyer is holding the question it answers. A star, the promise's NAME and a hairline:
- * one line, because a card that spends three lines on reassurance has less room for the thing
- * being reassured about. Give it to one plan, not to all of them, or it stops reading as a
+ * `guarantee` marks the plan a promise is attached to as a chip on the action's shoulder, which
+ * is where a buyer is holding the question it answers. The promise's NAME, centred, in the
+ * success tint, eight pixels above the button so the two read as one control: a card that spends
+ * three lines on reassurance has less room for the thing being reassured about. Give it to one plan, not to all of them, or it stops reading as a
  * promise and starts reading as a disclaimer. The full wording belongs in a strip near the
  * table, where one line is long enough to hold it; never shorten the promise to fit a card,
  * because a clipped guarantee is a different commitment.
@@ -124,29 +124,29 @@ export const PricingCard = ({ name, icon, price, annualPrice, annualCadence, sym
             </li>
           ))}
         </ul>
-        {/* ONE LINE, AND A STAR.
-            It was a bordered block: a wax seal, a label and the promise on three wrapped lines,
-            inside a card that already has a border, above a button. Three nested rounded
-            rectangles in 200 pixels, and the loudest thing in the card was a 16px disc of dark
-            red that had no legible detail at that size.
+        {/* A CHIP ON THE BUTTON'S SHOULDER, 24 September 2026.
+            It has been three things in a day: a bordered block with a wax seal on three lines,
+            then a star and a line above a hairline, now this. The instruction that settled it was
+            "make the chip the colour of success green 300 so that it blends in, make it really
+            tight to the button and centre it on the button, remove any icon."
 
-            A guarantee on a pricing card has to be readable at a glance and cheap in height,
-            because the thing it is reassuring you about is two inches above it and the button
-            it is reassuring you towards is directly below. So: a star, a line, a hairline above
-            it. The star is the library's own `gold-star`, whose tags are Star, Rating,
-            Recommended, The best, which is the exact job. Nothing is generated and nothing is
-            drawn twice.
+            Each word of that is doing work. GREEN, because the card already carries rose in its
+            header, its ticks and its border, and a fourth rose object was the reason the last
+            version had to be toned down twice. Success-300 is the one family on this card that is
+            not competing with anything. TIGHT AND CENTRED, because a guarantee is a property of
+            the action rather than of the feature list: at 8px above the button the two read as
+            one control with a label, and at 24px they read as two things that happen to be
+            stacked. NO ICON, because at chip size a mark is a smudge, which is what the wax seal
+            was and half of what the star was.
 
-            `name` only, on purpose. The full promise is a sentence, and a sentence cannot be one
-            line inside a 290px card at any size a person would read. Put the whole wording in a
-            strip near the table, where a line of that length fits on one line, and let the card
-            carry the mark and the name. Never shorten the promise itself to make it fit: a
-            clipped guarantee is a different guarantee. */}
+            ink-900 on success-300 measures 9.75:1, so the text clears AAA and the chip is doing
+            nothing that depends on its colour: the words carry the meaning on their own. */}
         {guarantee && (
-          <div className="mt-auto flex items-center gap-2.5 border-t border-line pt-4">
-            <IconTile id="gold-star" size="xs" ground="white" className="shrink-0" />
-            <span className="font-sans text-label uppercase text-ink-900">{guarantee.name}</span>
-          </div>
+          <p className="mt-auto flex justify-center pt-6">
+            <span className="inline-flex items-center rounded-lg bg-success-300 px-3 py-1.5 text-center font-sans text-label uppercase text-ink-900">
+              {guarantee.name}
+            </span>
+          </p>
         )}
 
         <Button
@@ -154,7 +154,7 @@ export const PricingCard = ({ name, icon, price, annualPrice, annualCadence, sym
           href={action.href}
           onClick={action.onClick}
           celebrate={action.celebrate ?? featured}
-          className={cn('w-full', guarantee ? 'mt-4' : 'mt-auto')}
+          className={cn('w-full', guarantee ? 'mt-2' : 'mt-auto')}
         >
           {action.label}
         </Button>
