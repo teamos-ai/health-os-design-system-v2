@@ -62,10 +62,21 @@ const Column = ({ items, speed, paused, label, sample, className }: { items: Tes
     </div>
   );
 
-  /* with reduced motion on, nothing drifts: the column becomes a short list someone scrolls */
+  /* With reduced motion on, nothing drifts: the column becomes a short list someone scrolls.
+
+     `tabIndex={0}` is not optional, and its absence was a WCAG 2.1.1 (Level A) failure. A
+     scroll container only a pointer can reach is content a keyboard cannot get to at all:
+     measured on a live page, each column held about 1,000px of quotes behind a 270px window
+     with no way in. A scrollable region has to be focusable so the arrow keys can drive it,
+     and the group role and label it already carries make it announce properly once it is. */
   if (reduced) {
     return (
-      <div role="group" aria-label={label} className={cn('wall-column min-w-0 flex-1 overflow-y-auto', className)}>
+      <div
+        role="group"
+        aria-label={label}
+        tabIndex={0}
+        className={cn('wall-column min-w-0 flex-1 overflow-y-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink-900', className)}
+      >
         {cards()}
       </div>
     );
