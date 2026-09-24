@@ -32,16 +32,32 @@ export interface PricingTableProps {
   className?: string;
 }
 
-const useWide = () => {
-  const [wide, setWide] = React.useState(() => typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches);
-  React.useEffect(() => {
-    const mq = window.matchMedia('(min-width: 768px)');
-    const onChange = () => setWide(mq.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
-  return wide;
-};
+/**
+ * Is there room to fan the cards out?
+ *
+ * `useSyncExternalStore`, not `useState` plus an effect. The old version seeded state from
+ * `window.matchMedia` in the initialiser, which the server cannot run, so the server always
+ * rendered the narrow layout and a wide client always rendered the wide one. React compared the
+ * two and reported a hydration mismatch on every desktop load: the server had `relative z-0`
+ * where the client wanted `relative z-0 origin-right`. Nothing looked broken, because React
+ * repaired it on the next render, but the warning was real and the first paint was the wrong
+ * layout.
+ *
+ * A server snapshot of `false` is the honest answer to "is this viewport wide" when there is no
+ * viewport, and it means both sides render the same thing and the wide layout arrives on the
+ * first client render instead of in a patch.
+ */
+const MQ = '(min-width: 768px)';
+const useWide = () =>
+  React.useSyncExternalStore(
+    (notify) => {
+      const mq = window.matchMedia(MQ);
+      mq.addEventListener('change', notify);
+      return () => mq.removeEventListener('change', notify);
+    },
+    () => window.matchMedia(MQ).matches,
+    () => false,
+  );
 
 export const PricingTable = ({ plans, note, annualLabel = 'Annual billing', annualNote, className }: PricingTableProps) => {
   const [billing, setBilling] = React.useState<Billing>('monthly');
