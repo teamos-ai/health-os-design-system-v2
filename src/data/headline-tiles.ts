@@ -46,6 +46,8 @@ export interface HeadlineTile {
   baked?: string;
   /** a copy rule from the Health OS database for one of the words */
   note?: string;
+  /** the other icon for this word: a metaphor points at its picture, a picture at its metaphor */
+  otherWay?: string;
 }
 
 interface Entry {
@@ -55,9 +57,169 @@ interface Entry {
   picture: string;
   note?: string;
   file: string;
+  otherWay?: string;
 }
 
 const tile = (id: string, group: HeadlineTileGroup, words: string[], picture: string, note?: string, file = id): Entry => ({ id, group, words, picture, note, file });
+
+/**
+ * A second way to picture a word.
+ *
+ * The first nine groups were built as metaphors: a pomegranate for whole, a bonsai for longevity,
+ * a plinth for platform. They read beautifully beside a headline, where the word is right there,
+ * and they stop working in a pill, a card header or a nav, where the picture is doing the talking
+ * on its own. So thirty of those words now have a literal partner as well (21 September 2026,
+ * after an audit of all 245 against their words). Both tiles carry the same first word and point
+ * at each other through `otherWay`, so the library shows them as a pair and either id can be used.
+ *
+ * **Which to use:** the metaphor in a headline, the picture anywhere the word is not beside it.
+ */
+const alt = (id: string, group: HeadlineTileGroup, words: string[], picture: string, otherWay: string): Entry => ({ id, group, words, picture, file: id, otherWay });
+
+/**
+ * The ground each object reads best on, measured rather than judged.
+ *
+ * The object's median tone against `tokens.json → icon.ground` and against the paper ground,
+ * WCAG style, and whichever wins is the default. It matters in both directions: a near-black
+ * camera is a silhouette of itself on the charcoal squircle, and a cream object from the newer
+ * simplified set vanishes on paper. `IconTile` uses this unless a ground is asked for by name.
+ *
+ * Regenerate it after adding or restyling icons; the measurement is in the audit, section 25.
+ */
+export const READS_BETTER_ON_PAPER = new Set<string>([
+  'candle',
+  'tuning-fork',
+  'wooden-hand',
+  'pomegranate',
+  'seedling',
+  'matcha',
+  'blood-orange',
+  'flowering-plant',
+  'nourish-bowl',
+  'green-apple',
+  'bonsai',
+  'bamboo-spout',
+  'olive-branch',
+  'hourglass',
+  'reset-button',
+  'thermostat',
+  'bellows',
+  'oil-dropper',
+  'whistle',
+  'singing-bowl',
+  'compass',
+  'heart',
+  'doctors-bag',
+  'graduation-cap',
+  'peg-people',
+  'briefcase',
+  'cash-register',
+  'horseshoe-magnet',
+  'rope-knot',
+  'monstera',
+  'copper-pipes',
+  'funnel',
+  'boomerang',
+  'arched-door',
+  'welcome-mat',
+  'gauge',
+  'gears',
+  'toy-robot',
+  'code-window',
+  'terminal',
+  'server-rack',
+  'ladybird',
+  'puzzle-pieces',
+  'hard-drive',
+  'lever',
+  'pulley',
+  'spring',
+  'camera-lens',
+  'magnifying-glass',
+  'spirit-level',
+  'callipers',
+  'stethoscope',
+  'metronome',
+  'newtons-cradle',
+  'flywheel',
+  'spinning-top',
+  'gold-bell',
+  'mailbox',
+  'studio-microphone',
+  'service-bell',
+  'inbox-tray',
+  'headset',
+  'pc-tower',
+  'laptop',
+  'smart-speaker',
+  'camera',
+  'smartwatch',
+  'printer-3d',
+  'printer',
+  'display-monitor',
+  'graphics-card',
+  'console-box',
+  'webcam',
+  'cog',
+  'robot-arm',
+  'conveyor-belt',
+  'wind-up-key',
+  'toggle-switch',
+  'wall-calendar',
+  'money-bag',
+  'dartboard',
+  'safe',
+  'forklift',
+  'shield',
+  'red-wax-seal',
+  'barber-pole',
+  'pen',
+  'pencil-cup',
+  'red-flag',
+  'fire-extinguisher',
+  'office-chair',
+  'typewriter',
+  'toolbox',
+  'microscope',
+  'balance-scales',
+  'filing-cabinet',
+  'shopping-trolley',
+  'chain-links',
+  'rubber-stamp',
+  'coffee-maker',
+  'sunglasses',
+  'work-boot',
+  'backpack',
+  'globe',
+  'jacket',
+  'microwave',
+  'hardcover-book',
+  'baseball-cap',
+  'rubbish-bin',
+  'high-heel',
+  'alarm-clock',
+  'suitcase',
+  'burger',
+  'croissant',
+  'chocolate-bar',
+  'red-apple',
+  'watermelon',
+  'fries',
+  'wine-glass',
+  'tulip',
+  'toadstool',
+  'potted-plant',
+  'red-rose',
+  'green-leaf',
+  'clapperboard',
+  'top-hat',
+  'midi-keyboard',
+  'basketball',
+  'violin',
+  'saxophone',
+  'crystal-ball',
+  'boxing-glove',
+]);
 
 const ENTRIES: Entry[] = [
   /* Presence */
@@ -66,19 +228,24 @@ const ENTRIES: Entry[] = [
   tile('tuning-fork', 'Presence', ['Attuned'], 'A polished brass tuning fork standing upright'),
   tile('wooden-hand', 'Presence', ['Human', 'Embodied'], 'A smooth carved wooden hand, palm open'),
   tile('pomegranate', 'Presence', ['Whole'], 'A whole ripe pomegranate with its crown'),
+  alt('wooden-sphere', 'Presence', ['Whole', 'Complete', 'All of it'], 'A turned wooden sphere', 'pomegranate'),
   tile('cables', 'Presence', ['Connected', 'Integrated', 'Wired together', 'One place'], 'Two white braided cables plugged into each other', undefined, 'cables-plugged-together'),
+  alt('interlocking-rings', 'Presence', ['Connected', 'Joined', 'One place'], 'Two interlocking metal rings', 'cables'),
   tile('seedling', 'Presence', ['Alive', 'Renew'], 'A green seedling sprouting from soil in a small terracotta pot'),
 
   /* Vitality */
   tile('matcha', 'Vitality', ['Wellness', 'Wellbeing'], 'A handmade ceramic cup of matcha beside a bamboo whisk', 'Wellbeing is banned as an outcome Health OS delivers. It is a search tag only.'),
+  alt('rolled-towels', 'Vitality', ['Wellness', 'Wellbeing', 'The room'], 'Two rolled spa towels with a sprig', 'matcha'),
   tile('blood-orange', 'Vitality', ['Vitality', 'Vital'], 'A halved blood orange showing its jewel-red flesh'),
+  alt('golden-sun', 'Vitality', ['Vitality', 'Energy', 'Warmth'], 'A small polished gold sun', 'blood-orange'),
   tile('flowering-plant', 'Vitality', ['Thrive'], 'A small potted plant in full bloom'),
   tile('nourish-bowl', 'Vitality', ['Nourish'], 'A speckled ceramic bowl of fresh berries, greens and seeds'),
   tile('aloe', 'Vitality', ['Heal', 'Recovery'], 'A cut aloe vera leaf', 'Heal is banned in Health OS copy because it is a health claim. Use recovery only in its business sense.'),
   tile('green-apple', 'Vitality', ['Health'], 'A crisp green apple with a single leaf', 'Health OS writes about the business of health, never a health outcome.'),
-  tile('light-bulb', 'Vitality', ['Energy', 'Current'], 'A vintage filament light bulb glowing warmly'),
+  tile('light-bulb', 'Vitality', ['Energy', 'Current', 'Idea'], 'A vintage filament light bulb glowing warmly', 'A light bulb reads as an idea before it reads as energy. Both words point here; pair it with the one the sentence means.'),
   tile('kintsugi-bowl', 'Vitality', ['Restore', 'Resilience'], 'A white ceramic bowl mended with gold kintsugi seams'),
   tile('bonsai', 'Vitality', ['Longevity', 'Grounded'], 'A small bonsai tree in a shallow clay pot'),
+  alt('tree-rings', 'Vitality', ['Longevity', 'Years', 'How long it lasts'], 'A cross-cut log showing its rings', 'bonsai'),
   tile('running-shoes', 'Vitality', ['Movement'], 'A pair of light grey running shoes with no logos'),
 
   /* Calm */
@@ -87,46 +254,68 @@ const ENTRIES: Entry[] = [
   tile('water-glass', 'Calm', ['Still'], 'A clear glass of water with a perfectly still surface'),
   tile('pottery-wheel', 'Calm', ['Centred'], 'A lump of wet clay centred on a small pottery wheel'),
   tile('bamboo-spout', 'Calm', ['Flow'], 'Water pouring in a smooth stream from a bamboo spout'),
+  alt('silk-ribbon', 'Calm', ['Flow', 'Smooth', 'Keeps moving'], 'A curving silk ribbon', 'bamboo-spout'),
   tile('olive-branch', 'Calm', ['Peace'], 'A fresh olive branch with silver-green leaves'),
-  tile('hourglass', 'Calm', ['Reset'], 'A wood and glass hourglass with pale sand'),
+  tile('hourglass', 'Calm', ['Reset', 'Waiting', 'Time passing'], 'A wood and glass hourglass with pale sand', 'It reads as time passing before it reads as reset. For a clean restart the picture is weak; say waiting and it is exact.'),
+  alt('reset-button', 'Calm', ['Reset', 'Start again', 'Fresh'], 'A red reset button on a metal base', 'hourglass'),
   tile('thermostat', 'Calm', ['Regulate'], 'A round brass thermostat dial with no numbers'),
   tile('snow-globe', 'Calm', ['Settle'], 'A glass snow globe with snow settling around a small tree'),
   tile('dandelion', 'Calm', ['Breathe'], 'A dandelion seed head with a few seeds drifting away'),
+  alt('bellows', 'Calm', ['Breathe', 'Air', 'In and out'], 'A small wooden bellows', 'dandelion'),
 
   /* Practice */
   tile('yoga-mat', 'Practice', ['Practice', 'Studio'], 'A rolled cork yoga mat tied with a cotton strap'),
   tile('oil-dropper', 'Practice', ['Practitioner'], 'An amber glass dropper bottle with no label'),
+  alt('lanyard', 'Practice', ['Practitioner', 'Staff', 'Your team'], 'An ID lanyard with a blank card', 'oil-dropper'),
   tile('whistle', 'Practice', ['Coach'], 'A silver coach whistle on a woven lanyard'),
   tile('coffee-cups', 'Practice', ['Client', 'Clients'], 'Two ceramic coffee cups side by side on saucers'),
+  alt('name-badge', 'Practice', ['Client', 'Member', 'Who they are'], 'A clip-on name badge with a blank card', 'coffee-cups'),
   tile('singing-bowl', 'Practice', ['Session'], 'A brass singing bowl with its wooden mallet'),
+  alt('treatment-table', 'Practice', ['Session', 'Appointment', 'Treatment'], 'A treatment table with a folded towel', 'singing-bowl'),
   tile('compass', 'Practice', ['Direction', 'Guidance', 'Pathway', 'Journey'], 'A brass pocket compass with its lid open', 'Journey is banned in Health OS copy: use path or pathway. It is a search tag only.'),
   tile('mortar-pestle', 'Practice', ['Method', 'Protocol'], 'A white marble mortar and pestle', 'Protocol only for business processes, never treatment.'),
+  alt('method-card', 'Practice', ['Method', 'Steps', 'Protocol'], 'A step card with three bulleted lines', 'mortar-pestle'),
   tile('blocks', 'Practice', ['Framework', 'Program', 'Built', 'Building', 'Foundations', 'Setup'], 'A small structure of natural wooden building blocks', undefined, 'wooden-building-blocks'),
   tile('lifebuoy', 'Practice', ['Support'], 'A classic white and soft red lifebuoy ring'),
   tile('hot-water-bottle', 'Practice', ['Care'], 'A hot water bottle in a cream knitted cover'),
+  alt('heart', 'Practice', ['Care', 'Looked after', 'Love'], 'A glossy deep red love heart', 'hot-water-bottle'),
   tile('doctors-bag', 'Practice', ['Clinic'], 'A vintage tan leather doctor’s bag'),
+  tile('graduation-cap', 'Practice', ['Course', 'Training', 'Learn', 'Micro-course'], 'A charcoal graduation mortarboard with a gold tassel'),
+  tile('peg-people', 'Practice', ['Community', 'Group', 'Members', 'Together'], 'Three small turned wooden peg figures standing together, no faces'),
 
   /* Business */
   tile('briefcase', 'Business', ['Business'], 'A tan leather briefcase with brass clasps'),
   tile('swatches', 'Business', ['Brand', 'Design', 'Design system', 'Colour', 'Choices'], 'A fan of paint swatch cards in apricot, rose and lavender', undefined, 'colour-swatch-cards'),
   tile('cash-register', 'Business', ['Revenue'], 'A vintage brass cash register'),
+  alt('coin-stack', 'Business', ['Revenue', 'Takings', 'Income'], 'A neat stack of gold coins', 'cash-register'),
   tile('horseshoe-magnet', 'Business', ['Leads'], 'A red and silver horseshoe magnet'),
   tile('desk-calendar', 'Business', ['Bookings'], 'A wooden flip desk calendar with blank pages'),
   tile('rope-knot', 'Business', ['Retention'], 'A thick natural rope tied in a secure knot'),
+  alt('loyalty-card', 'Business', ['Retention', 'Loyalty', 'Coming back'], 'A punch card with stamped circles', 'rope-knot'),
   tile('monstera', 'Business', ['Growth'], 'A potted monstera with a new leaf unfurling'),
+  alt('growth-chart', 'Business', ['Growth', 'Scale', 'Rising'], 'Three rising solid blocks with a gold arrow climbing over them', 'monstera'),
   tile('copper-pipes', 'Business', ['Pipeline'], 'Polished copper pipes joined with a brass valve'),
+  alt('kanban-board', 'Business', ['Pipeline', 'Stages', 'Deals'], 'A small board with three columns of cards', 'copper-pipes'),
   tile('funnel', 'Business', ['Conversion'], 'A copper kitchen funnel'),
+  tile('calendar-tick', 'Business', ['Booked', 'Confirmed', 'Booking confirmed'], 'A small desk calendar with a blank page and a green tick resting on it'),
+  tile('handshake', 'Business', ['Deal', 'Agreement', 'Sales', 'Closed'], 'Two carved wooden hands clasped in a handshake'),
+  tile('boomerang', 'Business', ['Return', 'Comes back', 'Reactivation', 'Check-in', 'Win back'], 'A polished curved hardwood boomerang'),
 
   /* Software */
   tile('computer', 'Software', ['Software', 'Tech', 'Digital', 'System', 'Runs itself', 'Technology'], 'A vintage beige all-in-one computer with a softly glowing screen', undefined, 'vintage-all-in-one-computer'),
+  alt('window-stack', 'Software', ['Software', 'App', 'The system'], 'Three app windows stacked as solid objects', 'computer'),
   tile('cloud', 'Software', ['Cloud', 'SaaS'], 'A soft white cumulus cloud'),
   tile('plinth', 'Software', ['Platform'], 'A round white marble display plinth'),
+  alt('stage-riser', 'Software', ['Platform', 'Stage', 'What it runs on'], 'A low wooden stage with a single step', 'plinth'),
   tile('smartphone', 'Software', ['App'], 'A modern smartphone with a softly glowing blank screen and no logos'),
   tile('arched-door', 'Software', ['Portal'], 'A small arched oak door standing slightly open'),
+  alt('welcome-mat', 'Workplace', ['Onboarding', 'Welcome', 'First day'], 'A woven welcome mat', 'arched-door'),
   tile('gauge', 'Software', ['Dashboard'], 'A retro analogue gauge dial with a brass bezel and no numbers'),
+  alt('dashboard-screen', 'Software', ['Dashboard', 'Reporting', 'One screen'], 'A screen showing blank chart cards', 'gauge'),
   tile('card-index', 'Software', ['CRM'], 'A wooden rotary card index with blank cards'),
   tile('gears', 'Software', ['Automation'], 'Three interlocking brass clockwork gears'),
   tile('toy-robot', 'Software', ['AI'], 'A small friendly vintage tin toy robot'),
+  alt('ai-sphere', 'Software', ['AI', 'Agent', 'Intelligence'], 'A smooth matte sphere with a soft inner glow', 'toy-robot'),
   tile('tools', 'Software', ['Toolkit', 'Tools', 'Tool stack', 'Fixing', 'Admin'], 'A wooden-handled screwdriver crossed with an adjustable wrench', undefined, 'screwdriver-and-wrench'),
   tile('code-window', 'Software', ['Code', 'Programming', 'Developer'], 'A floating glossy browser window showing rows of coloured horizontal bars like abstract code, with no readable text'),
   tile('terminal', 'Software', ['Terminal', 'Command line', 'Script'], 'A small black terminal window with a glowing green cursor block and no text'),
@@ -140,35 +329,45 @@ const ENTRIES: Entry[] = [
   tile('hard-drive', 'Software', ['Hard drive', 'Files', 'Archive'], 'An open computer hard drive showing its shiny platter and arm, no labels'),
   tile('floppy-disk', 'Software', ['Save', 'Floppy disk', 'Saved'], 'A blue floppy disk with a silver shutter and a blank label'),
   tile('rocket', 'Software', ['Launch', 'Rocket', 'Go live'], 'A white and red toy rocket with small fins'),
+  tile('browser-window', 'Software', ['Website', 'Landing page', 'Web page', 'Browser'], 'A browser window as a solid object: a pale card with three round buttons and a blank address pill'),
 
   /* Freedom */
   tile('open-birdcage', 'Freedom', ['Freedom', 'Liberation'], 'An open white wire birdcage with its door swung wide', 'Never "financial freedom": it is an earnings claim.'),
+  alt('open-padlock', 'Freedom', ['Freedom', 'Unlocked', 'Off the leash'], 'A brass padlock hanging open', 'open-birdcage'),
   tile('ringed-planet', 'Freedom', ['Space'], 'A small ringed planet model in soft pastel tones'),
   tile('pocket-watch', 'Freedom', ['Time'], 'An open silver pocket watch on a short chain'),
   tile('lever', 'Freedom', ['Leverage'], 'A wooden plank lever balanced on a stone fulcrum', 'Leverage as a noun only, never as a verb.'),
+  alt('pulley', 'Freedom', ['Leverage', 'Less effort', 'More lift'], 'A pulley block with rope', 'lever'),
   tile('measuring-jug', 'Freedom', ['Capacity'], 'A clear glass measuring jug with plain marks and no numbers'),
-  tile('paper-plane', 'Freedom', ['Autonomy'], 'A crisp white paper aeroplane'),
+  tile('paper-plane', 'Freedom', ['Autonomy', 'Send', 'Sent'], 'A crisp white paper aeroplane', 'Everyone reads a paper plane as send. It carries autonomy only with the word beside it.'),
   tile('spring', 'Freedom', ['Flexibility'], 'A coiled steel spring'),
   tile('feather', 'Freedom', ['Lightness'], 'A single soft white feather'),
   tile('bud-vase', 'Freedom', ['Simplicity'], 'A plain white ceramic bud vase holding one stem', 'Never call her work simple or easy.'),
+  alt('smooth-pebble', 'Freedom', ['Simplicity', 'One thing', 'Plain'], 'A single smooth pebble', 'bud-vase'),
 
   /* Clarity */
   tile('quartz', 'Clarity', ['Clarity', 'Clear'], 'A clear quartz crystal point'),
+  alt('glass-cube', 'Clarity', ['Clarity', 'Clear', 'Plain'], 'A clear polished glass cube', 'quartz'),
   tile('camera-lens', 'Clarity', ['Focus'], 'A vintage camera lens with a metal focus ring'),
   tile('transistor-radio', 'Clarity', ['Signal'], 'A small cream transistor radio with its antenna raised'),
   tile('magnifying-glass', 'Clarity', ['Insight'], 'A brass magnifying glass with a wooden handle'),
   tile('round-glasses', 'Clarity', ['Vision'], 'A pair of round wire-rimmed glasses'),
   tile('spirit-level', 'Clarity', ['Alignment'], 'A wooden spirit level with a centred bubble'),
   tile('folded-linen', 'Clarity', ['Order'], 'A neat stack of folded linen napkins in soft neutrals'),
+  alt('paper-trays', 'Clarity', ['Order', 'Sorted', 'Tidy'], 'Three stacked paper trays', 'folded-linen'),
   tile('callipers', 'Clarity', ['Precision'], 'A pair of brass vernier callipers'),
 
   /* Momentum */
   tile('stethoscope', 'Momentum', ['Pulse'], 'A stethoscope with a silver chest piece'),
   tile('metronome', 'Momentum', ['Rhythm'], 'A wooden pyramid metronome with its arm mid-swing'),
   tile('newtons-cradle', 'Momentum', ['Momentum', 'Motion'], 'A chrome Newton’s cradle with one ball raised'),
+  alt('flywheel', 'Momentum', ['Momentum', 'Keeps turning', 'Compounding'], 'A machined flywheel', 'newtons-cradle'),
   tile('match', 'Momentum', ['Spark'], 'A single wooden match just struck, flame bright'),
+  tile('flame', 'Momentum', ['Fire', 'Hot', 'Popular', 'In demand'], 'A single tapering flame of fire with a bright core', 'It says something is hot, not that time is running out. Never use it to manufacture urgency: db-health-os bans countdown pressure.'),
   tile('battery', 'Momentum', ['Charge'], 'A retro cylindrical battery in cream and copper with no text'),
   tile('spinning-top', 'Momentum', ['Dynamic'], 'A turned wooden spinning top mid-spin'),
+  tile('relay-baton', 'Momentum', ['Hand over', 'Handover', 'Pass on', 'Relay'], 'A polished aluminium athletics relay baton'),
+  alt('hand-with-key', 'Momentum', ['Hand over', 'Handover', 'Passed on'], 'A carved wooden hand offering a key', 'relay-baton'),
 
   /* Communication */
   tile('gold-bell', 'Communication', ['Bell', 'Notification', 'Alert'], 'A shiny gold bell with a small loop on top'),
@@ -185,6 +384,7 @@ const ENTRIES: Entry[] = [
   tile('telephone', 'Communication', ['Phone call', 'Call', 'Ring'], 'A cream retro desk telephone with a curly cord and blank buttons with no numbers'),
   tile('walkie-talkie', 'Communication', ['Walkie-talkie', 'Team chat', 'Radio'], 'A yellow walkie-talkie with a short antenna, no logos'),
   tile('satellite-dish', 'Communication', ['Broadcast', 'Satellite', 'Reach'], 'A white satellite dish on a small mount'),
+  tile('headset', 'Communication', ['Headset', 'Support', 'Helpdesk', 'Answers'], 'An over-ear headset with a slim boom microphone'),
   /* Devices */
   tile('pc-tower', 'Devices', ['Desktop tower', 'PC', 'Hardware'], 'A black desktop computer tower with a mesh front panel and a tinted glass side, no logos'),
   tile('game-console', 'Devices', ['Games console', 'Gaming', 'Console'], 'A tall white and black games console standing upright, a generic design with no logos'),
@@ -221,6 +421,7 @@ const ENTRIES: Entry[] = [
   tile('wind-up-key', 'Automation', ['Wind-up', 'Autopilot', 'Hands-free'], 'A polished brass wind-up key'),
   tile('stopwatch', 'Automation', ['Stopwatch', 'Timed', 'Deadline'], 'A silver stopwatch with a plain white face and no numbers'),
   tile('toggle-switch', 'Automation', ['Switch', 'Toggle', 'Turn on'], 'A vintage brass toggle switch on a round wooden base'),
+  tile('content-planner', 'Automation', ['Social scheduling', 'Content plan', 'Planner', 'Scheduled posts'], 'A small white planner board with nine blank coloured sticky notes in a grid'),
   /* Workplace */
   tile('wall-calendar', 'Workplace', ['Calendar', 'Dates', 'Appointments'], 'A spiral-bound desk calendar with a red top band and a grid of plain dark squares, with no numbers or letters'),
   tile('money-bag', 'Workplace', ['Money bag', 'Cash', 'Funds'], 'A tied burlap money sack, plain with no symbols or printing', 'Never pair it with an earnings, income or savings figure.'),
@@ -228,6 +429,7 @@ const ENTRIES: Entry[] = [
   tile('safe', 'Workplace', ['Safe', 'Vault', 'Locked away'], 'A black steel safe with a plain combination dial and a handle, no numbers', 'Never "secure" as a claim about Health OS.'),
   tile('forklift', 'Workplace', ['Forklift', 'Heavy lifting', 'Logistics'], 'A yellow warehouse forklift with black forks, no markings'),
   tile('shield', 'Workplace', ['Shield', 'Protection', 'Guard'], 'A wooden shield with a polished steel rim', 'Never "secure" as a claim about Health OS.'),
+  alt('red-wax-seal', 'Workplace', ['Guarantee', 'Promise', 'In writing'], 'A blank red wax seal', 'shield'),
   tile('barber-pole', 'Workplace', ['Barber', 'Salon', 'Local shop'], 'A classic red, white and blue striped barber pole with chrome caps'),
   tile('pen', 'Workplace', ['Pen', 'Sign', 'Write'], 'A sleek black ballpoint pen standing upright'),
   tile('pencil-cup', 'Workplace', ['Stationery', 'Pencils', 'Desk'], 'A dark grey desk cup holding two yellow pencils and a blue pen'),
@@ -254,6 +456,11 @@ const ENTRIES: Entry[] = [
   tile('shopping-trolley', 'Workplace', ['Cart', 'Shop', 'Online store'], 'A small chrome shopping trolley'),
   tile('chain-links', 'Workplace', ['Link', 'Chain', 'Linked'], 'Two interlocking steel chain links'),
   tile('rubber-stamp', 'Workplace', ['Approved', 'Stamp', 'Sign off'], 'A wooden rubber stamp on a red ink pad, no text'),
+  tile('gold-star', 'Workplace', ['Star', 'Review', 'Rating', 'Recommended', 'The best'], 'A solid polished gold five-pointed star'),
+  tile('shopfront', 'Workplace', ['Your business', 'Shopfront', 'Storefront', 'Local business'], 'A small model shopfront with a striped awning and a blank signboard'),
+  tile('notepad', 'Workplace', ['Notes', 'Written down', 'Transcript', 'Notepad'], 'A spiral notepad with blank pages and a wooden pencil across it'),
+  tile('luggage-tag', 'Workplace', ['Label', 'White label', 'Your own name', 'Tag'], 'A blank kraft luggage tag on a cotton string'),
+  tile('address-book', 'Workplace', ['Contacts', 'Address book', 'Client list'], 'A ring-bound address book with blank coloured index tabs'),
   /* Everyday */
   tile('wall-clock', 'Everyday', ['Clock', 'Hours', 'Opening hours'], 'A classic round wall clock with a dark metal rim and a plain white face with simple tick marks and no numbers, hands at ten past ten'),
   tile('chef-knife', 'Everyday', ['Knife', 'Cut', 'Sharp'], 'A chef’s knife with a polished steel blade and a wooden handle, no engraving'),
@@ -273,6 +480,9 @@ const ENTRIES: Entry[] = [
   tile('diamond', 'Everyday', ['Diamond', 'Premium', 'Precious'], 'A brilliant-cut pale blue diamond'),
   tile('high-heel', 'Everyday', ['High heel', 'Heels', 'Fashion'], 'A red patent leather stiletto high-heel shoe'),
   tile('alarm-clock', 'Everyday', ['Alarm clock', 'Wake up', 'Early start'], 'A black digital alarm clock with a softly glowing green blank display and no digits'),
+  tile('book-stack', 'Everyday', ['Library', 'Resources', 'Templates', 'Asset library'], 'Three hardcover books stacked, blank covers'),
+  tile('suitcase', 'Everyday', ['Moving', 'Comes with you', 'Migration', 'Suitcase'], 'A tan leather travel suitcase with buckled straps'),
+  tile('crown', 'Everyday', ['Crown', 'Top tier', 'Platinum', 'Flagship'], 'A small solid gold crown with rounded points'),
   /* Food and drink */
   tile('lemon', 'Food and drink', ['Lemon', 'Zest', 'Citrus'], 'A whole bright yellow lemon'),
   tile('burger', 'Food and drink', ['Burger', 'Takeaway', 'Fast food'], 'A cheeseburger with a sesame seed bun, lettuce, tomato and melted cheese'),
@@ -324,6 +534,13 @@ const LIST: HeadlineTile[] = ENTRIES.map(({ file, ...e }) =>
     ? { ...e, status: 'ready', src: `/heading-tiles/${file}.webp`, original: `/heading-tiles/${file}.png`, baked: `/heading-tiles/${file}-tile.png` }
     : { ...e, status: 'planned' }
 );
+
+/* `otherWay` is written on the second icon only, so the pair points both ways from one line. */
+for (const t of LIST) {
+  if (!t.otherWay) continue;
+  const first = LIST.find((x) => x.id === t.otherWay);
+  if (first) first.otherWay = t.id;
+}
 
 /** Every tile, by id. */
 export const HEADLINE_TILES: Record<string, HeadlineTile> = Object.fromEntries(LIST.map((t) => [t.id, t]));

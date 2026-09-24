@@ -17,7 +17,7 @@
  * stands in for words, and it is announced as an image. It never reacts to the pointer; wrap it
  * in a link or button for that. A tile still to be made shows as an empty squircle.
  */
-import { HEADLINE_TILES } from '@/data/headline-tiles';
+import { HEADLINE_TILES, READS_BETTER_ON_PAPER } from '@/data/headline-tiles';
 import { cn } from '@/lib/utils';
 
 const SIZE = { xs: 'icon-tile-xs', sm: 'icon-tile-sm', md: 'icon-tile-md', lg: 'icon-tile-lg' } as const;
@@ -38,8 +38,12 @@ export interface IconTileProps {
   className?: string;
 }
 
-export const IconTile = ({ id, size = 'md', ground = 'carbon', label, className }: IconTileProps) => {
+export const IconTile = ({ id, size, ground, label, className }: IconTileProps) => {
   const tile = HEADLINE_TILES[id];
+  /* Measured, not judged: a near-black object is a silhouette of itself on the charcoal squircle,
+     and a cream object vanishes on paper. Unless a ground is asked for by name, each tile takes the
+     one it reads better on. */
+  const on = ground ?? (READS_BETTER_ON_PAPER.has(id) ? 'paper' : 'carbon');
   if (!tile) {
     if (import.meta.env.DEV) console.warn(`IconTile: no tile called "${id}" in the icon library`);
     return null;
@@ -49,7 +53,7 @@ export const IconTile = ({ id, size = 'md', ground = 'carbon', label, className 
       role={label ? 'img' : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
-      className={cn('icon-tile', SIZE[size], GROUND[ground], !tile.src && 'border border-dashed border-ink-400', className)}
+      className={cn('icon-tile', SIZE[size ?? 'md'], GROUND[on], !tile.src && 'border border-dashed border-ink-400', className)}
     >
       {tile.src && <img src={tile.src} alt="" draggable={false} loading="lazy" decoding="async" />}
     </span>

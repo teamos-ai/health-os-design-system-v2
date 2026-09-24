@@ -14,7 +14,7 @@ import { IconTile, type IconTileGround } from '@/components/ui/icon-tile';
 import { Badge } from '@/components/ui/badge';
 import { SegmentedControl } from '@/components/ui/segmented';
 import { useToast } from '@/components/ui/toast';
-import { HEADLINE_TILE_LIST, HEADLINE_TILE_GROUPS, type HeadlineTile, type HeadlineTileGroup } from '@/data/headline-tiles';
+import { HEADLINE_TILES, HEADLINE_TILE_LIST, HEADLINE_TILE_GROUPS, type HeadlineTile, type HeadlineTileGroup } from '@/data/headline-tiles';
 import { bakeTile, saveBlob } from '@/lib/bake-tile';
 import { thumb } from '@/lib/images';
 import { cn } from '@/lib/utils';
@@ -79,7 +79,16 @@ const TileEntry = ({ tile, terms, ground }: { tile: HeadlineTile; terms: string[
   const matches = (w: string) => terms.some((t) => w.toLowerCase().includes(t));
   return (
     <li className="flex min-w-0 flex-col gap-3">
-      <IconTile id={tile.id} size="lg" ground={ground} />
+      <div className="flex items-end gap-3">
+        <IconTile id={tile.id} size="lg" ground={ground} />
+        {/* the other way to picture the same word: a metaphor points at its picture, and back */}
+        {tile.otherWay && HEADLINE_TILES[tile.otherWay] && (
+          <span className="flex flex-col items-center gap-1">
+            <IconTile id={tile.otherWay} size="sm" ground={ground} />
+            <span className="font-sans text-label uppercase text-ink-400">or</span>
+          </span>
+        )}
+      </div>
       <div className="flex min-w-0 flex-col gap-1">
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="font-display text-body text-ink-900">{tile.words[0]}</h3>

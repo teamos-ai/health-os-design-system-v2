@@ -740,13 +740,13 @@ The home hero's headline stands clear, and icon tiles float in the space around 
 
 ## Icon library
 
-Foundations · Every Health OS icon: one photoreal object on a squircle, tagged with the words it stands for. 228 icons in 17 groups, on charcoal, paper or white. Search a word or an object, then use the icon in a headline, a card or on its own.
+Foundations · Every Health OS icon: one photoreal object on a squircle, tagged with the words it stands for. 276 icons in 17 groups, on charcoal, paper or white. Thirty words carry two icons, a metaphor and a picture, shown as a pair. Search a word or an object, then use the icon in a headline, a card or on its own.
 
 ### Icon library
 
 `headline-tiles` · asset · Stable
 
-Every Health OS icon: 228 photoreal objects on a squircle in 17 groups, shown on charcoal, paper or white with the switch above the list. The first nine groups cover all 107 headline words; the other eight hold everyday and business objects (communication, devices, automation, workplace, everyday, food and drink, nature, play), added on 15 September 2026 from Tumai's reference sheets plus a software, email and automation set. Each is tagged with the words it stands for, so a search for a word finds its icon. Use the same icons in headlines and on their own.
+Every Health OS icon: 276 photoreal objects on a squircle in 17 groups, shown on charcoal, paper or white with the switch above the list. The first nine groups cover all 107 headline words; the other eight hold everyday and business objects (communication, devices, automation, workplace, everyday, food and drink, nature, play), added on 15 September 2026 from Tumai's reference sheets plus a software, email and automation set, and seventeen more on 21 September 2026 built for the words on the long sales page (calendar-tick, gold-star, headset, book-stack, graduation-cap, browser-window, peg-people, handshake, boomerang, shopfront, relay-baton, notepad, suitcase, crown, luggage-tag, address-book, content-planner). Each is tagged with the words it stands for, so a search for a word finds its icon. Use the same icons in headlines and on their own.
 
 **Use it for**
 
@@ -1658,7 +1658,7 @@ One plan with its price and inclusions, always shown inside a PricingTable so ev
 - More than one featured card
 - Unlabelled currency
 
-**API** `name · price (number) · annualPrice · annualCadence · symbol · cadence · fee · description · features · action: { label, href, onClick, celebrate (default on for featured) } · featured · billing and annualNote (set by the table). The figure and cadence sit on their own lines so a yearly price never reflows the row`
+**API** `icon (an icon library id beside the plan name, e.g. blocks, gold-star, crown) · name · price (number) · annualPrice · annualCadence · symbol · cadence · fee · description · features · action: { label, href, onClick, celebrate (default on for featured) } · featured · billing and annualNote (set by the table). The figure and cadence sit on their own lines so a yearly price never reflows the row`
 
 **Source** `src/components/cards/PricingCard.tsx`
 

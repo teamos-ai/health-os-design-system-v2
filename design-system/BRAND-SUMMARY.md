@@ -33,7 +33,7 @@ In practice that means a lot of air, warm neutrals, soft colour used with intent
 ## Signature moves
 
 - The headline: one apricot word and dark icon tiles that picture the words, rising in once, then leaning a few degrees and floating gently between the words.
-- The icon library: 228 photoreal objects on a squircle, searchable by word, on warm charcoal or on paper and white for light contexts. Every icon in a card, feature, bento or widget comes from it.
+- The icon library: 276 photoreal objects on a squircle, searchable by word, on warm charcoal or on paper and white for light contexts. Every icon in a card, feature, bento or widget comes from it.
 - The email library: every Health OS email and newsletter, 46 in 10 series, written from the database, searchable and previewed exactly as the inbox shows it, with copy-ready HTML and text.
 - A mini confetti moment when someone books, confirms, saves or chooses annual billing: streamers, ribbons and stars popping from the top of the button.
 - The opening hero: the headline standing clear while icon tiles float in the space around it, and the hero dissolving into the page below with no line at the fold.

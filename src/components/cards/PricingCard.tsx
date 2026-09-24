@@ -11,11 +11,19 @@
  * Health OS annual prices are the monthly price × 10 (two months free, confirmed by Tumai on
  * 15 September 2026). Never show an annual price the offer does not have.
  *
+ * `guarantee` puts a promise in the card, immediately above the action, which is where a buyer
+ * is holding the question it answers. It is a seal, a name and one line, and it belongs to the
+ * plan it is made about rather than to the page: a guarantee two sections below the price is a
+ * guarantee the buyer meets after deciding. Give it to one plan, not to all of them, or it stops
+ * reading as a promise and starts reading as a disclaimer. Quote the promise whole, never a
+ * shortened half of one, because a clipped guarantee is a different commitment.
+ *
  * Always render cards through PricingTable, so every pricing view shares the same layout, the
  * rise into place, the billing switch and the confetti. The featured plan's action celebrates.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { IconTile } from '@/components/ui/icon-tile';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DURATION, EASE_OUT } from '@/lib/motion';
@@ -25,6 +33,8 @@ export type Billing = 'monthly' | 'annual';
 
 export interface PricingCardProps {
   name: string;
+  /** an icon from the library beside the plan name, e.g. blocks, gold-star, crown */
+  icon?: string;
   /** the monthly price, e.g. 297 */
   price: number;
   /** the price for a year paid in full, only if the offer has one (Health OS: monthly × 10) */
@@ -41,6 +51,8 @@ export interface PricingCardProps {
   features: string[];
   /** the plan's one action. `celebrate` pops confetti on click; it defaults to on for the featured plan */
   action: { label: string; href?: string; onClick?: () => void; celebrate?: boolean };
+  /** a promise about this plan, sealed and set above the action. `name` is its title, e.g. "30-day activation guarantee" */
+  guarantee?: { name: string; text: string };
   featured?: boolean;
   /** set by a PricingTable with a billing switch */
   billing?: Billing;
@@ -49,7 +61,7 @@ export interface PricingCardProps {
   className?: string;
 }
 
-export const PricingCard = ({ name, price, annualPrice, annualCadence, symbol = '$', cadence, fee, description, features, action, featured = false, billing, annualNote, className }: PricingCardProps) => {
+export const PricingCard = ({ name, icon, price, annualPrice, annualCadence, symbol = '$', cadence, fee, description, features, action, guarantee, featured = false, billing, annualNote, className }: PricingCardProps) => {
   const reduced = useReducedMotion();
   const annual = billing === 'annual' && annualPrice !== undefined;
   const shown = annual ? annualPrice : price;
@@ -63,7 +75,10 @@ export const PricingCard = ({ name, price, annualPrice, annualCadence, symbol = 
     >
       <header className={cn('px-6 pb-6 pt-6', featured ? 'bg-brand-gradient-soft' : 'bg-surface-2')}>
         <div className="flex items-center justify-between gap-3">
-          <h3 className="font-sans text-label uppercase text-ink-900">{name}</h3>
+          <div className="flex min-w-0 items-center gap-3">
+            {icon && <IconTile id={icon} size="xs" ground="white" />}
+            <h3 className="font-sans text-label uppercase text-ink-900">{name}</h3>
+          </div>
           {featured && (
             <Badge variant="rose" size="sm">
               Recommended
@@ -108,12 +123,26 @@ export const PricingCard = ({ name, price, annualPrice, annualCadence, symbol = 
             </li>
           ))}
         </ul>
+        {/* THE SEAL, and nothing else. A guarantee is the one place on a pricing card where
+            ornament is earned, and also the place it is most often overdone: a starburst, a
+            drop shadow and a second colour turn a commitment into a sticker. One flat rose
+            tint, one hairline, the system's wax seal, and the promise in body type. */}
+        {guarantee && (
+          <div className="mt-auto flex items-start gap-3.5 rounded-md border border-rose-200 bg-rose-50 p-4">
+            <IconTile id="red-wax-seal" size="xs" ground="white" className="shrink-0" />
+            <span className="min-w-0">
+              <span className="block font-sans text-label uppercase text-ink-900">{guarantee.name}</span>
+              <span className="mt-1.5 block font-sans text-body text-ink-900">{guarantee.text}</span>
+            </span>
+          </div>
+        )}
+
         <Button
           variant={featured ? 'primary' : 'secondary'}
           href={action.href}
           onClick={action.onClick}
           celebrate={action.celebrate ?? featured}
-          className="mt-auto w-full"
+          className={cn('w-full', guarantee ? 'mt-0' : 'mt-auto')}
         >
           {action.label}
         </Button>
