@@ -12,7 +12,7 @@ import { thumb } from '@/lib/images';
 import { cn } from '@/lib/utils';
 import { ImageTile } from './BackgroundsSection';
 
-const RATIO: Record<string, string> = { '16:9': 'aspect-video', '9:16': 'aspect-[9/16]', '4:3': 'aspect-[4/3]' };
+const RATIO: Record<string, string> = { '16:9': 'aspect-video', '9:16': 'aspect-[9/16]', '4:3': 'aspect-[4/3]', '3:2': 'aspect-[3/2]', '21:9': 'aspect-[21/9]' };
 
 const PEEK = 12;
 
@@ -25,7 +25,7 @@ export const ImageLibrarySection = () => {
     const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return PHOTOS.filter((p) => {
       if (theme && p.theme !== theme) return false;
-      const hay = [p.name, p.activity, p.setting, p.people, p.gender, p.description, p.suggestedUse, ...p.tags, ...p.context].join(' ').toLowerCase();
+      const hay = [p.name, p.activity, p.setting, p.people, p.gender, p.description, p.suggestedUse, p.character ?? '', p.kind ?? '', ...p.tags, ...p.context].join(' ').toLowerCase();
       return terms.every((t) => hay.includes(t));
     });
   }, [query, theme]);
@@ -102,7 +102,7 @@ export const ImageLibrarySection = () => {
                     ratio={RATIO[p.ratio]}
                     context={p.context}
                     suggestedUse={p.suggestedUse}
-                    meta={`${p.ratio} · ${p.people} · ${p.setting}`}
+                    meta={[p.character, p.ratio, p.people, p.setting].filter(Boolean).join(' · ')}
                     note={p.note}
                   />
                 ))}

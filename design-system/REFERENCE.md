@@ -3103,7 +3103,7 @@ Applied · People and lifestyle photography, kept in full and tagged. Search or 
 
 `photos` · asset · Stable
 
-People and lifestyle photography, each tagged with facets, context and a suggested use.
+People and lifestyle photography, each tagged with facets, context and a suggested use. Named models live here too: Faith is the first, tagged by name so a search for her finds every image she is in, with her reference sheets marked as sheets rather than page images.
 
 **Use it for**
 
@@ -3116,7 +3116,7 @@ People and lifestyle photography, each tagged with facets, context and a suggest
 - Before-and-after framing or health outcome claims
 - Presenting people as clients or customers
 
-**API** `PHOTOS (src/data/photos.ts): { src, name, theme, ratio, people, gender, activity, setting, tags, context, suggestedUse, description }`
+**API** `character (a named Health OS model, e.g. Faith) · kind (photo | reference sheet) · PHOTOS (src/data/photos.ts): { src, name, theme, ratio, people, gender, activity, setting, tags, context, suggestedUse, description }`
 
 **Source** `src/data/photos.ts`
 

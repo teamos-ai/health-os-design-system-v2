@@ -7,7 +7,7 @@
  * Display the thumbnail (lib/images thumb()); link the original PNG for download.
  */
 export type PhotoTheme = 'Active & Fitness' | 'Social & Wellness' | 'Work & Content Creation';
-export type PhotoRatio = '16:9' | '9:16' | '4:3';
+export type PhotoRatio = '16:9' | '9:16' | '4:3' | '3:2' | '21:9';
 export type PhotoPeople = 'solo' | 'pair' | 'group';
 export type PhotoGender = 'women' | 'men' | 'mixed';
 export type ImageTone = 'light' | 'mid' | 'dark';
@@ -39,6 +39,16 @@ export interface Photo {
   suggestedUse: string;
   /** anything to check before use */
   note?: string;
+  /**
+   * The Health OS model in the picture, when the picture is of a named one. Faith is the first.
+   * It is in the search haystack and shown on the tile, so her name finds every image she is in.
+   */
+  character?: string;
+  /**
+   * `photo` is a single picture, ready to use. `reference sheet` is a grid of several frames of
+   * the same person in one file: a brief for a photographer or a generator, not a page image.
+   */
+  kind?: 'photo' | 'reference sheet';
 }
 
 export const PHOTO_THEMES: PhotoTheme[] = ['Active & Fitness', 'Social & Wellness', 'Work & Content Creation'];
@@ -538,5 +548,175 @@ export const PHOTOS: Photo[] = [
     textSpace: "top",
     description: "Vertical shot of a woman in a pink armchair talking to a phone on a tripod, glass towers through the window",
     suggestedUse: "Reel cover for a tip on batching a month of social content",
+  },
+
+  /* ── Faith ──────────────────────────────────────────────────────────────────
+     The Health OS model, added 25 September 2026. One outfit runs through the whole
+     set: a peach activewear crop and leggings under a loose white hoodie, white chunky
+     trainers, hair up in a claw clip. Seven of the eight files are reference sheets, a
+     grid of frames in one image, which is a brief rather than a page picture; the
+     single cafe frame is a photo and ready to use.
+
+     She is a generated model, not a client and not a real person, so she never stands
+     in for one (rule 12). Her name is on every entry and in the search, so "faith"
+     finds the lot. */
+  {
+    src: "/imagery/faith/faith-cross-legged-with-green-smoothie-at-cafe-16-9.png",
+    name: "Faith cross-legged with a green smoothie at a cafe",
+    theme: "Social & Wellness",
+    ratio: "16:9",
+    people: "solo",
+    gender: "women",
+    activity: "cafe break",
+    setting: "outdoor cafe",
+    tags: ["faith", "model", "cafe", "smoothie", "green-smoothie", "cross-legged", "seated", "bistro-chair", "hedge", "peach", "activewear", "hoodie", "claw-clip", "water-bottle", "wellness", "break", "solo", "calm"],
+    context: ["outdoor cafe", "green smoothie", "cross-legged"],
+    palette: ["green", "peach", "cream"],
+    tone: "light",
+    textSpace: "left",
+    description: "A woman in peach activewear and a white hoodie sits cross-legged on a bistro chair at an outdoor cafe, a green smoothie and a glass water bottle on the marble table beside her, a clipped hedge behind",
+    suggestedUse: "Hero image for a page about the everyday rhythm of a wellness business",
+    character: "Faith",
+    kind: "photo",
+  },
+  {
+    src: "/imagery/faith/faith-sheet_001_cafe-smoothie-seated-six-up.png",
+    name: "Faith reference sheet: cafe with a smoothie, six frames",
+    theme: "Social & Wellness",
+    ratio: "16:9",
+    people: "solo",
+    gender: "women",
+    activity: "cafe break",
+    setting: "outdoor cafe",
+    tags: ["faith", "model", "reference-sheet", "six-up", "cafe", "smoothie", "green-smoothie", "seated", "drinking", "over-shoulder", "profile", "peach", "activewear", "hoodie", "claw-clip", "hedge", "bistro", "solo"],
+    context: ["reference sheet", "outdoor cafe", "six frames"],
+    palette: ["green", "peach", "cream"],
+    tone: "light",
+    textSpace: "none",
+    description: "Six frames of the same woman at an outdoor cafe in peach activewear and a white hoodie: seated in profile, drinking a green smoothie, turned over her shoulder, and resting her chin on her hand",
+    suggestedUse: "A brief for a photographer or a generator when more cafe frames of Faith are needed",
+    character: "Faith",
+    kind: "reference sheet",
+    note: "A grid of frames in one file, not a page image. Crop a single frame out of it before using one.",
+  },
+  {
+    src: "/imagery/faith/faith-sheet_002_cafe-laptop-and-smoothie-seated-six-up.png",
+    name: "Faith reference sheet: cafe with a laptop, six frames",
+    theme: "Work & Content Creation",
+    ratio: "16:9",
+    people: "solo",
+    gender: "women",
+    activity: "working at a cafe",
+    setting: "outdoor cafe",
+    tags: ["faith", "model", "reference-sheet", "six-up", "cafe", "laptop", "working", "smoothie", "seated", "stretching", "back-view", "peach", "activewear", "hoodie", "claw-clip", "remote-work", "solo"],
+    context: ["reference sheet", "laptop at a cafe", "six frames"],
+    palette: ["green", "peach", "cream"],
+    tone: "light",
+    textSpace: "none",
+    description: "Six frames of the same woman at an outdoor cafe: working at a laptop, holding a green smoothie, stretching her arms overhead, and seen from behind at the table",
+    suggestedUse: "A brief for frames of Faith running the admin side of a practice from a cafe",
+    character: "Faith",
+    kind: "reference sheet",
+    note: "A grid of frames in one file, not a page image. Crop a single frame out of it before using one.",
+  },
+  {
+    src: "/imagery/faith/faith-sheet_003_studio-warm-wall-seated-six-up.png",
+    name: "Faith reference sheet: studio wall seated, six frames",
+    theme: "Social & Wellness",
+    ratio: "16:9",
+    people: "solo",
+    gender: "women",
+    activity: "portrait sitting",
+    setting: "studio",
+    tags: ["faith", "model", "reference-sheet", "six-up", "studio", "warm-wall", "hard-light", "shadow", "seated", "floor", "cross-legged", "half-body", "peach", "activewear", "hoodie", "claw-clip", "solo"],
+    context: ["reference sheet", "warm studio wall", "six frames"],
+    palette: ["cream", "peach", "sand"],
+    tone: "light",
+    textSpace: "none",
+    description: "Six frames of the same woman against a warm cream wall in hard daylight: seated on the floor cross-legged, half body turned away, chin on hand, and arms raised behind her head",
+    suggestedUse: "A brief for calm studio frames of Faith with strong directional light",
+    character: "Faith",
+    kind: "reference sheet",
+    note: "A grid of frames in one file, not a page image. Crop a single frame out of it before using one.",
+  },
+  {
+    src: "/imagery/faith/faith-sheet_004_beauty-closeups-warm-wall-six-up.png",
+    name: "Faith reference sheet: close-up expressions, six frames",
+    theme: "Social & Wellness",
+    ratio: "16:9",
+    people: "solo",
+    gender: "women",
+    activity: "portrait",
+    setting: "studio",
+    tags: ["faith", "model", "reference-sheet", "six-up", "close-up", "portrait", "face", "expression", "smile", "eyes-closed", "profile", "three-quarter", "chin-on-hand", "warm-wall", "claw-clip", "peach", "solo"],
+    context: ["reference sheet", "close-up expressions", "six frames"],
+    palette: ["cream", "peach", "sand"],
+    tone: "light",
+    textSpace: "none",
+    description: "Six close-up frames of the same woman against a warm wall, running through expressions: looking up, chin on hand, in profile, eyes closed, and a soft smile to camera",
+    suggestedUse: "A brief for the range of expressions Faith is used with, and a check on likeness",
+    character: "Faith",
+    kind: "reference sheet",
+    note: "A grid of frames in one file, not a page image. Crop a single frame out of it before using one.",
+  },
+  {
+    src: "/imagery/faith/faith-sheet_005_beauty-closeups-soft-light-three-up.png",
+    name: "Faith reference sheet: close-ups in soft light, three frames",
+    theme: "Social & Wellness",
+    ratio: "21:9",
+    people: "solo",
+    gender: "women",
+    activity: "portrait",
+    setting: "studio",
+    tags: ["faith", "model", "reference-sheet", "three-up", "close-up", "portrait", "face", "soft-light", "chin-on-hand", "direct-gaze", "over-shoulder", "smile", "claw-clip", "peach", "solo"],
+    context: ["reference sheet", "soft light close-ups", "three frames"],
+    palette: ["cream", "peach", "sand"],
+    tone: "light",
+    textSpace: "none",
+    description: "Three close-up frames of the same woman in soft light: chin resting on her hand, looking directly at the camera, and glancing back over a bare shoulder",
+    suggestedUse: "The likeness reference for Faith, and a brief for soft-light portraits",
+    character: "Faith",
+    kind: "reference sheet",
+    note: "A grid of frames in one file, not a page image. Crop a single frame out of it before using one.",
+  },
+  {
+    src: "/imagery/faith/faith-sheet_006_studio-fullbody-standing-three-up.png",
+    name: "Faith reference sheet: standing full body, three frames",
+    theme: "Active & Fitness",
+    ratio: "16:9",
+    people: "solo",
+    gender: "women",
+    activity: "standing",
+    setting: "studio",
+    tags: ["faith", "model", "reference-sheet", "three-up", "full-body", "standing", "back-view", "knee-up", "playful", "studio", "wall", "daylight", "peach", "activewear", "leggings", "hoodie", "trainers", "claw-clip", "solo"],
+    context: ["reference sheet", "full body standing", "three frames"],
+    palette: ["cream", "peach", "white"],
+    tone: "light",
+    textSpace: "none",
+    description: "Three full-body frames of the same woman against a pale wall in peach leggings, a crop top, a loose white hoodie and white trainers: standing, one knee lifted, and turned to show her back",
+    suggestedUse: "A brief for full-length frames of Faith, and the record of how the outfit sits",
+    character: "Faith",
+    kind: "reference sheet",
+    note: "A grid of frames in one file, not a page image. Crop a single frame out of it before using one.",
+  },
+  {
+    src: "/imagery/faith/faith-sheet_007_courtyard-fullbody-motion-three-up.png",
+    name: "Faith reference sheet: courtyard in motion, three frames",
+    theme: "Active & Fitness",
+    ratio: "3:2",
+    people: "solo",
+    gender: "women",
+    activity: "moving",
+    setting: "courtyard",
+    tags: ["faith", "model", "reference-sheet", "three-up", "full-body", "motion", "arm-raised", "leaning", "joyful", "courtyard", "paving", "olive-tree", "steps", "outdoor", "peach", "activewear", "trainers", "claw-clip", "solo"],
+    context: ["reference sheet", "courtyard in motion", "three frames"],
+    palette: ["stone", "peach", "green"],
+    tone: "light",
+    textSpace: "none",
+    description: "Three full-body frames of the same woman in a paved courtyard with an olive tree and stone steps: standing with hands clasped, one arm thrown up mid-movement, and leaning forward laughing",
+    suggestedUse: "A brief for frames of Faith with movement and energy in them",
+    character: "Faith",
+    kind: "reference sheet",
+    note: "A grid of frames in one file, not a page image. Crop a single frame out of it before using one.",
   },
 ];
