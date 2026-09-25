@@ -23,6 +23,7 @@
  * of showing them; the player keeps the trimmed picture's own proportions.
  */
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from 'framer-motion';
 import { ArrowUpLeft, Pause, Play, Volume1, Volume2, VolumeX, X } from 'lucide-react';
 import { VIDEO_PIP } from '@/lib/palette';
@@ -328,8 +329,24 @@ export const VideoPlayer = ({
     setPlaybackSpeed(speed);
   };
 
-  return (
-    <div ref={slotRef} className={cn('relative mx-auto w-full max-w-4xl', className)} style={{ aspectRatio: ratio }}>
+  /**
+   * THE FLOATING PLAYER LEAVES THE TREE, added 25 September 2026.
+   *
+   * `.video-pip` is `position: fixed`, and a fixed element inside an ancestor that has a
+   * `transform`, `filter` or `perspective` is positioned against THAT ancestor rather than the
+   * viewport. Any card that tilts, flips or scales therefore docked its video to an arbitrary
+   * place, at an arbitrary angle. Health OS's home page has exactly such a card and had to pass
+   * `float={false}` to avoid it, which meant the one video most worth following was the one
+   * video that could not follow.
+   *
+   * Portalling the docked player to <body> puts it outside every transform on the page, so it
+   * lands in the real corner of the real viewport wherever it is used. Undocked it stays exactly
+   * where it was, inside its own slot, so nothing about the inline case changes.
+   *
+   * The slot div stays mounted either way: it reserves the space in the layout and it is what
+   * the IntersectionObserver watches to decide whether to dock at all.
+   */
+  const player = (
       <motion.div
         role={docked ? 'region' : undefined}
         aria-label={docked ? 'Video, floating in the corner' : undefined}
@@ -461,6 +478,15 @@ export const VideoPlayer = ({
           </AnimatePresence>
         )}
       </motion.div>
+  );
+
+  return (
+    <div ref={slotRef} className={cn('relative mx-auto w-full max-w-4xl', className)} style={{ aspectRatio: ratio }}>
+      {/* No mounted flag is needed. `docked` is only ever set true from inside an
+          IntersectionObserver effect, which does not run on the server and does not run before
+          hydration, so by the time this branch is taken there is certainly a document. The
+          typeof guard is belt and braces for a non-DOM renderer. */}
+      {docked && typeof document !== 'undefined' ? createPortal(player, document.body) : player}
       <p className="sr-only" aria-live="polite">
         {docked ? 'The video is now floating in the corner of the page.' : ''}
       </p>

@@ -18,7 +18,14 @@ import type { LucideIcon } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const badge = cva('inline-flex shrink-0 items-center whitespace-nowrap rounded-lg font-sans text-label normal-case tracking-normal', {
+/* WRAPS WHEN IT MUST, 25 September 2026 (hardening).
+   `whitespace-nowrap` with `shrink-0` is a promise the element can never keep: at 200 percent
+   text on a 320px screen the label is wider than the viewport, the item refuses to shrink, and
+   the page gains horizontal scroll, which is WCAG 1.4.4. Measured on Health OS: three tags and
+   one button carried 133px of it at 320.
+   `max-w-full` plus normal wrapping costs nothing at 100 percent, because an inline-flex box is
+   sized by its content and only ever wraps when the container has already run out of room. */
+const badge = cva('inline-flex max-w-full items-center rounded-lg font-sans text-label normal-case tracking-normal', {
   variants: {
     variant: {
       neutral: 'bg-ink-100 text-ink-900',

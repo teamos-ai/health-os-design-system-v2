@@ -20,7 +20,14 @@ import { celebrate as popConfetti } from '@/components/ui/celebrate';
 import { cn } from '@/lib/utils';
 
 const button = cva(
-  'inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg font-display text-body ' +
+/* WRAPS WHEN IT MUST, 25 September 2026 (hardening).
+   `whitespace-nowrap` with `shrink-0` is a promise the element can never keep: at 200 percent
+   text on a 320px screen the label is wider than the viewport, the item refuses to shrink, and
+   the page gains horizontal scroll, which is WCAG 1.4.4. Measured on Health OS: three tags and
+   one button carried 133px of it at 320.
+   `max-w-full` plus normal wrapping costs nothing at 100 percent, because an inline-flex box is
+   sized by its content and only ever wraps when the container has already run out of room. */
+  'inline-flex max-w-full select-none items-center justify-center gap-2 text-center rounded-lg font-display text-body ' +
     'transition-[background-color,border-color,color,box-shadow,transform] duration-sm ease-out ' +
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-900 focus-visible:ring-offset-2 focus-visible:ring-offset-paper ' +
     'active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',

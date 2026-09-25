@@ -146,7 +146,10 @@ export const FeatureSteps = ({
                       aria-current={isCurrent ? 'step' : undefined}
                       aria-describedby={`${baseId}-d${i}`}
                       className={cn(
-                        'text-left transition-colors duration-sm ease-out',
+                        /* `max-w-full`: a <button> is sized to its content and will not shrink,
+                           so at 200 percent text the step title ran past the edge even though its
+                           wrapper already carried `min-w-0`. WCAG 1.4.4. */
+                        'max-w-full text-left transition-colors duration-sm ease-out',
                         "after:absolute after:inset-0 after:rounded-md after:content-['']",
                         'focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-ink-900 focus-visible:after:ring-offset-2 focus-visible:after:ring-offset-paper',
                         isCurrent ? 'text-ink-900' : 'text-ink-600 hover:text-ink-900'
