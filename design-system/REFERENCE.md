@@ -3103,7 +3103,7 @@ Applied · People and lifestyle photography, kept in full and tagged. Search or 
 
 `photos` · asset · Stable
 
-People and lifestyle photography, each tagged with facets, context and a suggested use. Named models live here too: Faith is the first, tagged by name so a search for her finds every image she is in, with her reference sheets marked as sheets rather than page images.
+People and lifestyle photography, each tagged with facets, context and a suggested use. Named models live here too: Faith is the first, fifty-eight images tagged by name so a search for her finds every one, with her reference sheets marked as sheets rather than page images. Her singles are JPEG rather than PNG, because a photographic set of fifty in PNG weighs ten times as much for no visible gain.
 
 **Use it for**
 

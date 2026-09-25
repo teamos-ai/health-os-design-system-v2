@@ -12,7 +12,7 @@ import { thumb } from '@/lib/images';
 import { cn } from '@/lib/utils';
 import { ImageTile } from './BackgroundsSection';
 
-const RATIO: Record<string, string> = { '16:9': 'aspect-video', '9:16': 'aspect-[9/16]', '4:3': 'aspect-[4/3]', '3:2': 'aspect-[3/2]', '21:9': 'aspect-[21/9]' };
+const RATIO: Record<string, string> = { '16:9': 'aspect-video', '9:16': 'aspect-[9/16]', '4:3': 'aspect-[4/3]', '3:2': 'aspect-[3/2]', '2:3': 'aspect-[2/3]', '4:5': 'aspect-[4/5]', '21:9': 'aspect-[21/9]' };
 
 const PEEK = 12;
 
